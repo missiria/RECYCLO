@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql": "^2.18.1"
+  },
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "Backend of Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
