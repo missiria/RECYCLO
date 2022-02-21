@@ -10,6 +10,10 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
+app.get("/users", (req, res) => {
+    res.send("Hello World!", req);
+});
+
 server.listen(port, "localhost", function () {
   console.log("listening on port", port);
 });
