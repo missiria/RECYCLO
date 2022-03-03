@@ -1,19 +1,10 @@
-import express, {Request,Response,Application} from 'express';
+import { Request, Response } from 'express';
+import { app } from './config/bootstrap';
 
-class App {
-
-  constructor() {
-    this.app = express();
-  }
-
-  public app: express.Application;
-}
-
-const app = new App().app;
 const port =  process.env.PORT || 8080;
 
 app.get("/", (req:Request, res:Response):void => {
-  res.send("Hello Typescript with Node.js!")
+  res.send("Hello Hackers We using Node.js!")
 });
 
 app.listen(port, ():void => {
