@@ -25,6 +25,20 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+Route.post('login', async ({ auth, request }) => {
+  const email = request.input('email')
+  const password = request.input('password')
+
+  await auth.use('web').attempt(email, password)
+})
+
+Route.get('dashboard', async ({ auth }) => {
+  await auth.use('web').authenticate()
+
+  // ✅ Request authenticated
+  console.log(auth.user!)
+})
+
 Route.get('users', async () => {
   return Database.from('users').select('*')
 })
