@@ -20,22 +20,62 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import Database from '@ioc:Adonis/Lucid/Database'
+import User from 'App/Models/User'
+import Hash from '@ioc:Adonis/Core/Hash'
 
 Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.post('login', async ({ auth, request }) => {
+Route.post('login', async ({ auth, request, response }) => {
   const email = request.input('email')
   const password = request.input('password')
-  await auth.use('web').attempt(email, password)
+  console.log('email > ', email);
+
+  try {
+    const token = await auth.use('api').attempt(email, password, {
+      expiresIn: '7days'
+    })
+    return token
+  } catch {
+    return response.badRequest('Invalid credentials')
+  }
+})
+
+Route.post('create', async ({ auth, request, response }) => {
+  const email = request.input('email')
+  const password = request.input('password')
+
+  // Lookup user manually
+  const user = await User
+    .query()
+    .where('email', email)
+    .where('id', 1)
+    .firstOrFail()
+
+  // Verify password
+  if (!(await Hash.verify(user.password, password))) {
+    return response.badRequest('Invalid credentials')
+  }
+
+  // Generate token
+  const token = await auth.use('api').generate(user)
+
+  return token;
 })
 
 Route.get('dashboard', async ({ auth }) => {
-  await auth.use('web').authenticate()
+  await auth.use('api').authenticate()
 
   // ✅ Request authenticated
-  console.log(auth.user!)
+  console.log(auth.use('api').user!)
+})
+
+Route.post('/logout', async ({ auth, response }) => {
+  await auth.use('api').revoke()
+  return {
+    revoked: true
+  }
 })
 
 Route.get('users', async () => {
