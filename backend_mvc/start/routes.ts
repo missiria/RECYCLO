@@ -19,59 +19,9 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import Database from '@ioc:Adonis/Lucid/Database'
-import User from 'App/Models/User'
-import Hash from '@ioc:Adonis/Core/Hash'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return { hello: 'HackerZ !' }
 })
 
-// Route.post('login', async ({ auth, request, response }) => {
-//   let { email, password } = request.all()
-
-//   try {
-//     if (await auth.use('web').attempt(email, password)) {
-//       let user = await User.findBy('email', email)
-//       let token = await auth.generate(user)
-
-//       Object.assign(user, token)
-//       return response.json(user)
-//     }
-//   } catch (e) {
-//     console.log(e)
-//     return response.badRequest({ message: 'You are not registered!' })
-//   }
-// })
-
-Route.post('login', async ({ auth, request, response }) => {
-  const email = request.input('email')
-  const password = request.input('password')
-
-  // Lookup user manually
-  const user = await User
-    .query()
-    .where('email', email)
-    .where('active', 1)
-    .firstOrFail()
-  console.log(user);
-
-  // Verify password
-  if (!(await Hash.verify(user.password, password))) {
-    return response.badRequest('Invalid credentials')
-  }
-
-  // Create session
-  await auth.use('web').login(user)
-})
-
-Route.post('/logout', async ({ auth, response }) => {
-  await auth.use('web').revoke()
-  return {
-    revoked: true,
-  }
-})
-
-Route.get('users', async () => {
-  return Database.from('users').select('*')
-})
+Route.resource('users', 'UsersController').apiOnly()
