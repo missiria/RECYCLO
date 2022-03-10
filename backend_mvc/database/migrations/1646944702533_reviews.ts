@@ -8,7 +8,16 @@ export default class Reviews extends BaseSchema {
       table.increments('id')
       table.text('comment', 'long')
       table.integer('account_id', 11)
-      table.integer('category_id', 11)
+      table
+        .integer('account_id')
+        .unsigned()
+        .references('accounts.id')
+        .onDelete('CASCADE')
+      table
+        .integer('category_id')
+        .unsigned()
+        .references('categories.id')
+        .onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

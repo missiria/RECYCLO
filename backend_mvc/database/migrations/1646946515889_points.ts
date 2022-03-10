@@ -6,8 +6,17 @@ export default class Points extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('account_id', 255)
+      table
+        .integer('account_id')
+        .unsigned()
+        .references('accounts.id')
+        .onDelete('CASCADE')
       table.integer('declaration_id', 255)
+      table
+        .integer('declaration_id')
+        .unsigned()
+        .references('declarations.id')
+        .onDelete('CASCADE')
       table.float('point', 255)
       table.enum('status', ['VALID', 'PENDING'])
 

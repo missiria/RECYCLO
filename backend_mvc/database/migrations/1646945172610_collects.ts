@@ -6,7 +6,11 @@ export default class Collects extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('collect_category_id', 255)
+      table
+        .integer('category_id')
+        .unsigned()
+        .references('categories.id')
+        .onDelete('CASCADE')
       table.string('collect_name', 255)
       table.string('image', 255)
       table.float('point', 255)
