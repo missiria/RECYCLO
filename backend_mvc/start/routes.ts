@@ -27,22 +27,24 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+// Route.post('login', async ({ auth, request, response }) => {
+//   let { email, password } = request.all()
+
+//   try {
+//     if (await auth.use('web').attempt(email, password)) {
+//       let user = await User.findBy('email', email)
+//       let token = await auth.generate(user)
+
+//       Object.assign(user, token)
+//       return response.json(user)
+//     }
+//   } catch (e) {
+//     console.log(e)
+//     return response.badRequest({ message: 'You are not registered!' })
+//   }
+// })
+
 Route.post('login', async ({ auth, request, response }) => {
-  const email = request.input('email')
-  const password = request.input('password')
-  console.log('email > ', email);
-
-  try {
-    const token = await auth.use('api').attempt(email, password, {
-      expiresIn: '7days'
-    })
-    return token
-  } catch {
-    return response.badRequest('Invalid credentials')
-  }
-})
-
-Route.post('create', async ({ auth, request, response }) => {
   const email = request.input('email')
   const password = request.input('password')
 
@@ -50,31 +52,23 @@ Route.post('create', async ({ auth, request, response }) => {
   const user = await User
     .query()
     .where('email', email)
-    .where('id', 1)
+    .where('active', 1)
     .firstOrFail()
+  console.log(user);
 
   // Verify password
   if (!(await Hash.verify(user.password, password))) {
     return response.badRequest('Invalid credentials')
   }
 
-  // Generate token
-  const token = await auth.use('api').generate(user)
-
-  return token;
-})
-
-Route.get('dashboard', async ({ auth }) => {
-  await auth.use('api').authenticate()
-
-  // ✅ Request authenticated
-  console.log(auth.use('api').user!)
+  // Create session
+  await auth.use('web').login(user)
 })
 
 Route.post('/logout', async ({ auth, response }) => {
-  await auth.use('api').revoke()
+  await auth.use('web').revoke()
   return {
-    revoked: true
+    revoked: true,
   }
 })
 

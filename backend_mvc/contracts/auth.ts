@@ -57,16 +57,16 @@ declare module '@ioc:Adonis/Addons/Auth' {
   interface GuardsList {
     /*
     |--------------------------------------------------------------------------
-    | OAT Guard
+    | Web Guard
     |--------------------------------------------------------------------------
     |
-    | OAT, stands for (Opaque access tokens) guard uses database backed tokens
-    | to authenticate requests.
+    | The web guard uses sessions for maintaining user login state. It uses
+    | the `user` provider for fetching user details.
     |
     */
-    api: {
-      implementation: OATGuardContract<'user', 'api'>
-      config: OATGuardConfig<'user'>
+    web: {
+      implementation: SessionGuardContract<'user', 'web'>
+      config: SessionGuardConfig<'user'>
     }
   }
 }
