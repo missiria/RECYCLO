@@ -6,7 +6,7 @@ export default class Messages extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('message', 255)
+      table.text('message', 'long')
       table.integer('sender_account_id', 255)
       table.integer('received_account_id', 255)
 

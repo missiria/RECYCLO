@@ -6,7 +6,7 @@ export default class Reviews extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.text('comment')
+      table.text('comment', 'long')
       table.integer('account_id', 11)
       table.integer('category_id', 11)
 

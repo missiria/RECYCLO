@@ -10,7 +10,7 @@ export default class Collects extends BaseSchema {
       table.string('collect_name', 255)
       table.string('image', 255)
       table.float('point', 255)
-      table.text('description')
+      table.text('description', 'long')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
