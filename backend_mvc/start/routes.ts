@@ -20,8 +20,15 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { hello: 'HackerZ !' }
+Route.get('/', async ({auth}) => {
+  if ( !auth.use('web').isAuthenticated ) {
+    return { hello: 'HackerZ !!' }
+  }
 })
 
-Route.resource('users', 'UsersController').apiOnly()
+// Users
+Route.group(() => {
+  Route.resource('users', 'UsersController').apiOnly().middleware('auth')
+  Route.post('/users/login', 'UsersController.login').as('users.login')
+  Route.post('/users/logout', 'UsersController.logout').as('users.logout')
+}).prefix('/api/v1')

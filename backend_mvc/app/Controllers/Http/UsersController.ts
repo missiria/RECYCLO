@@ -15,7 +15,6 @@ export default class UsersController {
           .where('email', email)
           .where('active', 1)
           .firstOrFail()
-        console.log(user);
 
         // Verify password
         if (!(await Hash.verify(user.password, password))) {
@@ -23,17 +22,14 @@ export default class UsersController {
         }
 
         // Create session
-        await auth.use('web').login(user)
+        return await auth.use('web').login(user)
     }
 
     public async logout({ auth, response }) {
-        const logout = await auth.use('web').revoke()
-        if ( logout ) {
-            return {
-                revoked: true,
-            }
+        if ( auth.use('web').isLoggedIn ) {
+            return await auth.use('web').logout()
         } else {
-            response.badRequest('USER/LOGOUT : Invalid credentials')
+            return response.badRequest('USER/LOGOUT : you credentials')
         }
     }
 
@@ -52,7 +48,6 @@ export default class UsersController {
                     domainSpecificValidation: true
                 }),
                 rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
-                rules.alpha(),
                 rules.minLength(10),
                 rules.maxLength(255)
             ]),
