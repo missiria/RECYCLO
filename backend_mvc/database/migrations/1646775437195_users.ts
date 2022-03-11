@@ -6,13 +6,22 @@ export default class UsersSchema extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
+
+      // Reference tables
+      table
+        .integer('account_id')
+        .unsigned()
+        .references('accounts.id')
+        .onDelete('CASCADE')
+
       table.string('email', 255).notNullable()
       table.string('password', 180).notNullable()
+
       table.string('first_name', 180)
       table.string('last_name', 180)
       table.integer('phone', 12)
       table.integer('user_id', 12)
-      table.tinyint('active', 12)
+      table.boolean('active')
       table.string('remember_me_token').nullable()
 
       /**

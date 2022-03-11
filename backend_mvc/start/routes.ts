@@ -23,9 +23,9 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({auth}) => {
   await auth.use('web').check();
   if ( auth.use('web').isAuthenticated ) {
-    return { hello: 'Connected !!' }
+    return { hello: 'Connected !' }
   } else {
-    return { hello: "HackerZ //!//" }
+    return { hello: "HackerZ !!!" }
   }
 })
 
