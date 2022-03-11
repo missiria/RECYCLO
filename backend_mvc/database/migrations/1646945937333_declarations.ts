@@ -7,11 +7,11 @@ export default class Declarations extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('collect_id', 255)
-      table
-        .integer('collects_id')
-        .unsigned()
-        .references('collects.id')
-        .onDelete('CASCADE')
+      // table
+      //   .integer('collects_id')
+      //   .unsigned()
+      //   .references('collects.id')
+      //   .onDelete('CASCADE')
       table.integer('account_id', 255)
       table.float('quantity', 255)
       table.enum('status', ['PENDING', 'VALID', 'CANCELED', 'PAID'])

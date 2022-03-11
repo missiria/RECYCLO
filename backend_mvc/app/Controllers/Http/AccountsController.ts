@@ -1,5 +1,6 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
+import AccountForm from 'App/Validators/AccountFormValidator'
 export default class AccountsController {
 
   public async index({ response }) {
@@ -17,6 +18,14 @@ export default class AccountsController {
     }
 
     return response.ok(account)
+  }
+
+  public async store({ request, response }) {
+    const payload: any = await request.validate(AccountForm)
+
+    const newAccount: Account = await Account.create(payload)
+
+    return response.ok(newAccount)
   }
 
   public async destroy({ params, response }) {

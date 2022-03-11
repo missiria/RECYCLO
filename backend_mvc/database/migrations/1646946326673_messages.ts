@@ -8,16 +8,16 @@ export default class Messages extends BaseSchema {
       table.increments('id')
       table.text('message', 'long')
       table.integer('sender_account_id', 255)
-      table
-        .integer('sender_account_id')
-        .unsigned()
-        .references('accounts.id')
-        .onDelete('CASCADE')
-      table
-        .integer('received_account_id')
-        .unsigned()
-        .references('accounts.id')
-        .onDelete('CASCADE')
+      // table
+      //   .integer('sender_account_id')
+      //   .unsigned()
+      //   .references('accounts.id')
+      //   .onDelete('CASCADE')
+      // table
+      //   .integer('received_account_id')
+      //   .unsigned()
+      //   .references('accounts.id')
+      //   .onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

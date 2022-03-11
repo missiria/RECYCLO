@@ -1,7 +1,7 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class AccountValidator {
+export default class AccountFormValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -23,8 +23,19 @@ export default class AccountValidator {
    *     ])
    *    ```
    */
-  public schema = schema.create({})
-
+  public schema = schema.create({
+    gender: schema.number(),
+    // gender: schema.enum(['FEMALE', 'MALE']),
+    type: schema.number(),
+    // type: schema.enum(['COLLECTOR', 'WORKER']),
+    avatar: schema.string({}, [rules.minLength(4)]),
+    address: schema.string({}, [rules.minLength(10)]),
+    city: schema.string({}, [rules.minLength(4)]),
+    country: schema.string({}, [rules.minLength(4)]),
+    nationality: schema.string({}, [rules.minLength(4)]),
+    zip_code: schema.number(),
+    phone: schema.string({}, [rules.mobile()]),
+  })
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
    * for targeting nested fields and array expressions `(*)` for targeting all

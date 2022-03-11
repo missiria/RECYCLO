@@ -6,12 +6,6 @@ export default class Account extends BaseModel {
   public id: number
 
   @column()
-  public email: string
-
-  @column()
-  public full_name?: string
-
-  @column()
   public gender: string
 
   @column()

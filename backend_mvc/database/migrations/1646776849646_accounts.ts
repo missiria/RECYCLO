@@ -10,7 +10,7 @@ export default class Accounts extends BaseSchema {
       table.string('password', 180).notNullable()
       table.integer('society_id', 11)
       table.enum('gender', ['FEMALE', 'MALE'])
-      table.tinyint('type', 2)
+      table.enum('type', ['COLLECTOR', 'WORKER'])
       table.string('avatar', 255)
       table.string('address', 255)
       table.string('city', 255)

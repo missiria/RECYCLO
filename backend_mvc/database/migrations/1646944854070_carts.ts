@@ -6,11 +6,11 @@ export default class Carts extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table
-        .integer('account_id')
-        .unsigned()
-        .references('accounts.id')
-        .onDelete('CASCADE')
+      // table
+      //   .integer('account_id')
+      //   .unsigned()
+      //   .references('accounts.id')
+      //   .onDelete('CASCADE')
       table.string('number_card', 100)
       table.date('expiry_year')
       table.date('expiry_month')

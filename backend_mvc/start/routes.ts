@@ -29,9 +29,10 @@ Route.get('/', async ({auth}) => {
   }
 })
 
-// Users
+// Users & Accounts
 Route.group(() => {
   Route.resource('users', 'UsersController').apiOnly()
+  Route.resource('accounts', 'AccountsController').apiOnly()
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
 }).prefix('/api/v1')

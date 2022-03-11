@@ -8,11 +8,11 @@ export default class UsersSchema extends BaseSchema {
       table.increments('id').primary()
 
       // Reference tables
-      table
-        .integer('account_id')
-        .unsigned()
-        .references('accounts.id')
-        .onDelete('CASCADE')
+      // table
+      //   .integer('account_id')
+      //   .unsigned()
+      //   .references('accounts.id')
+      //   .onDelete('CASCADE')
 
       table.string('email', 255).notNullable()
       table.string('password', 180).notNullable()
