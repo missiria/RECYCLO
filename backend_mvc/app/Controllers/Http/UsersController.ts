@@ -21,7 +21,7 @@ export default class UsersController {
   }
 
   public async logout({ auth, response }) {
-    await auth.use('web').check();
+    await auth.use('web').check()
     if (auth.use('web').isAuthenticated) {
       return await auth.use('web').logout()
     } else {
@@ -68,6 +68,43 @@ export default class UsersController {
     if (!user) {
       return response.notFound({ message: 'User not found' })
     }
+
+    return response.ok(user)
+  }
+
+  public async update({ request, params, response }) {
+    const userSchema = schema.create({
+      email: schema.string({ trim: true }, [
+        rules.email({
+          sanitize: true,
+          ignoreMaxLength: true,
+          domainSpecificValidation: true,
+        }),
+        rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
+        rules.minLength(10),
+        rules.maxLength(255),
+      ]),
+      password: schema.string({}, [rules.minLength(10), rules.maxLength(255)]),
+      first_name: schema.string({}, [rules.maxLength(255)]),
+      last_name: schema.string({}, [rules.maxLength(255)]),
+      phone: schema.number(),
+      active: schema.boolean(),
+    })
+
+    const payload: any = await request.validate({ schema: userSchema })
+
+    const { id }: { id: Number } = params
+
+    const user: any = await User.find(id)
+
+    if (!user) {
+      return response.notFound({ message: 'User not found' })
+    }
+
+    user.first_name = payload.first_name
+    user.last_name = payload.last_name
+
+    await user.save()
 
     return response.ok(user)
   }
