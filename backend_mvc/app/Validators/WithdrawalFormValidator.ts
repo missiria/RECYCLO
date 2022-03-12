@@ -1,4 +1,4 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rule } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class WithdrawalFormValidator {
@@ -23,7 +23,13 @@ export default class WithdrawalFormValidator {
    *     ])
    *    ```
    */
-  public schema = schema.create({})
+  public schema = schema.create(
+    {
+      user_id: schema.number(),
+      amount: schema.number(),
+      status: schema.enum(['PENDING', 'VALID', 'PAID', 'CANCELED'])
+    }
+  )
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`

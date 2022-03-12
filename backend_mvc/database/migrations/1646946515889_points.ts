@@ -7,9 +7,9 @@ export default class Points extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       // table
-      //   .integer('account_id')
+      //   .integer('user_id')
       //   .unsigned()
-      //   .references('accounts.id')
+      //   .references('users.id')
       //   .onDelete('CASCADE')
       table.integer('declaration_id', 255)
       // table

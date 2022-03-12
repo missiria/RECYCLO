@@ -7,9 +7,9 @@ export default class Withdrawals extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       // table
-      //   .integer('account_id')
+      //   .integer('user_id')
       //   .unsigned()
-      //   .references('accounts.id')
+      //   .references('users.id')
       //   .onDelete('CASCADE')
       table.float('amount', 255)
       table.enum('status', ['PENDING', 'VALID', 'PAID', 'CANCELED'])
