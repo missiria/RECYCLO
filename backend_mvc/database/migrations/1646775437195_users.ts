@@ -14,7 +14,9 @@ export default class UsersSchema extends BaseSchema {
       //   .references('accounts.id')
       //   .onDelete('CASCADE')
 
-      table.string('email', 255).notNullable()
+      // table.integer('account_id').references('account_id').inTable('accounts')
+
+      table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
 
       table.string('first_name', 180)

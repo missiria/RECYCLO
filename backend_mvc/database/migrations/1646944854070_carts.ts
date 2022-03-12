@@ -14,6 +14,7 @@ export default class Carts extends BaseSchema {
       table.string('number_card', 100)
       table.date('expiry_year')
       table.date('expiry_month')
+      table.integer('user_id')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

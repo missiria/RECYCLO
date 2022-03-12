@@ -7,8 +7,8 @@ export default class Reviews extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.text('comment', 'long')
-      table.integer('account_id')
       table.integer('category_id')
+      table.boolean('active')
       //   .unsigned()
       //   .references('accounts.id')
       //   .onDelete('CASCADE')
@@ -20,7 +20,7 @@ export default class Reviews extends BaseSchema {
       // table
       //   .foreign('category_id')
       //   .references('categories.id')
-
+      table.integer('user_id').references('id').inTable('users')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
