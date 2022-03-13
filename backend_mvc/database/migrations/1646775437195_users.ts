@@ -7,15 +7,6 @@ export default class UsersSchema extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
 
-      // Reference tables
-      // table
-      //   .integer('account_id')
-      //   .unsigned()
-      //   .references('accounts.id')
-      //   .onDelete('CASCADE')
-
-      // table.integer('account_id').references('account_id').inTable('accounts')
-
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
 

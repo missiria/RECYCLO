@@ -5,12 +5,12 @@ export default class Withdrawals extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      // table
-      //   .integer('user_id')
-      //   .unsigned()
-      //   .references('users.id')
-      //   .onDelete('CASCADE')
+      table.increments('id').primary()
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('users.id')
+        .onDelete('CASCADE') // delete post when user is deleted
       table.float('amount', 255)
       table.enum('status', ['PENDING', 'VALID', 'PAID', 'CANCELED'])
 

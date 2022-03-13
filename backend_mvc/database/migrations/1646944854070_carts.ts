@@ -5,16 +5,17 @@ export default class Carts extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      // table
-      //   .integer('account_id')
-      //   .unsigned()
-      //   .references('accounts.id')
-      //   .onDelete('CASCADE')
+      table.increments('id').primary()
+
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('users.id')
+        .onDelete('CASCADE') // delete post when user is deleted
+
       table.string('number_card', 100)
       table.date('expiry_year')
       table.date('expiry_month')
-      table.integer('user_id')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

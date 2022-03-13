@@ -5,19 +5,21 @@ export default class Messages extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
+
+      table
+        .integer('sender_user_id')
+        .unsigned()
+        .references('users.id')
+        .onDelete('CASCADE') // delete post when user is deleted
+
+      table
+        .integer('received_user_id')
+        .unsigned()
+        .references('users.id')
+        .onDelete('CASCADE') // delete post when user is deleted
+
       table.text('message', 'long')
-      table.integer('sender_account_id', 255)
-      // table
-      //   .integer('sender_account_id')
-      //   .unsigned()
-      //   .references('accounts.id')
-      //   .onDelete('CASCADE')
-      // table
-      //   .integer('received_account_id')
-      //   .unsigned()
-      //   .references('accounts.id')
-      //   .onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -5,7 +5,7 @@ export default class Notifications extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
       table.string('note', 255)
       table.enum('type', ['DECLARATION', 'MESSAGE', 'PAYMENT', 'POINT', 'UPDATE'])
       table.enum('status', ['READ', 'UNREAD'])

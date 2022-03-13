@@ -5,22 +5,20 @@ export default class Reviews extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.text('comment', 'long')
-      table.integer('category_id')
-      table.boolean('active')
-      //   .unsigned()
-      //   .references('accounts.id')
-      //   .onDelete('CASCADE')
+      table.increments('id').primary()
+
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('users.id')
+
       // table
       //   .integer('category_id')
-      //   .unsigned()
       //   .references('categories.id')
-      //   .onDelete('CASCADE')
-      // table
-      //   .foreign('category_id')
-      //   .references('categories.id')
-      table.integer('user_id').references('id').inTable('users')
+
+      table.text('comment', 'long')
+      table.boolean('active')
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

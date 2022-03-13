@@ -5,7 +5,7 @@ export default class Declarations extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
       table.integer('collect_id', 255)
       // table
       //   .integer('collects_id')

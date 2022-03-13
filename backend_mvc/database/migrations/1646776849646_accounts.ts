@@ -6,6 +6,15 @@ export default class Accounts extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
+
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('users.id')
+        .onDelete('CASCADE') // delete post when user is deleted
+
+      table.unique(['user_id'])
+
       table.string('email', 255).notNullable()
       table.string('password', 180).notNullable()
       table.integer('society_id', 11)

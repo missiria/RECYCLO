@@ -5,7 +5,7 @@ export default class Collects extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
       // table
       //   .integer('category_id')
       //   .unsigned()
