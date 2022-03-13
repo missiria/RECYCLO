@@ -1,12 +1,11 @@
-import { User } from 'App/Models/User';
 import { DateTime } from 'luxon'
+import User from 'App/Models/User';
 import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Cart extends BaseModel {
   @column({ isPrimary: true })
 
   public id: number
-  public user_id: number
 
   @column()
   public account_id: number
@@ -30,6 +29,4 @@ export default class Cart extends BaseModel {
     foreignKey: 'id', // defaults to userId
   })
   public users: HasMany<typeof User>
-
-
 }

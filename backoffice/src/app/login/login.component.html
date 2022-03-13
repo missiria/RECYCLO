@@ -1,6 +1,7 @@
-<div class="col">
+<div class="my-5">
   <div class="card">
     <div class="card card-body">
+      <div class="card-title">Connexion: </div>
       <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -9,19 +10,19 @@
       novalidate
     >
       <div class="mb-3">
-        <label for="username">email</label>
+        <label for="email">email</label>
         <input
           type="text"
           class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
+          name="email"
+          [(ngModel)]="form.email"
           required
-          #username="ngModel"
+          #email="ngModel"
         />
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="username.errors && f.submitted"
+          *ngIf="email.errors && f.submitted"
         >
           email is required!
         </div>

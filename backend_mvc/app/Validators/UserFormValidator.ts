@@ -1,4 +1,4 @@
-import { schema, rule } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class UserFormValidator {
@@ -25,13 +25,13 @@ export default class UserFormValidator {
    */
   public schema = schema.create(
     {
-      email: schema.string({}, [rule.email()]),
-      password: schema.string({}, [rule.minLength(3), rule.maxLength(50)]),
-      first_name: schema.string({}, [rule.minLength(3)]),
-      last_name: schema.string({}, [rule.minLength(3)]),
-      phone: schema.number(),
-      active: schema.boolean(),
-      remember_me_token: schema.boolean()
+      email: schema.string({}, [rules.email()]),
+      password: schema.string({}, [rules.minLength(3), rules.maxLength(50)]),
+      first_name: schema.string({}, [rules.minLength(3)]),
+      last_name: schema.string({}, [rules.minLength(3)]),
+      phone: schema.number.optional(),
+      active: schema.boolean.optional(),
+      remember_me_token: schema.boolean.optional()
     }
   )
 

@@ -1,4 +1,4 @@
-import { schema, rule } from '@ioc:Adonis/Core/Validator'
+import { schema } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class WithdrawalFormValidator {
@@ -11,7 +11,7 @@ export default class WithdrawalFormValidator {
    * 1. The username must be of data type string. But then also, it should
    *    not contain special characters or numbers.
    *    ```
-   *     schema.string({}, [ rules.alpha() ])
+   *     schema.string({}, [ ss.alpha() ])
    *    ```
    *
    * 2. The email must be of data type string, formatted as a valid
