@@ -15,9 +15,7 @@ export default class Accounts extends BaseSchema {
 
       table.unique(['user_id'])
 
-      table.string('email', 255).notNullable()
-      table.string('password', 180).notNullable()
-      table.integer('society_id', 11)
+      table.string('society_id', 11)
       table.enum('gender', ['FEMALE', 'MALE'])
       table.enum('type', ['COLLECTOR', 'WORKER'])
       table.string('avatar', 255)
@@ -26,7 +24,6 @@ export default class Accounts extends BaseSchema {
       table.string('country', 255)
       table.string('nationality', 255)
       table.integer('zip_code', 18)
-      table.integer('phone', 12)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

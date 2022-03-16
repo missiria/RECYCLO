@@ -9,14 +9,14 @@ export default class UserSeeder extends BaseSeeder {
         password: 'c++',
         first_name: 'Younes',
         last_name: 'MISSIRIA',
-        active: 1
+        active: true
       },
       {
         email: 'amine@gmail.com',
         password: 'p@ssword',
         first_name: 'Amine',
         last_name: 'AMAZZAL',
-        active: 1
+        active: true
       }
     ])
   }

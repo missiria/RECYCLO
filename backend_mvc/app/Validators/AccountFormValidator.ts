@@ -28,11 +28,12 @@ export default class AccountFormValidator {
     // gender: schema.enum(['FEMALE', 'MALE']),
     type: schema.number(),
     // type: schema.enum(['COLLECTOR', 'WORKER']),
-    avatar: schema.string({}, [rules.minLength(4)]),
+    avatar: schema.string.optional({}, [rules.minLength(4)]),
     address: schema.string({}, [rules.minLength(10)]),
     city: schema.string({}, [rules.minLength(4)]),
     country: schema.string({}, [rules.minLength(4)]),
     nationality: schema.string({}, [rules.minLength(4)]),
+    society_id: schema.string(),
     zip_code: schema.number(),
     phone: schema.string({}, [rules.mobile()]),
   })

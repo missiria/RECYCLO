@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
 import * as auth from '../redux/AuthRedux'
 import {login} from '../redux/AuthCRUD'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()

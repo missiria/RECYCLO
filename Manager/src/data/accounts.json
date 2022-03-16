@@ -47,7 +47,7 @@
     },
     {
       "id": "6",
-      "enterprise": "ProWeb",
+      "enterprise": "Mahfoud",
       "type": "COLLECTOR",
       "category": "IRON",
       "state": "Actif",
@@ -56,9 +56,9 @@
     },
     {
       "id": "7",
-      "enterprise": "NetLab Pro",
+      "enterprise": "Younes MISSIRIA",
       "type": "COLLECTOR",
-      "category": "PLASTIQUE",
+      "category": "IRON",
       "state": "Actif",
       "phone": "0656560552",
       "city": "Tanger"
@@ -121,7 +121,7 @@
       "invoice_id": "F-20211219",
       "state": "En attente",
       "amount": "COLLECTOR",
-      "date": "31/10/2021DEPOUT
+      "date": "31/10/2021",
       "user_id": "1"
     },
     {
@@ -203,7 +203,7 @@
       "order_id": "C-20211219",
       "details": "Free de déplacements",
       "amount": "COLLECTOR",
-      "date": "31/10/2021DEPOUT
+      "date": "31/10/2021",
       "user_id": "1"
     },
     {

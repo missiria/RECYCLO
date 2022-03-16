@@ -15,6 +15,9 @@ export default class Account extends BaseModel {
   public type: string
 
   @column()
+  public society_id: string
+
+  @column()
   public avatar: string
 
   @column()
@@ -30,10 +33,7 @@ export default class Account extends BaseModel {
   public nationality: string
 
   @column()
-  public zip_code: string
-
-  @column()
-  public phone: number
+  public zip_code: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
