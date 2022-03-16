@@ -1,9 +1,10 @@
 import { useEffect, useState} from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../config';
+import { AccountType } from '../../../../Models/Account';
 
 const useAccounts = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({} as AccountType);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

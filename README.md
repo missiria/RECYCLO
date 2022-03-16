@@ -14,3 +14,12 @@ Database : MySQL
 # Run dev watch
 > node ace serve --watch
 
+Validation :
+    Joi : Using reactive native version
+    React : Using component for validation
+API :
+    AdonisJs: Auth
+    AdonisJS: Database (MySQL)
+    NodeJS: Using Typescript
+Requirements :
+    oAuth : https://www.npmjs.com/package/react-native-app-auth

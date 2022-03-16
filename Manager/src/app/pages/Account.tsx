@@ -7,11 +7,11 @@ import {Pagination} from '../../Manager/Pagination'
 import {Create} from '../modules/accounts/components/modals/Create'
 
 // Metronic
-import {KTSVG} from '../../_metronic/helpers'
+import { EDGE_SVG } from '../../Manager/Media'
 import {AccountToolbar} from '../modules/accounts/components/AccountToolbar'
 
 // Data
-import ACCOUNTS from '../../data/accounts.json'
+// import ACCOUNTS from '../../data/accounts.json'
 import {ConfirmationDelete} from '../../Manager/Modals/Delete'
 import useAccounts from '../modules/accounts/services/Accounts.services'
 
@@ -23,7 +23,6 @@ export function Account() {
   const { data: accounts, loading } = useAccounts();
 
   console.log('accounts > ', accounts);
-  console.log('loading > ', loading);
 
   return (
     <div className='card mb-5 mb-xl-8'>
@@ -46,11 +45,13 @@ export function Account() {
               <thead>
                 <tr className='fw-bolder text-muted bg-light'>
                   <th className='min-w-25px'>#</th>
-                  <th className='min-w-150px'>Entreprise</th>
+                  <th className='min-w-150px'>Fullname</th>
+                  <th className='min-w-150px'>ID National</th>
                   <th className='min-w-75px'>Type</th>
                   <th className='min-w-75px'>Catégorie</th>
                   <th className='min-w-75px'>Téléphone</th>
                   <th className='min-w-75px'>Ville</th>
+                  <th className='min-w-75px'>Pays</th>
                   <th className='min-w-75px'>Status</th>
                   <th className='min-w-200px text-end rounded-end'>Actions</th>
                 </tr>
@@ -58,16 +59,24 @@ export function Account() {
               {/* end::Table head */}
               {/* begin::Table body */}
               <tbody>
-                { ACCOUNTS.accounts.map((account) => (
+                <tr>
+                  <td colSpan={8}></td>
+                </tr>
+                { accounts && Object.values(accounts).map((account) => (
                   <tr key={account.id}>
                     <td className='min-w-25px'>{account.id}</td>
                     <td>
-                      <div className='fw-bold'>{account.enterprise}</div>
+                      <div className='fw-bold'>
+                        {account.enterprise}
+                        <span className='badge badge-info'>{account.gender}</span>
+                      </div>
                     </td>
+                    <td>{account.society_id}</td>
                     <td>{account.type}</td>
                     <td>{account.category}</td>
                     <td>{account.phone}</td>
                     <td>{account.city}</td>
+                    <td>{account.country}</td>
                     <td>
                       <div className='fs-7 fw-bold'>
                         <span
@@ -84,13 +93,13 @@ export function Account() {
                         to='/account/overview'
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                       >
-                        <KTSVG path='/media/icons/duotune/arrows/arr064.svg' className='svg-icon-1' />
+                        <EDGE_SVG path='/media/icons/duotune/arrows/arr064.svg' className='svg-icon-1' />
                       </Link>
                       <a
                         href='/account/settings'
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                       >
-                        <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+                        <EDGE_SVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
                       </a>
                       <a
                         href='/'
@@ -99,12 +108,12 @@ export function Account() {
                         data-bs-target='#modal_delete_confirmation'
                         onClick={() => {
                           setAccount({
-                            name: account.enterprise,
+                            name: account.society_id,
                             id: account.id,
                           })
                         }}
                       >
-                        <KTSVG
+                        <EDGE_SVG
                           path='/media/icons/duotune/general/gen027.svg'
                           className='svg-icon-3'
                         />
@@ -122,7 +131,7 @@ export function Account() {
       </div>
       {/* begin::Body */}
       <Pagination
-        totalItems={ACCOUNTS.accounts.length}
+        totalItems={Object.keys(accounts).length}
         pageSize={2}
         currentPage={selectedCurrentPage}
         onPageChange={onPageChange}
