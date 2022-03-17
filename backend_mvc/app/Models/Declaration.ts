@@ -9,7 +9,7 @@ export default class Declaration extends BaseModel {
   public collect_id: number
 
   @column()
-  public account_id: number
+  public user_id: number
 
   @column()
   public quantity: number
