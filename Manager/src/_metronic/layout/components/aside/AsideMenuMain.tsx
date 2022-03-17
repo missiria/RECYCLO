@@ -37,13 +37,13 @@ export function AsideMenuMain() {
         fontIcon='bi-user'
       />
       <AsideMenuItem
-        to='/contacts'
+        to='/donations'
         icon='/media/icons/duotune/general/gen025.svg'
         title='Donations'
         fontIcon='bi-group'
       />
       <AsideMenuItem
-        to='/contacts'
+        to='/recharges'
         icon='/media/icons/duotune/communication/com008.svg'
         title='Recharges'
         fontIcon='bi-user'

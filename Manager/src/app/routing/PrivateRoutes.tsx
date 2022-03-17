@@ -3,7 +3,12 @@ import {Redirect, Route, Switch} from 'react-router-dom'
 import {FallbackView} from '../../_metronic/partials'
 import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
 import {MenuTestPage} from '../pages/MenuTestPage'
+
 import {Account} from '../pages/Account'
+import {Donation} from '../pages/Donation'
+import {Declaration} from '../pages/Declaration'
+import {Recharge} from '../pages/Recharge'
+
 import {Contact} from '../pages/Contact'
 import {Order} from '../pages/Order'
 
@@ -25,6 +30,15 @@ export function PrivateRoutes() {
         <Route path='/crafted/pages/profile' component={ProfilePage} />
         <Route path='/crafted/pages/wizards' component={WizardsPage} />
         <Route path='/crafted/widgets' component={WidgetsPage} />
+
+        {/* Recharge routes */}
+        <Route path='/recharges' component={Recharge} />
+
+        {/* Donation routes */}
+        <Route path='/donations' component={Donation} />
+
+        {/* Declaration routes */}
+        <Route path='/declarations' component={Declaration} />
 
         {/* Account routes */}
         <Route path='/accounts' component={Account} />
