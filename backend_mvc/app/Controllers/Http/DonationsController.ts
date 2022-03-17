@@ -8,4 +8,16 @@ export default class DonationsController {
         return response.ok(users)
     }
 
+    public async show({ params, response }) {
+        const { id }: { id: Number } = params
+
+        const donation: any = await Donation.find(id)
+
+        if (!donation) {
+            return response.notFound({ message: 'Donation none trouvé' })
+        }
+
+        return response.ok(donation)
+    }
+
 }

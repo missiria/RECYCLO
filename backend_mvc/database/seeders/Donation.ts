@@ -17,6 +17,20 @@ export default class DonationSeeder extends BaseSeeder {
         bank: 'BMCE',
         amount: 3200,
         rib: 25441455645565411
+      },
+      {
+        email: "youssef@gmail.com",
+        full_name: 'Youssef SAAIOU',
+        bank: 'ATTIJARI',
+        amount: 4500,
+        rib: 25441455645565411
+      },
+      {
+        email: "salem@gmail.com",
+        full_name: 'Salem ELHOCEIMI',
+        bank: 'BANK OF AMERICA',
+        amount: 6100,
+        rib: 45451110645555229
       }
     ])
   }
