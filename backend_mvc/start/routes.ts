@@ -29,13 +29,14 @@ Route.get('/', async ({auth}) => {
   }
 })
 
-// Users, Accounts, Donations
+// Users, Accounts, Donations, Recharges
 Route.group(() => {
 
   Route.resource('users', 'UsersController').apiOnly()
   Route.resource('accounts', 'AccountsController').apiOnly()
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('declarations', 'DeclarationsController').apiOnly()
+  Route.resource('recharges', 'RechargesController').apiOnly()
 
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
