@@ -102,7 +102,7 @@ export function AsideMenuMain() {
         </div>
       </div>
       <AsideMenuItem
-        to='/builder'
+        to='/users'
         icon='/media/icons/duotune/general/gen049.svg'
         title='Utilisateurs'
         fontIcon='bi-users'

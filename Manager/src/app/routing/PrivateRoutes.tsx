@@ -8,6 +8,7 @@ import {Account} from '../pages/Account'
 import {Donation} from '../pages/Donation'
 import {Declaration} from '../pages/Declaration'
 import {Recharge} from '../pages/Recharge'
+import {User} from '../pages/User'
 
 import {Contact} from '../pages/Contact'
 import {Order} from '../pages/Order'
@@ -30,6 +31,9 @@ export function PrivateRoutes() {
         <Route path='/crafted/pages/profile' component={ProfilePage} />
         <Route path='/crafted/pages/wizards' component={WizardsPage} />
         <Route path='/crafted/widgets' component={WidgetsPage} />
+
+        {/* User routes */}
+        <Route path='/users' component={User} />
 
         {/* Recharge routes */}
         <Route path='/recharges' component={Recharge} />
