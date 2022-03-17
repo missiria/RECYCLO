@@ -21,7 +21,7 @@ const ErrorsPage: React.FC = () => {
           <a href='/dashboard' className='mb-10 pt-lg-20'>
             <img
               alt='Logo'
-              src={toAbsoluteUrl('/media/logos/logo-1.svg')}
+              src={toAbsoluteUrl('/media/logos/logo_light.png')}
               className='h-50px mb-5'
             />
           </a>
@@ -39,7 +39,7 @@ const ErrorsPage: React.FC = () => {
 
             <div className='text-center'>
               <a onClick={redirectToDashboard} className='btn btn-lg btn-primary fw-bolder'>
-                Go to homepage
+                Go to dashboard
               </a>
             </div>
           </div>
