@@ -3,15 +3,11 @@
   "account_type": [
     {
       "id": "1",
-      "value": "Client"
+      "value": "MENAGE"
     },
     {
       "id": "2",
-      "value": "Fournisseur"
-    },
-    {
-      "id": "3",
-      "value": "Distributeur"
+      "value": "COLLECTOR"
     }
   ],
   "account_categories": [

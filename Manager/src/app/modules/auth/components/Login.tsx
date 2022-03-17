@@ -163,6 +163,7 @@ export function Login() {
         >
           {!loading && <span className='indicator-label'>Continue</span>}
           {loading && (
+            // TODO : Add to Manager global component
             <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>

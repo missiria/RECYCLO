@@ -12,17 +12,26 @@ import {AccountToolbar} from '../modules/accounts/components/AccountToolbar'
 
 // Data
 // import ACCOUNTS from '../../data/accounts.json'
+import { Spinner } from '../../Manager/Spinner'
 import {ConfirmationDelete} from '../../Manager/Modals/Delete'
-import useAccounts from '../modules/accounts/services/Accounts.services'
+import useAxios from '../../Manager/services/api.service'
 
 export function Account() {
+
   const [selectedAccount, setAccount] = useState({})
   const [selectedCurrentPage, setCurrentPage] = useState(1)
+
+  const { data: accounts, loading } = useAxios({
+    method: "GET",
+    url: `/accounts`,
+    headers: {
+      accept: '*/*'
+    }
+  });
+
   const onPageChange = (page: number) => setCurrentPage(page)
 
-  const { data: accounts, loading } = useAccounts();
-
-  console.log('accounts > ', accounts);
+  console.log('ACCOUNTS > ', accounts);
 
   return (
     <div className='card mb-5 mb-xl-8'>
@@ -34,7 +43,6 @@ export function Account() {
         <AccountToolbar />
       </div>
       {/* end::Header */}
-      {loading && <div>Loading</div>}
       {/* begin::Body */}
       <div className='card-body py-3'>
         {/* begin::Table container */}
@@ -48,7 +56,6 @@ export function Account() {
                   <th className='min-w-150px'>Fullname</th>
                   <th className='min-w-150px'>ID National</th>
                   <th className='min-w-75px'>Type</th>
-                  <th className='min-w-75px'>Catégorie</th>
                   <th className='min-w-75px'>Téléphone</th>
                   <th className='min-w-75px'>Ville</th>
                   <th className='min-w-75px'>Pays</th>
@@ -67,13 +74,13 @@ export function Account() {
                     <td className='min-w-25px'>{account.id}</td>
                     <td>
                       <div className='fw-bold'>
-                        {account.enterprise}
-                        <span className='badge badge-info'>{account.gender}</span>
+                      {account.gender} - {account.first_name} {account.last_name}
                       </div>
                     </td>
                     <td>{account.society_id}</td>
-                    <td>{account.type}</td>
-                    <td>{account.category}</td>
+                    <td>
+                      <span className='badge badge-info'>{account.type}</span>
+                    </td>
                     <td>{account.phone}</td>
                     <td>{account.city}</td>
                     <td>{account.country}</td>
@@ -121,17 +128,27 @@ export function Account() {
                     </td>
                   </tr>
                 ))}
+                { !accounts && (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="alert">
+                        No accounts in db !
+                      </div>
+                    </td>
+                  </tr>
+                ) }
               </tbody>
               {/* end::Table body */}
             </table>
           {/* end::Table */}
+          {loading && <Spinner />}
         </div>
         {/* end::Table container */}
         {/* <Pagination /> */}
       </div>
       {/* begin::Body */}
       <Pagination
-        totalItems={Object.keys(accounts).length}
+        totalItems={Object.keys([1, 2]).length}
         pageSize={2}
         currentPage={selectedCurrentPage}
         onPageChange={onPageChange}
