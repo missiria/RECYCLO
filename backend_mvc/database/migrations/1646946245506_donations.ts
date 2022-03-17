@@ -7,12 +7,7 @@ export default class Donations extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
 
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('users.id')
-        .onDelete('CASCADE') // delete post when user is deleted
-
+      table.string('email')
       table.string('full_name', 255)
       table.string('bank', 255)
       table.string('rib', 24)

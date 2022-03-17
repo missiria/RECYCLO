@@ -4,8 +4,8 @@ import AccountForm from 'App/Validators/AccountFormValidator'
 export default class AccountsController {
 
   public async index({ response }) {
-    const users = await Account.all()
-    return response.ok(users)
+    const accounts = await Account.all()
+    return response.ok(accounts)
   }
 
   public async show({ params, response }) {

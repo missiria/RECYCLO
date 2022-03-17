@@ -6,13 +6,13 @@ export default class Donation extends BaseModel {
   public id: number
 
   @column()
-  public account_id: number
+  public email: string
 
   @column()
   public full_name: string
 
   @column()
-  public bank: number
+  public bank: string
 
   @column()
   public rib: number
