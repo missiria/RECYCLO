@@ -15,6 +15,8 @@ export default class Accounts extends BaseSchema {
 
       table.unique(['user_id'])
 
+      table.string('first_name', 180)
+      table.string('last_name', 180)
       table.string('society_id', 11)
       table.enum('gender', ['FEMALE', 'MALE'])
       table.enum('type', ['COLLECTOR', 'WORKER'])

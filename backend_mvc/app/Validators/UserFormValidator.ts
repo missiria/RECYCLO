@@ -27,8 +27,6 @@ export default class UserFormValidator {
     {
       email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
       password: schema.string({}, [rules.minLength(3), rules.maxLength(50)]),
-      first_name: schema.string({}, [rules.minLength(3)]),
-      last_name: schema.string({}, [rules.minLength(3)]),
       phone: schema.number([rules.unique({ table: 'users', column: 'email' })]),
       active: schema.boolean.optional(),
       remember_me_token: schema.boolean.optional()

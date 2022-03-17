@@ -6,7 +6,11 @@ export default class Account extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  public user_id: number
+  @column()
+  public first_name?: string
+
+  @column()
+  public last_name?: string
 
   @column()
   public gender: string

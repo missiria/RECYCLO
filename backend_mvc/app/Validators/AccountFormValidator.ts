@@ -24,6 +24,8 @@ export default class AccountFormValidator {
    *    ```
    */
   public schema = schema.create({
+    first_name: schema.string({}, [rules.minLength(3)]),
+    last_name: schema.string({}, [rules.minLength(3)]),
     gender: schema.number(),
     // gender: schema.enum(['FEMALE', 'MALE']),
     type: schema.number(),

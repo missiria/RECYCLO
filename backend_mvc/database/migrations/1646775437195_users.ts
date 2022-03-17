@@ -10,8 +10,6 @@ export default class UsersSchema extends BaseSchema {
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
 
-      table.string('first_name', 180)
-      table.string('last_name', 180)
       table.integer('phone', 12)
       table.integer('user_id', 12)
       table.boolean('active')
