@@ -14,7 +14,7 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
-  public phone?: number
+  public phone?: number | string
 
   @column()
   public active: boolean

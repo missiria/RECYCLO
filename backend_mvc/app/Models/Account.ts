@@ -7,10 +7,13 @@ export default class Account extends BaseModel {
   public id: number
 
   @column()
-  public first_name?: string
+  public user_id: number
 
   @column()
-  public last_name?: string
+  public first_name: string
+
+  @column()
+  public last_name: string
 
   @column()
   public gender: string
