@@ -10,8 +10,9 @@ export default class UsersSchema extends BaseSchema {
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
 
-      table.integer('phone', 12)
+      table.string('phone', 12)
       table.integer('user_id', 12)
+      table.enum('role', ['ADMIN', 'MODERATOR', 'USER'])
       table.boolean('active')
       table.string('remember_me_token').nullable()
 

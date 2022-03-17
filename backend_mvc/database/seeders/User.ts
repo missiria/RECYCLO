@@ -8,12 +8,35 @@ export default class UserSeeder extends BaseSeeder {
         email: 'missiria@gmail.com',
         phone: '0656560552',
         password: 'c++',
+        role: 'ADMIN',
         active: true
       },
       {
         email: 'amine@gmail.com',
         phone: '0656560552',
         password: 'p@ssword',
+        role: 'ADMIN',
+        active: true
+      },
+      {
+        email: 'youssef@gmail.com',
+        phone: '066262626262',
+        password: 'p@ssword',
+        role: 'ADMIN',
+        active: false
+      },
+      {
+        email: 'salem@gmail.com',
+        phone: '066161616161',
+        password: '321321321',
+        role: 'MODERATOR',
+        active: true
+      },
+      {
+        email: 'hassan@gmail.com',
+        phone: '066161616161',
+        password: '321321321',
+        role: 'USER',
         active: true
       }
     ])
