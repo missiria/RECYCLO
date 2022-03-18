@@ -13,14 +13,9 @@ import useAxios from '../../../../../Manager/services/api.service'
 
 const initialValues = {
   email: '',
-  first_name: '',
-  last_name: '',
-  type: '',
+  role: '',
   phone: '',
-  zipcode: '',
-  address: '',
-  country: 'Maroc',
-  city: 'Agadir',
+  password: ''
 }
 
 const createUserSchema = Yup.object().shape({
@@ -114,7 +109,7 @@ const Create: FC = () => {
                       <Select
                         label='Role'
                         name='role'
-                        options={SETTINGS.account_type}
+                        options={SETTINGS.roles}
                         validation={formik}
                       />
                     </div>

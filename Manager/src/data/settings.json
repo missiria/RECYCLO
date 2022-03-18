@@ -10,18 +10,18 @@
       "value": "COLLECTOR"
     }
   ],
-  "account_categories": [
+  "roles": [
     {
-      "id": "1",
-      "value": "Revendeur"
+      "id": "ADMIN",
+      "value": "Administrator"
     },
     {
-      "id": "2",
-      "value": "Passage"
+      "id": "MODERATOR",
+      "value": "Modérateur"
     },
     {
-      "id": "3",
-      "value": "Monopole"
+      "id": "USER",
+      "value": "Utilisateur"
     }
   ],
   "contact_positions": [
