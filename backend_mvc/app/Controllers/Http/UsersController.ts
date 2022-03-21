@@ -5,11 +5,11 @@ import UserForm from 'App/Validators/UserFormValidator'
 
 export default class UsersController {
   public async login({ auth, request, response }) {
-    const email = request.input('email')
+    const phone = request.input('phone')
     const password = request.input('password')
 
     // Lookup user manually
-    const user = await User.query().where('email', email).where('active', 1).firstOrFail()
+    const user = await User.query().where('phone', phone).where('active', 1).firstOrFail()
 
     // Verify password
     if (!(await Hash.verify(user.password, password))) {
