@@ -37,6 +37,7 @@ Route.group(() => {
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
+  Route.resource('collects', 'CollectsController').apiOnly()
 
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
