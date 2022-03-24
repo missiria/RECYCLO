@@ -1,4 +1,4 @@
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import { schema } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class NotificationFormValidator {
@@ -25,7 +25,7 @@ export default class NotificationFormValidator {
    */
   public schema = schema.create(
     {
-      note: schema.string({}, rules.minLength(10)),
+      note: schema.string(),
       type: schema.enum(['DECLARATION', 'MESSAGE', 'PAYMENT', 'POINT', 'UPDATE']),
       status: schema.enum(['READ', 'UNREAD'])
     }

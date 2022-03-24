@@ -13,7 +13,7 @@ export default class UserSeeder extends BaseSeeder {
       },
       {
         email: 'amine@gmail.com',
-        phone: '0656560552',
+        phone: '0691987003',
         password: 'p@ssword',
         role: 'ADMIN',
         active: true
