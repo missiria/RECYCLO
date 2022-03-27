@@ -1,3 +1,6 @@
+import { extname } from 'path'
+import Route from '@ioc:Adonis/Core/Route'
+import Drive from '@ioc:Adonis/Core/Drive';
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -18,16 +21,28 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({auth}) => {
   await auth.use('web').check();
   if ( auth.use('web').isAuthenticated ) {
     return { hello: 'Connected !' }
   } else {
-    return { hello: "HackerZ !!!" }
+    const url = await Drive.getUrl('collects/ci_1.png')
+    return url;
+    // return { hello: "HackerZ !!!" }
   }
 })
+
+// Route.get('/uploads/*', async ({ request, response }) => {
+//   const location = request.param('*').join('/')
+
+//   const { size } = await Drive.getStats(location)
+
+//   response.type(extname(location))
+//   response.header('content-length', size)
+
+//   return response.stream(await Drive.getStream(location))
+// })
 
 // Users, Accounts, Donations, Recharges
 Route.group(() => {

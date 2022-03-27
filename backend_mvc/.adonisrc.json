@@ -26,5 +26,8 @@
   ],
   "aceProviders": [
     "@adonisjs/repl"
-  ]
+  ],
+  "directories": {
+    "public": "./uploads"
+  }
 }

@@ -14,10 +14,22 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
-  public phone?: number | string
+  public first_name: string
+
+  @column()
+  public last_name: string
+
+  @column()
+  public phone: number | string
+
+  @column()
+  public is_verified: boolean
 
   @column()
   public role: string
+
+  @column()
+  public type: string
 
   @column()
   public active: boolean
