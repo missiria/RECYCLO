@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'
-import { column, hasOne, HasOne, computed, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, hasOne, HasOne, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
@@ -8,12 +8,6 @@ export default class Account extends BaseModel {
 
   @column()
   public user_id: number
-
-  @column()
-  public first_name: string
-
-  @column()
-  public last_name: string
 
   @column()
   public gender: string
@@ -47,11 +41,6 @@ export default class Account extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @computed()
-  public get fullName() {
-    return `${this.first_name} ${this.last_name}`
-  }
 
   @hasOne(() => User)
   public users: HasOne<typeof User>

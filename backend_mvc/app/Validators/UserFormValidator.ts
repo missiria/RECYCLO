@@ -47,5 +47,7 @@ export default class UserFormValidator {
    * }
    *
    */
-  public messages = {}
+  public messages = {
+    unique: 'The {{ field }} is already an account'
+  }
 }

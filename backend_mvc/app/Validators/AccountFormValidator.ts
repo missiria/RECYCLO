@@ -24,20 +24,14 @@ export default class AccountFormValidator {
    *    ```
    */
   public schema = schema.create({
-    first_name: schema.string({}, [rules.minLength(3)]),
-    last_name: schema.string({}, [rules.minLength(3)]),
-    gender: schema.number(),
-    // gender: schema.enum(['FEMALE', 'MALE']),
-    type: schema.number(),
-    // type: schema.enum(['COLLECTOR', 'WORKER']),
+    gender: schema.enum(['FEMALE', 'MALE']),
     avatar: schema.string.optional({}, [rules.minLength(4)]),
     address: schema.string({}, [rules.minLength(10)]),
     city: schema.string({}, [rules.minLength(4)]),
     country: schema.string({}, [rules.minLength(4)]),
     nationality: schema.string({}, [rules.minLength(4)]),
     society_id: schema.string(),
-    zip_code: schema.number(),
-    phone: schema.string({}, [rules.mobile()]),
+    zip_code: schema.number()
   })
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
