@@ -17,7 +17,10 @@ export default class UsersController {
     }
 
     // Create session
-    return await auth.use('web').login(user)
+    const logged_user = await auth.use('web').login(user)
+
+    // Create cookie
+    return response.cookie('user', logged_user)
   }
 
   public async logout({ auth, response }) {

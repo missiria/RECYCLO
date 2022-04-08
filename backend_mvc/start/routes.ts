@@ -22,14 +22,14 @@ import Drive from '@ioc:Adonis/Core/Drive';
 */
 
 
-Route.get('/', async ({auth}) => {
+Route.get('/', async ({auth, request}) => {
   await auth.use('web').check();
   if ( auth.use('web').isAuthenticated ) {
-    return { hello: 'Connected !' }
+    return request.cookie('user', [])
   } else {
-    const url = await Drive.getUrl('collects/ci_1.png')
-    return url;
-    // return { hello: "HackerZ !!!" }
+    // const url = await Drive.getUrl('collects/ci_1.png')
+    // return url;
+    return { hello: "HackerZ !!!" }
   }
 })
 
