@@ -56,4 +56,5 @@ Route.group(() => {
 
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
+  Route.post('/users/auth', 'UsersController.auth').as('users.auth')
 }).prefix('/api/v1')

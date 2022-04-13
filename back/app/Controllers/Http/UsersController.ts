@@ -32,6 +32,10 @@ export default class UsersController {
 
   }
 
+  public auth({request}) {
+    return request.cookie('user', [])
+  }
+
   public async logout({ auth, response }) {
     await auth.use('web').check()
     if (auth.use('web').isAuthenticated) {
