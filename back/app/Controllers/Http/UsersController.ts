@@ -9,18 +9,27 @@ export default class UsersController {
     const password = request.input('password')
 
     // Lookup user manually
-    const user = await User.query().where('phone', phone).where('active', 1).firstOrFail()
+    const user = await User.query().where('phone', phone).where('active', 1).first()
 
-    // Verify password
-    if (!(await Hash.verify(user.password, password))) {
-      return response.badRequest('Invalid credentials')
+    if ( user ) {
+
+      // Verify password
+      if (!(await Hash.verify(user.password, password))) {
+        return response.badRequest('Invalid credentials')
+      }
+
+      // Create session
+      const logged_user = await auth.use('web').login(user)
+
+      // Create cookie
+      response.cookie('user', logged_user)
+
+      // Return user data
+      return request.cookie('user', [])
+    } else {
+      return {user: "Doesn't exist in our application!"}
     }
 
-    // Create session
-    const logged_user = await auth.use('web').login(user)
-
-    // Create cookie
-    return response.cookie('user', logged_user)
   }
 
   public async logout({ auth, response }) {

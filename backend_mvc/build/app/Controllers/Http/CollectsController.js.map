@@ -1,1 +1,0 @@
-{"version":3,"file":"CollectsController.js","sourceRoot":"","sources":["../../../../app/Controllers/Http/CollectsController.ts"],"names":[],"mappings":";;;;;AAEA,uFAAwC;AAExC,MAAqB,kBAAkB;IAC9B,KAAK,CAAC,KAAK,CAAC,EAAE,QAAQ,EAAE;QAC7B,MAAM,QAAQ,GAAG,MAAM,iBAAO,CAAC,GAAG,EAAE,CAAA;QACpC,OAAO,QAAQ,CAAC,EAAE,CAAC,QAAQ,CAAC,CAAA;IAC9B,CAAC;CACF;AALD,qCAKC"}
