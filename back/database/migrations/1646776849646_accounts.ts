@@ -3,15 +3,11 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class Accounts extends BaseSchema {
   protected tableName = 'accounts'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
 
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('users.id')
-        .onDelete('CASCADE') // delete post when user is deleted
+      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE') // delete post when user is deleted
 
       table.unique(['user_id'])
 
@@ -20,7 +16,14 @@ export default class Accounts extends BaseSchema {
       table.string('society_id', 11)
       table.enum('gender', ['FEMALE', 'MALE'])
       table.enum('type', ['COLLECTOR', 'WORKER'])
+
+      // TODO : Edit profile
       table.string('avatar', 255)
+
+      table.enum('type_verification', ['PERMIT', 'CARTE'])
+      table.string('front_verification_path', 255)
+      table.string('back_verification_path', 255)
+
       table.string('address', 255)
       table.string('city', 255)
       table.string('country', 255)
@@ -35,7 +38,7 @@ export default class Accounts extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

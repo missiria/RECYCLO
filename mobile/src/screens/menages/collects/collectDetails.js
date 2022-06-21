@@ -1,0 +1,420 @@
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+  Alert,
+  TextInput,
+} from "react-native";
+import React, { useState } from "react";
+import FooterNav from "../navigations/FooterNav";
+import Unorderedlist from "react-native-unordered-list";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import Icon from 'react-native-vector-icons/Entypo'
+
+import deshetImg from '../../../assets/images/t.png'
+import coinImg from '../../../assets/images/coin.png';
+import i18n from "i18next";
+
+export default function CategoryDetails({ navigation }) {
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState("Sélectionner la date");
+  const [timeDeclary, setTimeDeclary] = useState("9 AM - 12 PM");
+  const [quantity, setQuantity] = useState(5);
+
+  // TODO : Use moment library to get months
+  const months = [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembr",
+    "Décembre",
+  ];
+  const days = [
+    "Dimanche",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+  ];
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+    let tempDate = new Date(currentDate);
+    let fDate =
+      days[tempDate.getDay()] +
+      "," +
+      tempDate.getDate() +
+      " " +
+      months[tempDate.getMonth()];
+    setText(fDate);
+  };
+
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const Data = [
+    {
+      id: 1,
+      text: "Bouteilles d'huile",
+    },
+    {
+      id: 2,
+      text: "Sacs et emballages",
+    },
+    {
+      id: 3,
+      text: "Pots de yaourts, etc....",
+    },
+  ];
+
+  //declarer button function
+  const declaryDeshet = () => {
+    Alert.alert(" You Chose Date : " + text + " At : " + timeDeclary);
+  };
+
+  //check if the quantity is less than 5 and return error
+  if (quantity < 5) {
+    Alert.alert("You Must Declare at least 5 Kg");
+    setQuantity(5);
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View>
+          <View>
+            <Image
+              style={styles.HeaderImage}
+              source={deshetImg}
+            />
+          </View>
+          <View style={styles.countBox}>
+            <View>
+              <Text style={styles.countTitle}>Plastique</Text>
+            </View>
+            <View style={styles.rightCountBox}>
+              <Text style={styles.theCount}>50</Text>
+              <Image
+                style={styles.CoinImg}
+                source={coinImg}
+              />
+            </View>
+          </View>
+          <View style={styles.theDescriptionBox}>
+            <Text style={styles.priceText}>
+              Prix
+            </Text>
+            <Text style={styles.priceAswerText}>
+              2 Dh / kg
+            </Text>
+          </View>
+          <View style={styles.textBoxDescition}>
+            <Text>Toutes sortes de plastique usagée :</Text>
+            <View style={styles.textDescLists}>
+              {Data.map((list) => {
+                return (
+                  <Text key={list.id}>
+                    <Unorderedlist>
+                      <Text>{list.text}</Text>
+                    </Unorderedlist>
+                  </Text>
+                );
+              })}
+            </View>
+          </View>
+          <View>
+            <View>
+              <Text style={styles.textTitleDayYopONE}>Planifier votre ramassage</Text>
+              <Text onPress={showDatepicker} style={styles.currentDate}>
+                {text}
+              </Text>
+              {show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={mode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChange}
+                />
+              )}
+              <Text style={styles.textTitleDay}>
+                {i18n.t("menageCollectDetails.description-aswer")}
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Text
+              style={
+                timeDeclary === "9 AM - 12 PM"
+                  ? styles.chosedTheTime
+                  : styles.choseTheTime
+              }
+              onPress={() => setTimeDeclary("9 AM - 12 PM")}
+            >
+              9 AM - 12 PM
+            </Text>
+            <Text
+              style={
+                timeDeclary === "12 PM - 3 PM"
+                  ? styles.chosedTheTime
+                  : styles.choseTheTime
+              }
+              onPress={() => setTimeDeclary("12 PM - 3 PM")}
+            >
+              12 PM - 3 PM
+            </Text>
+            <Text
+              style={
+                timeDeclary == "3 PM - 6 PM"
+                  ? styles.chosedTheTime
+                  : styles.choseTheTime
+              }
+              onPress={() => setTimeDeclary("3 PM - 6 PM")}
+            >
+              3 PM - 6 PM
+            </Text>
+            <Text
+              style={
+                timeDeclary == "6 PM - 9 PM"
+                  ? styles.chosedTheTime
+                  : styles.choseTheTime
+              }
+              onPress={() => setTimeDeclary("6 PM - 9 PM")}
+            >
+              6 PM - 9 PM
+            </Text>
+            <View style={styles.quantityBox}>
+              <Text style={styles.textTitleDay}>Quantité ({quantity} Kg)</Text>
+              <View style={styles.quantity}>
+                <Icon
+                  style={styles.minusCount}
+                  onPress={() => setQuantity(quantity - 1)}
+                  name="squared-minus"
+                />
+                <TextInput
+                  style={styles.quantityField}
+                  keyboardType="numeric"
+                  value={quantity.toString()}
+                  onChangeText={(text) => setQuantity(text)}
+                />
+                <Icon
+                  style={styles.plusCount}
+                  onPress={() => setQuantity(quantity + 1)}
+
+                  name="squared-plus"
+                />
+              </View>
+            </View>
+            <Text style={styles.textBottom}>
+            {i18n.t("menageCollectDetails.description-term")}
+            </Text>
+          </View>
+          <View style={styles.btnBoxDec}>
+            <Text
+              // onPress={() => navigation.navigate("DeclarationSuccess")}
+              onPress={() => navigation.navigate("UploadImages")}
+              style={styles.btnDeclar}
+            >
+              {i18n.t("introduction.next")}
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+      <FooterNav navigation={navigation} />
+    </SafeAreaView>
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  quantityBox: {
+    marginTop: 20,
+  },
+  minusCount: {
+    fontSize: 25,
+    color: "#D9D9D9",
+    marginRight: 10,
+  },
+  plusCount: {
+    fontSize: 25,
+    color: "#33CC66",
+    marginLeft: 10,
+  },
+  quantityField: {
+    width: 80,
+    height: 45,
+    borderColor: "#D9D9D9",
+    borderWidth: 1,
+    borderRadius: 5,
+    textAlign: "center",
+    color: "#262626",
+  },
+  priceText : {
+    color: "#262626",
+  },
+  priceAswerText : {
+    color: "#262626",
+  },
+  textTitleDayYopONE : {
+    color: "#262626",
+    display:'none'
+  },
+  quantity: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+  textBottom: {
+    marginTop: 36,
+    textAlign: "center",
+    marginHorizontal: 20,
+    fontWeight: "600",
+  },
+  btnBoxDec: {
+    backgroundColor: "white",
+    marginTop: 50,
+    paddingBottom: 27,
+    paddingTop: 27,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
+  },
+  btnDeclar: {
+    textAlign: "center",
+    backgroundColor: "#33CC66",
+    borderRadius: 6,
+    marginHorizontal: 35,
+    fontWeight: "bold",
+    padding: 15,
+    color: "white",
+  },
+  choseTheTime: {
+    textAlign: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 6,
+    marginHorizontal: 35,
+    marginTop: 15,
+    fontWeight: "bold",
+    color: "black",
+  },
+  chosedTheTime: {
+    textAlign: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#33CC66",
+    borderRadius: 6,
+    marginHorizontal: 35,
+    marginTop: 15,
+    backgroundColor: "#33CC66",
+    color: "white",
+    fontWeight: "bold",
+  },
+  HeaderImage: {
+    width: "100%",
+  },
+  countBox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 15,
+  },
+  rightCountBox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  countTitle: {
+    fontSize: 18,
+    color: "black",
+    fontWeight: "bold",
+  },
+  theCount: {
+    marginRight: 10,
+    fontWeight: "bold",
+    color: "black",
+    fontSize: 15,
+  },
+  theDescriptionBox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+  },
+  theDescriptionBoxItemLeft: {
+    backgroundColor: "#F9B701",
+    color: "white",
+    borderRadius: 50,
+    padding: 5,
+    paddingHorizontal: 10,
+    fontWeight: "bold",
+  },
+  theDescriptionBoxItemRight: {
+    backgroundColor: "#33CC66",
+    color: "white",
+    borderRadius: 50,
+    padding: 5,
+    paddingHorizontal: 10,
+    fontWeight: "bold",
+  },
+  textBoxDescition: {
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: "#F6F6F6",
+    marginTop: 20,
+    marginHorizontal: 15,
+  },
+  textDescLists: {
+    marginTop: 20,
+  },
+  textTitleDay: {
+    textAlign: "center",
+    fontSize: 14,
+    marginTop: 20,
+    color:'black',
+    fontWeight: "bold",
+  },
+  currentDate: {
+    textAlign: "center",
+    fontWeight: "bold",
+    marginTop: 15,
+    fontSize: 20,
+  },
+});

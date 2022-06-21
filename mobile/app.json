@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Recycloo",
+    "slug": "Recycloo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "",
+    "splash": {
+      "image": "",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./src/assets/images/favicon.png"
+    },
+    "description": ""
+  }
+}

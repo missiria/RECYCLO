@@ -1,0 +1,157 @@
+{
+    "home": "الصفحة الرئيسية",
+    "hello": "مرحبا",
+    "langs": {
+        "fr": "الفرنسية",
+        "ar": "العربية"
+    },
+    "langues": {
+        "select": "الرجاء التحديد",
+        "choice-lang": "اختر اللغة",
+        "choice-lang-paragraph": "الرجاء اختيار اللغة التي تريدها"
+    },
+    "welcome": {
+        "hello": "مرحبا!",
+        "register": "انضم إلينا",
+        "start": "يبدأ"
+    },
+    "login": {
+        "phone": "هاتف",
+        "email": "بريد الالكتروني",
+        "password": "كلمة السر",
+        "sign_in": "تسجيل الدخول",
+        "sign_up": "إنشاء حساب",
+        "forget_password": "نسيت رقمك السري؟",
+        "need_account": "لا تملك حسابا حتى الآن؟",
+        "bottom_text": "من خلال إنشاء حساب أو تسجيل الدخول إليه ، فإنك توافق على “ الشروط والأحكام ” و “بيان الخصوصية” الخاص بنا.",
+        "congratulation": "تهنئة!",
+        "your-number-phone-is-verified": "تم التحقق من رقم هاتفك بنجاح!",
+        "first_name": "الاسم الأول",
+        "last_name": "اسم",
+        "sign_up_text_bottom": "من خلال إنشاء حساب أو تسجيل الدخول إليه ، فإنك توافق على “الشروط والأحكام” و “بيان الخصوصية” الخاص بنا."
+    },
+    "introduction": {
+        "finished": "انتهى",
+        "next": "التالي"
+    },
+    "historic": {
+        "estimate_value": "Valeur estimée",
+        "withdraw_money": "Retirer De L'argent"
+    },
+    "collects": {
+        "title": "فئات النفايات",
+        "subtitle": "انقر للإعلان عن نفاياتك",
+        "other": "الآخرين"
+    },
+    "onboardingScreenOne": {
+        "title": "إعادة التدوير",
+        "subtitle": "أكسب نقاطًا ونقودًا مقابل كل المواد القابلة لإعادة التدوير!"
+    },
+    "onboardingScreenTwo": {
+        "title": "تدوير البلاستيك",
+        "subtitle": "خدمتنا جمع النفايات الخاصة بك!"
+    },
+    "onboardingScreenThree": {
+        "title": "حماية البيئة",
+        "subtitle": "شاركنا في حماية كوكبنا وبيئتنا حماية الكوكب تبدأ بك!"
+    },
+    "homeManage": {
+        "search_placeholder": "قم بتحديد موقعك"
+    },
+    "menageNavigationFooter": {
+        "home": "الرئيسية",
+        "orders": "طلباتي",
+        "wallet": "محفظتي",
+        "message": "رسائل"
+    },
+    "menageCollectDetails" : {
+        "description-aswer" : "قم بتحديد الوقت الذي يناسبك من أجل جمع النفايات المنزلية",
+        "description-term" : "لا يمكنك التصريح حتى تصل إلى 10 كيلوغرام على الأقل!"
+    },
+    "menageUploadImage" : {
+        "desc" : "إضافة الصورة",
+        "via-camera" : "التقاط صورة",
+        "via-gallery" : "معرض الصور والفيديو",
+        "cancel" : "إلغاء",
+        "buttonConfirm" : "تأكيد"
+    },
+    "menageDemend" : {
+        "cancel" : "إلغاء",
+        "details" : "التفاصيل",
+        "total" : "المجموع بالنقاط",
+        "wait" : "في طور الإنتظار",
+        "type" : "النوع",
+        "qty" : "الكمية",
+        "price" : "السعر",
+        "dh-total" : "المجموع بالدرهم",
+        "dh" : "درهم",
+        "confirm" : " تأكيد",
+        "delete" : "حذف",
+        "edit" : "تعديل",
+        "client" : "العميل",
+        "fraiOfTransition" : "رسوم التحويل",
+
+        "notReady" : "غير جاهزة للاستلام",
+        "startWay" : "بدأ الطريق",
+
+        "modalSubtitle" : "هل تريد تأكيد هذا الطلب؟",
+        "modalYes" : "نعم",
+        "modalNo" : "لا",
+
+        "inProgress" : "جاريــة",
+        "accepted" : "مقبولة",
+        "finished" : "منتهية",
+        "canceled" : "ملغية"
+    },
+
+    "wallet" : {
+        "transaction" : "المعاملات",
+        "avis" : "إشعارات بالسحب",
+
+        "retrait" : "سجل السحب",
+        "avis-ret-ob" : "إشعار بالسحب ",
+        "dh" : "درهم",
+        "via-gechet" : "سحب عن طريق الصراف الإلكتروني",
+        "via_app" : "سحب عن طريق بطاقة ائتمانية",
+        "code-of-retrait" : "رمز السحب الخاص بي",
+        "copie" : "نسخ",
+        "cancel" : "إلغاء",
+        "end-date" : "ستنتهي صلاحية طلب السحب الخاص بك في",
+
+
+        "getMony" : "سحب",
+        "recharge" : "تعبئة الهاتف",
+        "donate" : "تبرع"
+    },
+
+    "profile" : {
+        "edit_profile" : "تعديل المعطيات الشخصية",
+        "language" : "اللغات",
+        "payment_method" : "طريقة الدفع",
+        "q&a" : "تساؤلات",
+        "suport" : "مساعدة",
+        "inviteFrient" : "دعوة أصدقاء",
+        "logout" : "تسجيل الخروج",
+
+        "copyright" : "حقوق الطبع والنشر 2022 Recycloo . جميع الحقوق محفوظة"
+    },
+
+
+    "collectorfooterNavigation" : {
+        "home" : "الرئيسية",
+        "orders" : "طلباتي",
+        "wallet" : "محفظتي"
+    },
+    
+    "collectorOrderTab" : {
+        "inProgress" : "جاريــــــة",
+        "accept" : "مقبولة",
+        "finished" : "انتهىت",
+        "canceld" : "ملغات"
+    },
+    "collectorWallet" : {
+        "deposer" : "إيداع الأموال",
+        "retirer" : "سحب الأموال",
+        "chart" : "إحصائيات"
+    }
+}

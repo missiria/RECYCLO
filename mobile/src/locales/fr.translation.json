@@ -1,0 +1,157 @@
+{
+    "home": "Accueil",
+    "hello": "Salut",
+    "langs": {
+        "fr": "Français",
+        "ar": "Arabic"
+    },
+    "langues": {
+        "select": "sélectionner",
+        "choice-lang": "Choisissez la langue",
+        "choice-lang-paragraph": "Veuillez choisir la langue qui vous plaît"
+    },
+    "welcome": {
+        "hello": "Salut!",
+        "register": "Rejoignez-nous",
+        "start": "Commencer"
+    },
+    "login": {
+        "phone": "téléphone",
+        "email": "Email",
+        "password": "Mot de passe",
+        "sign_in": "Connexion",
+        "sign_up": "S'inscrire",
+        "forget_password": "Mot de passe oublié?",
+        "need_account": "Vous n'avez pas encore de compte?",
+        "already_registered": "Vous avez déjà un compte?",
+        "congratulation": "Félicitations!",
+        "bottom_text": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité.!",
+        "your-number-phone-is-verified": "Votre numéro de téléphone a été vérifié avec succès!",
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "sign_up_text_bottom": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité."
+    },
+    "introduction": {
+        "finished": "Terminé",
+        "next": "Suivante"
+    },
+    "historic": {
+        "estimate_value": "Valeur estimée",
+        "withdraw_money": "Retirer De L'argent"
+    },
+    "collects": {
+        "title": "Catégories de déchets",
+        "subtitle": "cliquez pour déclarer vos déchets",
+        "other": "Autres"
+    },
+    "onboardingScreenOne": {
+        "title": "Recyclage",
+        "subtitle": "Gagnez des points pour chaque contribution et gagnez de l'argent pour les matières recyclables!"
+    },
+    "onboardingScreenTwo": {
+        "title": "Zéro plastique",
+        "subtitle": "La collecte de vos déchets est notre métier!"
+    },
+    "onboardingScreenThree": {
+        "title": "Protéger l'environnement",
+        "subtitle": "Réduire votre impact sur l'environnement!"
+    },
+    "homeManage": {
+        "search_placeholder": "Sélectionnez votre location"
+    },
+    "menageNavigationFooter": {
+        "home": "Principal",
+        "orders": "Mes demandes",
+        "wallet": "Portefeuille",
+        "message": "Messages"
+    },
+    "menageCollectDetails" : {
+        "description-aswer" : "Je veux que le collecteur arrive entre",
+        "description-term" : "Vous ne pouvez pas nous déclarer vos déchets, jusqu'à ce que vous atteigniez 10 kgs au minimum"
+    },
+    "menageUploadImage" : {
+        "desc" : "Ajoutez des images",
+        "via-camera" : "Prendre une photo",
+        "via-gallery" : "Galerie photo",
+        "cancel" : "Annulation",
+        "buttonConfirm" : "Confirmer"
+    },
+    "menageDemend" : {
+        "cancel" : "Annuler",
+        "details" : "Détails",
+        "total" : "Totale en points",
+        "wait" : "En attente",
+        "type" : "Type",
+        "qty" : "Quantité",
+        "price" : "Prix",
+        "dh-total" : "Total en dirhams",
+        "dh" : "Dirhams",
+        "confirm" : "Confirmer",
+        "delete" : "Supprimer",
+        "edit" : "Modifier",
+        "client" : "Client",
+        "fraiOfTransition" : "Frais de transaction",
+
+        "notReady" : "pas prêt à ramasser",
+        "startWay" : "Prendre la route",
+
+        "modalSubtitle" : "Voulez-vous confirmer cette demande ?",
+        "modalYes" : "oui",
+        "modalNo" : "Non",
+
+        "inProgress" : "En cours",
+        "accepted" : "Accepté",
+        "finished" : "Terminé",
+        "canceled" : "Annulé"
+    },
+
+    "wallet" : {
+        "transaction" : "Transactions",
+        "avis" : "Avis de retrait",
+        "retrait" : "Mes retraits",
+
+        "avis-ret-ob" : "Avis de retrait ",
+        "dh" : "Dh",
+        "via-gechet" : "Retrait via guichet électronique",
+        "via_app" : "Retrait via app bancaire",
+        "code-of-retrait" : "Mon code de paiement",
+        "copie" : "Copier",
+        "cancel" : "Annuler",
+        "end-date" : "Votre demande de retrait expire dans ",
+
+        "getMony" : "Retirer",
+        "recharge" : "Recharger",
+        "donate" : "Donner"
+    },
+
+    "profile" : {
+        "edit_profile" : "Modifier Mon profil",
+        "language" : "Langues",
+        "payment_method" : "Mode de paiement",
+        "q&a" : "FAQs",
+        "suport" : "Support",
+        "inviteFrient" : "Inviter des amis",
+        "logout" : "Déconnexion",
+
+        "copyright" : "Copyrignt 2022 Recycloo. tous droits réservés"
+    },
+
+    "collectorfooterNavigation" : {
+        "home" : "Principal",
+        "orders" : "Mes Ordres",
+        "wallet" : "Portefeuille"
+    },
+
+    "collectorOrderTab" : {
+        "inProgress" : "En cours",
+        "accept" : "Accepté",
+        "finished" : "Terminé",
+        "canceld" : "Annulé"
+    },
+    "collectorWallet" : {
+        "deposer" : "Déposer",
+        "retirer" : "Retirer",
+        "chart" : "Statistiques"
+    }
+
+}

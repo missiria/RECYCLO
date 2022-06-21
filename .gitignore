@@ -102,3 +102,15 @@ dist
 
 # TernJS port file
 .tern-port
+
+mobile/node_modules
+./mobile/node_modules
+/mobile/node_modules
+
+mobile/.expo/web/cache
+./mobile/.expo/web/cache
+/mobile/.expo/web/cache
+
+mobile/src/api/bootstrap.js
+./mobile/src/api/bootstrap.js
+/mobile/src/api/bootstrap.js
