@@ -18,14 +18,11 @@ export default class UsersController {
         return response.badRequest('Invalid credentials')
       }
 
-      // Create session
-      const logged_user = await auth.use('web').login(user)
+      // Create token
+      return await auth.use('api').generate(user, {
+        expiresIn: '90days'
+      }))
 
-      // Create cookie
-      response.cookie('user', logged_user)
-
-      // Return user data
-      return request.cookie('user', [])
     } else {
       return {user: "Doesn't exist in our application!"}
     }

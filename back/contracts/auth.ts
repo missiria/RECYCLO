@@ -8,18 +8,6 @@
 import User from 'App/Models/User'
 
 declare module '@ioc:Adonis/Addons/Auth' {
-  /*
-  |--------------------------------------------------------------------------
-  | Providers
-  |--------------------------------------------------------------------------
-  |
-  | The providers are used to fetch users. The Auth module comes pre-bundled
-  | with two providers that are `Lucid` and `Database`. Both uses database
-  | to fetch user details.
-  |
-  | You can also create and register your own custom providers.
-  |
-  */
   interface ProvidersList {
     user: {
       implementation: LucidProviderContract<typeof User>
@@ -30,7 +18,6 @@ declare module '@ioc:Adonis/Addons/Auth' {
       config: LucidProviderConfig<typeof App>,
     }
   }
-
   interface GuardsList {
     web: {
       implementation: SessionGuardContract<'user', 'web'>
