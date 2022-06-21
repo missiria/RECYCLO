@@ -6,8 +6,6 @@ export default class AccountSeeder extends BaseSeeder {
     await Account.createMany([
       {
         user_id: 1,
-        first_name: 'Younes',
-        last_name: 'DOE',
         gender: 'MALE',
         type: 'COLLECTOR',
         address: "lorem ipsum",
@@ -19,8 +17,6 @@ export default class AccountSeeder extends BaseSeeder {
       },
       {
         user_id: 2,
-        first_name: 'Amine',
-        last_name: 'DOE',
         gender: 'MALE',
         type: 'COLLECTOR',
         address: "lorem ipsum",
