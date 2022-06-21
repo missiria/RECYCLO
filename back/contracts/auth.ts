@@ -21,52 +21,24 @@ declare module '@ioc:Adonis/Addons/Auth' {
   |
   */
   interface ProvidersList {
-    /*
-    |--------------------------------------------------------------------------
-    | User Provider
-    |--------------------------------------------------------------------------
-    |
-    | The following provider uses Lucid models as a driver for fetching user
-    | details from the database for authentication.
-    |
-    | You can create multiple providers using the same underlying driver with
-    | different Lucid models.
-    |
-    */
     user: {
       implementation: LucidProviderContract<typeof User>
       config: LucidProviderConfig<typeof User>
+    },
+    apps: {
+      implementation: LucidProviderContract<typeof App>,
+      config: LucidProviderConfig<typeof App>,
     }
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | Guards
-  |--------------------------------------------------------------------------
-  |
-  | The guards are used for authenticating users using different drivers.
-  | The auth module comes with 3 different guards.
-  |
-  | - SessionGuardContract
-  | - BasicAuthGuardContract
-  | - OATGuardContract ( Opaque access token )
-  |
-  | Every guard needs a provider for looking up users from the database.
-  |
-  */
   interface GuardsList {
-    /*
-    |--------------------------------------------------------------------------
-    | Web Guard
-    |--------------------------------------------------------------------------
-    |
-    | The web guard uses sessions for maintaining user login state. It uses
-    | the `user` provider for fetching user details.
-    |
-    */
     web: {
       implementation: SessionGuardContract<'user', 'web'>
       config: SessionGuardConfig<'user'>
+    },
+    api: {
+      implementation: OATGuardContract<'apps', 'api'>,
+      config: OATGuardConfig<'apps'>,
     }
   }
 }
