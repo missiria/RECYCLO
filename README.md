@@ -15,7 +15,8 @@ Database : MySQL
 > cd back && npm ci
 > cp .env.example .env
 > node ace migration:fresh
-> node ace node ace db:seed
+> node ace db:seed -i  (select user first seeds)
+> node ace db:seed -i  (select others seeds)
 
 # install project mobile
 > cd mobile && npm ci
