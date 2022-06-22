@@ -1,6 +1,8 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
-import AccountForm from 'App/Validators/AccountFormValidator'
+import AccountFormUpdate from 'App/Validators/Accounts/AccountFormUpdateValidator'
+import AccountFormStore from 'App/Validators/Accounts/AccountFormStoreValidator'
+
 export default class AccountsController {
 
   public async index({ response }) {
@@ -21,38 +23,40 @@ export default class AccountsController {
   }
 
   public async store({ request, response }) {
-    const payload: any = await request.validate(AccountForm)
+    const payload: any = await request.validate(AccountFormStore)
 
+    // one user have one account
     const newAccount: Account = await Account.create(payload)
 
     return response.ok(newAccount)
   }
 
-  public async update({ request, params, response }) {
+  public async update({ request, auth, response }) {
 
-    const payload: any = await request.validate( AccountForm )
+    const payload: any = await request.validate( AccountFormUpdate )
 
-    const { user_id } : { user_id: Number } = request.cookie('user')
+    await auth.use('api').check()
+    if(auth.use('api').isAuthenticated)
+    {
+      const user = auth.use('api').user;
+      const account: any = await Account.find(user.id)
 
-    const account: any = await Account.find(user_id)
+      account.gender = payload.gender
+      account.type = payload.type
+      account.society_id = payload.society_id
+      account.avatar = payload.avatar
+      account.address = payload.address
+      account.city = payload.city
+      account.country = payload.country
+      account.nationality = payload.nationality
+      account.zip_code = payload.zip_code
 
-    if (!user_id) {
-      return response.notFound({ message: 'User not found' })
+      await account.save()
+
+      return response.ok(account)
     }
+    return response.forbidden({ error: 'Unauthorized' })
 
-    account.gender = payload.gender
-    account.type = payload.type
-    account.society_id = payload.society_id
-    account.avatar = payload.avatar
-    account.address = payload.address
-    account.city = payload.city
-    account.country = payload.country
-    account.nationality = payload.nationality
-    account.zip_code = payload.zip_code
-
-    await account.save()
-
-    return response.ok(account)
   }
 
   public async destroy({ params, response }) {

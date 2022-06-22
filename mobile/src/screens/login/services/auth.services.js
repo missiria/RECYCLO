@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import apiClient from "../../../api/client";
+import { storeData } from "../../../hooks/hooks";
 
 export const defaultValues = {
   phone: "0656560552",
@@ -15,6 +16,9 @@ export const handleAuth = async (userData, navigation, setErrors) => {
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
+
+        await storeData('user',response.data);
+
         if (response.data.type == "MENAGE") {
           navigation.navigate("Home");
         }

@@ -17,9 +17,10 @@ Database : MySQL
 > node ace migration:fresh
 > node ace db:seed -i  (select user first seeds)
 > node ace db:seed -i  (select others seeds)
+> node ace serve --watch
 
 # install project mobile
-> cd mobile && npm ci
+> cd mobile && npm ci --force
 
 
 Validation :

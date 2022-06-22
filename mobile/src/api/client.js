@@ -1,4 +1,4 @@
-import { API_URL } from "./bootstrap"
+import { API_URL } from "./config"
 import { create } from "apisauce"
 
 const config = {

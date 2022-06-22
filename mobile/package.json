@@ -23,6 +23,7 @@
     "@formatjs/intl-relativetimeformat": "^10.0.0",
     "@mui/material": "^5.5.1",
     "@mui/styled-engine-sc": "^5.4.2",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-clipboard/clipboard": "^1.8.5",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/datetimepicker": "4.0.0",
@@ -37,6 +38,7 @@
     "blinkid-react-native": "^5.16.0",
     "expo": "~44.0.0",
     "expo-camera": "~12.1.2",
+    "expo-image-picker": "~12.0.1",
     "expo-local-authentication": "^12.1.1",
     "expo-location": "~14.0.1",
     "expo-status-bar": "~1.2.0",
@@ -77,8 +79,7 @@
     "recharts": "^2.1.10",
     "styled-components": "^5.3.3",
     "yup": "^0.32.11",
-    "yup-phone": "^1.2.12",
-    "expo-image-picker": "~12.0.1"
+    "yup-phone": "^1.2.12"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

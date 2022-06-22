@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import apiClient from "../../../api/client";
 import { setErrorsAPI } from "../../../services/v12";
+import { getData,storeData } from "../../../hooks/hooks";
 
 export const defaultValues = {
   first_name: "",
@@ -31,6 +32,9 @@ export const handleRegister = async (userData, navigation, setErrors) => {
       setErrors( setErrorsAPI( response.data.errors ) );
     } else if (parseInt(response.data.id) > 0) {
       alert("Veuillez confirmer votre compte par email"); 
+
+      await storeData('user',response.data);
+      
       // cheack if user is a collector
       if (userData.type === "COLLECTOR") {
         navigation.navigate("Adress");

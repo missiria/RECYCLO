@@ -48,13 +48,23 @@ Route.get('/', async ({auth, request}) => {
 Route.group(() => {
 
   Route.resource('users', 'UsersController').apiOnly()
-  Route.resource('accounts', 'AccountsController').apiOnly()
+  //Route.resource('accounts', 'AccountsController').apiOnly()
+
+  Route.get('accounts', 'AccountsController.index')
+  Route.post('accounts', 'AccountsController.store')
+  Route.put('accounts', 'AccountsController.update')
+  Route.delete('accounts', 'AccountsController.destroy')
+
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
   Route.resource('collects', 'CollectsController').apiOnly()
 
+
+
+
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
   Route.post('/users/auth', 'UsersController.auth').as('users.auth')
+
 }).prefix('/api/v1')

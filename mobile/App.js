@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
-import RootStack from "./routes/RootStack";
-import "./locales";
+import RootStack from "./src/routes/RootStack";
+import "./src/locales";
 
 export default function App() {
   return (

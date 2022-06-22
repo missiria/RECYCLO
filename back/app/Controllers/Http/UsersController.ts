@@ -4,29 +4,32 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import UserForm from 'App/Validators/UserFormValidator'
 
 export default class UsersController {
-  public async login({ auth, request, response }) {
+
+  public async login({ auth, request, response })
+  {
     const phone = request.input('phone')
     const password = request.input('password')
 
     // Lookup user manually
-    const user = await User.query().where('phone', phone).where('active', 1).first()
+    const user = await User.query().where('phone', phone).first()
+    //.where('active', 1)
 
     if ( user ) {
-
       // Verify password
       if (!(await Hash.verify(user.password, password))) {
         return response.badRequest('Invalid credentials')
       }
 
       // Create token
-      return await auth.use('api').generate(user, {
+      let token = await auth.use('api').generate(user, {
         expiresIn: '90days'
-      }))
+      })
 
+      let result = {auth:token};
+      return Object.assign(result,user.serialize());
     } else {
       return {user: "Doesn't exist in our application!"}
     }
-
   }
 
   public auth({request}) {
@@ -34,10 +37,22 @@ export default class UsersController {
   }
 
   public async logout({ auth, response }) {
+    /*
     await auth.use('web').check()
     if (auth.use('web').isAuthenticated) {
       return await auth.use('web').logout()
     } else {
+      return response.badRequest('USER/LOGOUT : you credentials')
+    }*/
+    await auth.use('api').check()
+    if(auth.use('api').isAuthenticated)
+    {
+      await auth.use('api').revoke()
+      return {
+        revoked: true
+      }
+    }
+    else {
       return response.badRequest('USER/LOGOUT : you credentials')
     }
   }
@@ -48,12 +63,19 @@ export default class UsersController {
     return response.ok(users)
   }
 
-  public async store({ request, response }) {
+  public async store({ request, auth }) {
 
     const payload: any = await request.validate( UserForm )
     const newUser: User = await User.create( payload )
 
-    return response.ok(newUser)
+    // Create token
+    let token = await auth.use('api').generate(newUser, {
+      expiresIn: '90days'
+    })
+
+    let result = {auth:token};
+    return Object.assign(result,newUser.serialize());
+    //return response.ok(newUser)
   }
 
   public async show({ params, response }) {
