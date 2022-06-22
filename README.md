@@ -11,8 +11,15 @@ Database : MySQL
 - Frameworks : AdonisJS
 - Library : Joi & Express
 
-# Run dev watch
-> node ace serve --watch
+# install project back
+> cd back && npm ci
+> cp .env.example .env
+> node ace migration:fresh
+> node ace node ace db:seed
+
+# install project mobile
+> cd mobile && npm ci
+
 
 Validation :
     Joi : Using reactive native version
