@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import apiClient from "../../../../api/client";
 import {getData,storeData} from "../../../../hooks/hooks";
 
 export const defaultValues = {
@@ -15,13 +16,25 @@ export const handleRegister = async (userData, navigation, setErrors) => {
     // console.log("userData", userData);
     const user = await getData('user');
 
-    
-    const response = await apiClient.post("accounts", {
-
+    apiClient.post("accounts", {
         'city' : userData.city,
         'address' : userData.neighborhood,
+    },{ headers: { 'Authorization': user.auth.type+' '+user.auth.token }}).then((response) => {
+        //console.log('response',response);
+        console.log('response.data',response.data);
+        if(response.data?.errors)
+        {
+            setErrors(response.data.errors);
+            return
+        }
+        else if(response.data?.error){
+            setErrors(response.data.message);
+            return
+        }
+        else
+        {
+            navigation.navigate("ChooseTypeIdentityConfirmation");
+        }
     });
-
-    
-    navigation.navigate("ChooseTypeIdentityConfirmation");
+    //{\"error\":401,\"message\":\"Must be logged in\"}
 };

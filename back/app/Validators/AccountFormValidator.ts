@@ -1,7 +1,7 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class AccountFormStoreValidator {
+export default class AccountFormValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -24,14 +24,14 @@ export default class AccountFormStoreValidator {
    *    ```
    */
   public schema = schema.create({
-    gender: schema.enum(['FEMALE', 'MALE']),
+    gender: schema.enum.optional(['FEMALE', 'MALE']),
     avatar: schema.string.optional({}, [rules.minLength(4)]),
-    address: schema.string({}, [rules.minLength(10)]),
-    city: schema.string({}, [rules.minLength(4)]),
-    country: schema.string({}, [rules.minLength(4)]),
-    nationality: schema.string({}, [rules.minLength(4)]),
-    society_id: schema.string(),
-    zip_code: schema.number()
+    address: schema.string.optional({}, [rules.minLength(10)]),
+    city: schema.string.optional({}, [rules.minLength(4)]),
+    country: schema.string.optional({}, [rules.minLength(4)]),
+    nationality: schema.string.optional({}, [rules.minLength(4)]),
+    society_id: schema.string.optional(),
+    zip_code: schema.number.optional()
   })
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`

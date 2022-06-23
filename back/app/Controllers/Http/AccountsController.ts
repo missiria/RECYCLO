@@ -1,7 +1,6 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
-import AccountFormUpdate from 'App/Validators/Accounts/AccountFormUpdateValidator'
-import AccountFormStore from 'App/Validators/Accounts/AccountFormStoreValidator'
+import AccountForm from 'App/Validators/AccountFormValidator'
 
 export default class AccountsController {
 
@@ -22,40 +21,41 @@ export default class AccountsController {
     return response.ok(account)
   }
 
-  public async store({ request, response }) {
-    const payload: any = await request.validate(AccountFormStore)
+  public async store({ auth,request, response }) {
 
-    // one user have one account
+    const user = auth.use('api').user;
+    const account: any = await Account.findBy('user_id',user.id)
+    if (account) {
+      return response.methodNotAllowed({ message: "Compte deja exist" })
+    }
+
+    const payload: any = await request.validate(AccountForm)
+
+    payload.user_id = user.id
+
     const newAccount: Account = await Account.create(payload)
 
     return response.ok(newAccount)
   }
 
-  public async update({ request, auth, response }) {
+  public async update({ auth,request, response }) {
 
-    const payload: any = await request.validate( AccountFormUpdate )
+    const user = auth.use('api').user;
+    const payload: any = await request.validate( AccountForm )
+    const account: any = await Account.findBy('user_id',user.id)
 
-    await auth.use('api').check()
-    if(auth.use('api').isAuthenticated)
-    {
-      const user = auth.use('api').user;
-      const account: any = await Account.find(user.id)
+    account.gender = payload.gender
+    account.society_id = payload.society_id
+    account.avatar = payload.avatar
+    account.address = payload.address
+    account.city = payload.city
+    account.country = payload.country
+    account.nationality = payload.nationality
+    account.zip_code = payload.zip_code
 
-      account.gender = payload.gender
-      account.type = payload.type
-      account.society_id = payload.society_id
-      account.avatar = payload.avatar
-      account.address = payload.address
-      account.city = payload.city
-      account.country = payload.country
-      account.nationality = payload.nationality
-      account.zip_code = payload.zip_code
+    await account.save()
 
-      await account.save()
-
-      return response.ok(account)
-    }
-    return response.forbidden({ error: 'Unauthorized' })
+    return response.ok(account)
 
   }
 

@@ -29,7 +29,6 @@ Route.group(() => {
 
 }).prefix('/api/v1').middleware('api_auth')
 
-
 // Users, Donations, declarations,Recharges,collects
 Route.group(() => {
 
@@ -52,5 +51,6 @@ Route.group(() => {
 }).prefix('/api/v1')
 
 Route.get('*', async ({response}) => {
-  return response.badRequest({error:400,message:'Bad Request'});
+  return response.accepted({error:400,message:'Bad Request'});
+  //return response.badRequest({error:400,message:'Bad Request'});
 })
