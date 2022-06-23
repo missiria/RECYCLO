@@ -1,6 +1,4 @@
-import { extname } from 'path'
 import Route from '@ioc:Adonis/Core/Route'
-import Drive from '@ioc:Adonis/Core/Drive';
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -21,50 +19,38 @@ import Drive from '@ioc:Adonis/Core/Drive';
 |
 */
 
-
-Route.get('/', async ({auth, request}) => {
-  await auth.use('web').check();
-  if ( auth.use('web').isAuthenticated ) {
-    return request.cookie('user', [])
-  } else {
-    // const url = await Drive.getUrl('collects/ci_1.png')
-    // return url;
-    return { hello: "HackerZ !!!" }
-  }
-})
-
-// Route.get('/uploads/*', async ({ request, response }) => {
-//   const location = request.param('*').join('/')
-
-//   const { size } = await Drive.getStats(location)
-
-//   response.type(extname(location))
-//   response.header('content-length', size)
-
-//   return response.stream(await Drive.getStream(location))
-// })
-
-// Users, Accounts, Donations, Recharges
+// Accounts
 Route.group(() => {
-
-  Route.resource('users', 'UsersController').apiOnly()
-  //Route.resource('accounts', 'AccountsController').apiOnly()
 
   Route.get('accounts', 'AccountsController.index')
   Route.post('accounts', 'AccountsController.store')
   Route.put('accounts', 'AccountsController.update')
   Route.delete('accounts', 'AccountsController.destroy')
 
+}).prefix('/api/v1').middleware('api_auth')
+
+
+// Users, Donations, declarations,Recharges,collects
+Route.group(() => {
+
+  Route.resource('users', 'UsersController').apiOnly()
+
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
   Route.resource('collects', 'CollectsController').apiOnly()
 
+}).prefix('/api/v1')
 
-
+// auth
+Route.group(() => {
 
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
   Route.post('/users/auth', 'UsersController.auth').as('users.auth')
 
 }).prefix('/api/v1')
+
+Route.get('*', async ({response}) => {
+  return response.badRequest({error:400,message:'Bad Request'});
+})
