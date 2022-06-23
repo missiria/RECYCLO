@@ -31,6 +31,15 @@ export default class Account extends BaseModel {
   public nationality: string
 
   @column()
+  public type_verification: string
+
+  @column()
+  public front_verification_path: string
+
+  @column()
+  public back_verification_path: string
+
+  @column()
   public zip_code: number
 
   @column.dateTime({ autoCreate: true })

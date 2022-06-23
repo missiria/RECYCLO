@@ -4,12 +4,12 @@ import { setErrorsAPI } from "../../../services/v12";
 import { getData,storeData } from "../../../hooks/hooks";
 
 export const defaultValues = {
-  first_name: "",
-  last_name: "",
-  phone: "",
-  email: "",
-  password: "",
-  type: "",
+  first_name: "fgsd",
+  last_name: "sdfgsd",
+  phone: "05555555",
+  email: "dsfgsdfg@sdfgsd.ff",
+  password: "dsfgsdfgsdsdf",
+  type: "COLLECTOR",
 };
 
 export const schema = yup.object().shape({

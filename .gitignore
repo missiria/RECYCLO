@@ -103,6 +103,10 @@ dist
 # TernJS port file
 .tern-port
 
+back/uploads/validations
+./back/uploads/validations
+/back/uploads/validations
+
 mobile/node_modules
 ./mobile/node_modules
 /mobile/node_modules

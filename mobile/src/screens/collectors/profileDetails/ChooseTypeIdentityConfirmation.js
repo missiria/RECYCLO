@@ -10,6 +10,7 @@ import {
 import React,{useState} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 export default function ChooseTypeIdentityConfirmation({navigation}) {
     const [selectedIdentity, setSelectedIdentity] = useState("cin");  // cin or permis
 
@@ -72,12 +73,9 @@ export default function ChooseTypeIdentityConfirmation({navigation}) {
 
                     </View>
                     <Text 
-                        onPress={
-                            selectedIdentity === "cin" ? 
-                            () => navigation.navigate('UploadIdentityCin') : null
-                        }
+                        onPress={ () => navigation.navigate('UploadIdentity',{typeIdentity:selectedIdentity})}
                         style={styles.button}>
-                        Suivant
+                        Valider
                     </Text>
                 </View>
             </ScrollView>

@@ -1,9 +1,51 @@
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
+import * as ImagePicker from "expo-image-picker";
+import { handleUpload, schema } from "./services/upload_identity.services";
 
+export default function UploadIdentity({route,navigation}) {
+    const { typeIdentity } = route.params;
+    const [imageRecto, setImageRecto] = useState(null);
+    const [imageVerso, setImageVerso] = useState(null);
+    //typeIdentity
 
-export default function UploadIdentityCin({navigation}) {
+    async function pickImageRecto(e) {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+                base64: true,
+            });
+            if (!result.cancelled) {
+                setImageRecto(result.uri);
+            }
+        } catch (err) {
+            console.log("erro", err);
+            setImageRecto(null)
+        }
+    }
+
+    async function pickImageVerso(e) {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            base64: true,
+            });
+            if (!result.cancelled) {
+                setImageVerso(result.uri);
+            }
+        } catch (err) {
+            console.log("erro", err);
+            setImageVerso(null)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -13,7 +55,7 @@ export default function UploadIdentityCin({navigation}) {
                         source={require('../../../assets/images/uploadIdentity.png')}
                     />
                     <Text style={styles.boldText}>
-                        Ma carte d’identité
+                        {typeIdentity == 'cin'? 'Ma carte d’identité' : 'Ma permis de conduite' }
                     </Text>
                     <Text style={styles.lightText}>
                         Prenez une photo ou téléchargez
@@ -22,6 +64,7 @@ export default function UploadIdentityCin({navigation}) {
                     <View style={styles.boxsCards}>
                         <TouchableOpacity
                             style={styles.uploadCardBox}
+                            onPress={pickImageRecto}
                         >
                             <View style={styles.lftInboxUplaod}>
                                 <Icon
@@ -32,14 +75,17 @@ export default function UploadIdentityCin({navigation}) {
                                     Selectionnez le recto
                                 </Text>
                             </View>
-                            <Icon
-                                style={styles.uploadCheked}
-                                name="checkcircle"
-                            />
+                            { imageRecto && (
+                               <Icon
+                                    style={styles.uploadCheked}
+                                    name="checkcircle"
+                                /> 
+                            )}
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.uploadCardBox}
+                            onPress={pickImageVerso}
                         >
                             <View style={styles.lftInboxUplaod}>
                                 <Icon
@@ -47,13 +93,15 @@ export default function UploadIdentityCin({navigation}) {
                                     name="addfile"
                                 />
                                 <Text style={styles.uploadText}>
-                                    Selectionnez le recto
+                                    Selectionnez le verso
                                 </Text>
                             </View>
-                            <Icon
-                                style={styles.uploadCheked}
-                                name="checkcircle"
-                            />
+                            { imageVerso && (
+                                <Icon
+                                    style={styles.uploadCheked}
+                                    name="checkcircle"
+                                />  
+                            )}
                         </TouchableOpacity>
                     </View>
                     <View style={styles.formatBox}>
@@ -65,17 +113,17 @@ export default function UploadIdentityCin({navigation}) {
                         </Text>
                     </View>
                     <Text 
-                        onPress={() => navigation.navigate("VerifyAccount")}
-                        style={styles.button}>
-                        valider
+                        onPress={() => handleUpload(typeIdentity,imageRecto,imageVerso,navigation) }
+                        style={ ! (imageRecto != null && imageVerso != null) ? styles.buttonDisabled : styles.button}
+                        disabled={ ! (imageRecto != null && imageVerso != null) }
+                        >
+                        Valider
                     </Text>
                 </View>
             </ScrollView>
         </View>
     )
 }
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -147,6 +195,15 @@ const styles = StyleSheet.create({
         marginTop: '15%',
         color: 'white',
         backgroundColor: '#4ECB71',
+        textAlign: 'center',
+        borderRadius: 5,
+        paddingVertical: 15,
+        marginBottom: 20,
+    },
+    buttonDisabled : {
+        marginTop: '15%',
+        color: 'white',
+        backgroundColor: '#C4C4C4',
         textAlign: 'center',
         borderRadius: 5,
         paddingVertical: 15,

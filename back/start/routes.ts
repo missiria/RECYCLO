@@ -22,9 +22,12 @@ import Route from '@ioc:Adonis/Core/Route'
 // Accounts
 Route.group(() => {
 
-  Route.get('accounts', 'AccountsController.index')
+  Route.get('account', 'AccountsController.show')
   Route.post('accounts', 'AccountsController.store')
   Route.put('accounts', 'AccountsController.update')
+
+  Route.post('account/upload_verfication', 'AccountsController.upload_verfication')
+
   Route.delete('accounts', 'AccountsController.destroy')
 
 }).prefix('/api/v1').middleware('api_auth')

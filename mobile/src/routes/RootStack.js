@@ -66,7 +66,7 @@ import DeclarationDetails from '../screens/collectors/declarations/DeclarationDe
 // collector veriefy hes address after register to app
 import Adress from '../screens/collectors/profileDetails/Adress';
 import ChooseTypeIdentityConfirmation from '../screens/collectors/profileDetails/ChooseTypeIdentityConfirmation';
-import UploadIdentityCin from '../screens/collectors/profileDetails/UploadIdentityCin';
+import UploadIdentity from '../screens/collectors/profileDetails/UploadIdentity';
 
 import PayedAlert from '../screens/collectors/declarations/PayedAlert';
 
@@ -479,7 +479,7 @@ const RootStack = () => {
 
                 <Stack.Screen name="Adress" component={Adress} />
                 <Stack.Screen name="ChooseTypeIdentityConfirmation" component={ChooseTypeIdentityConfirmation} />
-                <Stack.Screen name="UploadIdentityCin" component={UploadIdentityCin} />
+                <Stack.Screen name="UploadIdentity" component={UploadIdentity} />
                 <Stack.Screen name="PayedAlert" component={PayedAlert} />
                 <Stack.Screen name="VerifyAccount" component={VerifyAccount} />
                 <Stack.Screen
