@@ -1,5 +1,7 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Account from 'App/Models/Account'
 import User from 'App/Models/User'
+
 import Hash from '@ioc:Adonis/Core/Hash'
 import UserForm from 'App/Validators/UserFormValidator'
 
@@ -24,8 +26,9 @@ export default class UsersController {
       let token = await auth.use('api').generate(user, {
         expiresIn: '90days'
       })
+      let account = await Account.findBy('user_id',user.id)
+      let result = {auth:token,account:account};
 
-      let result = {auth:token};
       return Object.assign(result,user.serialize());
     } else {
       return {user: "Doesn't exist in our application!"}
@@ -66,6 +69,8 @@ export default class UsersController {
   public async store({ request, auth }) {
 
     const payload: any = await request.validate( UserForm )
+    let account_type = payload.type;
+    delete payload.type;
     const newUser: User = await User.create( payload )
 
     // Create token
@@ -73,7 +78,11 @@ export default class UsersController {
       expiresIn: '90days'
     })
 
-    let result = {auth:token};
+    let account = await Account.create({
+      user_id:newUser.id,
+      type:account_type
+    });
+    let result = {auth:token,account:account};
     return Object.assign(result,newUser.serialize());
     //return response.ok(newUser)
   }

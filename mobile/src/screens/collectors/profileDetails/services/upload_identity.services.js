@@ -45,8 +45,7 @@ export const handleUpload = async (typeIdentity,imageRecto,imageVerso,navigation
         }
         else
         {
-            console.log('VerifyAccount');
-            //navigation.navigate("VerifyAccount")
+            navigation.navigate("VerifyAccount")
         }
     });
 

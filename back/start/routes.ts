@@ -22,10 +22,10 @@ import Route from '@ioc:Adonis/Core/Route'
 // Accounts
 Route.group(() => {
 
-  Route.get('account', 'AccountsController.show')
-  Route.post('accounts', 'AccountsController.store')
-  Route.put('accounts', 'AccountsController.update')
+  //Route.post('accounts', 'AccountsController.store')
 
+  Route.get('account', 'AccountsController.show')
+  Route.put('accounts', 'AccountsController.update')
   Route.post('account/upload_verfication', 'AccountsController.upload_verfication')
 
   Route.delete('accounts', 'AccountsController.destroy')
@@ -35,7 +35,10 @@ Route.group(() => {
 // Users, Donations, declarations,Recharges,collects
 Route.group(() => {
 
-  Route.resource('users', 'UsersController').apiOnly()
+  Route.post('users', 'UsersController.store')
+  //Route.resource('users', 'UsersController').apiOnly()
+
+  //Route.resource('users', 'UsersController').apiOnly()
 
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('declarations', 'DeclarationsController').apiOnly()

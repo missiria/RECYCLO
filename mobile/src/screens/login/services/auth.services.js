@@ -3,8 +3,8 @@ import apiClient from "../../../api/client";
 import { storeData } from "../../../hooks/hooks";
 
 export const defaultValues = {
-  phone: "0656560552",
-  password: "c++",
+  phone: "066161616182",
+  password: "321321321",
 };
 
 // TODO : Authentication with server
@@ -18,14 +18,15 @@ export const handleAuth = async (userData, navigation, setErrors) => {
       if (response.data.active === 1) {
 
         await storeData('user',response.data);
+        //console.log(response.data);
 
-        if (response.data.type == "MENAGE") {
+        if (response.data.account.type == "MENAGE") {
           navigation.navigate("Home");
         }
-        else if (response.data.type == "COLLECTOR") {
+        else if (response.data.account.type == "COLLECTOR") {
           navigation.navigate("CollectorHome");
         } 
-        alert("Vous étes bien connecté sur notre application");
+        //alert("Vous étes bien connecté sur notre application");
       } else {
         setErrors({ api: "You need to activate your account" });
       }

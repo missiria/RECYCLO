@@ -13,6 +13,9 @@ export default class Account extends BaseModel {
   public gender: string
 
   @column()
+  public type: string
+
+  @column()
   public society_id: string
 
   @column()

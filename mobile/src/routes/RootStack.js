@@ -1,12 +1,17 @@
-import React from 'react';
+import {useEffect,useState} from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import Splash from '../screens/Splash';
+
+/* auth screens */
+import Logout from '../screens/auth/Logout';
 
 import Language from '../screens/Language';
 import Welcom from '../screens/Welcom';
 import Onboarding from '../screens/onboarding/Onboarding';
+
 import LoginIndex from '../screens/login/Index';
 import Login from '../screens/login/Login';
 import Register from '../screens/login/Register';
@@ -119,25 +124,30 @@ import MenageModePaymnts from '../screens/menages/payments/MenageModePaymnts';
 import MenageAddCreditCard from '../screens/menages/payments/MenageAddCreditCard';
 
 
+
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, gestureDirection: 'horizontal', animation: "none" }}>
+                <Stack.Screen name="Splash" component={Splash} />
                 <Stack.Screen name="Language" component={Language} />
                 <Stack.Screen name="Salut" component={Welcom} />
                 <Stack.Screen name="Onboarding" component={Onboarding} />
                 <Stack.Screen name="LoginIndex" component={LoginIndex} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+                
                 <Stack.Screen name="VerificationPhone" component={VerificationUser} />
                 <Stack.Screen name="VerificationSuccess" component={ValidationSuccess} />
                 <Stack.Screen name="ChangePasswordIndex" component={GetEmail} />
                 <Stack.Screen name="VerifPhone" component={MultiFactor} />
                 <Stack.Screen name="ChangePassword" component={ChangePassword} />
-                <Stack.Screen name="Done" component={Done} />
+                <Stack.Screen name="Done" component={Done} />  
                 <Stack.Screen name='Home' component={Home} />
+                <Stack.Screen name="Logout" component={Logout} />
                 <Stack.Screen name="OtherCollects" component={Otherscollect} />
                 <Stack.Screen options={{
                     headerShown: true,
@@ -436,9 +446,23 @@ const RootStack = () => {
                     }}
                     name="FaqIndex" component={FaqIndex} />
 
-                {/* Collectors */}
+                
 
-                <Stack.Screen name='CollectorHome' component={CollectorHome} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <Stack.Screen name='CollectorHome' component={CollectorHome} />    
                 <Stack.Screen
                     options={{
                         headerShown: true,

@@ -1,11 +1,13 @@
-import * as React from "react";
+import {useState,useEffect} from "react";
 import i18n from "i18next";
 import { style } from "../assets/styles/Lang";
 import { StyleSheet, Text, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 
 function Language({ navigation }) {
-  const [checked, setChecked] = React.useState("fr");
+
+  const [checked, setChecked] = useState("fr");
+
   const handleValidChoice = (lang) => {
     if (lang.length == 2) {
       navigation.navigate("Salut");

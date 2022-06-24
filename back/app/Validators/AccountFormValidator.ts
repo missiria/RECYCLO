@@ -26,11 +26,12 @@ export default class AccountFormValidator {
   public schema = schema.create({
     gender: schema.enum.optional(['FEMALE', 'MALE']),
     avatar: schema.string.optional({}, [rules.minLength(4)]),
-    address: schema.string.optional({}, [rules.minLength(10)]),
+    address: schema.string.optional({}, [rules.minLength(4)]),
     city: schema.string.optional({}, [rules.minLength(4)]),
     country: schema.string.optional({}, [rules.minLength(4)]),
     nationality: schema.string.optional({}, [rules.minLength(4)]),
     society_id: schema.string.optional(),
+    type: schema.enum.optional(['MENAGE','COLLECTOR']),
     zip_code: schema.number.optional()
   })
   /**

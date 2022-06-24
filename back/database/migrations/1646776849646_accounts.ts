@@ -13,7 +13,7 @@ export default class Accounts extends BaseSchema {
 
       table.string('society_id', 11)
       table.enum('gender', ['FEMALE', 'MALE'])
-      //table.enum('type', ['COLLECTOR', 'WORKER'])
+      table.enum('type', ['MENAGE','COLLECTOR'])
 
       // TODO : Edit profile
       table.string('avatar', 255)

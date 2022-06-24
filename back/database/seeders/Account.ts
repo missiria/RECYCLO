@@ -5,7 +5,7 @@ export default class AccountSeeder extends BaseSeeder {
   public async run () {
     await Account.createMany([
       {
-        user_id: 1,
+        user_id: 5,
         gender: 'MALE',
         type: 'COLLECTOR',
         address: "lorem ipsum",
@@ -14,17 +14,6 @@ export default class AccountSeeder extends BaseSeeder {
         nationality: 'Ukrainian',
         society_id: 'S638250',
         zip_code: 20000
-      },
-      {
-        user_id: 2,
-        gender: 'MALE',
-        type: 'COLLECTOR',
-        address: "lorem ipsum",
-        city: 'Lviv',
-        country: 'MAROC',
-        nationality: 'MA',
-        society_id: 'G638250',
-        zip_code: 80000
       }
     ])
   }

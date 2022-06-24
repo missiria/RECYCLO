@@ -4,11 +4,11 @@ import { setErrorsAPI } from "../../../services/v12";
 import { getData,storeData } from "../../../hooks/hooks";
 
 export const defaultValues = {
-  first_name: "fgsd",
-  last_name: "sdfgsd",
-  phone: "05555555",
-  email: "dsfgsdfg@sdfgsd.ff",
-  password: "dsfgsdfgsdsdf",
+  first_name: "firstname",
+  last_name: "lastname",
+  phone: "05"+Date.now().toString().substring(5),
+  email: "test_"+Date.now()+"@gmail.com",
+  password: "123456789",
   type: "COLLECTOR",
 };
 
@@ -28,6 +28,9 @@ export const schema = yup.object().shape({
 export const handleRegister = async (userData, navigation, setErrors) => {
   if (userData && navigation) {
     const response = await apiClient.post("users", userData);
+
+    console.log(response.data);
+    
     if (response.status === 422) {
       setErrors( setErrorsAPI( response.data.errors ) );
     } else if (parseInt(response.data.id) > 0) {

@@ -17,7 +17,7 @@ export default class UsersSchema extends BaseSchema {
       table.integer('user_id', 12)
 
       table.enum('role', ['ADMIN', 'MODERATOR', 'USER']).defaultTo('USER')
-      table.enum('type', ['MENAGE', 'COLLECTOR'])
+      //table.enum('type', ['MENAGE', 'COLLECTOR'])
 
       table.boolean('is_verified').defaultTo(false)
       table.boolean('active').defaultTo(true)

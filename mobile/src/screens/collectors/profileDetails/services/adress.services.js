@@ -16,7 +16,7 @@ export const handleRegister = async (userData, navigation, setErrors) => {
     // console.log("userData", userData);
     const user = await getData('user');
 
-    apiClient.post("accounts", {
+    apiClient.put("accounts", {
         'city' : userData.city,
         'address' : userData.neighborhood,
     },{ headers: { 'Authorization': user.auth.type+' '+user.auth.token }}).then((response) => {

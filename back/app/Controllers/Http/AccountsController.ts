@@ -1,7 +1,6 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
 import AccountForm from 'App/Validators/AccountFormValidator'
-import Application from '@ioc:Adonis/Core/Application'
 
 export default class AccountsController {
 
@@ -23,36 +22,39 @@ export default class AccountsController {
     return response.ok(account)
   }
 
-  public async store({ auth,request, response }) {
-
-    const user = auth.use('api').user;
-    const account: any = await Account.findBy('user_id',user.id)
-    if (account) {
-      return response.methodNotAllowed({ message: "Compte deja exist" })
-    }
-
-    const payload: any = await request.validate(AccountForm)
-
-    payload.user_id = user.id
-
-    const newAccount: Account = await Account.create(payload)
-
-    return response.ok(newAccount)
-  }
-
   public async update({ auth,request, response }) {
 
     const user = auth.use('api').user;
     const payload: any = await request.validate( AccountForm )
     const account: any = await Account.findBy('user_id',user.id)
 
-    account.gender = payload.gender
-    account.society_id = payload.society_id
-    account.avatar = payload.avatar
-    account.address = payload.address
-    account.city = payload.city
-    account.nationality = payload.nationality
-    account.zip_code = payload.zip_code
+    console.log(account);
+    return;
+    console.log(payload);
+
+    if(payload.type != null)
+      account.type = payload.type
+
+    if(payload.gender != null)
+      account.gender = payload.gender
+
+    if(payload.society_id != null)
+      account.society_id = payload.society_id
+
+    if(payload.avatar != null)
+      account.avatar = payload.avatar
+
+    if(payload.address != null)
+      account.address = payload.address
+
+    if(payload.city != null)
+      account.city = payload.city
+
+    if(payload.nationality != null)
+      account.nationality = payload.nationality
+
+    if(payload.zip_code != null)
+      account.zip_code = payload.zip_code
 
     await account.save()
 

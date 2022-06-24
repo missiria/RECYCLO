@@ -1,8 +1,23 @@
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
+//import React from "react";
+import {useState,useEffect} from 'react'
 import waitingImg from '../../../assets/images/wait.png'
+import {getData,storeData} from "../../../hooks/hooks";
 
-export default function VerifyAccount() {
+export default function VerifyAccount({navigation}) {
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if(user == null)
+        {
+            async function getCurrentUser(){
+                setUser(await getData('user'));
+            }  
+            getCurrentUser();
+        }
+    },[user]);
+    
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -12,14 +27,15 @@ export default function VerifyAccount() {
                         source={waitingImg}
                     />
                     <Text style={styles.textTitleBold}>
-                        Vous êtes presque Hassan
-                        Aberdaze!
+                        Vous êtes presque {user && user.fullName}!
                     </Text>
                     <Text style={styles.textTitleLight}>
                         Nous avons besoin de temps pour
                         approuver votre compte
                     </Text>
-                    <Text style={styles.centerText}>
+                    <Text style={styles.centerText}
+                        onPress={() => navigation.navigate("CollectorHome") }
+                        >
                         Pourquoi dois-je attendre?
                     </Text>
                     <Text style={styles.textDesc}>
@@ -29,8 +45,12 @@ export default function VerifyAccount() {
                     </Text>
                     <Text style={styles.bottomText}>
                         En créant ou en vous connectant à un compte, vous acceptez nos 
-                         <Text style={styles.conditions}> conditions générales  </Text>
-                         et <Text style={styles.Poli}> notre déclaration de confidentialité. </Text>
+                         <Text style={styles.conditions}
+                            onPress={() => navigation.navigate("Terms") }
+                         > conditions générales  </Text>
+                         et <Text style={styles.Poli}
+                            onPress={() => navigation.navigate("Politique") }
+                         > notre déclaration de confidentialité. </Text>
                     </Text>
                 </View>
             </ScrollView>
