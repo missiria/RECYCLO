@@ -3,6 +3,7 @@ import i18n from "i18next";
 import { style } from "../assets/styles/Lang";
 import { StyleSheet, Text, View } from "react-native";
 import { RadioButton } from "react-native-paper";
+import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
 function Language({ navigation }) {
 
@@ -69,10 +70,8 @@ function Language({ navigation }) {
           </View>
         </View>
       </View>
-      <View style={styles.buttonCaontainer}>
-        <Text style={styles.button} onPress={() => handleValidChoice(checked)}>
-          {i18n.t("langues.select")}
-        </Text>
+      <View style={styles.buttonContainer}>
+        <EdgeButton text={i18n.t("langues.select")} onPress={() => handleValidChoice(checked)} />
       </View>
     </View>
   );
@@ -89,20 +88,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  buttonCaontainer: {
+  buttonContainer: {
     flex: 0.4,
     justifyContent: "center",
     alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#33CC66",
-    borderRadius: 100,
-    padding: 15,
-    width: 300,
-    color: "white",
-    textAlign: "center",
-    borderRadius: 7,
-    fontWeight: "bold",
   },
 });
 

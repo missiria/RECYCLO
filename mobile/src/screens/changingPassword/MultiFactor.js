@@ -4,6 +4,7 @@ import React from 'react'
 import { Formik } from 'formik';
 import { handleAuth, schemaValidation, defaultValues } from "./services/verifyPhone.services";
 import smsIcon from '../../assets/images/sms.png';
+import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
 export default function MultiFactor({ navigation }) {
   return (
@@ -88,9 +89,7 @@ export default function MultiFactor({ navigation }) {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                  <Text onPress={props.handleSubmit} style={styles.button}>
-                    Vérifier
-                  </Text>
+                  <EdgeButton onPress={props.handleSubmit} text="Vérifier"/>
                 </View>
               </View>
             )}
@@ -176,16 +175,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
     marginBottom: 10,
-  },
-  button: {
-    backgroundColor: "#33CC66",
-    borderRadius: 100,
-    padding: 15,
-    width: 300,
-    color: "white",
-    textAlign: "center",
-    borderRadius: 7,
-    fontWeight: "bold",
   },
   revoy : {
     color :'#33CC66',

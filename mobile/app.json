@@ -5,11 +5,6 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "",
-    "splash": {
-      "image": "",
-      "resizeMode": "contain",
-      "backgroundColor": "#fff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },

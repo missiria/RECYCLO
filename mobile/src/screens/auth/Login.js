@@ -1,11 +1,11 @@
 import React from "react";
 import i18n from "i18next";
-import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Formik } from "formik";
 
 // Services
-import { handleAuth, schema, defaultValues } from "./services/auth.services";
-import { EdgeTextInput } from "../menages/EDGE/EdgeTextInput";
+import { handleLogin, schema, defaultValues } from "./services/login.services";
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
 
 export default function Login({ navigation }) {
   return (
@@ -19,7 +19,7 @@ export default function Login({ navigation }) {
           initialValues={defaultValues}
           validationSchema={schema}
           onSubmit={(values, { setErrors }) =>
-            handleAuth(values, navigation, setErrors)
+            handleLogin(values, navigation, setErrors)
           }
         >
           {(props) => (

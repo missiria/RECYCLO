@@ -6,17 +6,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../screens/Splash';
 
 /* auth screens */
+import LoginIndex from '../screens/auth/Index';
+import Login from '../screens/auth/Login';
+import Register from '../screens/auth/Register';
+import VerificationUser from '../screens/auth/VerificationOtp';
+import ValidationSuccess from '../screens/auth/VerificationOtpSuccess';
 import Logout from '../screens/auth/Logout';
+
 
 import Language from '../screens/Language';
 import Welcom from '../screens/Welcom';
 import Onboarding from '../screens/onboarding/Onboarding';
 
-import LoginIndex from '../screens/login/Index';
-import Login from '../screens/login/Login';
-import Register from '../screens/login/Register';
-import VerificationUser from '../screens/login/VerificationOtp';
-import ValidationSuccess from '../screens/login/VerificationOtpSuccess';
 import GetEmail from '../screens/changingPassword/GetEmail';
 import MultiFactor from '../screens/changingPassword/MultiFactor';
 import ChangePassword from '../screens/changingPassword/ChangePassword';

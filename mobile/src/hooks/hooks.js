@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API_URL } from "../api/config";
+import { API_URL } from "~/api/constants";
 
 axios.defaults.baseURL = API_URL;
 

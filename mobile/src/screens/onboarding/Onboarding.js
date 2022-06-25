@@ -5,6 +5,7 @@ import { slides } from "./slides"
 import OnboardingItem from "./OnboardingItem/OnboardingItem"
 import Pagination from "./Pagination"
 import NextButton from "./NextButton/NextButton"
+import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
 export default function Onboarding({ navigation }) {
   const [currentIndex, seCurrentIndex] = useState(0);
@@ -31,12 +32,7 @@ export default function Onboarding({ navigation }) {
     if (currentIndex >= 2) {
       return (
         <View style={styles.container}>
-          <Text
-            onPress={() => navigation.navigate("LoginIndex")}
-            style={styles.button}
-          >
-            {i18n.t('introduction.finished')}
-          </Text>
+          <EdgeButton text={i18n.t('introduction.finished')} onPress={() => navigation.navigate("LoginIndex")}/>
         </View>
       );
     } else {
@@ -85,15 +81,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-  },
-  button: {
-    backgroundColor: "#33CC66",
-    borderRadius: 100,
-    padding: 15,
-    width: 300,
-    color: "white",
-    textAlign: "center",
-    borderRadius: 7,
-    fontWeight: "bold",
-  },
+  }
 });

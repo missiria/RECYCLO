@@ -11,6 +11,7 @@ import { Formik } from "formik"
 import { handleAuth, schema, defaultValues } from "./services/changePassword.services"
 import ChangePasswordHeader from "../../assets/images/5.png"
 import lockIcon from "../../assets/images/lock.png"
+import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
 export default function ChangePassword({ navigation }) {
   return (
@@ -107,9 +108,7 @@ export default function ChangePassword({ navigation }) {
                 </View>
               </View>
               <View style={styles.btnContainer}>
-                <Text onPress={props.handleSubmit} style={styles.button}>
-                  Valider
-                </Text>
+                <EdgeButton onPress={props.handleSubmit} text="Valider"/>
               </View>
             </View>
           )}
@@ -174,15 +173,5 @@ const styles = StyleSheet.create({
   },
   iconClock: {
     marginHorizontal: 10,
-  },
-  button: {
-    backgroundColor: "#33CC66",
-    borderRadius: 100,
-    padding: 15,
-    width: 300,
-    color: "white",
-    textAlign: "center",
-    borderRadius: 7,
-    fontWeight: "bold",
   },
 });

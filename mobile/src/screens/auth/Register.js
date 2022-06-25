@@ -1,6 +1,6 @@
 import React from "react"
 import i18n from "i18next"
-import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native"
+import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { Formik } from "formik"
 import {
   defaultValues,
@@ -8,7 +8,7 @@ import {
   handleRegister
 } from "./services/register.services"
 import { RadioButton } from "react-native-paper"
-import { EdgeTextInput } from "../menages/EDGE/EdgeTextInput"
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
 
 export default function Register({ navigation }) {
   return (

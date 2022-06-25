@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TextInput, Image, SafeAreaView } from 'react-na
 import React from 'react'
 import doneImg from '../../assets/images/done.png';
 
+import { EdgeButton } from "~/ui/buttons/EdgeButton"
+
 export default function Done({ navigation }) {
     return (
         <View style={styles.container}>
@@ -17,11 +19,7 @@ export default function Done({ navigation }) {
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <Text
-                    onPress={() => navigation.navigate("Home")}
-                    style={styles.button}>
-                    Terminé
-                </Text>
+                <EdgeButton text="Terminé" onPress={() => navigation.navigate("Home")}/>
             </View>
     </View>
   );
@@ -92,15 +90,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  button: {
-    backgroundColor: "#33CC66",
-    borderRadius: 100,
-    padding: 15,
-    width: 300,
-    color: "white",
-    textAlign: "center",
-    borderRadius: 7,
-    fontWeight: "bold",
   },
 });

@@ -1,4 +1,4 @@
-import { API_URL } from "./config"
+import { API_URL } from "~/api/constants"
 import { create } from "apisauce"
 
 const config = {

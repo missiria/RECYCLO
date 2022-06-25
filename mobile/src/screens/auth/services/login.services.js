@@ -8,7 +8,7 @@ export const defaultValues = {
 };
 
 // TODO : Authentication with server
-export const handleAuth = async (userData, navigation, setErrors) => {
+export const handleLogin = async (userData, navigation, setErrors) => {
   if (userData && navigation) {
     const response = await apiClient.post("users/login", userData);
 
