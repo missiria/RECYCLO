@@ -125,6 +125,8 @@ import MenageModePaymnts from '../screens/menages/payments/MenageModePaymnts';
 import MenageAddCreditCard from '../screens/menages/payments/MenageAddCreditCard';
 
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -136,8 +138,8 @@ const RootStack = () => {
                 <Stack.Screen name="Splash" component={Splash} />
                 <Stack.Screen name="Language" component={Language} />
                 <Stack.Screen name="Salut" component={Welcom} />
-                <Stack.Screen name="Onboarding" component={Onboarding} />
-                <Stack.Screen name="LoginIndex" component={LoginIndex} />
+                <Stack.Screen name="Onboarding" component={Onboarding} />   
+                <Stack.Screen name="LoginIndex" component={LoginIndex} />   
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
                 

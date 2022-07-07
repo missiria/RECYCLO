@@ -7,6 +7,8 @@ import Pagination from "./Pagination"
 import NextButton from "./NextButton/NextButton"
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Onboarding({ navigation }) {
   const [currentIndex, seCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -22,8 +24,16 @@ export default function Onboarding({ navigation }) {
     if (currentIndex < slides.length - 1) {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      console.log("last Item");
+      console.log('FirstTime is false');
+      AsyncStorage.setItem('FirstTime','false');
     }
+  };
+
+  const finished = () => {
+    console.log('FirstTime is false');
+    AsyncStorage.setItem('FirstTime','false');
+    navigation.navigate("LoginIndex");
+    //() => navigation.navigate("LoginIndex")
   };
 
   {/* Separate this component in folder */}
@@ -32,7 +42,7 @@ export default function Onboarding({ navigation }) {
     if (currentIndex >= 2) {
       return (
         <View style={styles.container}>
-          <EdgeButton text={i18n.t('introduction.finished')} onPress={() => navigation.navigate("LoginIndex")}/>
+          <EdgeButton text={i18n.t('introduction.finished')} onPress={finished}/>
         </View>
       );
     } else {

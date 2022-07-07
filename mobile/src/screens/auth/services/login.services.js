@@ -1,24 +1,26 @@
 import * as yup from "yup";
-import apiClient from "../../../api/client";
-import { storeData } from "../../../hooks/hooks";
+import apiClient from "~/api/client";
+import { storeData } from "~/hooks/hooks";
 
 export const defaultValues = {
-  phone: "066161616182",
-  password: "321321321",
+  phone: "587242451",
+  password: "123456789",
 };
 
 // TODO : Authentication with server
 export const handleLogin = async (userData, navigation, setErrors) => {
   if (userData && navigation) {
     const response = await apiClient.post("users/login", userData);
+    console.log('response.data');
+    console.log(response.data);
 
     if (response.status === 400 || response.status === 500) {
+      
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
 
         await storeData('user',response.data);
-        //console.log(response.data);
 
         if (response.data.account.type == "MENAGE") {
           navigation.navigate("Home");

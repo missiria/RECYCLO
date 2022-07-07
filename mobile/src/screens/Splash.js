@@ -7,6 +7,12 @@ export default function Splash({navigation}) {
 
   const [authLoaded, setAuthLoaded] = useState(false);
   const [user, setUser] = useState(null);
+  const [isFirstTime, setIsFirstTime] = useState('true');
+
+  const getStorage = async () => {
+      const firstTime = await getData('FirstTime');
+      setIsFirstTime(firstTime === null?'true':firstTime);
+  };
 
   useEffect(() => {
     
@@ -18,6 +24,9 @@ export default function Splash({navigation}) {
       getCurrentUser();
 
     }
+
+    getStorage();
+
   },[user]);
 
   useEffect(() => {
@@ -39,7 +48,12 @@ export default function Splash({navigation}) {
         return;
       }
       else{
-        navigation.replace('Language');
+        if(isFirstTime == 'true'){
+          navigation.replace('Language');
+        }
+        else{
+          navigation.replace('LoginIndex');
+        }
         return;      
       }
 

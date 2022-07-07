@@ -1,7 +1,7 @@
 import * as yup from "yup";
-import apiClient from "../../../api/client";
+import apiClient from "~/api/client";
+import { getData,storeData } from "~/hooks/hooks";
 import { setErrorsAPI } from "../../../services/v12";
-import { getData,storeData } from "../../../hooks/hooks";
 
 export const defaultValues = {
   first_name: "firstname",
