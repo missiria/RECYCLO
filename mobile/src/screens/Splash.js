@@ -19,12 +19,10 @@ export default function Splash({navigation}) {
     if(user == null)
     {
       async function getCurrentUser(){
-          setUser(await getData('user'));
+        setUser(await getData('user'));
       }  
       getCurrentUser();
-
     }
-
     getStorage();
 
   },[user]);
@@ -38,7 +36,7 @@ export default function Splash({navigation}) {
   useEffect(() => {
 
     if (authLoaded) {
-      console.log(user);
+      
       if(user != null && user.account.type == "MENAGE"){
         navigation.replace('Home');
         return;        

@@ -8,12 +8,12 @@ export const defaultValues = {
 };
 
 // TODO : Authentication with server
-export const handleLogin = async (userData, navigation, setErrors) => {
+export const handleLogin = async (userData, navigation, setErrors,setAuthLoaded) => {
   if (userData && navigation) {
+    setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
-    console.log('response.data');
     console.log(response.data);
-
+    
     if (response.status === 400 || response.status === 500) {
       
       setErrors({ api: response.data });
@@ -33,6 +33,8 @@ export const handleLogin = async (userData, navigation, setErrors) => {
         setErrors({ api: "You need to activate your account" });
       }
     }
+
+    setAuthLoaded(false);
   }
 };
 
