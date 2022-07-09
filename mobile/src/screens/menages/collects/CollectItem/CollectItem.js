@@ -1,11 +1,11 @@
+import { UPLOAD_FOLDER_URL } from "~/api/constants"
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/Entypo";
 
-// TODO : Make thumbnail url dynamic
-const imgUrlAssets = "http://192.168.1.130:3333/uploads";
 
 export default function CollectItem({ img, collect_name, navigation }) {
+
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("CategoryDetail")}
@@ -13,7 +13,7 @@ export default function CollectItem({ img, collect_name, navigation }) {
     >
       <View>
         <Image
-          source={{ api: `${imgUrlAssets}/${img}` }}
+          source={{ uri: `${UPLOAD_FOLDER_URL + img}` }}
           style={styles.cardImg}
         />
       </View>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: "100%",
+    height:130,
     resizeMode: "contain",
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,

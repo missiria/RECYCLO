@@ -6,7 +6,10 @@ import Icon from "react-native-vector-icons/Entypo";
 import HeaderImage from "../../../assets/images/c.png";
 import apiClient from "../../../api/client";
 import CollectItem from "./CollectItem/CollectItem";
-import autreCollectImg from "../../../assets/images/c10.png";
+import { EdgeCardCollect } from "~/ui/cards/EdgeCardCollect"
+
+import { UPLOAD_FOLDER_URL,IMAGE_AUTRE_URL } from "~/api/constants"
+
 
 
 export default function Collects({ navigation }) {
@@ -16,14 +19,12 @@ export default function Collects({ navigation }) {
     await apiClient.get("collects").then((response) => {
       setCollects(response.data);
     });
+    //setCollects([]);
   };
-
   
   useEffect(() => {
     loadCollects();
   }, []);
-
-
 
   return (
     <View style={styles.container}>
@@ -39,30 +40,22 @@ export default function Collects({ navigation }) {
       <View style={styles.cards}>
         {collects &&
           collects.map(collect => (
-            <CollectItem
-                navigation={navigation}
+              <EdgeCardCollect 
                 key={collect.id}
-                collect_name={collect.collect_name}
-                img={collect.image}
+                text={collect.collect_name} 
+                onPress={() => navigation.navigate("OtherCollects")}
+                style={{ width : "50%" }}
+                imageStyle={{ height:130 }}
+                img={`${UPLOAD_FOLDER_URL + collect.image}`}
               />
           ))}
-        <TouchableOpacity
-          onPress={() => navigation.navigate("OtherCollects")}
-          style={styles.card}
-        >
-          <View>
-            <Image
-              style={styles.cardImg}
-              source={autreCollectImg}
-            />
-          </View>
-          <View style={styles.cardBody}>
-            <Text style={styles.titleCat}>{i18n.t("collects.other")}</Text>
-            <Text>
-              <Icon style={styles.btnIconPlus} name="squared-plus" />
-            </Text>
-          </View>
-        </TouchableOpacity>
+          <EdgeCardCollect 
+            text={i18n.t("collects.other")} 
+            onPress={() => navigation.navigate("OtherCollects")}
+            style={{ width : "50%" }}
+            imageStyle={{ height:130 }}
+            img={IMAGE_AUTRE_URL}
+          />
       </View>
     </View>
   );

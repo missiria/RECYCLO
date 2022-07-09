@@ -1,4 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route'
+import Application from '@ioc:Adonis/Core/Application'
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -18,7 +19,6 @@ import Route from '@ioc:Adonis/Core/Route'
 | import './routes/customer'
 |
 */
-
 // Accounts
 Route.group(() => {
 
@@ -35,7 +35,12 @@ Route.group(() => {
 // Users, Donations, declarations,Recharges,collects
 Route.group(() => {
 
+  Route.resource('cities', 'CitiesController').apiOnly()
+
   Route.post('users', 'UsersController.store')
+
+  Route.get('collects', 'CollectsController.index')
+
   //Route.resource('users', 'UsersController').apiOnly()
 
   //Route.resource('users', 'UsersController').apiOnly()
@@ -43,7 +48,7 @@ Route.group(() => {
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
-  Route.resource('collects', 'CollectsController').apiOnly()
+  //Route.resource('collects', 'CollectsController').apiOnly()
 
 }).prefix('/api/v1')
 
@@ -55,6 +60,10 @@ Route.group(() => {
   Route.post('/users/auth', 'UsersController.auth').as('users.auth')
 
 }).prefix('/api/v1')
+
+Route.get('/files/:uid/:file', async({response,params})=>{
+  return response.download(Application.makePath(`uploads/${params.uid}/${params.file}`))
+})
 
 Route.get('*', async ({response}) => {
   return response.accepted({error:400,message:'Bad Request'});
