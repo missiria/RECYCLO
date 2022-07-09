@@ -43,7 +43,10 @@ export default function Collects({ navigation }) {
               <EdgeCardCollect 
                 key={collect.id}
                 text={collect.collect_name} 
-                onPress={() => navigation.navigate("OtherCollects")}
+                onPress={() => navigation.navigate({
+                  name: 'CollectDetails',
+                  params: { collect: collect }
+                })}
                 style={{ width : "50%" }}
                 imageStyle={{ height:130 }}
                 img={`${UPLOAD_FOLDER_URL + collect.image}`}

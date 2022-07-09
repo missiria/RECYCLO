@@ -24,7 +24,7 @@ import ChangePassword from '../screens/changingPassword/ChangePassword';
 import Done from '../screens/changingPassword/PasswordChengedSuccess';
 import Home from '../screens/menages/home/Home';
 import Otherscollect from '../screens/menages/collects/Otherscollect';
-import CategoryDetails from '../screens/menages/collects/collectDetails';
+import CollectDetails from '../screens/menages/collects/CollectDetails';
 import DeclaredSuccess from '../screens/menages/collects/DeclaredSuccess';
 import Declarations from '../screens/menages/declarations/Declarations';
 import UploadImages from '../screens/menages/collects/uploadImage/UploadImages';
@@ -159,7 +159,7 @@ const RootStack = () => {
                         presentation: 'modal',
                     },
                     headerTransparent: true,
-                }} name="CategoryDetail" component={CategoryDetails} />
+                }} name="CollectDetails" component={CollectDetails} />
                 <Stack.Screen name="DeclarationSuccess" component={DeclaredSuccess} />
 
                 <Stack.Screen

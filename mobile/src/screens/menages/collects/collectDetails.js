@@ -15,17 +15,21 @@ import Unorderedlist from "react-native-unordered-list";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icon from 'react-native-vector-icons/Entypo'
 
+import { UPLOAD_FOLDER_URL } from "~/api/constants"
+
 import deshetImg from '../../../assets/images/t.png'
 import coinImg from '../../../assets/images/coin.png';
 import i18n from "i18next";
 
-export default function CategoryDetails({ navigation }) {
+export default function CollectDetails({ navigation ,route }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState(new Date());
   const [show, setShow] = useState(false);
   const [text, setText] = useState("Sélectionner la date");
   const [timeDeclary, setTimeDeclary] = useState("9 AM - 12 PM");
   const [quantity, setQuantity] = useState(5);
+
+  const price = route.params?.collect.point / 100;
 
   // TODO : Use moment library to get months
   const months = [
@@ -65,7 +69,6 @@ export default function CategoryDetails({ navigation }) {
       months[tempDate.getMonth()];
     setText(fDate);
   };
-
 
   const showMode = (currentMode) => {
     setShow(true);
@@ -109,15 +112,15 @@ export default function CategoryDetails({ navigation }) {
           <View>
             <Image
               style={styles.HeaderImage}
-              source={deshetImg}
+              source={{ uri : `${UPLOAD_FOLDER_URL + route.params?.collect.image}` }}
             />
           </View>
           <View style={styles.countBox}>
             <View>
-              <Text style={styles.countTitle}>Plastique</Text>
+              <Text style={styles.countTitle}>{route.params?.collect.collect_name}</Text>
             </View>
             <View style={styles.rightCountBox}>
-              <Text style={styles.theCount}>50</Text>
+              <Text style={styles.theCount}>{route.params?.collect.point}</Text>
               <Image
                 style={styles.CoinImg}
                 source={coinImg}
@@ -129,22 +132,25 @@ export default function CategoryDetails({ navigation }) {
               Prix
             </Text>
             <Text style={styles.priceAswerText}>
-              2 Dh / kg
+              {price} Dh / kg
             </Text>
           </View>
           <View style={styles.textBoxDescition}>
-            <Text>Toutes sortes de plastique usagée :</Text>
-            <View style={styles.textDescLists}>
-              {Data.map((list) => {
-                return (
-                  <Text key={list.id}>
-                    <Unorderedlist>
-                      <Text>{list.text}</Text>
-                    </Unorderedlist>
-                  </Text>
-                );
-              })}
-            </View>
+            <Text>{route.params?.collect.description}</Text>
+            {/*
+              <Text>Toutes sortes de plastique usagée :</Text>
+              <View style={styles.textDescLists}>
+                  {Data.map((list) => {
+                  return (
+                      <Text key={list.id}>
+                      <Unorderedlist>
+                          <Text>{list.text}</Text>
+                      </Unorderedlist>
+                      </Text>
+                  );
+                  })}
+              </View>
+            */}
           </View>
           <View>
             <View>
@@ -347,6 +353,7 @@ const styles = StyleSheet.create({
   },
   HeaderImage: {
     width: "100%",
+    height: 200,
   },
   countBox: {
     display: "flex",
