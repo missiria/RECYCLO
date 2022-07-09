@@ -30,6 +30,8 @@ Route.group(() => {
 
   Route.delete('accounts', 'AccountsController.destroy')
 
+  Route.post('declarations', 'DeclarationsController.store')
+
 }).prefix('/api/v1').middleware('api_auth')
 
 // Users, Donations, declarations,Recharges,collects
@@ -46,7 +48,7 @@ Route.group(() => {
   //Route.resource('users', 'UsersController').apiOnly()
 
   Route.resource('donations', 'DonationsController').apiOnly()
-  Route.resource('declarations', 'DeclarationsController').apiOnly()
+  //Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
   //Route.resource('collects', 'CollectsController').apiOnly()
 
