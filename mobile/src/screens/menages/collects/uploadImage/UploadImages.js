@@ -29,6 +29,9 @@ export default function UploadImages({ navigation }) {
             setImage(result.uri);
             setModalVisible(false);
             setImages([...images, result.uri]);
+
+            console.log(images);
+
         }
     };
 
@@ -68,10 +71,13 @@ export default function UploadImages({ navigation }) {
                                 source={uploadIcon}
                             />
                         </TouchableOpacity>
-                        <Image
-                            style={styles.imageStyle}
-                            source={{ uri: image }}
-                        />
+                        {images && images.map(image => (
+                            <Image
+                                style={styles.imageStyle}
+                                key={image}
+                                source={{ uri: image }}
+                            />
+                        ))}
                     </View>
                 </View>
             </ScrollView>
