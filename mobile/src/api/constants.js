@@ -1,3 +1,5 @@
-export const API_URL = 'http://192.168.1.106:3333/api/v1/';
-export const UPLOAD_FOLDER_URL = 'http://192.168.1.106:3333/files/';
-export const IMAGE_AUTRE_URL = 'http://192.168.1.106:3333/files/collects/else.png';
+
+export const BASE_URL           = 'http://192.168.1.108:3333'
+export const API_URL            = BASE_URL+'/api/v1/';
+export const UPLOAD_FOLDER_URL  = BASE_URL + '/files/';
+export const IMAGE_AUTRE_URL    = BASE_URL + '/files/collects/else.png';

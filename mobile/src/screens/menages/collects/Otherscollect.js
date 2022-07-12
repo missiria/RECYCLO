@@ -2,9 +2,8 @@ import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
-import { moreCollects } from "./collectData";
-import CollectItem from "./CollectItem/CollectItem";
 
+import { moreCollects } from "./collectData";
 
 export default function Otherscollect({ navigation }) {
   return (
@@ -23,12 +22,17 @@ export default function Otherscollect({ navigation }) {
           <View style={styles.cards}>
             {moreCollects.map((collect) => {
               return (
-                <CollectItem
-                  navigation={navigation}
-                  key={collect.id}
-                  collect_name={collect.name}
-                  img={collect.img}
-                />
+                <EdgeCardCollect 
+                key={collect.id}
+                text={collect.collect_name} 
+                onPress={() => navigation.navigate({
+                  name: 'CollectDetails',
+                  params: { collect: collect }
+                })}
+                style={{ width : "50%" }}
+                imageStyle={{ height:130 }}
+                img={`${UPLOAD_FOLDER_URL + collect.image}`}
+              />
               );
             })}
           </View>

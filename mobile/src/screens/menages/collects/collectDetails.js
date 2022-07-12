@@ -23,7 +23,7 @@ import i18n from "i18next";
 
 export default function CollectDetails({ navigation ,route }) {
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState(new Date());
+  const [mode, setMode] = useState("");
   const [show, setShow] = useState(false);
   const [text, setText] = useState("Sélectionner la date");
   const [timeDeclary, setTimeDeclary] = useState("9 AM - 12 PM");
@@ -69,12 +69,12 @@ export default function CollectDetails({ navigation ,route }) {
       months[tempDate.getMonth()];
     setText(fDate);
   };
-
+  /* */
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
-
+  
   const showDatepicker = () => {
     showMode("date");
   };
@@ -104,6 +104,30 @@ export default function CollectDetails({ navigation ,route }) {
     Alert.alert("You Must Declare at least 5 Kg");
     setQuantity(5);
   }
+
+  const onSubmitDeclare = () => {
+    //console.log("date : "+date)
+    //console.log("mode : "+mode)
+    //console.log("show : "+show)
+    //console.log("text : "+text)
+    //console.log("timeDeclary : "+timeDeclary)
+    //console.log("quantity : "+quantity)
+    //console.log("price : "+price)
+    //console.log("------------")
+    if(mode == 'date')
+    {
+      let dateDeclary = date.getDate().toString().padStart(2, '0') + "/"+ parseInt(date.getMonth()+1).toString().padStart(2, '0') +"/"+date.getFullYear();
+      navigation.navigate('CollectDetailsUploadImages',{
+        dateDeclary:dateDeclary,
+        timeDeclary:timeDeclary,
+        quantityDeclary:quantity,
+        priceDeclary:price,
+        collectId:route.params?.collect.id,
+      })
+    }
+    else
+      Alert.alert("select date");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -243,7 +267,8 @@ export default function CollectDetails({ navigation ,route }) {
           <View style={styles.btnBoxDec}>
             <Text
               // onPress={() => navigation.navigate("DeclarationSuccess")}
-              onPress={() => navigation.navigate("UploadImages")}
+              //onPress={() => navigation.navigate("CollectDetailsUploadImages")}
+              onPress={() => onSubmitDeclare()}
               style={styles.btnDeclar}
             >
               {i18n.t("introduction.next")}

@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import i18n from "i18next";
 import Icon from "react-native-vector-icons/Entypo";
 
-import HeaderImage from "../../../assets/images/c.png";
-import apiClient from "../../../api/client";
-import CollectItem from "./CollectItem/CollectItem";
+import HeaderImage from "~/assets/images/c.png";
+import apiClient from "~/api/client";
 import { EdgeCardCollect } from "~/ui/cards/EdgeCardCollect"
 
 import { UPLOAD_FOLDER_URL,IMAGE_AUTRE_URL } from "~/api/constants"

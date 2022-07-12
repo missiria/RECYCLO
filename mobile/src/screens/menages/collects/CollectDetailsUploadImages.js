@@ -1,17 +1,20 @@
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Modal } from 'react-native'
 import React from 'react';
-import uploadIcon from '../.././../../assets/images/upl.png';
-import camUp from '../.././../../assets/images/campup.png';
-import camera from '../.././../../assets/images/minicamera.png';
-import gallery from '../.././../../assets/images/minigallery.png';
+import uploadIcon from '~/assets/images/upl.png';
+import camUp from '~/assets/images/campup.png';
+import camera from '~/assets/images/minicamera.png';
+import gallery from '~/assets/images/minigallery.png';
 import * as ImagePicker from 'expo-image-picker';
 import i18n from "i18next";
+import { handleDeclaration } from "./services/declaration.services";
 
 
-export default function UploadImages({ navigation }) {
+export default function CollectDetailsUploadImages({ navigation,route }) {
     const [image, setImage] = React.useState(null);
     const [images, setImages] = React.useState([]);
     const [modalVisible, setModalVisible] = React.useState(false);
+
+    const {dateDeclary,timeDeclary,quantityDeclary,priceDeclary,collectId } = route.params;
 
     //upload from gallery
     const pickImage = async () => {
@@ -23,15 +26,10 @@ export default function UploadImages({ navigation }) {
             quality: 1,
         });
 
-        console.log(result);
-
         if (!result.cancelled) {
             setImage(result.uri);
             setModalVisible(false);
             setImages([...images, result.uri]);
-
-            console.log(images);
-
         }
     };
 
@@ -44,13 +42,21 @@ export default function UploadImages({ navigation }) {
             quality: 1,
         });
 
-        console.log(result);
-
         if (!result.cancelled) {
             setImage(result.uri);
             setModalVisible(false);
             setImages([...images, result.uri]);
         }
+    }
+
+    const onSubmit = () => {
+        //console.log("dateDeclary :"+ dateDeclary);
+        //console.log(dateDeclary);
+        //console.log(images);
+
+        handleDeclaration(dateDeclary,timeDeclary,quantityDeclary,priceDeclary,images,collectId);
+
+        //navigation.navigate("DeclarationSuccess")
     }
 
     //chech for the selected lang
@@ -83,7 +89,7 @@ export default function UploadImages({ navigation }) {
             </ScrollView>
             <View style={styles.btnBoxDec}>
                 <Text
-                    onPress={() => navigation.navigate("DeclarationSuccess")}
+                    onPress={onSubmit}
                     style={styles.btnDeclar}
                 >
                      {i18n.t("menageUploadImage.buttonConfirm")}

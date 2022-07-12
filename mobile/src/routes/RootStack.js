@@ -27,7 +27,9 @@ import Otherscollect from '../screens/menages/collects/Otherscollect';
 import CollectDetails from '../screens/menages/collects/CollectDetails';
 import DeclaredSuccess from '../screens/menages/collects/DeclaredSuccess';
 import Declarations from '../screens/menages/declarations/Declarations';
-import UploadImages from '../screens/menages/collects/uploadImage/UploadImages';
+
+import CollectDetailsUploadImages from '../screens/menages/collects/CollectDetailsUploadImages';
+
 import Notification from '../screens/menages/notifications/Notification';
 import Message from '../screens/menages/supports/Message';
 import Profile from '../screens/menages/profile/Profile';
@@ -180,7 +182,7 @@ const RootStack = () => {
                         headerTintColor: '#33CC66',
                         headerShadowVisible: false,
                     }}
-                    name="UploadImages" component={UploadImages} />
+                    name="CollectDetailsUploadImages" component={CollectDetailsUploadImages} />
 
                 <Stack.Screen name="Notifications" component={Notification} />
                 <Stack.Screen

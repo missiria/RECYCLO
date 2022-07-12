@@ -4,7 +4,7 @@ import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
 import Search from "../search/Search";
 import Sliders from "../pupSliders/Sliders";
-import Collects from "../collects/collects";
+import Collects from "../collects/Collects";
 import * as Location from 'expo-location';
 import MapView, { Marker, Callout, Circle, } from 'react-native-maps';
 
