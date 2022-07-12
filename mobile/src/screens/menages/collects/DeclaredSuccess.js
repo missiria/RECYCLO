@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import FooterNav from "../navigations/FooterNav";
-import imgDone from '../../../assets/images/done.png';
+import imgDone from '~/assets/images/done.png';
 
 export default function DeclaredSuccess({ navigation }) {
   return (

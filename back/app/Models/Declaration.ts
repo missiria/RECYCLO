@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
 import User from 'App/Models/User';
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Collect from 'App/Models/Collect';
+import ImagesDeclaration from 'App/Models/ImagesDeclaration';
+import { BaseModel, column, hasOne,HasOne,hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 export default class Declaration extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -17,12 +19,26 @@ export default class Declaration extends BaseModel {
   @column()
   public status: string
 
+  @hasMany(() => ImagesDeclaration,{
+    foreignKey: 'declaration_id',
+  })
+  public images: HasMany<typeof ImagesDeclaration>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => User)
-  public users: HasMany<typeof User>
+  @hasOne(() => Collect,{
+    localKey: 'collect_id',
+    foreignKey: 'id',
+  })
+  public collect: HasOne<typeof Collect>
+
+  @hasOne(() => User,{
+    localKey: 'user_id',
+    foreignKey: 'id',
+  })
+  public user: HasOne<typeof User>
 }

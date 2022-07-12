@@ -1,13 +1,19 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Declaration from 'App/Models/Declaration'
 import ImagesDeclaration from 'App/Models/ImagesDeclaration'
-import DeclarationForm from 'App/Validators/DeclarationForm'
+import DeclarationForm from 'App/Validators/DeclarationFormValidator'
+import DeclarationFilterForm from 'App/Validators/DeclarationFilterFormValidator'
 
 export default class DeclarationsController {
 
-    public async index({ response }) {
-        const declarations = await Declaration.all()
-        return response.ok(declarations)
+    public async index({ auth,request,response }) {
+
+      const user = auth.use('api').user;
+      const payload: any = await request.validate(DeclarationFilterForm)
+
+      const declarations = await Declaration.query().preload('images').preload('collect').where('status', payload.status).where('user_id', user.id)
+
+      return response.ok(declarations)
     }
 
     public async show({ params, response }) {
@@ -22,7 +28,7 @@ export default class DeclarationsController {
         return response.ok(declaration)
     }
 
-    public async store({ auth,request, response }) {
+    public async save({ auth,request, response }) {
 
       const user = auth.use('api').user;
 

@@ -21,12 +21,11 @@ export const handleDeclaration = async (dateDeclary,timeDeclary,quantity,price,i
     });
     //console.log("user",user);
     
-    apiClient.post("declarations",formData ,{ headers: { 
+    apiClient.post("declarations/add",formData ,{ headers: { 
         'Authorization': user.auth.type+' '+user.auth.token ,
         'Content-Type': 'multipart/form-data'
     }}).then((response) => {
-        console.log('response.data',response.data);
-        /* 
+        //console.log('response.data',response.data);   
         if(response.data?.errors)
         {
             setErrors(response.data.errors);
@@ -38,8 +37,7 @@ export const handleDeclaration = async (dateDeclary,timeDeclary,quantity,price,i
         }
         else
         {
-            //navigation.navigate("VerifyAccount")
+            navigation.navigate("DeclarationSuccess")
         }
-        */
     })
 };

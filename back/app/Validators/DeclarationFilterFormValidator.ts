@@ -29,10 +29,12 @@ export default class CollectFormValidator {
    */
   public schema = schema.create(
     {
-      type_wast: schema.string({trim: true}, [rules.minLength(10)]),
-      city: schema.number(),
-      period: schema.string({trim: true}, [rules.minLength(20)]),
-      time: schema.string()
+      status: schema.enum(['PENDING','VALID','CANCELED','PAID']),
+
+      //type_wast: schema.string({trim: true}, [rules.minLength(10)]),
+      //city: schema.number(),
+      //period: schema.string({trim: true}, [rules.minLength(20)]),
+      //time: schema.string()
     }
   )
 

@@ -1,12 +1,21 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import React,{useState} from 'react';
+import React,{useState,} from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icond from 'react-native-vector-icons/FontAwesome';
 import i18n from "i18next";
 
+import { getDeclarations } from "./services/declarations.services";
+
 
 export default function InProgress() {
   const [details, setDetails] = useState(false);
+  const [declarations, setDeclarations] = useState([]);
+
+  useEffect(() => {
+    setDeclarations(getDeclarations());
+    console.log(declarations);
+  },[declarations]);
+
   const showDetails = () => {
     setDetails(true);
   }

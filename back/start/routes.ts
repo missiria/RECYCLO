@@ -30,7 +30,8 @@ Route.group(() => {
 
   Route.delete('accounts', 'AccountsController.destroy')
 
-  Route.post('declarations', 'DeclarationsController.store')
+  Route.post('declarations', 'DeclarationsController.index')
+  Route.post('declarations/add', 'DeclarationsController.save')
 
 }).prefix('/api/v1').middleware('api_auth')
 

@@ -2,10 +2,10 @@ import * as React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import i18n from "i18next";
 
-import InProgress from '../screens/menages/declarations/InProgress';
-import Accepted from '../screens/menages/declarations/Accepted';
-import Ended from '../screens/menages/declarations/Ended';
-import Canceled from '../screens/menages/declarations/Canceled'
+import InProgress from '~/screens/menages/declarations/InProgress';
+import Accepted from '~/screens/menages/declarations/Accepted';
+import Ended from '~/screens/menages/declarations/Ended';
+import Canceled from '~/screens/menages/declarations/Canceled'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -31,9 +31,7 @@ function MenageDeclarationsTab() {
                 swipeEnabled: true,
                 tabBarBounces: false,
             }}
-
         >
-
             <Tab.Screen
                 name="InProgress"
                 component={InProgress}
