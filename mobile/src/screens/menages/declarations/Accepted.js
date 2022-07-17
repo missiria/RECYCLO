@@ -1,10 +1,30 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native'
-import React, { useState } from 'react';
+import {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import checkIcon from '../../../assets/images/ch.png'
 import i18n from "i18next";
 
+import { useAPI } from "~/hooks/hooks";
+import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
+
 export default function Accepted() {
+  const [declarations, setDeclarations] = useState([]);
+  const { isLoading, error, data } = useAPI({
+    url: 'declarations',
+    method: 'POST',
+    data: {
+      status: 'VALID'
+    },
+  },true);
+
+  useEffect(() => {
+    if (data !== null){
+      setDeclarations(data);
+    }
+  }, [data]);
+  
+  const textAction = i18n.t("menageDemend.confirm");
+  /* 
   const [details, setDetails] = useState(true);
   const showDetails = () => {
     setDetails(true);
@@ -13,85 +33,19 @@ export default function Accepted() {
   const hideDetailse = () => {
     setDetails(false);
   }
+  */
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View>
-          <View style={styles.TopCard}>
-
-            <View style={styles.cardHeader}>
-              <View style={styles.cardHeaderLeft}>
-                <Text style={styles.headcontetn}>
-                  10-04-2022
-                </Text>
-                <Text style={styles.headcontetn}>
-                  16:15
-                </Text>
-              </View>
-
-            </View>
-
-            <TouchableOpacity
-              onPress={details ? hideDetailse : showDetails}
-              style={styles.cardcenter}
-            >
-              <Text style={styles.detailText}>
-                {i18n.t("menageDemend.details")}
-              </Text>
-              <Text>
-                <Icon
-                  style={styles.detailIcon}
-                  name="chevron-thin-up"
-                />
-              </Text>
-            </TouchableOpacity>
-
-            <View style={details ? styles.contetnBody : styles.detailsHide}>
-              <View style={styles.clientInfo}>
-                <Text>
-                  {i18n.t("menageDemend.type")}
-                </Text>
-                <Text>
-                  Vêtements
-                </Text>
-              </View>
-              <View style={styles.clientsDetails}>
-                <Text>
-                  {i18n.t("menageDemend.qty")}
-                </Text>
-                <Text>10.00 kg</Text>
-              </View>
-              <View style={styles.clientsDetails}>
-                <Text>
-                {i18n.t("menageDemend.price")}
-                </Text>
-                <Text>0.50 Dh</Text>
-              </View>
-              <View style={styles.breakLineMini}></View>
-              <View style={styles.clientsDetails}>
-                <Text style={styles.clientsUsername}>{i18n.t("menageDemend.dh-total")}</Text>
-                <Text style={styles.dirh}>5 {i18n.t("menageDemend.dh")}</Text>
-              </View>
-            </View>
-
-            <View style={styles.cardBody}>
-              <Text style={styles.textPay}>
-                {i18n.t("menageDemend.total")}
-              </Text>
-              <Text style={styles.textTotal}>
-                500
-              </Text>
-            </View>
-
-            <Text
-              onPress={() => setModalVisible(true)}
-              style={styles.buton}>
-             {i18n.t("menageDemend.confirm")}
-            </Text>
-
-          </View>
-        </View>
+        { error !== null ? <Text>{error.message}</Text> : 
+          isLoading ? 
+            <ActivityIndicator size="small" color="#ff00ff" />
+          :
+          declarations && declarations.map((declaration) => (
+            <EdgeCardDemande key={declaration.id} declaration={declaration} textAction={textAction} styleAction={styles.actionValid} onPressAction={()=>{console.log("onPressAction");setModalVisible(true)}} />
+          )) 
+        }
       </ScrollView>
 
       <Modal
@@ -209,12 +163,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 17,
   },
-  buton: {
-    marginTop: 15,
-    textAlign: 'center',
+  actionValid: {
     backgroundColor: '#33CC66',
-    borderRadius: 5,
-    padding: 9,
     color: 'white'
   },
   contetnBody: {

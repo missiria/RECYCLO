@@ -8,10 +8,11 @@ const config = {
     }
 }
 
-// const customAxiosInstance = axios.create(config)
+//const customAxiosInstance = axios.create(config)
 
-// const apiClient = create({ axiosInstance: customAxiosInstance })
+//const apiClient = create({ axiosInstance: customAxiosInstance })
 
 const apiClient = create( config )
 
+  
 export default apiClient;

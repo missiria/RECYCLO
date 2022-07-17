@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Entypo";
 export function EdgeCardCollect({text, onPress,img,style,imageStyle}) {
   return (
     <TouchableOpacity
-    onPress={onPress}
+    onPress={ () => onPress}
     style={[styles.card, style]}
     >
         <View>

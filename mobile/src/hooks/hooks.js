@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API_URL } from "~/api/constants";
+import apiClient from "~/api/client";
+//import { API_URL } from "~/api/constants";
 
-axios.defaults.baseURL = API_URL;
+//axios.defaults.baseURL = API_URL;
 
-export const useAxios = (axiosParams) => {
+export const useAPI = (axiosParams,isAuth = false) => {
+
   const [data, setData] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
   const fetchData = async (params) => {
     try {
-      const result = await axios.request(params);
+      if(isAuth == true)
+      {
+        const user = await getData('user');
+        params.headers = {
+          'Authorization' : user.auth.type+' '+user.auth.token
+        };
+      }
+      const result = await apiClient.any(params);
+      setIsLoading(false);
       setData(result.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -25,7 +33,7 @@ export const useAxios = (axiosParams) => {
     fetchData(axiosParams);
   }, []);
 
-  return { data, error, loading };
+  return { data, error, isLoading };
 };
 
 
