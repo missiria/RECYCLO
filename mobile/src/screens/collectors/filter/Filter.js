@@ -5,17 +5,44 @@ import {
   TouchableOpacity, 
   ScrollView 
 } from 'react-native'
-import React, { useState } from 'react'
+import {useState,useEffect} from 'react';
+import { useAPI } from "~/hooks/hooks";
 import { Picker } from '@react-native-picker/picker';
 
-import { typeWastData, cityData, periodData } from './FilterData';
-
+//typeWastData, cityData, 
+import { periodData } from './FilterData';
 
 export default function Filter({ navigation }) {
+
   const [selected, setSelected] = useState("08:00 - 12:00")
   const [waste, setWaste] = useState("Type de déchets");
   const [city, setCity] = useState("");
   const [period, setPeriod] = useState("");
+
+  const [cities, setCities] = useState([]);
+  const [collects, setCollects] = useState([]);
+
+  const { data:dataCities } = useAPI({
+    url: 'cities',
+    method: 'GET'
+  });
+
+  const { data:dataCollects } = useAPI({
+    url: 'collects',
+    method: 'GET'
+  });
+
+  useEffect(() => {
+    if (dataCities !== null){
+      setCities(dataCities);
+    }
+  }, [dataCities]);
+
+  useEffect(() => {
+    if (dataCollects !== null){
+      setCollects(dataCollects);
+    }
+  }, [dataCollects]);
 
   return (
     <View style={styles.container}>
@@ -28,11 +55,11 @@ export default function Filter({ navigation }) {
                 selectedValue={waste}
                 onValueChange={(itemValue, itemIndex) => setWaste(itemValue)}
               >
-                {typeWastData.map(item => {
+                {collects && collects.map(item => {
                   return (
                     <Picker.Item
-                      label={item.name}
-                      value={item.name}
+                      label={item.collect_name}
+                      value={item.collect_name}
                       key={item.id}
                     />
                   )
@@ -44,7 +71,7 @@ export default function Filter({ navigation }) {
                 selectedValue={city}
                 onValueChange={(itemValue, itemIndex) => setCity(itemValue)}
               >
-                {cityData.map(item => {
+                {cities && cities.map(item => {
                   return (
                     <Picker.Item
                       label={item.name}

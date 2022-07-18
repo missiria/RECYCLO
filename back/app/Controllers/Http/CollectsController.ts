@@ -8,7 +8,7 @@ export default class CollectsController {
   public async index({ response }) {
 
     //const collects = await Collect.findBy('active',1)
-    const collects = await Collect.all()
+    const collects = await Collect.query().select('id','collect_name','image','point','description')
     return response.ok(collects)
   }
 
