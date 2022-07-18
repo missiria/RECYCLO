@@ -23,7 +23,7 @@ export default class Accounts extends BaseSchema {
       table.string('back_verification_path', 255)
 
       table.string('address', 255)
-      table.string('city', 255)
+      table.integer('city_id').unsigned().nullable().references('cities.id').onDelete('CASCADE')
       table.string('country', 255)
       table.string('nationality', 255)
       table.integer('zip_code', 18)

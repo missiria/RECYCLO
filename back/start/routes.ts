@@ -44,6 +44,8 @@ Route.group(() => {
 
   Route.get('collects', 'CollectsController.index')
 
+  Route.get('declarations', 'DeclarationsController.list')
+
   //Route.resource('users', 'UsersController').apiOnly()
 
   //Route.resource('users', 'UsersController').apiOnly()
@@ -64,8 +66,12 @@ Route.group(() => {
 
 }).prefix('/api/v1')
 
-Route.get('/files/:uid/:file', async({response,params})=>{
-  return response.download(Application.makePath(`uploads/${params.uid}/${params.file}`))
+
+Route.get('/files/:folder/:image', async({response,params})=>{
+  return response.download(Application.makePath(`uploads/${params.folder}/${params.image}`))
+})
+Route.get('/files/:type/:folder/:image', async({response,params})=>{
+  return response.download(Application.makePath(`uploads/${params.type}/${params.folder}/${params.image}`))
 })
 
 Route.get('*', async ({response}) => {

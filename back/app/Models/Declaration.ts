@@ -19,6 +19,12 @@ export default class Declaration extends BaseModel {
   @column()
   public status: string
 
+  @column()
+  public date: string
+
+  @column()
+  public time: string
+
   @hasMany(() => ImagesDeclaration,{
     foreignKey: 'declaration_id',
   })

@@ -27,6 +27,8 @@ export default class DeclarationForm {
     collect_id: schema.number(),
     status: schema.enum.optional(['PENDING','VALID','CANCELED','PAID']),
     quantity: schema.number.optional(),
+    date: schema.date(),
+    time: schema.enum(['08:00 - 12:00', '12:00 - 16:00','16:00 - 20:00','20:00 - 00:00']),
   })
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`

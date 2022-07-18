@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'
-import { column, hasOne, HasOne, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import City from 'App/Models/City'
+import { column, hasOne, HasOne,belongsTo,BelongsTo, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
@@ -25,7 +26,7 @@ export default class Account extends BaseModel {
   public address: string
 
   @column()
-  public city: string
+  public city_id?: number
 
   @column()
   public country: string
@@ -52,6 +53,11 @@ export default class Account extends BaseModel {
   public updatedAt: DateTime
 
   @hasOne(() => User)
-  public users: HasOne<typeof User>
+  public user: HasOne<typeof User>
 
+  @belongsTo(() => City,{
+    localKey: 'id',
+    foreignKey: 'city_id',
+  })
+  public city: BelongsTo<typeof City>
 }

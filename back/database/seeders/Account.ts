@@ -9,7 +9,7 @@ export default class AccountSeeder extends BaseSeeder {
         gender: 'MALE',
         type: 'COLLECTOR',
         address: "lorem ipsum",
-        city: 'Lviv',
+        city_id: 1,
         country: 'UKRAINE',
         nationality: 'Ukrainian',
         society_id: 'S638250',

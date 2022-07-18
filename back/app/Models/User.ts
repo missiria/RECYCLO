@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 
+import Account from 'App/Models/Account'
 
 import { column, hasOne, HasOne, computed, BaseModel, beforeSave } from '@ioc:Adonis/Lucid/Orm'
 
@@ -54,4 +55,10 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasOne(() => Account,{
+    localKey: 'id',
+    foreignKey: 'user_id',
+  })
+  public account: HasOne<typeof Account>
 }

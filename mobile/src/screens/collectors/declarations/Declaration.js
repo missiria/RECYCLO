@@ -1,12 +1,27 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity,ScrollView } from 'react-native'
+import {useState,useEffect} from 'react';
 import i18n from "i18next";
 import DeclarationItem from './declarationItem/DeclarationItem';
 import HeaderImage from "../../../assets/images/c.png";
 import { FakeData } from './DeclarationFakeData'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
+import { useAPI } from "~/hooks/hooks";
+
 export default function Declaration({navigation}) {
+
+    const [declarations, setDeclarations] = useState([]);
+    const { isLoading, error, data } = useAPI({
+      url: 'declarations',
+      method: 'GET'
+    });
+  
+    useEffect(() => {
+      if (data !== null){
+        setDeclarations(data);
+      }
+    }, [data]);
+
     return (
         <View style={styles.container}>
             <View style={styles.headerHome}>
@@ -26,22 +41,21 @@ export default function Declaration({navigation}) {
                     />
                 </TouchableOpacity>
             </View>
-            <View>
-                {FakeData && FakeData.map(data => {
-                    return (
+            <ScrollView>
+                { error !== null ? <Text>{error.message}</Text> : 
+                    isLoading ? 
+                        <ActivityIndicator size="small" color="#ff00ff" />
+                    :
+                    declarations && declarations.map((declaration) => (
                         <DeclarationItem
-                            key={data.id}
+                            key={declaration.id}
                             navigation={navigation}
-                            img={data.img}
-                            username={data.username}
-                            typeDechet={data.typeDechet}
-                            city={data.city}
-                            date={data.date}
-                            quantity={data.quantity}
+                            declaration={declaration}
                         />
-                    )
-                })}
-            </View>
+                    )) 
+                    
+                }
+            </ScrollView>
         </View>
     )
 }

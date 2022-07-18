@@ -1,17 +1,27 @@
 import { View, Text, StyleSheet, ScrollView, Image, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { SliderBox } from "react-native-image-slider-box";
-import { FakeImagesDataSliders } from './FakeImagesDataSliders'
-import userImage from '../../../assets/images/p.png'
+//import { FakeImagesDataSliders } from './FakeImagesDataSliders'
+//import userImage from '../../../assets/images/p.png'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Location from 'expo-location';
 import MapView, { Marker, Polygon } from 'react-native-maps';
+import { UPLOAD_FOLDER_URL,DEFAULT_AVATAR_URL } from "~/api/constants"
+import moment from "moment";
 
-export default function DeclarationDetails({navigation}) {
-    const [images, setImages] = useState(FakeImagesDataSliders);
+export default function DeclarationDetails({navigation, route }) {
+
+    const { declaration } = route.params;
+    const images = [];
+
+    declaration.images.map(img=>{
+        images.push(UPLOAD_FOLDER_URL + img.image);
+    });
+
+    const userImage = declaration.user.avatar != null ? UPLOAD_FOLDER_URL + declaration.user.avatar : DEFAULT_AVATAR_URL;
+    
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-
 
     useEffect(() => {
         (async () => {
@@ -43,7 +53,6 @@ export default function DeclarationDetails({navigation}) {
         longitude = location.coords.longitude;
     }
 
-
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -60,12 +69,12 @@ export default function DeclarationDetails({navigation}) {
                         <View >
                             <Image
                                 style={styles.profileImg}
-                                source={userImage}
+                                source={{uri:userImage}}
                             />
                         </View>
                         <View style={styles.userInfoData}>
                             <Text style={styles.username}>
-                                Amine Amazzal
+                                {declaration.user.fullName}
                             </Text>
                             <View style={styles.userPlace}>
                                 <Icon
@@ -73,7 +82,7 @@ export default function DeclarationDetails({navigation}) {
                                     name='map-marker-outline'
                                 />
                                 <Text style={styles.descUserMap}>
-                                    Agadir,Maroc
+                                    {declaration.user.account?.city.name},{declaration.user.account?.country}
                                 </Text>
                             </View>
                         </View>
@@ -84,10 +93,10 @@ export default function DeclarationDetails({navigation}) {
                     <View style={styles.declarationInfo}>
                         <View style={styles.declarationVetmentBox}>
                             <Text style={styles.decVetTitle}>
-                                Vêtements
+                            {declaration.collect.collect_name}
                             </Text>
                             <Text style={styles.decVetName}>
-                                10.00 kgs
+                            {declaration.quantity} kgs
                             </Text>
                         </View>
                         <View style={styles.centerBox}>
@@ -95,7 +104,7 @@ export default function DeclarationDetails({navigation}) {
                                 Prix
                             </Text>
                             <Text style={styles.centerName}>
-                                0.50 Dhs/kgs
+                            {declaration.collect.point / 100 } Dhs/kgs
                             </Text>
                         </View>
                     </View>
@@ -114,10 +123,10 @@ export default function DeclarationDetails({navigation}) {
                         </View>
                         <View style={styles.cardDispoBox}>
                             <Text style={styles.despoTime}>
-                                08:00 - 12:00
+                                {moment(declaration.date, moment.ISO_8601).format('dddd, MMMM DD YYYY')}
                             </Text>
                             <Text style={styles.despoDate}>
-                                Monday 12 Mai 2022
+                                {declaration.time}
                             </Text>
                         </View>
 
@@ -135,7 +144,7 @@ export default function DeclarationDetails({navigation}) {
                             </Text>
                         </View>
                         <Text style={styles.addressTextDesc}>
-                            Ihchach, Rue 410 Agadir, Maroc
+                            {declaration.user.account?.address}
                         </Text>
                         <MapView
                             style={styles.map}
@@ -155,7 +164,7 @@ export default function DeclarationDetails({navigation}) {
                                     longitude: parseFloat(longitude),
                                 }}
                                 title={'Here We Put The User Name Of Menage'}
-                                description={'Amine Amazzal'}
+                                description={declaration.user.fullName}
                             >
                             </Marker>
                         </MapView>

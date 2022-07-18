@@ -28,10 +28,6 @@ export default class AccountsController {
     const payload: any = await request.validate( AccountForm )
     const account: any = await Account.findBy('user_id',user.id)
 
-    console.log(account);
-    return;
-    console.log(payload);
-
     if(payload.type != null)
       account.type = payload.type
 
@@ -71,15 +67,14 @@ export default class AccountsController {
     account.type_verification = request.type
 
     const frontVerify = request.file('front_card')
-    console.log('frontVerify')
-    console.log(frontVerify)
+
     if (frontVerify) {
       await frontVerify.move('uploads/validations/'+user.id, {
         name: 'front_'+Date.now()+'.'+frontVerify.extname,
         overwrite: true,
       })
     }
-    account.front_verification_path = frontVerify.filePath;
+    account.front_verification_path = frontVerify.filePath.replace(/\\/g, '/').replace('uploads/', '');
 
     const backVerify = request.file('back_card')
     if (backVerify) {
@@ -88,7 +83,7 @@ export default class AccountsController {
         overwrite: true,
       })
     }
-    account.back_verification_path = backVerify.filePath;
+    account.back_verification_path = backVerify.filePath.replace(/\\/g, '/').replace('uploads/', '');
 
     await account.save()
 
