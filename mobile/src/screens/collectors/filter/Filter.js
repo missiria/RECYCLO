@@ -6,18 +6,18 @@ import {
   ScrollView 
 } from 'react-native'
 import {useState,useEffect} from 'react';
-import { useAPI } from "~/hooks/hooks";
+import { useAPI,useAsyncStorage } from "~/hooks/hooks";
 import { Picker } from '@react-native-picker/picker';
 
 //typeWastData, cityData, 
 import { periodData } from './FilterData';
 
-export default function Filter({ navigation }) {
+export default function Filter({ navigation: { goBack } }) {
 
-  const [selected, setSelected] = useState("08:00 - 12:00")
-  const [waste, setWaste] = useState("Type de déchets");
-  const [city, setCity] = useState("");
-  const [period, setPeriod] = useState("");
+  const [selected, setSelected] = useAsyncStorage("filterTime","")
+  const [waste, setWaste] = useAsyncStorage("filterTypeCollects","-1");
+  const [city, setCity] = useAsyncStorage("filterCity","-1");
+  const [period, setPeriod] = useAsyncStorage("filterPeroid","-1");
 
   const [cities, setCities] = useState([]);
   const [collects, setCollects] = useState([]);
@@ -31,6 +31,17 @@ export default function Filter({ navigation }) {
     url: 'collects',
     method: 'GET'
   });
+
+  const onPressReset = () => {
+    setSelected("")
+    setWaste("-1")
+    setCity("-1")
+    setPeriod("-1")
+  }
+
+  const onPressSubmit = () => {
+    goBack()
+  }
 
   useEffect(() => {
     if (dataCities !== null){
@@ -53,13 +64,18 @@ export default function Filter({ navigation }) {
             <View style={styles.cardBox}>
               <Picker
                 selectedValue={waste}
-                onValueChange={(itemValue, itemIndex) => setWaste(itemValue)}
+                onValueChange={(itemValue, itemIndex) => setWaste(itemIndex)}
               >
+                <Picker.Item
+                  label="All"
+                  value="-1"
+                  key="-1"
+                />
                 {collects && collects.map(item => {
                   return (
                     <Picker.Item
                       label={item.collect_name}
-                      value={item.collect_name}
+                      value={item.id}
                       key={item.id}
                     />
                   )
@@ -69,13 +85,18 @@ export default function Filter({ navigation }) {
             <View style={styles.cardBox}>
               <Picker
                 selectedValue={city}
-                onValueChange={(itemValue, itemIndex) => setCity(itemValue)}
+                onValueChange={(itemValue, itemIndex) => setCity(itemIndex)}
               >
+                <Picker.Item
+                  label="All"
+                  value="-1"
+                  key="-1"
+                />
                 {cities && cities.map(item => {
                   return (
                     <Picker.Item
                       label={item.name}
-                      value={item.name}
+                      value={item.id}
                       key={item.id}
                     />
                   )
@@ -85,13 +106,18 @@ export default function Filter({ navigation }) {
             <View style={styles.cardBox}>
               <Picker
                 selectedValue={period}
-                onValueChange={(itemValue, itemIndex) => setPeriod(itemValue)}
+                onValueChange={(itemValue, itemIndex) => setPeriod(itemIndex)}
               >
+                <Picker.Item
+                      label="All"
+                      value="-1"
+                      key="-1"
+                    />
                 {periodData.map(item => {
                   return (
                     <Picker.Item
                       label={item.name}
-                      value={item.name}
+                      value={item.id}
                       key={item.id}
                     />
                   )
@@ -150,12 +176,12 @@ export default function Filter({ navigation }) {
           </View>
           <View style={styles.buttinsBox}>
             <TouchableOpacity>
-              <Text style={styles.buttonReset}>
+              <Text style={styles.buttonReset} onPress={onPressReset}>
                 Reset
               </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.buttonNext} >
+              <Text style={styles.buttonNext} onPress={onPressSubmit}>
                 Appliquer
               </Text>
             </TouchableOpacity>

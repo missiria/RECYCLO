@@ -6,16 +6,32 @@ import HeaderImage from "../../../assets/images/c.png";
 import { FakeData } from './DeclarationFakeData'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { useAPI } from "~/hooks/hooks";
+import { useAPI,useAsyncStorage } from "~/hooks/hooks";
 
 export default function Declaration({navigation}) {
+
+    const [filterTime] = useAsyncStorage("filterTime","")
+    const [filterTypeCollects] = useAsyncStorage("filterTypeCollects","-1");
+    const [filterCity] = useAsyncStorage("filterCity","-1");
+    const [filterPeroid] = useAsyncStorage("filterPeroid","-1");
 
     const [declarations, setDeclarations] = useState([]);
     const { isLoading, error, data } = useAPI({
       url: 'declarations',
-      method: 'GET'
+      method: 'GET',
+      params: {
+        collect_id: filterTypeCollects,
+        city_id: filterCity,
+        time: filterTime,
+        peroid: filterPeroid,
+      },
     });
-  
+    
+    console.log('filterTypeCollects',filterTypeCollects)
+    console.log('filterCity',filterCity)
+    console.log('filterTime',filterTime)
+    console.log('filterPeroid',filterPeroid)
+
     useEffect(() => {
       if (data !== null){
         setDeclarations(data);

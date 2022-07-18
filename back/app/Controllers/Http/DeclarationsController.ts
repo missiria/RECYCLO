@@ -6,7 +6,9 @@ import DeclarationFilterForm from 'App/Validators/DeclarationFilterFormValidator
 
 export default class DeclarationsController {
 
-  public async list({ response }) {
+  public async list({ request,response }) {
+
+    const payload: any = await request.validate(DeclarationFilterForm)
 
     const declarations = await Declaration.query().select('id','collect_id','user_id','quantity','status','date','time','created_at','updated_at').preload('images',(query)=>{
       query.select('id','declaration_id','image')
@@ -19,9 +21,48 @@ export default class DeclarationsController {
         query.select('id','gender','type','avatar','address','country','city_id').preload('city',(query)=>{
           query.select('id','name')
         })
-        //add city
       })
-    }).where('status', 'VALID')
+    }).where((query) => {
+
+      query.where('status', 'VALID')
+
+      if(payload.time !== undefined && payload.time !== ''){
+        query.where('time', payload.time)
+      }
+
+      if(payload.collect_id !== undefined && payload.collect_id !== -1){
+        query.where('collect_id', payload.collect_id)
+      }
+
+      if(payload.city_id !== undefined && payload.city_id !== -1){
+        query.whereHas('user',(query) => {
+          query.whereHas('account', (query) => {
+            query.where('city_id', payload.city_id)
+          })
+        })
+      }
+
+      if(payload.peroid !== undefined && payload.peroid !== -1){
+
+        // 1 : Dernière heure
+        // 2 : Aujourd'hui
+        // 3 : 7 derniers jours
+        // 4 : Ce mois-ci
+        if(payload.peroid == 1)
+        {
+          query.where('created_at', '>','DATE_SUB(NOW(),INTERVAL 1 HOUR)')
+        }
+        else if(payload.peroid == 2){
+          query.whereRaw('DATE(created_at) = DATE(NOW())')
+        }
+        else if(payload.peroid == 3){
+          query.where('created_at', '>','DATE_SUB(NOW(),INTERVAL 7 days)')
+        }
+        else if(payload.peroid == 4){
+          query.whereRaw('month(created_at) = month(NOW())').whereRaw('year(created_at) = year(NOW())')
+        }
+      }
+    })
 
     return response.ok(declarations)
   }
