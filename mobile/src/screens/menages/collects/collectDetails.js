@@ -13,15 +13,15 @@ import React, { useState } from "react";
 import FooterNav from "../navigations/FooterNav";
 import Unorderedlist from "react-native-unordered-list";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Icon from 'react-native-vector-icons/Entypo'
+import Icon from "react-native-vector-icons/Entypo";
 
-import { UPLOAD_FOLDER_URL } from "~/api/constants"
+import { UPLOAD_FOLDER_URL } from "~/api/constants";
 
-import deshetImg from '../../../assets/images/t.png'
-import coinImg from '../../../assets/images/coin.png';
+import deshetImg from "../../../assets/images/t.png";
+import coinImg from "../../../assets/images/coin.png";
 import i18n from "i18next";
 
-export default function CollectDetails({ navigation ,route }) {
+export default function CollectDetails({ navigation, route }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("");
   const [show, setShow] = useState(false);
@@ -74,7 +74,7 @@ export default function CollectDetails({ navigation ,route }) {
     setShow(true);
     setMode(currentMode);
   };
-  
+
   const showDatepicker = () => {
     showMode("date");
   };
@@ -114,19 +114,23 @@ export default function CollectDetails({ navigation ,route }) {
     //console.log("quantity : "+quantity)
     //console.log("price : "+price)
     //console.log("------------")
-    if(mode == 'date')
-    {
-      let dateDeclary = date.getDate().toString().padStart(2, '0') + "/"+ parseInt(date.getMonth()+1).toString().padStart(2, '0') +"/"+date.getFullYear();
-      navigation.navigate('CollectDetailsUploadImages',{
-        dateDeclary:dateDeclary,
-        timeDeclary:timeDeclary,
-        quantityDeclary:quantity,
-        priceDeclary:price,
-        collectId:route.params?.collect.id,
-      })
-    }
-    else
-      Alert.alert("select date");
+    if (mode == "date") {
+      let dateDeclary =
+        date.getDate().toString().padStart(2, "0") +
+        "/" +
+        parseInt(date.getMonth() + 1)
+          .toString()
+          .padStart(2, "0") +
+        "/" +
+        date.getFullYear();
+      navigation.navigate("CollectDetailsUploadImages", {
+        dateDeclary: dateDeclary,
+        timeDeclary: timeDeclary,
+        quantityDeclary: quantity,
+        priceDeclary: price,
+        collectId: route.params?.collect.id,
+      });
+    } else Alert.alert("select date");
   };
 
   return (
@@ -136,28 +140,25 @@ export default function CollectDetails({ navigation ,route }) {
           <View>
             <Image
               style={styles.HeaderImage}
-              source={{ uri : `${UPLOAD_FOLDER_URL + route.params?.collect.image}` }}
+              source={{
+                uri: `${UPLOAD_FOLDER_URL + route.params?.collect.image}`,
+              }}
             />
           </View>
           <View style={styles.countBox}>
             <View>
-              <Text style={styles.countTitle}>{route.params?.collect.collect_name}</Text>
+              <Text style={styles.countTitle}>
+                {route.params?.collect.collect_name}
+              </Text>
             </View>
             <View style={styles.rightCountBox}>
               <Text style={styles.theCount}>{route.params?.collect.point}</Text>
-              <Image
-                style={styles.CoinImg}
-                source={coinImg}
-              />
+              <Image style={styles.CoinImg} source={coinImg} />
             </View>
           </View>
           <View style={styles.theDescriptionBox}>
-            <Text style={styles.priceText}>
-              Prix
-            </Text>
-            <Text style={styles.priceAswerText}>
-              {price} Dh / kg
-            </Text>
+            <Text style={styles.priceText}>Prix</Text>
+            <Text style={styles.priceAnswerText}>{price} Dh / kg</Text>
           </View>
           <View style={styles.textBoxDescition}>
             <Text>{route.params?.collect.description}</Text>
@@ -178,7 +179,9 @@ export default function CollectDetails({ navigation ,route }) {
           </View>
           <View>
             <View>
-              <Text style={styles.textTitleDayYopONE}>Planifier votre ramassage</Text>
+              <Text style={styles.textTitleDayYopONE}>
+                Planifier votre ramassage
+              </Text>
               <Text onPress={showDatepicker} style={styles.currentDate}>
                 {text}
               </Text>
@@ -255,13 +258,12 @@ export default function CollectDetails({ navigation ,route }) {
                 <Icon
                   style={styles.plusCount}
                   onPress={() => setQuantity(quantity + 1)}
-
                   name="squared-plus"
                 />
               </View>
             </View>
             <Text style={styles.textBottom}>
-            {i18n.t("menageCollectDetails.description-term")}
+              {i18n.t("menageCollectDetails.description-term")}
             </Text>
           </View>
           <View style={styles.btnBoxDec}>
@@ -269,7 +271,7 @@ export default function CollectDetails({ navigation ,route }) {
               // onPress={() => navigation.navigate("DeclarationSuccess")}
               //onPress={() => navigation.navigate("CollectDetailsUploadImages")}
               onPress={() => onSubmitDeclare()}
-              style={styles.btnDeclar}
+              style={styles.btnDeclaration}
             >
               {i18n.t("introduction.next")}
             </Text>
@@ -307,15 +309,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#262626",
   },
-  priceText : {
+  priceText: {
     color: "#262626",
   },
-  priceAswerText : {
+  priceAnswerText: {
     color: "#262626",
   },
-  textTitleDayYopONE : {
+  textTitleDayYopONE: {
     color: "#262626",
-    display:'none'
+    display: "none",
   },
   quantity: {
     flexDirection: "row",
@@ -344,7 +346,7 @@ const styles = StyleSheet.create({
 
     elevation: 12,
   },
-  btnDeclar: {
+  btnDeclaration: {
     textAlign: "center",
     backgroundColor: "#33CC66",
     borderRadius: 6,
@@ -440,7 +442,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     marginTop: 20,
-    color:'black',
+    color: "black",
     fontWeight: "bold",
   },
   currentDate: {
