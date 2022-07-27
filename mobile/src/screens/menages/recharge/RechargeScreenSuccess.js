@@ -2,7 +2,7 @@ import { View, Text, ScrollView, StyleSheet, SafeAreaView, Image } from 'react-n
 import React from 'react';
 import doneImg from '../../../assets/images/done.png';
 
-export default function RechardeScreenSucess({ navigation }) {
+export default function RechargeScreenSuccess({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>

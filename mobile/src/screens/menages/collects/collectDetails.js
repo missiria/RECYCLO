@@ -196,7 +196,7 @@ export default function CollectDetails({ navigation, route }) {
                 />
               )}
               <Text style={styles.textTitleDay}>
-                {i18n.t("menageCollectDetails.description-aswer")}
+                {i18n.t("menageCollectDetails.description-answer")}
               </Text>
             </View>
           </View>
@@ -204,7 +204,7 @@ export default function CollectDetails({ navigation, route }) {
             <Text
               style={
                 timeDeclary === "9 AM - 12 PM"
-                  ? styles.chosedTheTime
+                  ? styles.chosenTheTime
                   : styles.choseTheTime
               }
               onPress={() => setTimeDeclary("9 AM - 12 PM")}
@@ -214,7 +214,7 @@ export default function CollectDetails({ navigation, route }) {
             <Text
               style={
                 timeDeclary === "12 PM - 3 PM"
-                  ? styles.chosedTheTime
+                  ? styles.chosenTheTime
                   : styles.choseTheTime
               }
               onPress={() => setTimeDeclary("12 PM - 3 PM")}
@@ -224,7 +224,7 @@ export default function CollectDetails({ navigation, route }) {
             <Text
               style={
                 timeDeclary == "3 PM - 6 PM"
-                  ? styles.chosedTheTime
+                  ? styles.chosenTheTime
                   : styles.choseTheTime
               }
               onPress={() => setTimeDeclary("3 PM - 6 PM")}
@@ -234,7 +234,7 @@ export default function CollectDetails({ navigation, route }) {
             <Text
               style={
                 timeDeclary == "6 PM - 9 PM"
-                  ? styles.chosedTheTime
+                  ? styles.chosenTheTime
                   : styles.choseTheTime
               }
               onPress={() => setTimeDeclary("6 PM - 9 PM")}
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
   },
-  chosedTheTime: {
+  chosenTheTime: {
     textAlign: "center",
     padding: 10,
     borderWidth: 1,

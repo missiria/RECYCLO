@@ -50,7 +50,7 @@ import DataBankCounter from '../screens/menages/profile/moneyWithdrawal/withdraw
 import ChooseTypeRecharge from '../screens/menages/recharge/ChooseTypeRecharge';
 import MarocTele from '../screens/menages/recharge/MarocTele';
 import ConfirmationRechargeDetails from '../screens/menages/recharge/ConfirmationRechargeDetails';
-import RechargeScreenSucess from '../screens/menages/recharge/RechargeScreenSucess';
+import RechargeScreenSuccess from '../screens/menages/recharge/RechargeScreenSuccess';
 import Orange from '../screens/menages/recharge/Orange';
 import Inwi from '../screens/menages/recharge/Inwi';
 
@@ -140,17 +140,17 @@ const RootStack = () => {
                 <Stack.Screen name="Splash" component={Splash} />
                 <Stack.Screen name="Language" component={Language} />
                 <Stack.Screen name="Salut" component={Welcom} />
-                <Stack.Screen name="Onboarding" component={Onboarding} />   
-                <Stack.Screen name="LoginIndex" component={LoginIndex} />   
+                <Stack.Screen name="Onboarding" component={Onboarding} />
+                <Stack.Screen name="LoginIndex" component={LoginIndex} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
-                
+
                 <Stack.Screen name="VerificationPhone" component={VerificationUser} />
                 <Stack.Screen name="VerificationSuccess" component={ValidationSuccess} />
                 <Stack.Screen name="ChangePasswordIndex" component={GetEmail} />
                 <Stack.Screen name="VerifPhone" component={MultiFactor} />
                 <Stack.Screen name="ChangePassword" component={ChangePassword} />
-                <Stack.Screen name="Done" component={Done} />  
+                <Stack.Screen name="Done" component={Done} />
                 <Stack.Screen name='Home' component={Home} />
                 <Stack.Screen name="Logout" component={Logout} />
                 <Stack.Screen name="OtherCollects" component={Otherscollect} />
@@ -333,7 +333,7 @@ const RootStack = () => {
                         headerTintColor: '#33CC66',
                         headerShadowVisible: false,
                     }}
-                    name="RechargeSuccess" component={RechargeScreenSucess} />
+                    name="RechargeSuccess" component={RechargeScreenSuccess} />
                 <Stack.Screen
                     options={{
                         headerShown: true,
@@ -451,7 +451,6 @@ const RootStack = () => {
                     }}
                     name="FaqIndex" component={FaqIndex} />
 
-                
 
 
 
@@ -467,7 +466,8 @@ const RootStack = () => {
 
 
 
-                <Stack.Screen name='CollectorHome' component={CollectorHome} />    
+
+                <Stack.Screen name='CollectorHome' component={CollectorHome} />
                 <Stack.Screen
                     options={{
                         headerShown: true,
