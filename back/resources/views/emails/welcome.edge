@@ -30,14 +30,12 @@ body {
 div[style*="margin: 16px 0"] {
     margin: 0 !important;
 }
-
 /* What it does: Stops Outlook from adding extra spacing to tables. */
 table,
 td {
     mso-table-lspace: 0pt !important;
     mso-table-rspace: 0pt !important;
 }
-
 /* What it does: Fixes webkit padding issue. */
 table {
     border-spacing: 0 !important;
@@ -45,17 +43,14 @@ table {
     table-layout: fixed !important;
     margin: 0 auto !important;
 }
-
 /* What it does: Uses a better rendering method when resizing images in IE. */
 img {
     -ms-interpolation-mode:bicubic;
 }
-
 /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
 a {
     text-decoration: none;
 }
-
 /* What it does: A work-around for email clients meddling in triggered links. */
 *[x-apple-data-detectors],  /* iOS */
 .unstyle-auto-detected-links *,
@@ -69,7 +64,6 @@ a {
     font-weight: inherit !important;
     line-height: inherit !important;
 }
-
 /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
 .a6S {
     display: none !important;
@@ -107,14 +101,8 @@ img.g-img + div {
         min-width: 414px !important;
     }
 }
-
 </style>
-
-<!-- CSS Reset : END -->
-
-<!-- Progressive Enhancements : BEGIN -->
 <style>
-
   .primary{
 	background: #0d0cb5;
 }
@@ -155,14 +143,12 @@ img.g-img + div {
 	border: 1px solid #fff;
 	color: #fff;
 }
-
 h1,h2,h3,h4,h5,h6{
 	font-family: 'Poppins', sans-serif;
 	color: #000000;
 	margin-top: 0;
 	letter-spacing: -1px;
 }
-
 body{
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
@@ -170,15 +156,9 @@ body{
 	line-height: 1.8;
 	color: rgba(0,0,0,.4);
 }
-
 a{
 	color: #0d0cb5;
 }
-
-table{
-}
-/*LOGO*/
-
 .logo h1{
 	margin: 0;
 }
@@ -189,7 +169,6 @@ table{
 	text-transform: uppercase;
 	font-family: 'Poppins', sans-serif;
 }
-
 .navigation{
 	padding: 0;
 }
@@ -203,7 +182,6 @@ table{
 .navigation li a{
 	color: rgba(0,0,0,.4);
 }
-
 /*HERO*/
 .hero{
 	position: relative;
@@ -236,11 +214,7 @@ table{
 	font-size: 30px;
 	margin-bottom: 0;
 }
-
-
 /*HEADING SECTION*/
-.heading-section{
-}
 .heading-section h2{
 	color: #000000;
 	font-size: 20px;
@@ -387,14 +361,14 @@ table{
             		<td>
             			<div class="text" style="padding: 0 3em; text-align: center;">
             				<h2>Bienvenue sur notre application !</h2>
-            				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio corrupti perferendis commodi laboriosam suscipit dolore accusantium, voluptatum officiis iste tempora quaerat, numquam deleniti fugit excepturi error illo natus mollitia libero?</p>
+            				<p>Bonjour {{ newUser.first_name }} {{ newUser.last_name }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio corrupti perferendis commodi laboriosam suscipit dolore accusantium, voluptatum officiis iste tempora quaerat, numquam deleniti fugit excepturi error illo natus mollitia libero?</p>
             			</div>
             		</td>
             	</tr>
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 3em; text-align: center;">
-            				<a href="#" style="background-color: seagreen; padding: 5px 15px; color: #fff">
+            				<a href="{{ signature }}" style="background-color: seagreen; padding: 5px 15px; color: #fff">
                       Valider votre compte ?
                     </a>
             			</div>

@@ -79,3 +79,11 @@ Route.get('*', async ({response}) => {
   return response.accepted({error:400,message:'Bad Request'});
   //return response.badRequest({error:400,message:'Bad Request'});
 })
+
+Route.get('/verify/:email', async ({ request }) => {
+  if (request.hasValidSignature()) {
+    return 'Marking email as verified'
+  }
+
+  return 'Signature is missing or URL was tampered.'
+}).as('verifyEmail')

@@ -1,3 +1,4 @@
+import { Route } from 'react-router-dom';
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
 import User from 'App/Models/User'
@@ -84,12 +85,16 @@ export default class UsersController {
       type: account_type
     })
 
+    const signature = Route.makeSignedUrl('verifyEmail', {
+      email: newUser.email,
+    })
+
     await Mail.send((message) => {
       message
         .from('info@example.com')
         .to( newUser.email )
         .subject('Welcome Onboard! RECYCLOO')
-        .htmlView('emails/welcome', { fullName: newUser.fullName })
+        .htmlView('emails/welcome', { newUser, signature })
     })
 
     let result = {auth, account}
