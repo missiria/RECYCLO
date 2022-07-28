@@ -1,7 +1,7 @@
 import { schemaValidation } from './services/recharge.services'
 
 test("Return object of fields with values when form is valid", async () => {
-    let user = { 
+    let user = {
         operator: "Orange",
         phone: "0612345678",
         prix: "20",
@@ -15,8 +15,8 @@ test("Return object of fields with values when form is valid", async () => {
 });
 
 
-test("Return Error Whene Phone Is Not A Number", async () => {
-    let user = { 
+test("Return Error When Phone Is Not A Number", async () => {
+    let user = {
         operator: "Orange",
         phone: "thisisnotanumber",
         prix: "20",
@@ -30,7 +30,7 @@ test("Return Error Whene Phone Is Not A Number", async () => {
 });
 
 test("Return Error Whene Objects Is Empty", async () => {
-    let user = { 
+    let user = {
         operator: "",
         phone: "",
         prix: "",
