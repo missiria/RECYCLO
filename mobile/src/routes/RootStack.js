@@ -52,6 +52,7 @@ import MarocTele from '../screens/menages/recharge/MarocTele';
 import ConfirmationRechargeDetails from '../screens/menages/recharge/ConfirmationRechargeDetails';
 import RechargeScreenSuccess from '../screens/menages/recharge/RechargeScreenSuccess';
 import Orange from '../screens/menages/recharge/Orange';
+
 import Inwi from '../screens/menages/recharge/Inwi';
 
 import Donate from '../screens/menages/donation/Donate';

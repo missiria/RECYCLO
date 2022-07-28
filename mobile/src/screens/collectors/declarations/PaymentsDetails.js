@@ -4,7 +4,18 @@ import cashIcon from '../../../assets/images/cashmony.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export default function PaymentsDetails({ navigation }) {
+export default function PaymentsDetails({ navigation, route }) {
+
+    const { declaration } = route.params;
+    const total = (declaration.collect.point / 100) * declaration.quantity;
+    const faris = total * 0.1;
+
+    const onSubmitPayment = () => {
+
+
+        navigation.navigate('Successyment')
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -32,21 +43,21 @@ export default function PaymentsDetails({ navigation }) {
                                 <Text>Quantity :</Text>
                                 <Text
                                     style={styles.textBoldFlex}>
-                                    10.00 kgs
+                                    {declaration.quantity} kgs
                                 </Text>
                             </View>
                             <View style={styles.cardBody}>
                                 <Text>Prix :</Text>
                                 <Text
                                     style={styles.textBoldFlex}>
-                                    0.50 Dhs
+                                    {declaration.collect.point / 100 } Dhs
                                 </Text>
                             </View>
                             <View style={styles.cardBody}>
                                 <Text style={{ color: '#5B68F6' }}>Frais de transaction : </Text>
                                 <Text
                                     style={[styles.textBoldFlex, { color: '#5B68F6' }]}>
-                                    0.50 Dhs
+                                    {faris} Dhs
                                 </Text>
                             </View>
                             <View style={styles.beackLine}></View>
@@ -54,7 +65,8 @@ export default function PaymentsDetails({ navigation }) {
                                 <Text style={styles.textFotterRight}>Montant a payée : </Text>
                                 <Text
                                     style={styles.textFotterLeft}>
-                                    5.50 Dhs
+                                    {total + faris} Dhs
+
                                 </Text>
                             </View>
                         </View>
@@ -71,7 +83,7 @@ export default function PaymentsDetails({ navigation }) {
                 </View>
                 <View style={styles.btnFooter}>
                     <Text
-                        onPress={() => navigation.navigate('Successyment')}
+                        onPress={onSubmitPayment}
                         style={styles.buttonBtn}>
                         valider
                     </Text>

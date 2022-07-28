@@ -89,6 +89,25 @@ export default class DeclarationsController {
       return response.ok(declaration)
   }
 
+  public async update({ auth,params,response }) {
+
+    const { id }: { id: Number } = params
+    const user = auth.use('api').user;
+
+    const declaration: any = await Declaration.find(id)
+
+    if (!declaration) {
+      return response.notFound({ message: 'Déclaration none trouvé' })
+    }
+
+    declaration.collector_user_id = user.id
+    declaration.status = 'PAID'
+
+    declaration.save()
+
+    return response.ok({error:false,message : 'Success'})
+  }
+
   public async save({ auth,request, response }) {
 
     const user = auth.use('api').user;

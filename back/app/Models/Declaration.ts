@@ -25,6 +25,9 @@ export default class Declaration extends BaseModel {
   @column()
   public time: string
 
+  @column()
+  public collector_user_id: number
+
   @hasMany(() => ImagesDeclaration,{
     foreignKey: 'declaration_id',
   })
@@ -47,4 +50,10 @@ export default class Declaration extends BaseModel {
     foreignKey: 'id',
   })
   public user: HasOne<typeof User>
+
+  @hasOne(() => User,{
+    localKey: 'collector_user_id',
+    foreignKey: 'id',
+  })
+  public collector_user: HasOne<typeof User>
 }
