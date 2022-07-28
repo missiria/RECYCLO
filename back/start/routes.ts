@@ -21,11 +21,12 @@ import Application from '@ioc:Adonis/Core/Application'
 */
 // Accounts
 Route.group(() => {
-
   //Route.post('accounts', 'AccountsController.store')
 
   Route.get('account', 'AccountsController.show')
   Route.put('accounts', 'AccountsController.update')
+
+  // TODO : upload_verfication => rename to => upload_verification
   Route.post('account/upload_verfication', 'AccountsController.upload_verfication')
 
   Route.delete('accounts', 'AccountsController.destroy')
@@ -33,21 +34,16 @@ Route.group(() => {
   Route.post('declarations', 'DeclarationsController.index')
   Route.post('declarations/:id/update', 'DeclarationsController.update')
   Route.post('declarations/add', 'DeclarationsController.save')
-
-}).prefix('/api/v1').middleware('api_auth')
+})
+  .prefix('/api/v1')
+  .middleware('api_auth')
 
 // Users, Donations, declarations,Recharges,collects
 Route.group(() => {
-
   Route.resource('cities', 'CitiesController').apiOnly()
-
   Route.post('users', 'UsersController.store')
-
   Route.get('collects', 'CollectsController.index')
-
   Route.get('declarations', 'DeclarationsController.list')
-
-  //Route.resource('users', 'UsersController').apiOnly()
 
   //Route.resource('users', 'UsersController').apiOnly()
 
@@ -55,28 +51,27 @@ Route.group(() => {
   //Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
   //Route.resource('collects', 'CollectsController').apiOnly()
-
 }).prefix('/api/v1')
 
 // auth
 Route.group(() => {
-
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
   Route.post('/users/auth', 'UsersController.auth').as('users.auth')
-
 }).prefix('/api/v1')
 
-
-Route.get('/files/:folder/:image', async({response,params})=>{
+Route.get('/files/:folder/:image', async ({ response, params }) => {
   return response.download(Application.makePath(`uploads/${params.folder}/${params.image}`))
 })
-Route.get('/files/:type/:folder/:image', async({response,params})=>{
-  return response.download(Application.makePath(`uploads/${params.type}/${params.folder}/${params.image}`))
+
+Route.get('/files/:type/:folder/:image', async ({ response, params }) => {
+  return response.download(
+    Application.makePath(`uploads/${params.type}/${params.folder}/${params.image}`)
+  )
 })
 
-Route.get('*', async ({response}) => {
-  return response.accepted({error:400,message:'Bad Request'});
+Route.get('*', async ({ response }) => {
+  return response.accepted({ error: 400, message: 'Bad Request' })
   //return response.badRequest({error:400,message:'Bad Request'});
 })
 
