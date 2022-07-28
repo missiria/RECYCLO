@@ -145,4 +145,8 @@ export default class UsersController {
 
     return response.ok({ message: 'User deleted successfully.' })
   }
+
+  public async forget_password({ params, response}) {
+
+  }
 }

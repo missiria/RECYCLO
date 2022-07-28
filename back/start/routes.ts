@@ -51,6 +51,14 @@ Route.group(() => {
   //Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
   //Route.resource('collects', 'CollectsController').apiOnly()
+
+  Route.get('/verify/:email', async ({ request }) => {
+    if (request.hasValidSignature()) {
+      return 'Votre compte est verifié par email!'
+    }
+    return 'Signature is missing or URL was tampered.'
+  }).as('verifyEmail')
+
 }).prefix('/api/v1')
 
 // auth
@@ -74,11 +82,3 @@ Route.get('*', async ({ response }) => {
   return response.accepted({ error: 400, message: 'Bad Request' })
   //return response.badRequest({error:400,message:'Bad Request'});
 })
-
-Route.get('/verify/:email', async ({ request }) => {
-  if (request.hasValidSignature()) {
-    return 'Marking email as verified'
-  }
-
-  return 'Signature is missing or URL was tampered.'
-}).as('verifyEmail')
