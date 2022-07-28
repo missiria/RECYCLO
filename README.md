@@ -32,3 +32,9 @@ API :
     NodeJS: Using Typescript
 Requirements :
     oAuth : https://www.npmjs.com/package/react-native-app-auth
+
+# SMTP Access for test :
+    > SMTP_HOST=smtp.datanoorsolution.com
+    > SMTP_PORT=587
+    > SMTP_USERNAME=no-reply@datanoorsolution.com
+    > SMTP_PASSWORD=i906Cu1,DDMuva4yykKS~E#a

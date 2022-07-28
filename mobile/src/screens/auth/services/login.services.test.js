@@ -1,4 +1,4 @@
-import { schema } from '../services/auth.services';
+import { schema } from '../services/login.services';
 
 test("Return object of fields with values when form is valid", async () => {
     let user = { phone: '0656565656', password: '7895123554' }
