@@ -18,6 +18,8 @@ export default class Declarations extends BaseSchema {
       table.date('date')
       table.enum('time', ['08:00 - 12:00', '12:00 - 16:00','16:00 - 20:00','20:00 - 00:00'])
 
+      table.integer('collector_user_id')
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

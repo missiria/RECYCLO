@@ -172,7 +172,7 @@ export default function DeclarationDetails({navigation, route }) {
                 </View>
                 <View style={styles.btnFooter}>
                     <Text
-                        onPress={() => navigation.navigate('PaymentsDetails')}
+                        onPress={() => navigation.navigate('PaymentsDetails', { declaration })}
                         style={styles.buttonBtn}>
                         Confirmer l’order
                     </Text>
