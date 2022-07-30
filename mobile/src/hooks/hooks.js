@@ -33,9 +33,8 @@ export const useAPI = (axiosParams,isAuth = false) => {
     fetchData(axiosParams);
   }, []);
 
-  return { data, error, isLoading };
+  return { data, error, isLoading,fetchData };
 };
-
 
 export const useAsyncStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState();

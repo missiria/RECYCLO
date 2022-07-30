@@ -1,8 +1,10 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import React,{useCallback } from 'react'
 import cashIcon from '../../../assets/images/cashmony.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { getData } from "~/hooks/hooks";
+import apiClient from "~/api/client";
 
 export default function PaymentsDetails({ navigation, route }) {
 
@@ -10,10 +12,27 @@ export default function PaymentsDetails({ navigation, route }) {
     const total = (declaration.collect.point / 100) * declaration.quantity;
     const faris = total * 0.1;
 
-    const onSubmitPayment = () => {
+    const onSubmitPayment = async () => {
 
-
-        navigation.navigate('Successyment')
+        let params = {
+            url: 'orders/'+declaration.id+'/accept',
+            method: 'POST',
+        };
+        
+        const user = await getData('user');
+        params.headers = {
+            'Authorization' : user.auth.type+' '+user.auth.token
+        };
+        
+        try {
+            const result = await apiClient.any(params);
+            if(result.data.error == false)
+            {
+                navigation.navigate('Successyment');
+            }
+        } catch (error) {
+          
+        }
     }
 
     return (
@@ -83,7 +102,7 @@ export default function PaymentsDetails({ navigation, route }) {
                 </View>
                 <View style={styles.btnFooter}>
                     <Text
-                        onPress={onSubmitPayment}
+                        onPress={() => onSubmitPayment()}
                         style={styles.buttonBtn}>
                         valider
                     </Text>

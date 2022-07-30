@@ -30,8 +30,10 @@ Route.group(() => {
 
   Route.delete('accounts', 'AccountsController.destroy')
 
+  Route.post('orders', 'OrdersController.index')
+  Route.post('orders/:id/accept', 'OrdersController.accept')
+
   Route.post('declarations', 'DeclarationsController.index')
-  Route.post('declarations/:id/update', 'DeclarationsController.update')
   Route.post('declarations/add', 'DeclarationsController.save')
 
 }).prefix('/api/v1').middleware('api_auth')

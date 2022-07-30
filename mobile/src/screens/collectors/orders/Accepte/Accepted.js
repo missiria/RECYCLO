@@ -1,110 +1,46 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native'
-import React, { useState } from 'react';
+import React,{useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icond from 'react-native-vector-icons/FontAwesome';
 import checkIcon from '../../../../assets/images/ch.png'
 import i18n from "i18next";
 
-export default function Accepted({ navigation }) {
-  const [details, setDetails] = useState(false);
-  const showDetails = () => {
-    setDetails(true);
-  }
+import { useAPI } from "~/hooks/hooks";
+import { EdgeCardOrder } from '~/ui/cards/EdgeCardOrder';
 
-  const hideDetailse = () => {
-    setDetails(false);
-  }
+export default function Accepted({ navigation }) {
+
+  const [orders, setOrders] = useState([]);
+
+  const { isLoading, error, data } = useAPI({
+    url: 'orders',
+    method: 'POST',
+    data: {
+      status: 'CONFIRM'
+    },
+  },true);
+
+  useEffect(() => {
+    if (data !== null){
+      setOrders(data);
+    }
+  }, [data]);
+
+  const textConfirm = i18n.t("menageDemend.confirm");
+  const textStartWay = i18n.t("menageDemend.startWay");
+
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View>
-          <View style={styles.TopCard}>
-            <View style={styles.cardHeader}>
-              <View style={styles.cardHeaderLeft}>
-                <Text style={styles.headcontetn}>
-                  10-04-2022
-                </Text>
-                <Text style={styles.headcontetn}>
-                  16:15
-                </Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("EditeAcceptedName")}
-                style={styles.cardHeaderRight}>
-                <Text style={styles.headcontetnCnte}>
-                {i18n.t("menageDemend.edit")}
-                </Text>
-                <Text>
-                  <Icond
-                    style={styles.headcontetIcon}
-                    name='edit'
-                  />
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              onPress={details ? hideDetailse : showDetails}
-              style={styles.cardcenter}
-            >
-              <Text style={styles.detailText}>
-              {i18n.t("menageDemend.details")}
-              </Text>
-              <Text>
-                <Icon
-                  style={styles.detailIcon}
-                  name={details ? "chevron-thin-up" : "chevron-thin-down"}
-                />
-              </Text>
-            </TouchableOpacity>
-
-            <View style={details ? styles.contetnBody : styles.detailsHide}>
-              <View style={styles.clientInfo}>
-                <Text>
-                {i18n.t("menageDemend.client")}
-                </Text>
-                <Text style={styles.clientsUsername}>
-                  Radia Aamalik
-                </Text>
-              </View>
-              <View style={styles.clientsDetails}>
-                <Text>{i18n.t("menageDemend.type")}</Text>
-                <Text>Vêtements</Text>
-              </View>
-              <View style={styles.clientsDetails}>
-                <Text>{i18n.t("menageDemend.qty")}</Text>
-                <Text>10.00 kg</Text>
-              </View>
-              <View style={styles.clientsDetails}>
-                <Text>{i18n.t("menageDemend.price")}</Text>
-                <Text>0.50 {i18n.t("menageDemend.dh")}</Text>
-              </View>
-              <View style={styles.clientsDetails}>
-                <Text>{i18n.t("menageDemend.fraiOfTransition")}</Text>
-                <Text>0.5 {i18n.t("menageDemend.dh")}</Text>
-              </View>
-            </View>
-
-            <View style={styles.cardBody}>
-              <Text style={styles.textPay}>
-              {i18n.t("menageDemend.dh-total")}
-              </Text>
-              <Text style={styles.textTotal}>
-                5.50 {i18n.t("menageDemend.dh")}
-              </Text>
-            </View>
-            <View style={styles.butons}>
-              <Text
-                onPress={() => setModalVisible(true)}
-                style={styles.butonLeft}>
-               {i18n.t("menageDemend.confirm")}
-              </Text>
-              <Text style={styles.butonRight}>
-              {i18n.t("menageDemend.startWay")}
-              </Text>
-            </View>
-          </View>
-        </View>
+      { error !== null ? <Text>{error.message}</Text> : 
+          isLoading ? 
+            <ActivityIndicator size="small" color="#ff00ff" />
+          :
+          orders != undefined && orders.map((order) => (
+            <EdgeCardOrder key={order.id} order={order} textAction={textConfirm} styleAction={styles.butonLeft} onPressAction={()=>{console.log("onPressAction")}} textAction2={textStartWay} styleAction2={styles.butonRight} onPressAction2={()=>{console.log("onPressAction")}} onPressEdit={()=>{console.log("Edit")}} />
+          )) 
+        }
       </ScrollView>
 
       <Modal

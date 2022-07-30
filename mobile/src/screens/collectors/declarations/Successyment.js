@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import React from 'react';
 import successImg from "../../../assets/images/done.png";
 
-export default function Successyment() {
+export default function Successyment({navigation}) {
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -21,7 +21,7 @@ export default function Successyment() {
                         </Text>
                     </View>
                     <View style={styles.btnStylesBox}>
-                        <Text style={styles.textBtnOne}>
+                        <Text style={styles.textBtnOne} onPress={()=>navigation.navigate("ColectorOrders")}>
                             Mes Ordres
                         </Text>
                         <Text style={styles.textBtnTwo}>
