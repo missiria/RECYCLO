@@ -1,9 +1,11 @@
+import { Route } from 'react-router-dom';
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
 import User from 'App/Models/User'
 
 import Hash from '@ioc:Adonis/Core/Hash'
 import UserForm from 'App/Validators/UserFormValidator'
+import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class UsersController {
 
@@ -74,17 +76,29 @@ export default class UsersController {
     const newUser: User = await User.create( payload )
 
     // Create token
-    let token = await auth.use('api').generate(newUser, {
+    let auth = await auth.use('api').generate(newUser, {
       expiresIn: '90days'
     })
 
     let account = await Account.create({
-      user_id:newUser.id,
-      type:account_type
-    });
-    let result = {auth:token,account:account};
-    return Object.assign(result,newUser.serialize());
-    //return response.ok(newUser)
+      user_id: newUser.id,
+      type: account_type
+    })
+
+    const signature = Route.makeSignedUrl('verifyEmail', {
+      email: newUser.email,
+    })
+
+    await Mail.send((message) => {
+      message
+        .from('info@example.com')
+        .to( newUser.email )
+        .subject('Welcome Onboard! RECYCLOO')
+        .htmlView('emails/welcome', { newUser, signature })
+    })
+
+    let result = {auth, account}
+    return Object.assign(result, newUser.serialize());
   }
 
   public async show({ params, response }) {
@@ -130,5 +144,9 @@ export default class UsersController {
     await user.delete()
 
     return response.ok({ message: 'User deleted successfully.' })
+  }
+
+  public async forget_password({ params, response}) {
+
   }
 }
