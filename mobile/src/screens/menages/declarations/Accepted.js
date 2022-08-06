@@ -1,7 +1,15 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native'
-import {useState,useEffect} from 'react';
-import Icon from 'react-native-vector-icons/Entypo';
-import checkIcon from '../../../assets/images/ch.png'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Image,
+} from "react-native";
+import { useState, useEffect } from "react";
+import Icon from "react-native-vector-icons/Entypo";
+import checkIcon from "../../../assets/images/ch.png";
 import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
@@ -9,22 +17,25 @@ import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
 
 export default function Accepted() {
   const [declarations, setDeclarations] = useState([]);
-  const { isLoading, error, data } = useAPI({
-    url: 'declarations',
-    method: 'POST',
-    data: {
-      status: 'VALID'
+  const { isLoading, error, data } = useAPI(
+    {
+      url: "declarations",
+      method: "POST",
+      data: {
+        status: "VALID",
+      },
     },
-  },true);
+    true
+  );
 
   useEffect(() => {
-    if (data !== null){
+    if (data !== null) {
       setDeclarations(data);
     }
   }, [data]);
-  
+
   const textAction = i18n.t("menageDemend.confirm");
-  /* 
+  /*
   const [details, setDetails] = useState(true);
   const showDetails = () => {
     setDetails(true);
@@ -38,14 +49,25 @@ export default function Accepted() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        { error !== null ? <Text>{error.message}</Text> : 
-          isLoading ? 
-            <ActivityIndicator size="small" color="#ff00ff" />
-          :
-          declarations && declarations.map((declaration) => (
-            <EdgeCardDemande key={declaration.id} declaration={declaration} textAction={textAction} styleAction={styles.actionValid} onPressAction={()=>{console.log("onPressAction");setModalVisible(true)}} />
-          )) 
-        }
+        {error !== null ? (
+          <Text>{error.message}</Text>
+        ) : isLoading ? (
+          <ActivityIndicator size="small" color="#ff00ff" />
+        ) : (
+          declarations &&
+          declarations.map((declaration) => (
+            <EdgeCardDemande
+              key={declaration.id}
+              declaration={declaration}
+              textAction={textAction}
+              styleAction={styles.actionValid}
+              onPressAction={() => {
+                console.log("onPressAction");
+                setModalVisible(true);
+              }}
+            />
+          ))
+        )}
       </ScrollView>
 
       <Modal
@@ -59,10 +81,7 @@ export default function Accepted() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Image
-              style={styles.iconImg}
-              source={checkIcon}
-            />
+            <Image style={styles.iconImg} source={checkIcon} />
             <Text style={styles.popUpMsg}>
               {i18n.t("menageDemend.modalSubtitle")}
             </Text>
@@ -72,26 +91,24 @@ export default function Accepted() {
 
             <Text
               onPress={() => setModalVisible(!modalVisible)}
-              style={styles.noneButon}>
+              style={styles.noneButon}
+            >
               {i18n.t("menageDemend.modalNo")}
             </Text>
-
           </View>
         </View>
       </Modal>
-
-
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   TopCard: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     shadowColor: "gray",
     shadowOffset: {
       width: 0,
@@ -107,111 +124,110 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   cardHeaderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   cardHeaderRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   headcontetn: {
-    color: '#A3A3A3',
-    marginRight: 10
+    color: "#A3A3A3",
+    marginRight: 10,
   },
   headcontetnCnte: {
-    color: 'black',
+    color: "black",
     marginRight: 10,
   },
   headcontetIcon: {
-    color: 'black',
+    color: "black",
     fontSize: 16,
   },
   cardcenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 26,
     paddingBottom: 15,
-    borderBottomColor: '#A3A3A3',
+    borderBottomColor: "#A3A3A3",
     borderBottomWidth: 0.3,
   },
   detailText: {
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   detailIcon: {
     fontSize: 14,
   },
   cardBody: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 15,
     paddingBottom: 15,
-    borderBottomColor: '#A3A3A3',
+    borderBottomColor: "#A3A3A3",
     borderBottomWidth: 0.3,
   },
   textPay: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   textTotal: {
-    color: '#33CC66',
-    fontWeight: 'bold',
+    color: "#33CC66",
+    fontWeight: "bold",
     fontSize: 17,
   },
   actionValid: {
-    backgroundColor: '#33CC66',
-    color: 'white'
+    backgroundColor: "#33CC66",
+    color: "white",
   },
   contetnBody: {
     marginTop: 12,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     marginTop: 15,
     paddingBottom: 15,
-    borderBottomColor: '#A3A3A3',
+    borderBottomColor: "#A3A3A3",
     borderBottomWidth: 0.3,
   },
   clientInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   clientsUsername: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   clientsDetails: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 15,
   },
   detailsHide: {
-    display: 'none'
+    display: "none",
   },
   breakLineMini: {
     width: "100%",
-    borderColor: '#A3A3A3',
-    borderStyle: 'dashed',
+    borderColor: "#A3A3A3",
+    borderStyle: "dashed",
     borderWidth: 0.2,
     marginTop: 15,
   },
   dirh: {
-    color: '#33CC66',
-    fontWeight: 'bold',
+    color: "#33CC66",
+    fontWeight: "bold",
   },
-
 
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
 
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)'
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalView: {
     margin: 20,
@@ -222,16 +238,16 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -242,11 +258,11 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
   },
   iconImg: {
     width: 80,
@@ -255,30 +271,30 @@ const styles = StyleSheet.create({
 
   confirmButon: {
     borderWidth: 1.5,
-    color: 'white',
-    backgroundColor: '#33CC66',
+    color: "white",
+    backgroundColor: "#33CC66",
     borderRadius: 5,
     paddingVertical: 10,
 
-    borderColor: '#33CC66',
+    borderColor: "#33CC66",
     marginTop: 30,
     width: 170,
-    textAlign: 'center'
+    textAlign: "center",
   },
   noneButon: {
     borderWidth: 1.5,
-    color: 'black',
+    color: "black",
     borderRadius: 5,
     paddingVertical: 10,
 
-    borderColor: '#33CC66',
+    borderColor: "#33CC66",
     marginTop: 10,
     width: 170,
-    textAlign: 'center'
+    textAlign: "center",
   },
   popUpMsg: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 23,
-    color: '#A3A3A3',
+    color: "#A3A3A3",
   },
-})
+});

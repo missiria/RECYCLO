@@ -4,7 +4,7 @@ import header from "../assets/images/1.png";
 import { style } from "../assets/styles/Onboard";
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
-export default function Welcom({ navigation }) {
+export default function Welcome({ navigation }) {
   return (
     <View style={styles.container}>
       <View>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  
+
   containerText: {
     flex: 1,
     justifyContent: "center",
