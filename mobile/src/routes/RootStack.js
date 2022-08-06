@@ -15,7 +15,7 @@ import Logout from '../screens/auth/Logout';
 
 
 import Language from '../screens/Language';
-import Welcom from '../screens/Welcom';
+import WithdrawalCollectorConfirmPayment from '../screens/Welcome';
 import Onboarding from '../screens/onboarding/Onboarding';
 
 import GetEmail from '../screens/changingPassword/GetEmail';

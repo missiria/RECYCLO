@@ -5,7 +5,7 @@ import SuccessCard from '../../../assets/images/adcd.png'
 import Icon from 'react-native-vector-icons/Entypo'
 import checkIcon from '../../../assets/images/ch.png'
 
-export default function MenageModePaymnts({ navigation }) {
+export default function MenageModePayments({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
@@ -13,7 +13,7 @@ export default function MenageModePaymnts({ navigation }) {
         <View>
           <View>
             <Text style={styles.titleBigText}>
-                Vos carte enregistrées 
+                Vos carte enregistrées
             </Text>
             <TouchableOpacity style={styles.addCardBox}>
               <View style={styles.cardLeftBox}>
