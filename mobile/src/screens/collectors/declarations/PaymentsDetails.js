@@ -18,20 +18,20 @@ export default function PaymentsDetails({ navigation, route }) {
             url: 'orders/'+declaration.id+'/accept',
             method: 'POST',
         };
-        
+
         const user = await getData('user');
         params.headers = {
             'Authorization' : user.auth.type+' '+user.auth.token
         };
-        
+
         try {
             const result = await apiClient.any(params);
             if(result.data.error == false)
             {
-                navigation.navigate('Successyment');
+                navigation.navigate('SuccessPayment');
             }
         } catch (error) {
-          
+
         }
     }
 
@@ -236,5 +236,5 @@ const styles = StyleSheet.create({
         elevation: 5,
 
     },
-    
+
 });

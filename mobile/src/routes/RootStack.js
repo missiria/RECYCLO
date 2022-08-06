@@ -82,14 +82,14 @@ import PayedAlert from '../screens/collectors/declarations/PayedAlert';
 import VerifyAccount from '../screens/collectors/profileDetails/VerifyAccount';
 import CollectorProfile from '../screens/collectors/profileDetails/profile/CollectorProfile';
 import CollectEditProfile from '../screens/collectors/profileDetails/profile/CollectEditProfile';
-import Collectlanguages from '../screens/collectors/settings/Collectlanguages';
+import CollectLanguages from '../screens/collectors/settings/CollectLanguages';
 import CollectSupport from '../screens/collectors/support/CollectSupport';
 
 //pay,nets details
 import PaymentsDetails from '../screens/collectors/declarations/PaymentsDetails';
 
 //collector payment
-import Successyment from '../screens/collectors/declarations/Successyment';
+import SuccessPayment from '../screens/collectors/declarations/SuccessPayment';
 
 import CollectorNotification from '../screens/collectors/notification/CollectorNotification';
 import CollectorOrders from '../screens/collectors/orders/CollectorOrders';
@@ -534,7 +534,7 @@ const RootStack = () => {
                         headerTintColor: '#33CC66',
                         headerShadowVisible: false,
                     }}
-                    name="Collectlanguages" component={Collectlanguages} />
+                    name="CollectLanguages" component={CollectLanguages} />
                 <Stack.Screen
                     options={{
                         headerShown: true,
@@ -545,17 +545,17 @@ const RootStack = () => {
                     }}
                     name="CollectSupport" component={CollectSupport} />
                 <Stack.Screen name="PaymentsDetails" component={PaymentsDetails} />
-                <Stack.Screen name="Successyment" component={Successyment} />
+                <Stack.Screen name="SuccessPayment" component={SuccessPayment} />
                 <Stack.Screen name="CollectorNotification" component={CollectorNotification} />
                 <Stack.Screen
                     options={{
                         headerShown: true,
-                        title: "Mes Ordres",
+                        title: "Mes Orders",
                         headerTitleAlign: 'center',
                         headerTintColor: '#33CC66',
                         headerShadowVisible: false,
                     }}
-                    name="ColectorOrders" component={ColectorOrders} />
+                    name="CollectorOrders" component={CollectorOrders} />
                 <Stack.Screen
                     options={{
                         headerShown: true,

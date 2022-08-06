@@ -9,7 +9,7 @@ export const ProfileData = [
         id: 2,
         title: 'Langue',
         icon : 'setting',
-        goTo : 'Collectlanguages',
+        goTo : 'CollectLanguages',
     },
     {
         id: 3,

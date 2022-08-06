@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import React from 'react';
 import successImg from "../../../assets/images/done.png";
 
-export default function Successyment({navigation}) {
+export default function SuccessPayment({navigation}) {
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         color: "#A3A3A3",
     },
-    btnStylesBox: { 
+    btnStylesBox: {
         marginTop: 80,
     },
     textBtnOne: {

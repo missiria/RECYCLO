@@ -4,8 +4,7 @@ import arIcon from "../../../assets/images/ar.png";
 import frIcon from "../../../assets/images/fr.png";
 import i18n from "i18next";
 
-
-export default function Collectlanguages() {
+export default function CollectLanguages() {
   const [currentLang, setCurrentLang] = useState("fr");
   const changeLanguage = (lang) => {
     setCurrentLang(lang);
@@ -14,20 +13,15 @@ export default function Collectlanguages() {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Langue de l'Application
-      </Text>
-      <Text
-        style={styles.titleDesc}
+      <Text style={styles.title}>Langue de l'Application</Text>
+      <Text style={styles.titleDesc}>Sélectionnez votre langue préférée</Text>
+      <TouchableOpacity
+        style={styles.boxLang}
+        onPress={() => changeLanguage("ar")}
       >
-        Sélectionnez votre langue préférée
-      </Text>
-      <TouchableOpacity style={styles.boxLang} onPress={() => changeLanguage("ar")}>
         <Image style={{ marginRight: 20 }} source={arIcon} />
         <View>
-          <Text style={styles.langType}>
-            {i18n.t("langs.ar")}
-          </Text>
+          <Text style={styles.langType}>{i18n.t("langs.ar")}</Text>
           <Text
             style={{
               textAlign: "left",
@@ -40,12 +34,13 @@ export default function Collectlanguages() {
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.boxLang} onPress={() => changeLanguage("fr")}>
+      <TouchableOpacity
+        style={styles.boxLang}
+        onPress={() => changeLanguage("fr")}
+      >
         <Image style={{ marginRight: 20 }} source={frIcon} />
         <View>
-          <Text style={styles.langType}>
-            {i18n.t("langs.fr")}
-          </Text>
+          <Text style={styles.langType}>{i18n.t("langs.fr")}</Text>
           <Text
             style={{
               textAlign: "left",
@@ -63,9 +58,9 @@ export default function Collectlanguages() {
 }
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
-    backgroundColor:'white',
+    backgroundColor: "white",
   },
   boxLang: {
     flexDirection: "row",
@@ -81,24 +76,24 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     backgroundColor: "white",
-    borderRadius:5,
+    borderRadius: 5,
     paddingVertical: 14,
     marginBottom: 10,
-    marginHorizontal:20,
+    marginHorizontal: 20,
   },
-  title: { 
-    marginHorizontal: 20, 
-    fontSize: 25, 
-    fontWeight: "bold" 
+  title: {
+    marginHorizontal: 20,
+    fontSize: 25,
+    fontWeight: "bold",
   },
-  titleDesc : { 
-    marginHorizontal: 20, 
-    color: "#7C7C7C", 
-    marginBottom: 20 
+  titleDesc: {
+    marginHorizontal: 20,
+    color: "#7C7C7C",
+    marginBottom: 20,
   },
-  langType : { 
-    textAlign: "left", 
-    fontWeight: "bold", 
-    fontSize: 20 
-  }
+  langType: {
+    textAlign: "left",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
 });

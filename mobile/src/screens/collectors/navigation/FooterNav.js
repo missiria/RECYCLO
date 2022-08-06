@@ -26,10 +26,10 @@ export default function FooterNav({ navigation }) {
         </View>
 
         <View>
-          <Text style={styles.textBoxIcon} onPress={() => navigation.navigate("ColectorOrders")}>
+          <Text style={styles.textBoxIcon} onPress={() => navigation.navigate("CollectorOrders")}>
             <Icon
-              style={screenName == "ColectorOrders" ? styles.iconStyleBold : styles.iconStyle}
-              name={screenName == "ColectorOrders" ? "clock" : "clock-outline"}
+              style={screenName == "CollectorOrders" ? styles.iconStyleBold : styles.iconStyle}
+              name={screenName == "CollectorOrders" ? "clock" : "clock-outline"}
             />
           </Text>
           <Text
@@ -55,7 +55,7 @@ export default function FooterNav({ navigation }) {
           </Text>
         </View>
 
-        
+
       </View>
     </View>
   )

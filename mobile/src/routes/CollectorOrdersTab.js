@@ -12,7 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 function CollectorOrdersTab() {
     return (
         <Tab.Navigator
-            initialRouteName='ColectorOrdersTab'
+            initialRouteName='CollectorOrdersTab'
             screenOptions={{
                 tabBarStyle: {
                     borderTopWidth: 0,
@@ -61,4 +61,4 @@ function CollectorOrdersTab() {
     )
 }
 
-export default ColectorOrdersTab;
+export default CollectorOrdersTab;
