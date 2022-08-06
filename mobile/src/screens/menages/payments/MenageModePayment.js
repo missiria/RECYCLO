@@ -5,7 +5,7 @@ import SuccessCard from '../../../assets/images/adcd.png'
 import Icon from 'react-native-vector-icons/Entypo'
 import checkIcon from '../../../assets/images/ch.png'
 
-export default function MenageModePayments({ navigation }) {
+export default function MenageModePayment({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>

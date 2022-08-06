@@ -9,7 +9,7 @@ import Canceled from '../screens/collectors/orders/Canceled'
 
 const Tab = createMaterialTopTabNavigator();
 
-function ColectorOrdersTab() {
+function CollectorOrdersTab() {
     return (
         <Tab.Navigator
             initialRouteName='ColectorOrdersTab'

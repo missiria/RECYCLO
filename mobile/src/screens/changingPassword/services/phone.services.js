@@ -7,7 +7,7 @@ export const defaultValues = {
 
 export const handleAuth = (values, navigation) => {
   if (values && navigation) {
-    navigation.navigate("VerifPhone");
+    navigation.navigate("VerifyPhone");
   }
 };
 

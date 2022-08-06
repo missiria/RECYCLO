@@ -1,12 +1,12 @@
 import { View, Text,StyleSheet,ScrollView } from 'react-native'
 import React from 'react'
 import FooterNav  from '../navigation/FooterNav';
-import ColectorOrdersTab from '../../../routes/ColectorOrdersTab';
+import CollectorOrdersTab from '../../../routes/CollectorOrdersTab';
 
-export default function ColectorOrders({navigation}) {
+export default function CollectorOrders({navigation}) {
   return (
     <View style={styles.container}>
-      <ColectorOrdersTab />
+      <CollectorOrdersTab />
       <FooterNav navigation={navigation} />
     </View>
   )

@@ -15,7 +15,7 @@ import Logout from '../screens/auth/Logout';
 
 
 import Language from '../screens/Language';
-import WithdrawalCollectorConfirmPayment from '../screens/Welcome';
+import Welcome from '../screens/Welcome';
 import Onboarding from '../screens/onboarding/Onboarding';
 
 import GetEmail from '../screens/changingPassword/GetEmail';
@@ -92,11 +92,12 @@ import PaymentsDetails from '../screens/collectors/declarations/PaymentsDetails'
 import Successyment from '../screens/collectors/declarations/Successyment';
 
 import CollectorNotification from '../screens/collectors/notification/CollectorNotification';
-import ColectorOrders from '../screens/collectors/orders/ColectorOrders';
+import CollectorOrders from '../screens/collectors/orders/CollectorOrders';
 
 // orders
 import EditeAccepted from '../screens/collectors/orders/Accepte/EditeAccepted';
-// wallet collector
+
+// Wallet COLLECTOR
 import CollecttorWallet from '../screens/collectors/wallet/CollecttorWallet';
 import Deposit from '../screens/collectors/wallet/deposit/Deposit';
 import CollectorAddCard from '../screens/collectors/wallet/deposit/payments/CollectorAddCard';
@@ -111,36 +112,30 @@ import CollectorModePayment from '../screens/collectors/profileDetails/profile/p
 import AddNewCreditCard from '../screens/collectors/profileDetails/profile/paymentMode/AddNewCreditCard';
 import Statistics from '../screens/collectors/wallet/statistics/Statistics';
 
-
-
-//menage Wallet
+// Menage Wallet
 import MenageAddCard from '../screens/menages/profile/transferMoney/menageBankAddCard/MenageAddCard';
 
-//
+// Donation & Card information
 import MenageAddCardInfo from '../screens/menages/profile/transferMoney/menageBankAddCard/MenageAddCardInfo'
 import DonationAddCard from '../screens/menages/donation/DonationAddCard';
 import DonationAddCardBankInfo from '../screens/menages/donation/DonationAddCardBankInfo';
 import DonationConfirmation from '../screens/menages/donation/DonationConfirmation';
 import DonationSuccess from '../screens/menages/donation/DonationSuccess';
 
-//mode payment for menage
-import MenageModePaymnts from '../screens/menages/payments/MenageModePaymnts';
+// Mode payment for menage
+import MenageModePayment from '../screens/menages/payments/MenageModePayment';
 import MenageAddCreditCard from '../screens/menages/payments/MenageAddCreditCard';
-
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const Stack = createNativeStackNavigator();
-
 const RootStack = () => {
-
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, gestureDirection: 'horizontal', animation: "none" }}>
                 <Stack.Screen name="Splash" component={Splash} />
                 <Stack.Screen name="Language" component={Language} />
-                <Stack.Screen name="Salut" component={Welcom} />
+                <Stack.Screen name="Hello" component={Welcome} />
                 <Stack.Screen name="Onboarding" component={Onboarding} />
                 <Stack.Screen name="LoginIndex" component={LoginIndex} />
                 <Stack.Screen name="Login" component={Login} />
@@ -149,7 +144,7 @@ const RootStack = () => {
                 <Stack.Screen name="VerificationPhone" component={VerificationUser} />
                 <Stack.Screen name="VerificationSuccess" component={ValidationSuccess} />
                 <Stack.Screen name="ChangePasswordIndex" component={GetEmail} />
-                <Stack.Screen name="VerifPhone" component={MultiFactor} />
+                <Stack.Screen name="VerifyPhone" component={MultiFactor} />
                 <Stack.Screen name="ChangePassword" component={ChangePassword} />
                 <Stack.Screen name="Done" component={Done} />
                 <Stack.Screen name='Home' component={Home} />

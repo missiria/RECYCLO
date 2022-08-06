@@ -11,7 +11,7 @@ function Language({ navigation }) {
 
   const handleValidChoice = (lang) => {
     if (lang.length == 2) {
-      navigation.navigate("Salut");
+      navigation.navigate("Hello");
     } else {
       alert("Veuillez choisir une option!");
     }
