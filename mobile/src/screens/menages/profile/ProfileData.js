@@ -15,7 +15,7 @@ export const ProfileData = [
         id: 3,
         title: 'Mode de paiement',
         icon : 'wallet',
-        goTo : 'MenageModePaymnts', //pending create route
+        goTo : 'MenageModePayment', //pending create route
     },
     {
         id: 4,

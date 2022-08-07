@@ -491,7 +491,7 @@ const RootStack = () => {
                         headerTintColor: '#33CC66',
                         headerShadowVisible: false,
                     }}
-                    name="MenageModePaymnts" component={MenageModePaymnts} />
+                    name="MenageModePayment" component={MenageModePayment} />
                 <Stack.Screen
                     options={{
                         headerShown: true,
