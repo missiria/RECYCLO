@@ -1,21 +1,33 @@
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-import profileImg from '../../../../assets/images/p.png';
 import { ProfileData } from './ProfileBodyData'
-
-
+import { getData } from "~/hooks/hooks";
+import { DEFAULT_AVATAR_URL } from "~/api/constants"
 export default function CollectorProfile({ navigation }) {
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if(user == null)
+        {
+          async function getCurrentUser(){
+            setUser(await getData('user'));
+          }  
+          getCurrentUser();
+        }
+    },[user]);
+
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.profileHeader}>
                     <Image
                         style={styles.profileImg}
-                        source={profileImg}
+                        source={{uri: user.account.avatar == null ? DEFAULT_AVATAR_URL: user.account.avatar}}
                     />
                     <Text style={styles.username}>
-                        Amine Amazzal
+                        {user && user.fullName }
                     </Text>
                 </View>
                 <View style={styles.lingbreak}></View>

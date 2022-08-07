@@ -27,11 +27,6 @@ export default function Declaration({navigation}) {
       },
     });
     
-    console.log('filterTypeCollects',filterTypeCollects)
-    console.log('filterCity',filterCity)
-    console.log('filterTime',filterTime)
-    console.log('filterPeroid',filterPeroid)
-
     useEffect(() => {
       if (data !== null){
         setDeclarations(data);
