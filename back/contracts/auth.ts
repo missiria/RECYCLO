@@ -14,8 +14,8 @@ declare module '@ioc:Adonis/Addons/Auth' {
       config: LucidProviderConfig<typeof User>
     },
     apps: {
-      implementation: LucidProviderContract<typeof App>,
-      config: LucidProviderConfig<typeof App>,
+      implementation: LucidProviderContract<typeof User>,
+      config: LucidProviderConfig<typeof User>,
     }
   }
   interface GuardsList {

@@ -1,5 +1,5 @@
-import { Route } from 'react-router-dom';
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Route from '@ioc:Adonis/Core/Route'
 import Account from 'App/Models/Account'
 import User from 'App/Models/User'
 
@@ -146,7 +146,7 @@ export default class UsersController {
     return response.ok({ message: 'User deleted successfully.' })
   }
 
-  public async forget_password({ params, response}) {
-
-  }
+  // public async forget_password({ params, response}) {
+  // TODO
+  // }
 }

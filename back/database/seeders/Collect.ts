@@ -1,4 +1,4 @@
-import Drive from '@ioc:Adonis/Core/Drive';
+// import Drive from '@ioc:Adonis/Core/Drive';
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Collect from 'App/Models/Collect'
 
