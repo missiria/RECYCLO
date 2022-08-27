@@ -1,7 +1,7 @@
-import { schemaValidation } from './EditeProfileProp';
+import { schemaValidation } from './EditProfileProp';
 
 test("Return object of fields with values when form is valid", async () => {
-    let user = { 
+    let user = {
         first_name: "amine",
         last_name: "amazzal",
         email: "hack@email.com",
@@ -31,7 +31,7 @@ test("Return object of fields with values when form is valid", async () => {
 
 
 test("Return Error Whene Is Not A Valide Email", async () => {
-    let user = { 
+    let user = {
         first_name: "amine",
         last_name: "amazzal",
         email: "erroremail",
@@ -59,7 +59,7 @@ test("Return Error Whene Is Not A Valide Email", async () => {
 
 
 test("Return Error All Objects  Is Empty", async () => {
-    let user = { 
+    let user = {
         first_name: "",
         last_name: "",
         email: "",

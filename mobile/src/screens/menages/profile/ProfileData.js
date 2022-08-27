@@ -3,7 +3,7 @@ export const ProfileData = [
         id: 1,
         title: 'Modifier le profil',
         icon : 'user',
-        goTo : 'EditeProfile',
+        goTo : 'EditProfile',
     },
     {
         id: 2,

@@ -76,7 +76,7 @@ export default class UsersController {
     const newUser: User = await User.create( payload )
 
     // Create token
-    let auth = await auth.use('api').generate(newUser, {
+    await auth.use('api').generate(newUser, {
       expiresIn: '90days'
     })
 

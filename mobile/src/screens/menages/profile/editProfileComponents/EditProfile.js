@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, StyleSheet, SafeAreaView, Image }  from 'react-native'
 import React from 'react';
-import EditeProfileProp from './profileProps/EditeProfileProp';
+import EditProfileProp from './profileProps/EditProfileProp';
 
 export default function EditProfile({navigation}) {
   return (
@@ -9,8 +9,8 @@ export default function EditProfile({navigation}) {
           <View style={{ marginHorizontal:20,marginTop:30 }}>
               <Text style={styles.textTileBold}>Détails du profil</Text>
               <Text style={{ color:'#7C7C7C' }}>modifiez les détails suivants et enregistrez-les</Text>
-          </View> 
-          <EditeProfileProp navigation={navigation} />
+          </View>
+          <EditProfileProp navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
   )
