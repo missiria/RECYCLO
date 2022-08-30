@@ -32,6 +32,7 @@
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "@unimodules/core": "^7.1.2",
     "apisauce": "^2.1.5",
     "axios": "^0.26.1",
     "blinkid-react-native": "^5.16.0",
