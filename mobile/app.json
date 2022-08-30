@@ -18,11 +18,17 @@
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.edgenova.recycloo"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "extra": {
+      "eas": {
+        "projectId": "0ac7dbe0-901a-4c02-a76a-884ba1d9cc47"
+      }
+    }
   }
 }
