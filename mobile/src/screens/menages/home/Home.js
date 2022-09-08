@@ -6,6 +6,7 @@ import Search from "../search/Search";
 import Sliders from "../pupSliders/Sliders";
 import * as Location from 'expo-location';
 import MapView, { Marker, Callout, Circle, } from 'react-native-maps';
+import Collects from "../collects/Collects"
 
 export default function Home({ navigation }) {
   const [location, setLocation] = useState(null);
