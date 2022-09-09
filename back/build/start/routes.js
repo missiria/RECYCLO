@@ -37,10 +37,10 @@ Route_1.default.group(() => {
     Route_1.default.post('/users/auth', 'UsersController.auth').as('users.auth');
 }).prefix('/api/v1');
 Route_1.default.get('/files/:folder/:image', async ({ response, params }) => {
-    return response.download(Application_1.default.makePath(`uploads/${params.folder}/${params.image}`));
+    return response.download(Application_1.default.tmpPath(`uploads/${params.folder}/${params.image}`));
 });
 Route_1.default.get('/files/:type/:folder/:image', async ({ response, params }) => {
-    return response.download(Application_1.default.makePath(`uploads/${params.type}/${params.folder}/${params.image}`));
+    return response.download(Application_1.default.tmpPath(`uploads/${params.type}/${params.folder}/${params.image}`));
 });
 Route_1.default.get('*', async ({ response }) => {
     return response.accepted({ error: 400, message: 'Bad Request' });
