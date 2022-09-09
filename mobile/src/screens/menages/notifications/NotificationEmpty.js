@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import notificationIcon from "../../../assets/images/notif.png";
 
-export default function EmptyNotifi() {
+export default function EmptyNotification() {
     return (
         <View style={styles.container}>
             <View style={styles.groupBox}>
