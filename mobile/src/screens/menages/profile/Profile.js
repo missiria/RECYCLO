@@ -14,7 +14,7 @@ export default function Profile({ navigation }) {
         {
           async function getCurrentUser(){
             setUser(await getData('user'));
-          }  
+          }
           getCurrentUser();
         }
     },[user]);
@@ -23,10 +23,12 @@ export default function Profile({ navigation }) {
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.profileHeader}>
-                    <Image
-                        style={styles.profileImg}
-                        source={{uri: user.account.avatar == null ? DEFAULT_AVATAR_URL: user.account.avatar}}
-                    />
+                    {user && user.account ? (
+                        <Image
+                            style={styles.profileImg}
+                            source={{uri: user.account.avatar == null ? DEFAULT_AVATAR_URL: user.account.avatar}}
+                        />
+                      ) : null}
                     <Text style={styles.username}>
                         {user && user.fullName }
                     </Text>
@@ -35,7 +37,7 @@ export default function Profile({ navigation }) {
                 <View style={styles.profileBody}>
                     {ProfileData.map(item => {
                         return (
-                            <TouchableOpacity  
+                            <TouchableOpacity
                                 onPress={() => navigation.navigate(item.goTo)}
                                 key={item.id}
                                 style={styles.profileBodyItem}>
@@ -152,5 +154,5 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginHorizontal: 20,
       },
-    
+
 })

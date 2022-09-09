@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -68,13 +69,13 @@
     "react-native-paper": "^4.11.2",
     "react-native-paper-dates": "^0.8.7",
     "react-native-reanimated": "~2.9.1",
-    "react-native-router-flux": "^4.3.1",
+    "react-native-router-flux": "^3.45.0",
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
     "react-native-side-drawer": "^2.0.0",
     "react-native-swipeout": "^2.3.6",
     "react-native-tab-view": "^3.1.1",
-    "react-native-unimodules": "^0.14.10",
+    "react-native-unimodules": "^0.15.0",
     "react-native-unordered-list": "^1.0.4",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "~0.18.7",
@@ -86,6 +87,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react-native": "~0.64.12",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "deprecated-react-native-prop-types": "^2.3.0",
     "typescript": "~4.3.5"
   },
   "private": true

@@ -2,7 +2,7 @@ import React from "react";
 import i18n from "i18next";
 import { View, Text, StyleSheet, ScrollView,ActivityIndicator } from "react-native";
 import { Formik } from "formik";
-import {useEffect,useState} from 'react';
+import {useState} from 'react';
 
 // Services
 import { handleLogin, schema, defaultValues } from "./services/login.services";
@@ -11,7 +11,7 @@ import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
 export default function Login({ navigation }) {
 
   const [authLoaded, setAuthLoaded] = useState(false);
-                
+
   return (
     <View style={styles.container}>
       <View style={styles.textTitle}>
@@ -23,7 +23,7 @@ export default function Login({ navigation }) {
           initialValues={defaultValues}
           validationSchema={schema}
             onSubmit={(values, { setErrors }) => {
-              handleLogin(values, navigation, setErrors,setAuthLoaded)            
+              handleLogin(values, navigation, setErrors,setAuthLoaded)
             }
           }
         >
