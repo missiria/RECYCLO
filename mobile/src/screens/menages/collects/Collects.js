@@ -1,15 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import i18n from "i18next";
-import Icon from "react-native-vector-icons/Entypo";
 
 import HeaderImage from "~/assets/images/c.png";
 import apiClient from "~/api/client";
 import { EdgeCardCollect } from "~/ui/cards/EdgeCardCollect"
 
-import { UPLOAD_FOLDER_URL,IMAGE_AUTRE_URL } from "~/api/constants"
-
-
+import { UPLOAD_FOLDER_URL, IMAGE_AUTRE_URL } from "~/api/constants"
 
 export default function Collects({ navigation }) {
   const [collects, setCollects] = useState([]);
@@ -18,12 +15,14 @@ export default function Collects({ navigation }) {
     await apiClient.get("collects").then((response) => {
       setCollects(response.data);
     });
-    //setCollects([]);
   };
-  
+
   useEffect(() => {
     loadCollects();
   }, []);
+
+  console.log('UPLOAD_FOLDER_URL > ', UPLOAD_FOLDER_URL)
+  console.log('COLLECTS > ', collects)
 
   return (
     <View style={styles.container}>
@@ -39,9 +38,9 @@ export default function Collects({ navigation }) {
       <View style={styles.cards}>
         {collects &&
           collects.map(collect => (
-              <EdgeCardCollect 
+              <EdgeCardCollect
                 key={collect.id}
-                text={collect.collect_name} 
+                text={collect.collect_name}
                 onPress={() => navigation.navigate({
                   name: 'CollectDetails',
                   params: { collect: collect }
@@ -51,8 +50,8 @@ export default function Collects({ navigation }) {
                 img={`${UPLOAD_FOLDER_URL + collect.image}`}
               />
           ))}
-          <EdgeCardCollect 
-            text={i18n.t("collects.other")} 
+          <EdgeCardCollect
+            text={i18n.t("collects.other")}
             onPress={() => navigation.navigate("OtherCollects")}
             style={{ width : "50%" }}
             imageStyle={{ height:130 }}

@@ -7,7 +7,7 @@ import { Data } from "./NotificationTestFakeData";
 import EmptyNotification from "./NotificationEmpty";
 
 export default function Notification({ navigation }) {
-  const emptyData = () => {
+  const showNotifications = () => {
     if (Data.length <= 0) {
       return (
         // if notification is empty
@@ -39,7 +39,7 @@ export default function Notification({ navigation }) {
           </Text>
         </View>
       </View>
-      <ScrollView>{emptyData()}</ScrollView>
+      <ScrollView>{showNotifications()}</ScrollView>
       <FooterNav navigation={navigation} />
     </SafeAreaView>
   );

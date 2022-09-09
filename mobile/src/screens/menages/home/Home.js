@@ -1,12 +1,11 @@
-import { ScrollView, StyleSheet, SafeAreaView, Text,View } from "react-native";
+import { ScrollView, StyleSheet, SafeAreaView, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
 import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
 import Search from "../search/Search";
 import Sliders from "../pupSliders/Sliders";
-import * as Location from 'expo-location';
-import MapView, { Marker, Callout, Circle, } from 'react-native-maps';
-import Collects from "../collects/Collects"
+import * as Location from "expo-location";
+import Collects from "../collects/Collects";
 
 export default function Home({ navigation }) {
   const [location, setLocation] = useState(null);
@@ -14,8 +13,8 @@ export default function Home({ navigation }) {
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
 
@@ -25,11 +24,11 @@ export default function Home({ navigation }) {
   }, []);
 
   //use text to get user location
-  let posistion = 'Waiting..';
+  let position = "Waiting..";
   if (errorMsg) {
-    posistion = errorMsg;
+    position = errorMsg;
   } else if (location) {
-    posistion = JSON.stringify(location);
+    position = JSON.stringify(location);
   }
 
   // log  altitude of location from text
@@ -37,14 +36,12 @@ export default function Home({ navigation }) {
   if (location) {
     latitude = location.coords.latitude;
   }
-  console.log("Lintituddddddd =>>>>>>>>>>>>>>>>>>", latitude);
 
   //log longitude of location from text
   let longitude = 0;
   if (location) {
     longitude = location.coords.longitude;
   }
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,7 +52,6 @@ export default function Home({ navigation }) {
         <Collects navigation={navigation} />
       </ScrollView>
       <FooterNav navigation={navigation} />
-
     </SafeAreaView>
   );
 }
@@ -65,14 +61,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  calloutText : {
-    backgroundColor: '#fff',
-    color: '#000',
+  calloutText: {
+    backgroundColor: "#fff",
+    color: "#000",
     fontSize: 20,
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: "#000",
   },
   map: {
     width: "100%",
@@ -80,5 +76,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20,
     marginBottom: 20,
-},
+  },
 });

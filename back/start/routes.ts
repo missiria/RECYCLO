@@ -71,12 +71,12 @@ Route.group(() => {
 }).prefix('/api/v1')
 
 Route.get('/files/:folder/:image', async ({ response, params }) => {
-  return response.download(Application.makePath(`uploads/${params.folder}/${params.image}`))
+  return response.download(Application.tmpPath(`uploads/${params.folder}/${params.image}`))
 })
 
 Route.get('/files/:type/:folder/:image', async ({ response, params }) => {
   return response.download(
-    Application.makePath(`uploads/${params.type}/${params.folder}/${params.image}`)
+    Application.tmpPath(`uploads/${params.type}/${params.folder}/${params.image}`)
   )
 })
 
