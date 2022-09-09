@@ -81,6 +81,5 @@ Route.get('/files/:type/:folder/:image', async ({ response, params }) => {
 })
 
 Route.get('*', async ({ response }) => {
-  return response.accepted({ error: 400, message: 'Bad Request' })
-  //return response.badRequest({error:400,message:'Bad Request'});
+  return response.accepted({ error: 400, message: 'EDGE : Bad Request 400' })
 })

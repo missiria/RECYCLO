@@ -43,6 +43,6 @@ Route_1.default.get('/files/:type/:folder/:image', async ({ response, params }) 
     return response.download(Application_1.default.tmpPath(`uploads/${params.type}/${params.folder}/${params.image}`));
 });
 Route_1.default.get('*', async ({ response }) => {
-    return response.accepted({ error: 400, message: 'Bad Request' });
+    return response.accepted({ error: 400, message: 'EDGE : Bad Request 400' });
 });
 //# sourceMappingURL=routes.js.map
