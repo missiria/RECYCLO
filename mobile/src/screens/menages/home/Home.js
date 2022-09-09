@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
       <ScrollView>
         <Search />
         <Sliders />
-        <Collects navigation={navigation} />
+        {/* <Collects navigation={navigation} /> */}
       </ScrollView>
       <FooterNav navigation={navigation} />
     </SafeAreaView>

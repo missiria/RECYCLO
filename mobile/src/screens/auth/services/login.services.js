@@ -3,21 +3,21 @@ import apiClient from "~/api/client";
 import { storeData } from "~/hooks/hooks";
 
 export const defaultValues = {
-  phone: "587242451",
-  password: "123456789",
+  phone: "0656560552",
+  password: "c++",
 };
 
 // TODO : Authentication with server
-export const handleLogin = async (userData, navigation, setErrors, setAuthLoaded) => {
+export const handleLogin = async (userData, navigation, setErrors,setAuthLoaded) => {
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
 
-    console.log('login.services > ', response.data);
-
+    console.log(response.data);
     navigation.navigate("Home");
 
     if (response.status === 400 || response.status === 500) {
+
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
@@ -25,6 +25,7 @@ export const handleLogin = async (userData, navigation, setErrors, setAuthLoaded
         await storeData('user',response.data);
 
         if (response.data.account.type == "MENAGE") {
+          navigation.navigate("Home");
         }
         else if (response.data.account.type == "COLLECTOR") {
           navigation.navigate("CollectorHome");
@@ -33,6 +34,11 @@ export const handleLogin = async (userData, navigation, setErrors, setAuthLoaded
       } else {
         setErrors({ api: "You need to activate your account" });
       }
+    }
+
+    if (response.status === 'ERR_DLOPEN_FAILED') {
+      if ( response.message )
+      setErrors({ api: response.message });
     }
 
     setAuthLoaded(false);

@@ -2,7 +2,7 @@ import React from "react";
 import i18n from "i18next";
 import { View, Text, StyleSheet, ScrollView,ActivityIndicator } from "react-native";
 import { Formik } from "formik";
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 
 // Services
 import { handleLogin, schema, defaultValues } from "./services/login.services";
