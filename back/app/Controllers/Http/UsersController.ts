@@ -28,7 +28,7 @@ export default class UsersController {
       let token = await auth.use('api').generate(user, {
         expiresIn: '90days'
       })
-      let account = await Account.findBy('user_id',user.id)
+      let account = await Account.findBy('user_id', user.id)
       let result = {auth:token,account:account};
 
       return Object.assign(result,user.serialize());

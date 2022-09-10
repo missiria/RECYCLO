@@ -38,3 +38,7 @@ Requirements :
     > SMTP_PORT=587
     > SMTP_USERNAME=no-reply@datanoorsolution.com
     > SMTP_PASSWORD=i906Cu1,DDMuva4yykKS~E#a
+
+# Error Argon2 reinstall
+    > cd node_modules/bcrypt
+    > node-pre-gyp install --fallback-to-build

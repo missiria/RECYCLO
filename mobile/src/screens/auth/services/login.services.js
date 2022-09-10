@@ -13,8 +13,7 @@ export const handleLogin = async (userData, navigation, setErrors,setAuthLoaded)
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
 
-    console.log(response.data);
-    navigation.navigate("Home");
+    console.log('LOGIN SERVICES : response.data > ', response.data);
 
     if (response.status === 400 || response.status === 500) {
 
@@ -22,7 +21,7 @@ export const handleLogin = async (userData, navigation, setErrors,setAuthLoaded)
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
 
-        await storeData('user',response.data);
+        await storeData('user', response.data);
 
         if (response.data.account.type == "MENAGE") {
           navigation.navigate("Home");
