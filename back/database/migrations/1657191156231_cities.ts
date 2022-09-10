@@ -5,7 +5,7 @@ export default class Citys extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary();
       table.string('name',255)
       table.boolean('active').defaultTo(true)
       table.timestamp('created_at', { useTz: true })

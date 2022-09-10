@@ -5,7 +5,7 @@ export default class Orders extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
 
       table.integer('declaration_id')
       table.integer('user_id')
