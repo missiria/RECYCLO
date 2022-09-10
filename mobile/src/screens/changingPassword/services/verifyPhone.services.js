@@ -15,9 +15,9 @@ export const handleAuth = (values, navigation) => {
 };
 
 export const schemaValidation = yup.object().shape({
-  n1: yup.number().required("Number 1 Is Requered"),
-  n2: yup.number().required("Number 2 Is Requered"),
-  n3: yup.number().required("Number 3 Is Requered"),
-  n4: yup.number().required("Number 4 Is Requered"),
-  n5: yup.number().required("Number 5 Is Requered"),
+  n1: yup.number().required("Number 1 Is Required"),
+  n2: yup.number().required("Number 2 Is Required"),
+  n3: yup.number().required("Number 3 Is Required"),
+  n4: yup.number().required("Number 4 Is Required"),
+  n5: yup.number().required("Number 5 Is Required"),
 });

@@ -7,26 +7,28 @@ export const defaultValues = {
   password: "c++",
 };
 
-// TODO : Authentication with server
-export const handleLogin = async (userData, navigation, setErrors,setAuthLoaded) => {
+// TODO : Set error message if the server is down (500)
+export const handleLogin = async (
+  userData,
+  navigation,
+  setErrors,
+  setAuthLoaded
+) => {
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
 
-    console.log('LOGIN SERVICES : response.data > ', response.data);
+    console.log("LOGIN SERVICES : response.data > ", response.data);
 
     if (response.status === 400 || response.status === 500) {
-
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
-
-        await storeData('user', response.data);
+        await storeData("user", response.data);
 
         if (response.data.account.type == "MENAGE") {
           navigation.navigate("Home");
-        }
-        else if (response.data.account.type == "COLLECTOR") {
+        } else if (response.data.account.type == "COLLECTOR") {
           navigation.navigate("CollectorHome");
         }
         //alert("Vous étes bien connecté sur notre application");
@@ -35,9 +37,8 @@ export const handleLogin = async (userData, navigation, setErrors,setAuthLoaded)
       }
     }
 
-    if (response.status === 'ERR_DLOPEN_FAILED') {
-      if ( response.message )
-      setErrors({ api: response.message });
+    if (response.status === "ERR_DLOPEN_FAILED") {
+      if (response.message) setErrors({ api: response.message });
     }
 
     setAuthLoaded(false);

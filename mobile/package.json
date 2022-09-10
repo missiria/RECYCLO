@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "jest src --expand",
+    "test": "jest src --watchAll --reporters"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
