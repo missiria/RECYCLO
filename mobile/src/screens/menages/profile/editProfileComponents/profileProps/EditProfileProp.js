@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/EvilIcons";
@@ -33,7 +26,7 @@ export default function EditProfileProp({ navigation }) {
             <View>
               <View style={styles.container}>
                 <View style={{ marginTop: 30 }}>
-                  <Text>A prpos De vous</Text>
+                  <Text>A propos de vous</Text>
 
                   <TextInput
                     style={[
@@ -59,7 +52,7 @@ export default function EditProfileProp({ navigation }) {
                         : null,
                     ]}
                     placeholderTextColor="#7C7C7C"
-                    placeholder="Prenom"
+                    placeholder="Prénom"
                     onChangeText={props.handleChange("last_name")}
                     value={props.values.last_name}
                     onBlur={props.handleBlur("last_name")}
@@ -116,7 +109,6 @@ export default function EditProfileProp({ navigation }) {
                     {props.errors.cin}
                   </Text>
                 </View>
-
                 <View style={styles.breakLine}></View>
                 <View style={{ marginTop: 30 }}>
                   <Text>Ou Vivez Vous</Text>
@@ -167,9 +159,9 @@ export default function EditProfileProp({ navigation }) {
                   <View
                     style={[
                       styles.dateBerth,
-                      props.errors.berthday_day ||
-                      props.errors.berthday_month ||
-                      props.errors.berthday_year
+                      props.errors.birthday_day ||
+                      props.errors.birthday_month ||
+                      props.errors.birthday_year
                         ? { borderColor: "red", borderWidth: 1 }
                         : null,
                     ]}
@@ -179,40 +171,40 @@ export default function EditProfileProp({ navigation }) {
                       placeholder="DD"
                       keyboardType="numeric"
                       maxLength={2}
-                      onChangeText={props.handleChange("berthday_day")}
-                      value={props.values.berthday_day}
-                      onBlur={props.handleBlur("berthday_day")}
+                      onChangeText={props.handleChange("birthday_day")}
+                      value={props.values.birthday_day}
+                      onBlur={props.handleBlur("birthday_day")}
                     />
                     <TextInput
                       style={styles.leftBordTextInp}
                       placeholder="MM"
                       keyboardType="numeric"
                       maxLength={2}
-                      onChangeText={props.handleChange("berthday_month")}
-                      value={props.values.berthday_month}
-                      onBlur={props.handleBlur("berthday_month")}
+                      onChangeText={props.handleChange("birthday_month")}
+                      value={props.values.birthday_month}
+                      onBlur={props.handleBlur("birthday_month")}
                     />
                     <TextInput
                       style={{ fontWeight: "bold" }}
                       placeholder="YYY"
                       keyboardType="numeric"
                       maxLength={4}
-                      onChangeText={props.handleChange("berthday_year")}
-                      value={props.values.berthday_year}
-                      onBlur={props.handleBlur("berthday_year")}
+                      onChangeText={props.handleChange("birthday_year")}
+                      value={props.values.birthday_year}
+                      onBlur={props.handleBlur("birthday_year")}
                     />
                   </View>
                   <Text style={{ color: "red", marginTop: 1 }}>
                     {" "}
-                    {props.errors.berthday_day}{" "}
+                    {props.errors.birthday_day}{" "}
                   </Text>
                   <Text style={{ color: "red", marginTop: 1 }}>
                     {" "}
-                    {props.errors.berthday_month}{" "}
+                    {props.errors.birthday_month}{" "}
                   </Text>
                   <Text style={{ color: "red", marginTop: 1 }}>
                     {" "}
-                    {props.errors.berthday_year}{" "}
+                    {props.errors.birthday_year}{" "}
                   </Text>
                 </View>
                 <View style={{ marginTop: 40 }}>

@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import apiClient from "~/api/client";
-import { getData,storeData } from "~/hooks/hooks";
+import { storeData } from "~/hooks/hooks";
 import { setErrorsAPI } from "../../../services/v12";
 
 export const defaultValues = {
@@ -30,14 +30,14 @@ export const handleRegister = async (userData, navigation, setErrors) => {
     const response = await apiClient.post("users", userData);
 
     console.log(response.data);
-    
+
     if (response.status === 422) {
       setErrors( setErrorsAPI( response.data.errors ) );
     } else if (parseInt(response.data.id) > 0) {
-      alert("Veuillez confirmer votre compte par email"); 
+      alert("Veuillez confirmer votre compte par email");
 
       await storeData('user',response.data);
-      
+
       // cheack if user is a collector
       if (userData.type === "COLLECTOR") {
         navigation.navigate("Adress");
