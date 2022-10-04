@@ -1,0 +1,327 @@
+{
+    "home": "Accueil",
+    "hello": "Salut",
+    "langs": {
+        "fr": "Français",
+        "ar": "Arabic"
+    },
+    "langues": {
+        "select": "SÉLECTIONNER",
+        "choice-lang": "Choisissez la langue",
+        "choice-lang-paragraph": "Veuillez choisir la langue qui vous plaît"
+    },
+    "welcome": {
+        "hello": "Salut!",
+        "register": "Rejoignez-nous",
+        "start": "Commencer"
+    },
+    "login": {
+        "phone": "téléphone",
+        "email": "Email",
+        "password": "Mot de passe",
+        "sign_in": "SE CONNECTER",
+        "connetion": "CONNEXION",
+        "connetion_lc": "Connection",
+        "sign_up": "S'INSCRIRE",
+        "sign_up_desc": "Vous n'avez pas de compte? Inscrivez-vous",
+        "login_email_phone": "Téléphone ou email",
+        "login_password": "Mot de passe",
+        "sign_in_title": "Se connecter",
+        "sign_in_desc": "Avez-vous un compte? Connectez-vous",
+        "forget_password": "Mot de passe oublié?",
+        "need_account": "Vous n'avez pas encore de compte?",
+        "already_registered": "Vous avez déjà un compte?",
+        "congratulation": "Félicitations!",
+        "bottom_text": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité.!",
+        "your-number-phone-is-verified": "Votre numéro de téléphone a été vérifié avec succès!",
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "sign_up_text_bottom": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité.",
+        "company_reason_title" : "à propos de votre entreprise",
+        "company_reason_desc" : "Détails sur le nom et l'adresse de votre \nentreprise",
+        "reason_placeholder" : "Raison sociale",
+        "address_placeholder" : "Adresse",
+        "company_btn" : "Suivant"
+    },
+    "afterSignUp": {
+        "title": "Vous êtes presque!",
+        "desc": "Nous avons besoin de temps pour approuver votre compte!",
+        "why_waite": "Pourquoi dois-je attendre?",
+        "why_waite_msg": "Nous voulons assurer que tout le monde peut travail facilement et en toute sécurité avec Recycloo."
+    },
+    "changePassword": {
+        "title": "Récupération de mot de passe",
+        "desc": "Entrez votre email pour récupérer \n votre mot de",
+        "email": "Entrer votre email",
+        "send_btn": "ENVOYER LE CODE",
+        "verifie_title": "Vérification",
+        "verifie_desc": "Veuillez entrer le code de vérification envoyé à ",
+        "verifie_btn": "Vérifier",
+        "try_send_code": "Je n'ai pas reçu de code. ",
+        "send_code_btn": "Renvoyer le code",
+        "change_password_title": "Réinitialisez votre mot de passe",
+        "change_password_desc": "Votre nouveau mot de passe doit être différent \n du mot de passe précédemment utilisé",
+        "new_password_input": "Nouveau Mot De Passe",
+        "confirm_password": "Confirmer Le Nouveau Mot De Passe",
+        "change_password_btn": "VALIDER",
+        "changed_password_success_title": "Félicitations!",
+        "changed_password_success_desc": "Votre mot de passe a été modifié \n avec succès!",
+        "changed_password_success_btn": "SE CONNECTER"
+    },
+    "introduction": {
+        "finished": "Terminé",
+        "next": "SUIVANTE"
+    },
+    "historic": {
+        "estimate_value": "Valeur estimée",
+        "withdraw_money": "Retirer De L'argent"
+    },
+    "collects": {
+        "title": "Catégories de déchets",
+        "subtitle": "cliquez pour déclarer vos déchets",
+        "other": "Autres"
+    },
+    "onboardingScreenOne": {
+        "title": "Recyclage",
+        "subtitle": "Gagnez des points pour chaque contribution et gagnez de l'argent pour les matières recyclables!"
+    },
+    "onboardingScreenTwo": {
+        "title": "Zéro plastique",
+        "subtitle": "La collecte de vos déchets est notre métier!"
+    },
+    "onboardingScreenThree": {
+        "title": "Protéger l'environnement",
+        "subtitle": "Réduire votre impact sur l'environnement!"
+    },
+    "search": {
+        "search_placeholder": "Sélectionnez votre location"
+    },
+    "tapBarBottom": {
+        "home": "Principale",
+        "demandes": "Mes offres",
+        "transaction": "Transactions",
+        "message": "Messages"
+    },
+    "menageCollectDetails": {
+        "description-aswer": "Je veux que le collecteur arrive entre",
+        "description-term": "Vous ne pouvez pas nous déclarer vos déchets, jusqu'à ce que vous atteigniez 10 kgs au minimum"
+    },
+    "menageUploadImage": {
+        "desc": "Ajoutez des images",
+        "via-camera": "Prendre une photo",
+        "via-gallery": "Galerie photo",
+        "cancel": "Annulation",
+        "buttonConfirm": "Confirmer"
+    },
+    "menageDemend": {
+        "cancel": "Annuler",
+        "details": "Détails",
+        "total": "Totale en points",
+        "wait": "En attente",
+        "type": "Type",
+        "qty": "Quantité",
+        "price": "Prix",
+        "dh-total": "Total en dirhams",
+        "dh": "Dirhams",
+        "confirm": "Confirmer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "client": "Client",
+        "fraiOfTransition": "Frais de transaction",
+        "notReady": "pas prêt à ramasser",
+        "startWay": "Prendre la route",
+        "modalSubtitle": "Voulez-vous confirmer cette demande ?",
+        "modalYes": "oui",
+        "modalNo": "Non",
+        "inProgress": "En cours",
+        "accepted": "Accepté",
+        "finished": "Terminé",
+        "canceled": "Annulé"
+    },
+    "wallet": {
+        "transactionTitle": "Transactions effectuées",
+        "complet": "Complété",
+        "empty": "Vous n'avez pas encore effectué \n aucune Opération!",
+        "dhs": "Dhs",
+        "kg": "Kg",
+        "invoice": {
+            "title": "Paiement effectué avec succès!",
+            "type": "Type de déchets :",
+            "qty": "Quantité :",
+            "total": "Montant Net :",
+            "date": "Date :",
+            "agence": "Agence :",
+            "city": "Ville :"
+        }
+    },
+    "profile": {
+        "edit_profile": "Modifier Mon profil",
+        "language": "Langues",
+        "payment_method": "Mode de paiement",
+        "q&a": "FAQs",
+        "suport": "Support",
+        "inviteFrient": "Inviter des amis",
+        "logout": "Déconnexion",
+        "copyright": "Copyrignt 2022 Recycloo. tous droits réservés"
+    },
+    "collectorfooterNavigation": {
+        "home": "Principal",
+        "orders": "Mes Ordres",
+        "wallet": "Portefeuille"
+    },
+    "collectorOrderTab": {
+        "inProgress": "En cours",
+        "accept": "Accepté",
+        "finished": "Terminé",
+        "canceld": "Annulé"
+    },
+    "collectorWallet": {
+        "deposer": "Déposer",
+        "retirer": "Retirer",
+        "chart": "Statistiques"
+    },
+    "homeCategory": {
+        "title": "Catégories de déchets",
+        "desc": "Cliquez ici pour commencer!"
+    },
+    "homeChangeLaung": {
+        "title": "Langue de l'application",
+        "desc": "Sélectionnez votre langue préférée"
+    },
+    "editProfile": {
+        "boutTtile": "A propos de vous",
+        "fullName": "Nom et Prénom",
+        "email": "Email",
+        "phone": "téléphone",
+        "cin": "CIN",
+        "addressTtitle": "Address",
+        "city": "Select Votre Vill",
+        "block": "Votre Block",
+        "berthTitle": "Date De Naissance",
+        "dayBerh": "JJ",
+        "berthMonth": "MM",
+        "berthYear": "AA",
+        "changePasswordTitle": "Changer le mot de passe",
+        "changePasswordDesc": "Tapez votre ancien mot de passe, tapez le nouveau et \n confirmez-le.",
+        "password": "Ancien mot de passe",
+        "newPassword": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer le nouveau mot de passe",
+        "submitButton": "ENREGISTRER",
+        "resetButton": "RÉINITIALISER"
+    },
+    "suport": {
+        "title": "A propos de Recycloo",
+        "call": "Appelez-nous",
+        "msg": "Ecrivez - nous",
+        "terms": "Termes & Conditons",
+        "politiq": "Politique De Confidentialité"
+    },
+    "inviteFriends": {
+        "desc": "Invitez vos amis à rejoindre l'application Recycloo-Agricole!",
+        "copieText": "Copiez votre lien",
+        "msg": "Messages",
+        "wtsp": "Whatsapp",
+        "shar": "Partagez",
+        "textFooter": "Invitez vos amis à rejoindre l'application \n Recycloo agricole!"
+    },
+    "demandes": {
+        "inProgressTItle": "En cours",
+        "ended": "Terminé",
+        "canceled": "Annulé",
+        "inProgress": {
+            "cancel": "Annuler",
+            "qty": "Quantité :",
+            "price": "Prix :",
+            "details": "Détails",
+            "total": "Montant :",
+            "dhs": "Dhs",
+            "kg": "Kg",
+            "delete": "Supprimer",
+            "type" : "Type :",
+            "suggestPrice" : "Prix proposable :",
+            "free" : "Gratuit",
+            "totalSuggest" : "Montant (prix proposable) :"
+        }
+    },
+    "notification": {
+        "title": "Notifications",
+        "desc": "Balayez les notifications vers la gauche pour les supprimer."
+    },
+    "categoryDetails": {
+        "addIMageTitle": "Ajoutez des images de votre déchet pour \n améliorer votre liste",
+        "takePhoto": "Prendre une photo",
+        "uploadPhoto": "Galerie photos et vidéos",
+        "kg": "Kg",
+        "dhs": "Dhs",
+        "desc" : "les filets en polyamides, les cordages sont eux récupérés en partie par les pêcheurs ou d'autres recycleurs.",
+        "categName" : "Plateau de semis"
+    },
+    "declarationRegister": {
+        "desc": "Description",
+        "option": "Facultatif",
+        "freeText": "Gratuit (Récupérez le déchet gratuitement)",
+        "qtyKg": "Quantité (kg)",
+        "prix": "Proposez votre prix (Dh)",
+        "address": "Adress",
+        "city": "Ville",
+        "enter": "Entrer",
+        "btn": "Déposer",
+        "write": "Ecrire...",
+        "successTitle" : "Félicitations!",
+        "successDesc" : "Vous pouvez suivre votre offre dans \n la rubrique Mes offres!",
+        "demandBtn" : "Mes offres",
+        "homeBtn" : "Principale"
+    },
+    "modal": {
+        "uploadPhoto": {
+            "title": "Ajoutez des images",
+            "takePhoto": "Prendre une photo",
+            "fromGalerie": "Galerie photo",
+            "cancel": "Annulation"
+        },
+        "completProfile" : {
+            "title" : "Veuillez compléter votre \n profil !",
+            "completBtn" : "Complèter",
+            "exit" : "PLUS TARD"
+        }
+    },
+    "suportMessage" : {
+        "placeholer" : "Envoyer un message"
+    },
+    "emptyNotification" : {
+        "title" : " Vous n'avez pas encore reçu de notifications"
+    },
+    "copyRight" : "Copyrignt 2022 Recycloo. tous droits réservés",
+    "authenticationConditions" : {
+        "descOne" : " En créant ou en vous connectant à un compte,vous acceptez nos ",
+        "descTwo" : "et",
+        "condition" : "conditions générales",
+        "confidentalite" : "notre déclaration de confidentialité."
+    },
+    "headerTitles" : {
+        "inviteFrient" : "Inviter des amis",
+        "lang" : "Language",
+        "addImage" : "Ajoute Image",
+        "desc" : "Description",
+        "offres" : "Mes offres",
+        "notification" : "Notifications",
+        "message" : "Messages",
+        "chat" : "Chat",
+        "transaction" : "Transactions",
+        "details" : "Détails",
+        "editProfile" : "Modifier mon profil",
+        "termsConditions" : "Terms & conditions",
+        "politiq" : "Politique De Confidentialité",
+        "questions" : "Questions",
+        "support" : "Support"
+    },
+
+    "calidation_errors" : {
+        "login" : {
+            "emailRequired" : "L'email est obligatoire Veuillez le saisir",
+            "emailFormat" : "L'e-mail que vous avez entré est incorrect",
+            "passwordRequired" : "Le mot de passe est obligatoire Veuillez le saisir",
+            "passwordFormat" : "Le mot de passe est incorrect"
+        }
+    }
+}

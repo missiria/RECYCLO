@@ -1,0 +1,328 @@
+{
+    "home": "الصفحة الرئيسية",
+    "hello": "مرحبا",
+    "langs": {
+        "fr": "الفرنسية",
+        "ar": "العربية"
+    },
+    "langues": {
+        "select": "الرجاء التحديد",
+        "choice-lang": "اختر اللغة",
+        "choice-lang-paragraph": "الرجاء اختيار اللغة التي تريدها"
+    },
+    "welcome": {
+        "hello": "مرحبا!",
+        "register": "انضم إلينا",
+        "start": "يبدأ"
+    },
+    "login": {
+        "phone": "الهاتف",
+        "email": "البريد الالكتروني",
+        "password": "كلمة السر",
+        "sign_in": "تسجيل الدخول",
+        "connetion": "تسجيل الدخول",
+        "connetion_lc": "تسجيل الدخول",
+        "sign_up": "إنشاء حساب",
+        "sign_up_desc": "قم بإنشاء حسابك الآن",
+        "sign_in_title": "مرحبا بك!",
+        "sign_in_desc": "قم بتسجيل دخولك",
+        "login_email_phone": "الهاتف أو البريد الإلكتروني",
+        "login_password": "كلمة السر",
+        "forget_password": "هل نسيت كلمة المرور؟",
+        "need_account": "لا تملك حسابا حتى الآن؟",
+        "already_registered": "هل لديك حساب؟",
+        "bottom_text": "من خلال إنشاء حساب أو تسجيل الدخول إليه ، فإنك توافق على “ الشروط والأحكام ” و “بيان الخصوصية” الخاص بنا.",
+        "congratulation": "تهنئة!",
+        "your-number-phone-is-verified": "تم التحقق من رقم هاتفك بنجاح!",
+        "first_name": "الإسم الشخصي",
+        "last_name": "الإسم العائلي",
+        "sign_up_text_bottom": "من خلال إنشاء حساب أو تسجيل الدخول إليه ، فإنك توافق على “الشروط والأحكام” و “بيان الخصوصية” الخاص بنا.",
+        "company_reason_title" : "حول عملك أو شركتك",
+        "company_reason_desc" : "تفاصيل اسم عملك \n وعنوانك",
+        "reason_placeholder" : "سبب اجتماعي",
+        "address_placeholder" : "العنوان",
+        "company_btn" : "التالي"
+    },
+    "afterSignUp": {
+        "title": "لم يتبقى الكثير ",
+        "desc": "نحن بحاجة إلى وقت من أجل توثيق حسابك!",
+        "why_waite": "لماذا علي الانتظار؟",
+        "why_waite_msg": "نريد التأكد من أن كل شخص يمكنه العمل بسهولة وأمان مع Recycloo."
+    },
+    "changePassword": {
+        "title": "استعادة كلمة السر",
+        "desc": "أدخل بريدك الإلكتروني الخاص بك لاسترداد \n كلمة السر الخاصة بك!",
+        "email": "أدخل بريدك الإلكتروني",
+        "send_btn": "إرسال رمز التحقق",
+        "verifie_title": "توثيق الحساب",
+        "verifie_desc": "الرجاء إدخال رمز التحقق المرسل إلى",
+        "verifie_btn": "تأكيد",
+        "try_send_code": "لم اتوصل برمز التحقق،",
+        "send_code_btn": "إعادة الإرسال",
+        "change_password_title": "إعادة تعيين كلمة المرور الخاصة بك",
+        "change_password_desc": "يجب أن تكون كلمة مرورك الجديدة مختلفة  \nعن كلمة المرور المستخدمة سابقا",
+        "new_password_input": "كلمة مرور الجديدة",
+        "confirm_password": "قم بتأكيد كلمة المرور الجديدة",
+        "change_password_btn": "تأكيد",
+        "changed_password_success_title": "تمت بنجاح!",
+        "changed_password_success_desc": "لقد تم تغيير كلمة المرور الخاصة بك بنجاح  \nيمكنك الان تسجيل الدخول!",
+        "changed_password_success_btn": "تسجيل الدخول"
+    },
+    "introduction": {
+        "finished": "انتهى",
+        "next": "التالي"
+    },
+    "historic": {
+        "estimate_value": "Valeur estimée",
+        "withdraw_money": "Retirer De L'argent"
+    },
+    "collects": {
+        "title": "فئات النفايات",
+        "subtitle": "انقر للإعلان عن نفاياتك",
+        "other": "الآخرين"
+    },
+    "onboardingScreenOne": {
+        "title": "إعادة التدوير",
+        "subtitle": "أكسب نقاطًا ونقودًا مقابل كل المواد القابلة لإعادة التدوير!"
+    },
+    "onboardingScreenTwo": {
+        "title": "تدوير البلاستيك",
+        "subtitle": "خدمتنا جمع النفايات الخاصة بك!"
+    },
+    "onboardingScreenThree": {
+        "title": "حماية البيئة",
+        "subtitle": "شاركنا في حماية كوكبنا وبيئتنا حماية الكوكب تبدأ بك!"
+    },
+    "search": {
+        "search_placeholder": "قم بتحديد موقعك"
+    },
+    "tapBarBottom": {
+        "home": "الرئيسية",
+        "demandes": "عروضي",
+        "transaction": "معاملات",
+        "message": "رسائل"
+    },
+    "menageCollectDetails": {
+        "description-aswer": "قم بتحديد الوقت الذي يناسبك من أجل جمع النفايات المنزلية",
+        "description-term": "لا يمكنك التصريح حتى تصل إلى 10 كيلوغرام على الأقل!"
+    },
+    "menageUploadImage": {
+        "desc": "إضافة الصورة",
+        "via-camera": "التقاط صورة",
+        "via-gallery": "معرض الصور والفيديو",
+        "cancel": "إلغاء",
+        "buttonConfirm": "تأكيد"
+    },
+    "menageDemend": {
+        "cancel": "إلغاء",
+        "details": "التفاصيل",
+        "total": "المجموع بالنقاط",
+        "wait": "في طور الإنتظار",
+        "type": "النوع",
+        "qty": "الكمية",
+        "price": "السعر",
+        "dh-total": "المجموع بالدرهم",
+        "dh": "درهم",
+        "confirm": " تأكيد",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "client": "العميل",
+        "fraiOfTransition": "رسوم التحويل",
+        "notReady": "غير جاهزة للاستلام",
+        "startWay": "بدأ الطريق",
+        "modalSubtitle": "هل تريد تأكيد هذا الطلب؟",
+        "modalYes": "نعم",
+        "modalNo": "لا",
+        "inProgress": "جاريــة",
+        "accepted": "مقبولة",
+        "finished": "منتهية",
+        "canceled": "ملغات"
+    },
+    "wallet": {
+        "transactionTitle" : "إجراء المعاملات",
+        "complet" : "تمت بنجاح",
+        "empty" : "لم تقم بإجراء أي  عملية \n حتى الآن!",
+        "dhs" : "درهم",
+        "kg" : "كجم",
+        "invoice" : {
+            "title" : "تم الدفع بنجاح!",
+            "type" : "نوع النفايات :",
+            "qty" : "الكمية :",
+            "total" : " المبلغ صافي :",
+            "date" : "تَارِيخ :",
+            "agence" : "وَكَالَة :",
+            "city" : "مدينة :"
+        }
+    },
+    "profile": {
+        "edit_profile": "تعديل المعطيات الشخصية",
+        "language": "اللغات",
+        "payment_method": "طريقة الدفع",
+        "q&a": "تساؤلات",
+        "suport": "مساعدة",
+        "inviteFrient": "دعوة أصدقاء",
+        "logout": "تسجيل الخروج",
+        "copyright": "حقوق الطبع والنشر 2022 Recycloo . جميع الحقوق محفوظة"
+    },
+    "collectorfooterNavigation": {
+        "home": "الرئيسية",
+        "orders": "طلباتي",
+        "wallet": "محفظتي"
+    },
+    "collectorOrderTab": {
+        "inProgress": "جاريــــــة",
+        "accept": "مقبولة",
+        "finished": "انتهىت",
+        "canceld": "ملغات"
+    },
+    "collectorWallet": {
+        "deposer": "إيداع الأموال",
+        "retirer": "سحب الأموال",
+        "chart": "إحصائيات"
+    },
+    "homeCategory": {
+        "title": "أنواع النفايات",
+        "desc": "انقر للإعلان عن نفاياتك"
+    },
+    "homeChangeLaung": {
+        "title": "لغة التطبيق",
+        "desc": "اختر لغتك المفضلة"
+    },
+    "editProfile": {
+        "boutTtile": "المعلومات الشخصية ",
+        "fullName": "الاسم الكامل",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتفَ",
+        "cin": "البطافة  الوطنية",
+        "addressTitle": "العنوان",
+        "city": "حدد مدينتك",
+        "block": "عنوان الاقامة",
+        "berthTitle": "تاريخ الإزدياد",
+        "dayBerh": "يوم",
+        "berthMonth": "شهر",
+        "berthYear": "سنة",
+        "changePasswordTitle": "تغيير كلمة السر",
+        "changePasswordDesc": "اكتب كلمة المرور القديمة ثم اكتب كلمة المرور الجديدة \n وقم بتأكيدها",
+        "password": "كلمة مرور القديمة",
+        "newPassword": "كلمة مرور الجديدة",
+        "confirmPassword": "قم بتأكيد كلمة المرور الجديدة",
+        "submitButton": "حفظ المعلومات",
+        "resetButton": "إعادة تعيين"
+    },
+    "suport": {
+        "title": "حول تطبيق Recycloo",
+        "call": "اتصل بنا",
+        "msg": "أرسل رسالة",
+        "terms": "الشروط والأحكام",
+        "politiq": "سياسة الخصوصية"
+    },
+    "inviteFriends": {
+        "desc": "قم بدعوة أصدقائك للانضمام إلى تطبيق \n Recycloo-Agricole!",
+        "copieText": "قم بنسخ الرابط الخاص بك",
+        "msg": "رسائل",
+        "wtsp": "واتساب",
+        "shar": "مشاركة",
+        "textFooter": "يمكنك دعوة الأشخاص الذين لم يقوموا بتثبيت تطبيق \n Recycloo agricole!"
+    },
+    "demandes": {
+        "inProgressTItle" : "جارية",
+        "ended" : "انتهىت",
+        "canceled" : "ملغات",
+        "inProgress": {
+            "cancel": "إلغاء",
+            "qty": "الكمية :",
+            "details": "تفاصيل",
+            "price": "السعر :",
+            "total": "المبلغ المدفوع :",
+            "dhs": "درهم",
+            "kg": "كجم",
+            "delete" : "حذف",
+            "type" : "النوع :",
+            "suggestPrice" : "الثمن المقرتح :",
+            "free" : "مجانًا",
+            "totalSuggest" : "المبلغ (السعر المقترح) :"
+        }
+    },
+    "notification" : {
+        "title" : "إشعارات",
+        "desc" : "اسحب لليسار للحذف"
+    },
+    "categoryDetails" : {
+        "addIMageTitle" : "أضف صورًا من أجل تحسين  \n قائمتك",
+        "takePhoto" : "التقاط صورة",
+        "uploadPhoto" : "معرض الصور والفيديو",
+        "kg": "كجم",
+        "dhs": "درهم",
+        "desc" : "يتم استرداد الشباك والحبال المصنوعة من مادة البولي أميد جزئيًا بواسطة الصيادين أو غيرهم من جهات إعادة التدوير.",
+        "categName" : "علبة البذور"
+    },
+    "declarationRegister" : {
+        "desc" : "وصف",
+        "option" : "اختياري",
+        "freeText" : "مجانًا (تخلص من نفاياتك بالمجان)",
+        "qtyKg" : "الكمية (كلغ)",
+        "prix" : "اقترح سعرك (درهم)",
+        "address" : "العنوان",
+        "city" : "مدينة",
+        "enter" : "ادخل",
+        "btn" : "تأكيد",
+        "write" : "أكتب...",
+        "successTitle" : "تمت بنجاح!",
+        "successDesc" : "يمكنك متابعة عرضك في قسم عروضي",
+        "demandBtn" : "عروضي",
+        "homeBtn" : "الرئيسية"
+    },
+    "modal" : {
+        "uploadPhoto" : {
+            "title" : "إضافة الصور",
+            "takePhoto" : "التقاط صورة",
+            "fromGalerie" : "معرض الصور",
+            "cancel" : "إلغاء"
+        },
+        "completProfile" : {
+            "title" : "الرجاء استكمال ملف التعريف \n الخاص بك!",
+            "completBtn" : "متابعة",
+            "exit" : "في وقت لاحق"
+        }
+    },
+    "suportMessage" : {
+        "placeholer" : "إبعث رسالة "
+    },
+    "emptyNotification" : {
+        "title" : "لم تتلق أي إشعارات حتى الآن!"
+    },
+    "copyRight" : "حقوق الطبع والنشر 2022 Recycloo . جميع الحقوق محفوظة",
+    "authenticationConditions" : {
+        "descOne" : "من خلال إنشاء حساب أو تسجيل الدخول إليه ، فإنك توافق على",
+        "descTwo" : "et",
+        "condition" : "الشروط والأحكام",
+        "confidentalite" : "و  بيان الخصوصية  الخاص بنا."
+    },
+    "headerTitles" : {
+        "inviteFrient" : "دعوة أصدقاء",
+        "lang" : "اللغات",
+        "addImage" : "إضافة صورة",
+        "desc" : "الوصف",
+        "offres" : "عروضي",
+        "notification" : "الإشعارات",
+        "message" : "الرسائل",
+        "chat" : "محادثة",
+        "transaction" : "معاملات",
+        "details" : "التفاصيل",
+        "editProfile" : "تعديل الملف الشخصي",
+        "termsConditions" : "Terms & conditions",
+        "politiq" : "الشروط والأحكام",
+        "questions" : "التساؤلات",
+        "support" : "الدعم"
+    },
+    
+
+    "calidation_errors" : {
+        "login" : {
+            "emailRequired" : "البريد الإلكتروني مطلوب الرجاء إدخاله",
+            "emailFormat" : "البريد الإلكتروني الذي أدخلته غير صحيح",
+            "passwordRequired" : "كلمة المرور مطلوبة الرجاء إدخالها",
+            "passwordFormat" : "كلمة المرور غير صحيحة"
+        }
+    }
+}
