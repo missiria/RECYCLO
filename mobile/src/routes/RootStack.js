@@ -21,7 +21,7 @@ import GetEmail from "../screens/changingPassword/GetEmail";
 import MultiFactor from "../screens/changingPassword/MultiFactor";
 import ChangePassword from "../screens/changingPassword/ChangePassword";
 import Done from "../screens/changingPassword/PasswordChengedSuccess";
-import Home from "../screens/menages/home/Home";
+import MenageHome from "../screens/menages/home/MenageHome";
 import Otherscollect from "../screens/menages/collects/Otherscollect";
 import CollectDetails from "../screens/menages/collects/CollectDetails";
 import DeclaredSuccess from "../screens/menages/collects/DeclaredSuccess";
@@ -152,7 +152,7 @@ const RootStack = () => {
         <Stack.Screen name="VerifyPhone" component={MultiFactor} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen name="Done" component={Done} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="MenageHome" component={MenageHome} />
         <Stack.Screen name="Logout" component={Logout} />
         <Stack.Screen name="OtherCollects" component={Otherscollect} />
         <Stack.Screen

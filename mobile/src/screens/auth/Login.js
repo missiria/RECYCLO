@@ -23,7 +23,7 @@ export default function Login({ navigation }) {
           initialValues={defaultValues}
           validationSchema={schema}
             onSubmit={(values, { setErrors }) => {
-              handleLogin(values, navigation, setErrors,setAuthLoaded)
+              handleLogin(values, navigation, setErrors, setAuthLoaded)
             }
           }
         >
@@ -48,6 +48,7 @@ export default function Login({ navigation }) {
               >
                 {i18n.t("login.forget_password")}
               </Text>
+              {errors.api && <Text style={{ color: "red" }}>{ errors.api }</Text>}
               <Text style={{ color: "red" }}>{props.errors.api}</Text>
               <Text style={styles.buttonLogin} onPress={props.handleSubmit} disabled={ authLoaded }>
                 {authLoaded ? <ActivityIndicator size="small" color="#ffffff" /> : i18n.t("login.sign_in")}
