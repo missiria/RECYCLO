@@ -43,5 +43,7 @@ Requirements :
     > cd node_modules/bcrypt
     > node-pre-gyp install --fallback-to-build
 
-# Dump db cmd
+# Dump db from Docker
     > ocker exec back_db_1 /usr/bin/mysqldump -u root --password=c++ edge_recyclo > backup.sql
+# Lauch bash Docker
+    > docker exec -it back_db_1 bash -l
