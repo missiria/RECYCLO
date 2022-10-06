@@ -55,9 +55,6 @@ export default class Account extends BaseModel {
   @hasOne(() => User)
   public user: HasOne<typeof User>
 
-  @belongsTo(() => City,{
-    localKey: 'id',
-    foreignKey: 'city_id',
-  })
+  @belongsTo(() => City)
   public city: BelongsTo<typeof City>
 }

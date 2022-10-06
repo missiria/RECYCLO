@@ -19,7 +19,7 @@ import Application from '@ioc:Adonis/Core/Application'
 | import './routes/customer'
 |
 */
-// Accounts
+// Route should be private
 Route.group(() => {
   //Route.post('accounts', 'AccountsController.store')
 
@@ -40,13 +40,16 @@ Route.group(() => {
   .prefix('/api/v1')
   .middleware('api_auth')
 
-// Users, Donations, declarations,Recharges,collects
+// This route it's public routes
 Route.group(() => {
   Route.resource('cities', 'CitiesController').apiOnly()
   Route.post('users', 'UsersController.store')
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')
+  Route.resource('countries', 'CountriesController').apiOnly()
 
+  // TODO : Verify if we should use resource of manuel post !!!
+  // ---------------------------------------------------------
   //Route.resource('users', 'UsersController').apiOnly()
 
   Route.resource('donations', 'DonationsController').apiOnly()
