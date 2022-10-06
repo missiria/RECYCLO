@@ -1,0 +1,10 @@
+[1] => check Figma Designs
+[2] => create screens
+        --> create a new screen of payments for collector
+        --> create a new screen of terms and conditions
+[3] => VERIFICATION : Install 'i18n' for languages (Copy all files from old app)
+[4] => New structure for folder should be like :
+    - EDGE-UI (Common files)
+    - Menages
+    - Collectors
+[5]

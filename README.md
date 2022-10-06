@@ -42,3 +42,6 @@ Requirements :
 # Error Argon2 reinstall
     > cd node_modules/bcrypt
     > node-pre-gyp install --fallback-to-build
+
+# Dump db cmd
+    > ocker exec back_db_1 /usr/bin/mysqldump -u root --password=c++ edge_recyclo > backup.sql
