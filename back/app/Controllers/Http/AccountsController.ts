@@ -11,7 +11,7 @@ export default class AccountsController {
   }
   */
 
-  public async show({ auth,response }) {
+  public async show({ auth, response }) {
     const user = auth.use('api').user;
     const account: any = await Account.findBy('user_id',user.id)
 

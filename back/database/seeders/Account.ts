@@ -25,7 +25,7 @@ export default class AccountSeeder extends BaseSeeder {
         zip_code: 20000,
       },
       {
-        user_id: 1,
+        user_id: 3,
         gender: 'MALE',
         type: 'COLLECTOR',
         address: 'lorem ipsum',

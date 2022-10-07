@@ -12,11 +12,9 @@ export default class UsersController {
     const phone = request.input('phone')
     const password = request.input('password')
 
-    console.log('phone >>', phone)
-    console.log('password >>', password)
-
     // Lookup user manually
     const user = await User.query().where('phone', phone).first()
+    // TODO : Need to login just user who are active
     //.where('active', 1)
 
     if (user) {
@@ -27,10 +25,10 @@ export default class UsersController {
 
       // Create token
       let token = await auth.use('api').generate(user, {
-        expiresIn: '90days',
+        expiresIn: '30days',
       })
       let account = await Account.findBy('user_id', user.id)
-      console.log('account >>', account)
+
       let result = { auth: token, account: account }
 
       return Object.assign(result, user.serialize())
