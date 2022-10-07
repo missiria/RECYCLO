@@ -13,7 +13,7 @@ export default class Accounts extends BaseSchema {
 
       table.string('society_id', 11)
       table.enum('gender', ['FEMALE', 'MALE'])
-      table.enum('type', ['MENAGE','COLLECTOR'])
+      table.enum('type', ['MENAGE', 'COLLECTOR'])
 
       // TODO : Edit profile
       table.string('avatar', 255)
@@ -23,10 +23,8 @@ export default class Accounts extends BaseSchema {
       table.string('back_verification_path', 255)
 
       table.string('address', 255)
-      table.integer('city_id').unsigned().nullable()
-      // .references('cities.id')
-      // .onDelete('CASCADE')
-      table.string('country', 255)
+      table.integer('city_id').unsigned().references('cities.id').onDelete('CASCADE')
+
       table.string('nationality', 255)
       table.integer('zip_code', 18)
 

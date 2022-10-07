@@ -77,6 +77,7 @@ export default function Login({ navigation }) {
                 style={styles.forgetCode}>
                 {i18n.t("login.forget_password")}
               </Text>
+              {errors.api && <Text style={{ color: "red" }}>{ errors.api }</Text>}
               <Text style={{ color: "red" }}>{props.errors.api}</Text>
               <Text
                 style={styles.buttonLogin}

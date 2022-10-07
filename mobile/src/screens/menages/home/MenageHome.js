@@ -7,7 +7,7 @@ import Sliders from "../pupSliders/Sliders";
 import * as Location from "expo-location";
 import Collects from "../collects/Collects";
 
-export default function Home({ navigation }) {
+export default function MenageHome({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
       <ScrollView>
         <Search />
         <Sliders />
-        {/* <Collects navigation={navigation} /> */}
+        <Collects navigation={navigation} />
       </ScrollView>
       <FooterNav navigation={navigation} />
     </SafeAreaView>

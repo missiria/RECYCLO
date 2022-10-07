@@ -28,7 +28,7 @@ export const handleLogin = async (
         await storeData("user", response.data);
 
         if (response.data.account.type == "MENAGE") {
-          navigation.navigate("Home");
+          navigation.navigate("MenageHome");
         } else if (response.data.account.type == "COLLECTOR") {
           navigation.navigate("CollectorHome");
         }
