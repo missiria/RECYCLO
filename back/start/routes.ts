@@ -46,6 +46,7 @@ Route.group(() => {
   Route.post('users', 'UsersController.store')
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')
+
   // * Delete this route after
   Route.get('users/all', 'UsersController.index')
 
@@ -54,9 +55,8 @@ Route.group(() => {
   //Route.resource('users', 'UsersController').apiOnly()
 
   Route.resource('donations', 'DonationsController').apiOnly()
-  //Route.resource('declarations', 'DeclarationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
-  //Route.resource('collects', 'CollectsController').apiOnly()
+  Route.resource('countries', 'CountriesController').apiOnly()
 
   Route.get('/verify/:email', async ({ request }) => {
     if (request.hasValidSignature()) {
@@ -66,23 +66,24 @@ Route.group(() => {
   }).as('verifyEmail')
 }).prefix('/api/v1')
 
-// auth
+// User custom routes
 Route.group(() => {
   Route.post('/users/login', 'UsersController.login').as('users.login')
   Route.post('/users/logout', 'UsersController.logout').as('users.logout')
   Route.post('/users/auth', 'UsersController.auth').as('users.auth')
 }).prefix('/api/v1')
 
+// Files routes
 Route.get('/files/:folder/:image', async ({ response, params }) => {
   return response.download(Application.tmpPath(`uploads/${params.folder}/${params.image}`))
 })
-
 Route.get('/files/:type/:folder/:image', async ({ response, params }) => {
   return response.download(
     Application.tmpPath(`uploads/${params.type}/${params.folder}/${params.image}`)
   )
 })
 
+// Global route
 Route.get('*', async ({ response }) => {
   return response.accepted({ error: 400, message: 'EDGE : Bad Request 400' })
 })
