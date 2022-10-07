@@ -46,6 +46,8 @@ Route.group(() => {
   Route.post('users', 'UsersController.store')
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')
+  // * Delete this route after
+  Route.get('users/all', 'UsersController.index')
 
   //Route.resource('users', 'UsersController').apiOnly()
 
@@ -60,7 +62,6 @@ Route.group(() => {
     }
     return 'Signature is missing or URL was tampered.'
   }).as('verifyEmail')
-
 }).prefix('/api/v1')
 
 // auth

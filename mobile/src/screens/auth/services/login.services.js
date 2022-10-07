@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import apiClient from "~/api/client";
+import { axiosInstance } from "../../../api/client";
 import { storeData } from "~/hooks/hooks";
 
 export const defaultValues = {
@@ -16,9 +17,9 @@ export const handleLogin = async (
 ) => {
   if (userData && navigation) {
     setAuthLoaded(true);
+    console.log("userData Login >>", userData);
     const response = await apiClient.post("users/login", userData);
-
-    console.log("LOGIN SERVICES : response.data > ", response.data);
+    console.log("LOGIN SERVICES : response > ", response);
 
     if (response.status === 400 || response.status === 500) {
       setErrors({ api: response.data });

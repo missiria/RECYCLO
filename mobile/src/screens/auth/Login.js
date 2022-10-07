@@ -1,16 +1,48 @@
 import React from "react";
 import i18n from "i18next";
-import { View, Text, StyleSheet, ScrollView,ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { Formik } from "formik";
-import {useEffect,useState} from 'react';
+import { useEffect, useState } from "react";
 
 // Services
 import { handleLogin, schema, defaultValues } from "./services/login.services";
-import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
+import { axiosInstance } from "../../api/client";
+import axios from "axios";
 
 export default function Login({ navigation }) {
-
   const [authLoaded, setAuthLoaded] = useState(false);
+
+  const onSubmit = async (values) => {
+    // setAuthLoaded(true);
+    // console.log(values);
+    // const response = await fetch(
+    //   "http://192.168.1.113:3333/api/v1/users/login",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "content-type": "application/json; charset=utf-8",
+    //     },
+    //     body: JSON.stringify(values),
+    //   }
+    // );
+
+    // console.log(await response.json());
+    axios
+      .post("http://192.168.1.113:3333/api/v1/users/login", values, {
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+        },
+      })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <View style={styles.container}>
@@ -22,11 +54,9 @@ export default function Login({ navigation }) {
         <Formik
           initialValues={defaultValues}
           validationSchema={schema}
-            onSubmit={(values, { setErrors }) => {
-              handleLogin(values, navigation, setErrors,setAuthLoaded)
-            }
-          }
-        >
+          onSubmit={(values, { setErrors }) => {
+            handleLogin(values, navigation, setErrors, setAuthLoaded);
+          }}>
           {(props) => (
             <ScrollView>
               <EdgeTextInput
@@ -44,20 +74,25 @@ export default function Login({ navigation }) {
               />
               <Text
                 onPress={() => navigation.navigate("ChangePasswordIndex")}
-                style={styles.forgetCode}
-              >
+                style={styles.forgetCode}>
                 {i18n.t("login.forget_password")}
               </Text>
               <Text style={{ color: "red" }}>{props.errors.api}</Text>
-              <Text style={styles.buttonLogin} onPress={props.handleSubmit} disabled={ authLoaded }>
-                {authLoaded ? <ActivityIndicator size="small" color="#ffffff" /> : i18n.t("login.sign_in")}
+              <Text
+                style={styles.buttonLogin}
+                onPress={props.handleSubmit}
+                disabled={authLoaded}>
+                {authLoaded ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  i18n.t("login.sign_in")
+                )}
               </Text>
               <Text style={styles.textRegister}>
                 {i18n.t("login.need_account")}
                 <Text
                   onPress={() => navigation.navigate("Register")}
-                  style={styles.signUpTextLink}
-                >
+                  style={styles.signUpTextLink}>
                   {i18n.t("login.sign_up")}
                 </Text>
               </Text>

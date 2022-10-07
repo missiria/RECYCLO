@@ -1,13 +1,14 @@
 import * as yup from "yup";
 import apiClient from "~/api/client";
 import { storeData } from "~/hooks/hooks";
+import { axiosInstance } from "../../../api/client";
 import { setErrorsAPI } from "../../../services/v12";
 
 export const defaultValues = {
   first_name: "firstname",
   last_name: "lastname",
-  phone: "05"+Date.now().toString().substring(5),
-  email: "test_"+Date.now()+"@gmail.com",
+  phone: "05" + Date.now().toString().substring(5),
+  email: "test_" + Date.now() + "@gmail.com",
   password: "123456789",
   type: "COLLECTOR",
 };
@@ -27,16 +28,16 @@ export const schema = yup.object().shape({
 
 export const handleRegister = async (userData, navigation, setErrors) => {
   if (userData && navigation) {
-    const response = await apiClient.post("users", userData);
+    const response = await axiosInstance.post("users", userData);
 
-    console.log(response.data);
+    console.log(response);
 
     if (response.status === 422) {
-      setErrors( setErrorsAPI( response.data.errors ) );
+      setErrors(setErrorsAPI(response.data.errors));
     } else if (parseInt(response.data.id) > 0) {
       alert("Veuillez confirmer votre compte par email");
 
-      await storeData('user',response.data);
+      await storeData("user", response.data);
 
       // cheack if user is a collector
       if (userData.type === "COLLECTOR") {

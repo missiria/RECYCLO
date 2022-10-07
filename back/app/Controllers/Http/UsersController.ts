@@ -8,17 +8,18 @@ import UserForm from 'App/Validators/UserFormValidator'
 import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class UsersController {
-
-  public async login({ auth, request, response })
-  {
+  public async login({ auth, request, response }) {
     const phone = request.input('phone')
     const password = request.input('password')
+
+    console.log('phone >>', phone)
+    console.log('password >>', password)
 
     // Lookup user manually
     const user = await User.query().where('phone', phone).first()
     //.where('active', 1)
 
-    if ( user ) {
+    if (user) {
       // Verify password
       if (!(await Hash.verify(user.password, password))) {
         return response.badRequest('Invalid credentials')
@@ -26,18 +27,19 @@ export default class UsersController {
 
       // Create token
       let token = await auth.use('api').generate(user, {
-        expiresIn: '90days'
+        expiresIn: '90days',
       })
       let account = await Account.findBy('user_id', user.id)
-      let result = {auth:token,account:account};
+      console.log('account >>', account)
+      let result = { auth: token, account: account }
 
-      return Object.assign(result,user.serialize());
+      return Object.assign(result, user.serialize())
     } else {
-      return {user: "Doesn't exist in our application!"}
+      return { user: "Doesn't exist in our application!" }
     }
   }
 
-  public auth({request}) {
+  public auth({ request }) {
     return request.cookie('user', [])
   }
 
@@ -50,39 +52,42 @@ export default class UsersController {
       return response.badRequest('USER/LOGOUT : you credentials')
     }*/
     await auth.use('api').check()
-    if(auth.use('api').isAuthenticated)
-    {
+    if (auth.use('api').isAuthenticated) {
       await auth.use('api').revoke()
       return {
-        revoked: true
+        revoked: true,
       }
-    }
-    else {
+    } else {
       return response.badRequest('USER/LOGOUT : you credentials')
     }
   }
 
   public async index({ response }) {
     const users = await User.all()
-
+    console.log(users)
     return response.ok(users)
   }
 
-  public async store({ request, auth }) {
+  public async store({ request, auth, response }) {
+    const payload: any = await request.validate(UserForm)
+    console.log('payload >>', payload)
+    let account_type = payload.type
+    delete payload.type
 
-    const payload: any = await request.validate( UserForm )
-    let account_type = payload.type;
-    delete payload.type;
-    const newUser: User = await User.create( payload )
+    // * find if the email is duplicated
+    const user = await User.findBy('email', payload.email)
+    if (user) return response.badRequest('duplicated')
+
+    const newUser: User = await User.create(payload)
 
     // Create token
     await auth.use('api').generate(newUser, {
-      expiresIn: '90days'
+      expiresIn: '90days',
     })
 
     let account = await Account.create({
       user_id: newUser.id,
-      type: account_type
+      type: account_type,
     })
 
     const signature = Route.makeSignedUrl('verifyEmail', {
@@ -92,13 +97,13 @@ export default class UsersController {
     await Mail.send((message) => {
       message
         .from('info@example.com')
-        .to( newUser.email )
+        .to(newUser.email)
         .subject('Welcome Onboard! RECYCLOO')
         .htmlView('emails/welcome', { newUser, signature })
     })
 
-    let result = {auth, account}
-    return Object.assign(result, newUser.serialize());
+    let result = { auth, account }
+    return Object.assign(result, newUser.serialize())
   }
 
   public async show({ params, response }) {
@@ -114,8 +119,7 @@ export default class UsersController {
   }
 
   public async update({ request, params, response }) {
-
-    const payload: any = await request.validate( UserForm )
+    const payload: any = await request.validate(UserForm)
 
     const { id }: { id: Number } = params
 
