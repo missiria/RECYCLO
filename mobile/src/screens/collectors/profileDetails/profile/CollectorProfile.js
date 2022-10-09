@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { ProfileData } from './ProfileBodyData'
 import { getData } from "~/hooks/hooks";
 import { DEFAULT_AVATAR_URL } from "~/api/constants"
+
+
 export default function CollectorProfile({ navigation }) {
 
     const [user, setUser] = useState(null);
@@ -24,7 +26,7 @@ export default function CollectorProfile({ navigation }) {
                 <View style={styles.profileHeader}>
                     <Image
                         style={styles.profileImg}
-                        source={{uri: user.account.avatar == null ? DEFAULT_AVATAR_URL: user.account.avatar}}
+                        source={{uri: user?.account?.avatar == null ? DEFAULT_AVATAR_URL: user?.account?.avatar}}
                     />
                     <Text style={styles.username}>
                         {user && user.fullName }
@@ -38,12 +40,13 @@ export default function CollectorProfile({ navigation }) {
                                 onPress={() => navigation.navigate(item.goTo)}
                                 key={item.id}
                                 style={styles.profileBodyItem}>
-                                <View style={styles.itemcardLleft}>
+                                <View style={styles.itemCardLeft}>
                                     <Icon
-                                        style={styles.itemcardIcon}
+                                        style={styles.itemCardIcon}
                                         name={item.icon}
                                     />
                                     <Text style={styles.profileBodyItemText}>
+                                        {/* use i18n */}
                                         {item.title}
                                     </Text>
                                 </View>
@@ -117,12 +120,12 @@ const styles = StyleSheet.create({
         padding: 20,
 
     },
-    itemcardLleft: {
+    itemCardLeft: {
         flexDirection: 'row',
         alignItems: 'center',
     },
 
-    itemcardIcon: {
+    itemCardIcon: {
         fontSize: 20,
         color: '#33CC66',
         marginRight: 10,

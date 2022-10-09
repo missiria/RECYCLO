@@ -13,15 +13,15 @@ export const schema = yup.object().shape({
 });
 
 export const handleRegister = async (userData, navigation, setErrors) => {
-    // console.log("userData", userData);
     const user = await getData('user');
 
+    
+    // TODO: user.auth.type is undefined
     apiClient.put("accounts", {
         'city' : userData.city,
         'address' : userData.neighborhood,
-    },{ headers: { 'Authorization': user.auth.type+' '+user.auth.token }}).then((response) => {
+    },{ headers: { 'Authorization': user.auth.type+' '+user.auth.token }, }).then((response) => {
         //console.log('response',response);
-        console.log('response.data',response.data);
         if(response.data?.errors)
         {
             setErrors(response.data.errors);

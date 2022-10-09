@@ -8,41 +8,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Services
 import { handleLogin, schema, defaultValues } from "./services/login.services";
 import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
-import { axiosInstance } from "../../api/client";
-import axios from "axios";
 
 export default function Login({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
-
-  const onSubmit = async (values) => {
-    // setAuthLoaded(true);
-    // console.log(values);
-    // const response = await fetch(
-    //   "http://192.168.1.113:3333/api/v1/users/login",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json; charset=utf-8",
-    //     },
-    //     body: JSON.stringify(values),
-    //   }
-    // );
-
-    // console.log(await response.json());
-    axios
-      .post("http://192.168.1.113:3333/api/v1/users/login", values, {
-        headers: {
-          "content-type": "application/json; charset=utf-8",
-        },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  };
 
   return (
     <View style={styles.container}>
@@ -77,7 +50,9 @@ export default function Login({ navigation }) {
                 style={styles.forgetCode}>
                 {i18n.t("login.forget_password")}
               </Text>
-              {errors.api && <Text style={{ color: "red" }}>{ errors.api }</Text>}
+              {props.errors.api && (
+                <Text style={{ color: "red" }}>{props.errors.api}</Text>
+              )}
               <Text style={{ color: "red" }}>{props.errors.api}</Text>
               <Text
                 style={styles.buttonLogin}

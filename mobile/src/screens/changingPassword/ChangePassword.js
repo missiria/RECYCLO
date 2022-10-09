@@ -24,7 +24,7 @@ export default function ChangePassword({ navigation }) {
           <Text style={styles.bigText}>Réinitialisez votre mot de pass</Text>
           <Text style={styles.descText}>
             Votre nouveau mot de pass doit être différent du mot de passe
-            précédemment utilisé
+            précédemment utilisée
           </Text>
         </View>
         <Formik
@@ -43,7 +43,7 @@ export default function ChangePassword({ navigation }) {
                       props.errors.password ? { color: "red" } : null,
                     ]}
                   >
-                    Nouveau Mot De Pass
+                    Nouveau Mot De Passe
                   </Text>
                   <View
                     style={[

@@ -1,31 +1,27 @@
-import {useEffect,useState} from 'react';
-import { StyleSheet,View, Image} from "react-native";
-import HeaderIndexLogin from "../assets/images/logo_2.png"
-import {getData} from "../hooks/hooks";
+import { useEffect, useState } from "react";
+import { StyleSheet, View, Image } from "react-native";
+import HeaderIndexLogin from "../assets/images/logo_2.png";
+import { getData } from "../hooks/hooks";
 
-export default function Splash({navigation}) {
-
+export default function Splash({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
   const [user, setUser] = useState(null);
-  const [isFirstTime, setIsFirstTime] = useState('true');
+  const [isFirstTime, setIsFirstTime] = useState("true");
 
   const getStorage = async () => {
-      const firstTime = await getData('FirstTime');
-      setIsFirstTime(firstTime === null?'true':firstTime);
+    const firstTime = await getData("FirstTime");
+    setIsFirstTime(firstTime === null ? "true" : firstTime);
   };
 
   useEffect(() => {
-    
-    if(user == null)
-    {
-      async function getCurrentUser(){
-        setUser(await getData('user'));
-      }  
+    if (user == null) {
+      async function getCurrentUser() {
+        setUser(await getData("user"));
+      }
       getCurrentUser();
     }
     getStorage();
-
-  },[user]);
+  }, [user]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -34,27 +30,21 @@ export default function Splash({navigation}) {
   }, []);
 
   useEffect(() => {
-
     if (authLoaded) {
-      
-      if(user != null && user.account.type == "MENAGE"){
-        navigation.replace('Home');
-        return;        
-      }
-      else if(user != null && user.account.type == "COLLECTOR"){
-        navigation.replace('CollectorHome');
+      if (user != null && user?.account?.type == "MENAGE") {
+        navigation.replace("MenageHome");
+        return;
+      } else if (user != null && user?.account?.type == "COLLECTOR") {
+        navigation.replace("CollectorHome");
+        return;
+      } else {
+        if (isFirstTime == "true") {
+          navigation.replace("Language");
+        } else {
+          navigation.replace("LoginIndex");
+        }
         return;
       }
-      else{
-        if(isFirstTime == 'true'){
-          navigation.replace('Language');
-        }
-        else{
-          navigation.replace('LoginIndex');
-        }
-        return;      
-      }
-
     }
   }, [authLoaded, navigation]);
 
@@ -77,5 +67,5 @@ const styles = StyleSheet.create({
   logoImg: {
     flex: 5,
     justifyContent: "center",
-  }
+  },
 });

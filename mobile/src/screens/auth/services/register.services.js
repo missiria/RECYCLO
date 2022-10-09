@@ -26,12 +26,11 @@ export const schema = yup.object().shape({
   password: yup.string().required().min(8).max(25),
 });
 
-export const handleRegister = async (userData, navigation, setErrors) => {
+export const handleRegister = async (userData, navigation, setErrors, setAuthLoaded) => {
   if (userData && navigation) {
+    setAuthLoaded(true)
     const response = await axiosInstance.post("users", userData);
-
-    console.log(response);
-
+    console.log(response.data);
     if (response.status === 422) {
       setErrors(setErrorsAPI(response.data.errors));
     } else if (parseInt(response.data.id) > 0) {
@@ -39,12 +38,15 @@ export const handleRegister = async (userData, navigation, setErrors) => {
 
       await storeData("user", response.data);
 
-      // cheack if user is a collector
+      // check if user is a collector
       if (userData.type === "COLLECTOR") {
-        navigation.navigate("Adress");
+        // TODO: user.auth.type is undefined, check the sign in method in UserController
+        navigation.navigate("Address");
       } else {
         navigation.navigate("VerificationPhone");
       }
+      setAuthLoaded(false)
     }
+
   }
 };

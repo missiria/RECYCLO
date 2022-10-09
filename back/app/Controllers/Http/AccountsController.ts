@@ -23,7 +23,6 @@ export default class AccountsController {
   }
 
   public async update({ auth,request, response }) {
-
     const user = auth.use('api').user;
     const payload: any = await request.validate( AccountForm )
     const account: any = await Account.findBy('user_id',user.id)

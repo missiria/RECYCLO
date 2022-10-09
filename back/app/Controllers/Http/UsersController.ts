@@ -68,7 +68,7 @@ export default class UsersController {
 
   public async store({ request, auth, response }) {
     const payload: any = await request.validate(UserForm)
-    console.log('payload >>', payload)
+    console.log(payload);
     let account_type = payload.type
     delete payload.type
 
@@ -78,9 +78,9 @@ export default class UsersController {
 
     const newUser: User = await User.create(payload)
 
-    // Create token
-    await auth.use('api').generate(newUser, {
-      expiresIn: '90days',
+    // Create  & get token
+    const { token } = await auth.use('api').generate(newUser, {
+      expiresIn: '30days',
     })
 
     let account = await Account.create({
@@ -88,20 +88,25 @@ export default class UsersController {
       type: account_type,
     })
 
+    // * Temporary solution to allow sending emails
+    // @ts-ignore
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+
     const signature = Route.makeSignedUrl('verifyEmail', {
       email: newUser.email,
     })
 
     await Mail.send((message) => {
       message
-        .from('info@example.com')
+        .from('edge_recyclo@gmail.com')
         .to(newUser.email)
         .subject('Welcome Onboard! RECYCLOO')
         .htmlView('emails/welcome', { newUser, signature })
     })
+    await auth.use('web').authenticate()
 
-    let result = { auth, account }
-    return Object.assign(result, newUser.serialize())
+    const result = { token, auth, account }
+    return Object.assign(result, newUser.serialize(),)
   }
 
   public async show({ params, response }) {

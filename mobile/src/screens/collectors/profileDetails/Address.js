@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { cityData } from '../filter/FilterData';
 import { handleRegister, schema, defaultValues } from "./services/adress.services";
 
-export default function Adress({ navigation }) {
+export default function Address({ navigation }) {
 
 
     return (
