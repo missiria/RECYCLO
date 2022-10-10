@@ -16,10 +16,6 @@ import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
 
 export default function Login({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
-<<<<<<< HEAD
-
-=======
->>>>>>> 6bd8a50b1c051379501d193a11fc785777ca8ce2
   return (
     <View style={styles.container}>
       <View style={styles.textTitle}>
