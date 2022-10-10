@@ -16,7 +16,10 @@ import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
 
 export default function Login({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6bd8a50b1c051379501d193a11fc785777ca8ce2
   return (
     <View style={styles.container}>
       <View style={styles.textTitle}>
@@ -29,7 +32,8 @@ export default function Login({ navigation }) {
           validationSchema={schema}
           onSubmit={(values, { setErrors }) => {
             handleLogin(values, navigation, setErrors, setAuthLoaded);
-          }}>
+          }}
+        >
           {(props) => (
             <ScrollView>
               <EdgeTextInput
@@ -47,7 +51,8 @@ export default function Login({ navigation }) {
               />
               <Text
                 onPress={() => navigation.navigate("ChangePasswordIndex")}
-                style={styles.forgetCode}>
+                style={styles.forgetCode}
+              >
                 {i18n.t("login.forget_password")}
               </Text>
               {props.errors.api && (
@@ -57,7 +62,8 @@ export default function Login({ navigation }) {
               <Text
                 style={styles.buttonLogin}
                 onPress={props.handleSubmit}
-                disabled={authLoaded}>
+                disabled={authLoaded}
+              >
                 {authLoaded ? (
                   <ActivityIndicator size="small" color="#ffffff" />
                 ) : (
@@ -68,7 +74,8 @@ export default function Login({ navigation }) {
                 {i18n.t("login.need_account")}
                 <Text
                   onPress={() => navigation.navigate("Register")}
-                  style={styles.signUpTextLink}>
+                  style={styles.signUpTextLink}
+                >
                   {i18n.t("login.sign_up")}
                 </Text>
               </Text>

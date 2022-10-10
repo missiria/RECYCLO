@@ -1,6 +1,5 @@
 import * as yup from "yup";
 import apiClient from "~/api/client";
-import { axiosInstance } from "../../../api/client";
 import { storeData } from "~/hooks/hooks";
 
 export const defaultValues = {
