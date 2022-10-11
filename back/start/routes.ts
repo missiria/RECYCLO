@@ -36,6 +36,9 @@ Route.group(() => {
 
   Route.post('declarations', 'DeclarationsController.index')
   Route.post('declarations/add', 'DeclarationsController.save')
+
+    // * Update user profile
+    Route.put('/users/update/:id', 'UsersController.update').as('users.update')
 })
   .prefix('/api/v1')
   .middleware('api_auth')

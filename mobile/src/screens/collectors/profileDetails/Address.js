@@ -3,10 +3,10 @@ import { Formik } from 'formik'
 import { Picker } from '@react-native-picker/picker'
 import React, { useState } from 'react'
 import { cityData } from '../filter/FilterData';
-import { handleRegister, schema, defaultValues } from "./services/adress.services";
+import { handleRegister, schema, defaultValues } from "./services/address.services";
 
 export default function Address({ navigation }) {
-
+    const [loading, setLoading] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -26,7 +26,7 @@ export default function Address({ navigation }) {
                         initialValues={defaultValues}
                         validationSchema={schema}
                         onSubmit={(values, { setErrors }) =>
-                            handleRegister(values, navigation, setErrors)
+                            handleRegister(values, navigation, setErrors, setLoading)
                         }
                     >
                         {(props) => (
@@ -60,9 +60,10 @@ export default function Address({ navigation }) {
                                     />
                                 </View>
                                 <Text
+                                    disabled={loading}
                                     onPress={props.handleSubmit}
-                                    style={styles.botton}>
-                                    Suivant
+                                    style={styles.button}>
+                                    {loading ? <Text><ActivityIndicator size="small" color="#fff" /></Text> : "Suivant"} 
                                 </Text>
                             </View>
                         )}
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         color: '#7C7C7C',
     },
-    botton: {
+    button: {
 
         marginTop: '15%',
         color: 'white',

@@ -18,15 +18,14 @@ export default function CollectorProfile({ navigation }) {
           }  
           getCurrentUser();
         }
-    },[user]);
-
+    },[user]); 
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.profileHeader}>
                     <Image
                         style={styles.profileImg}
-                        source={{uri: user?.account?.avatar == null ? DEFAULT_AVATAR_URL: user?.account?.avatar}}
+                        source={{uri: (user?.account && !user?.account?.avatar) ? DEFAULT_AVATAR_URL: (user?.account && user?.account?.avatar) && user?.account?.avatar}}
                     />
                     <Text style={styles.username}>
                         {user && user.fullName }
@@ -51,7 +50,7 @@ export default function CollectorProfile({ navigation }) {
                                     </Text>
                                 </View>
                                 <Icon
-                                    style={styles.itemcardIconArrow}
+                                    style={styles.itemCardIconArrow}
                                     name="arrowright"
                                 />
                             </TouchableOpacity>
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         fontWeight: 'bold',
     },
-    itemcardIconArrow: {
+    itemCardIconArrow: {
         fontSize: 20,
         color: '#33CC66',
         fontWeight: 'bold',

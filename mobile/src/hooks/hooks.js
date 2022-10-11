@@ -1,9 +1,35 @@
 import { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from "~/api/client";
-//import { API_URL } from "~/api/constants";
+import { API_URL } from "~/api/constants";
 
 //axios.defaults.baseURL = API_URL;
+
+export function useFetch(url, options){
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    
+    (async () => {
+      setIsLoading(true)
+      const user = await getData('user');
+      const response = await fetch(`${API_URL}/${url}`, {
+        headers: {
+          'Authorization' : user.auth.type+' '+user.auth.token
+        },
+        ...options
+      })
+      setData(await response.json())
+    })
+
+  }, [url])
+
+  setIsLoading(false)
+  return {
+    data, isLoading
+  }
+}
 
 export const useAPI = (axiosParams,isAuth = false) => {
 

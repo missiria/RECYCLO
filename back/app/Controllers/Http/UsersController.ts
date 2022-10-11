@@ -6,6 +6,7 @@ import User from 'App/Models/User'
 import Hash from '@ioc:Adonis/Core/Hash'
 import UserForm from 'App/Validators/UserFormValidator'
 import Mail from '@ioc:Adonis/Addons/Mail'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
 export default class UsersController {
   public async login({ auth, request, response }) {
@@ -66,9 +67,9 @@ export default class UsersController {
     return response.ok(users)
   }
 
-  public async store({ request, auth, response }) {
+  public async store({ request, auth, response }: HttpContextContract) {
     const payload: any = await request.validate(UserForm)
-    console.log(payload);
+
     let account_type = payload.type
     delete payload.type
 
@@ -78,8 +79,8 @@ export default class UsersController {
 
     const newUser: User = await User.create(payload)
 
-    // Create  & get token
-    const { token } = await auth.use('api').generate(newUser, {
+    // * Create & get token object
+    const token = await auth.use('api').generate(newUser, {
       expiresIn: '30days',
     })
 
@@ -89,6 +90,7 @@ export default class UsersController {
     })
 
     // * Temporary solution to allow sending emails
+    // TODO: FIX => Emails considered as Spam in Gmail
     // @ts-ignore
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
 
@@ -103,14 +105,15 @@ export default class UsersController {
         .subject('Welcome Onboard! RECYCLOO')
         .htmlView('emails/welcome', { newUser, signature })
     })
-    await auth.use('web').authenticate()
 
-    const result = { token, auth, account }
-    return Object.assign(result, newUser.serialize(),)
+    // * Login immediately
+    await auth.login(newUser)
+
+    return Object.assign({ auth: token, account }, newUser.serialize())
   }
 
   public async show({ params, response }) {
-    const { id }: { id: Number } = params
+    const { id }: { id: number } = params
 
     const user: any = await User.find(id)
 
@@ -121,23 +124,45 @@ export default class UsersController {
     return response.ok(user)
   }
 
-  public async update({ request, params, response }) {
-    const payload: any = await request.validate(UserForm)
+  public async update({ request, params, response, auth }: HttpContextContract) {
+    // * No need to validate the request
+    const {
+        first_name, 
+        last_name, 
+        email, 
+        phone, 
+        cin , 
+        city, 
+        address , 
+        birth_day, 
+        birth_month, 
+        birth_year
+      } = request.body()
 
-    const { id }: { id: Number } = params
+    const { id } = params
 
-    const user: any = await User.find(id)
+    const [user, account] = await Promise.all([await User.find(id),  await Account.findBy("user_id", id )])
 
     if (!user) {
       return response.notFound({ message: 'User not found' })
     }
 
-    user.first_name = payload.first_name
-    user.last_name = payload.last_name
+    first_name && (user.first_name = first_name)
+    last_name && (user.last_name = last_name)
+    email && (user.email = email)
+    phone && (user.phone = phone)
+    // cin && (user.cin = cin)
+    
+
+    
+    // * re-create token object
+    const token = await auth.use('api').generate(user, {
+      expiresIn: '30days',
+    })
 
     await user.save()
 
-    return response.ok(user)
+    return Object.assign({ auth: token, account }, user.serialize())
   }
 
   public async destroy({ params, response }) {

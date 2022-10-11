@@ -12,11 +12,10 @@ export const schema = yup.object().shape({
     neighborhood: yup.string().required("neighborhood is required").min(2).max(200),
 });
 
-export const handleRegister = async (userData, navigation, setErrors) => {
+export const handleRegister = async (userData, navigation, setErrors, setLoading) => {
+    setLoading(true)
     const user = await getData('user');
-
     
-    // TODO: user.auth.type is undefined
     apiClient.put("accounts", {
         'city' : userData.city,
         'address' : userData.neighborhood,
@@ -35,6 +34,6 @@ export const handleRegister = async (userData, navigation, setErrors) => {
         {
             navigation.navigate("ChooseTypeIdentityConfirmation");
         }
-    });
-    //{\"error\":401,\"message\":\"Must be logged in\"}
+    }).then(() => setLoading(false))
+    // {\"error\":401,\"message\":\"Must be logged in\"}
 };
