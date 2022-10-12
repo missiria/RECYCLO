@@ -18,8 +18,6 @@ export const handleLogin = async (
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
 
-    console.log("LOGIN SERVICES : response.data > ", response.data);
-
     if (response.status === 400 || response.status === 500) {
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
@@ -27,7 +25,7 @@ export const handleLogin = async (
         await storeData("user", response.data);
 
         if (response.data.account.type == "MENAGE") {
-          navigation.navigate("Home");
+          navigation.navigate("MenageHome");
         } else if (response.data.account.type == "COLLECTOR") {
           navigation.navigate("CollectorHome");
         }

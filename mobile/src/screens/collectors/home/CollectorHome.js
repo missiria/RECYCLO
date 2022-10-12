@@ -4,11 +4,10 @@ import Navbar from '../navigation/Navbar';
 import FooterNav from '../navigation/FooterNav'
 import Declaration from '../declarations/Declaration';
 
-
 export default function CollectorHome({navigation}) {
   return (
     <View style={styles.container}>
-        <Navbar  navigation={navigation} />
+        <Navbar navigation={navigation} />
         <ScrollView>
              <Declaration navigation={navigation} />
         </ScrollView>

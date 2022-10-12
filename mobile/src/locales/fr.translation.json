@@ -25,11 +25,16 @@
         "need_account": "Vous n'avez pas encore de compte?",
         "already_registered": "Vous avez déjà un compte?",
         "congratulation": "Félicitations!",
+        "congratulation_caption": "Maintenant vous pouvez commencer à recycler vos déchets",
         "bottom_text": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité.!",
         "your-number-phone-is-verified": "Votre numéro de téléphone a été vérifié avec succès!",
         "first_name": "Prénom",
         "last_name": "Nom",
-        "sign_up_text_bottom": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité."
+        "sign_up_text_bottom": "En créant ou en vous connectant à un compte, vous acceptez nos conditions générales et notre déclaration de confidentialité.",
+        "verification_title": "Vérifiez votre numéro de téléphone",
+        "verification_sub_title": "Le c12ode de vérification a été envoyée à",
+        "verification_resend_code": "Je n'ai pas reçu de code. Renvoyer le code",
+        "verification_button": "Vérifier"
     },
     "introduction": {
         "finished": "Terminé",

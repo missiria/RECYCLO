@@ -1,7 +1,7 @@
 export const ProfileData = [
     {
         id: 1,
-        title: 'Modifier le profil',
+        title: 'Modifier le profile',
         icon : 'user',
         goTo : 'CollectEditProfile',
     },

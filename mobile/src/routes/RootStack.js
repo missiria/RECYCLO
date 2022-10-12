@@ -21,7 +21,7 @@ import GetEmail from "../screens/changingPassword/GetEmail";
 import MultiFactor from "../screens/changingPassword/MultiFactor";
 import ChangePassword from "../screens/changingPassword/ChangePassword";
 import Done from "../screens/changingPassword/PasswordChengedSuccess";
-import Home from "../screens/menages/home/Home";
+import MenageHome from "../screens/menages/home/MenageHome";
 import Otherscollect from "../screens/menages/collects/Otherscollect";
 import CollectDetails from "../screens/menages/collects/CollectDetails";
 import DeclaredSuccess from "../screens/menages/collects/DeclaredSuccess";
@@ -68,7 +68,7 @@ import Filter from "../screens/collectors/filter/Filter";
 import DeclarationDetails from "../screens/collectors/declarations/DeclarationDetails";
 
 // collector veriefy hes address after register to app
-import Adress from "../screens/collectors/profileDetails/Adress";
+import Address from "../screens/collectors/profileDetails/Address";
 import ChooseTypeIdentityConfirmation from "../screens/collectors/profileDetails/ChooseTypeIdentityConfirmation";
 import UploadIdentity from "../screens/collectors/profileDetails/UploadIdentity";
 
@@ -152,7 +152,7 @@ const RootStack = () => {
         <Stack.Screen name="VerifyPhone" component={MultiFactor} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen name="Done" component={Done} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="MenageHome" component={MenageHome} />
         <Stack.Screen name="Logout" component={Logout} />
         <Stack.Screen name="OtherCollects" component={Otherscollect} />
         <Stack.Screen
@@ -564,7 +564,7 @@ const RootStack = () => {
           component={MenageAddCreditCard}
         />
 
-        <Stack.Screen name="Adress" component={Adress} />
+        <Stack.Screen name="Address" component={Address} />
         <Stack.Screen
           name="ChooseTypeIdentityConfirmation"
           component={ChooseTypeIdentityConfirmation}

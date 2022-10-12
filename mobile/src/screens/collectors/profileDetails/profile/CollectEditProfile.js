@@ -16,7 +16,7 @@ export default function CollectEditProfile({ navigation }) {
       <ScrollView>
         <Formik
           initialValues={defaultValues}
-          validationSchema={schemaValidation}
+          // validationSchema={schemaValidation}
           onSubmit={(values) => handleAuth(values, navigation)}
         >
           {(props) => (
@@ -128,7 +128,6 @@ export default function CollectEditProfile({ navigation }) {
                     placeholder="Address"
                   />
                   <Text style={{ color: "red", marginTop: 2 }}>{props.errors.address}</Text>
-                  
                 </View>
 
         
@@ -139,9 +138,9 @@ export default function CollectEditProfile({ navigation }) {
                   <Text>Date De Naissance</Text>
                   <View style={[
                     styles.dateBerth,
-                    props.errors.berthday_day ||
-                      props.errors.berthday_month ||
-                      props.errors.berthday_year
+                    props.errors.birth_day ||
+                      props.errors.birth_month ||
+                      props.errors.birth_year
                       ? { borderColor: "red", borderWidth: 1 }
                       : null,
                   ]}>
@@ -150,9 +149,9 @@ export default function CollectEditProfile({ navigation }) {
                       placeholder='DD'
                       keyboardType="numeric"
                       maxLength={2}
-                      onChangeText={props.handleChange("berthday_day")}
-                      value={props.values.berthday_day}
-                      onBlur={props.handleBlur("berthday_day")}
+                      onChangeText={props.handleChange("birth_day")}
+                      value={props.values.birth_day}
+                      onBlur={props.handleBlur("birth_day")}
 
                     />
                     <TextInput
@@ -160,23 +159,23 @@ export default function CollectEditProfile({ navigation }) {
                       placeholder='MM'
                       keyboardType="numeric"
                       maxLength={2}
-                      onChangeText={props.handleChange("berthday_month")}
-                      value={props.values.berthday_month}
-                      onBlur={props.handleBlur("berthday_month")}
+                      onChangeText={props.handleChange("birth_month")}
+                      value={props.values.birth_month}
+                      onBlur={props.handleBlur("birth_month")}
                     />
                     <TextInput
                       style={{ fontWeight: 'bold' }}
                       placeholder='YYY'
                       keyboardType="numeric"
                       maxLength={4}
-                      onChangeText={props.handleChange("berthday_year")}
-                      value={props.values.berthday_year}
-                      onBlur={props.handleBlur("berthday_year")}
+                      onChangeText={props.handleChange("birth_year")}
+                      value={props.values.birth_year}
+                      onBlur={props.handleBlur("birth_year")}
                     />
                   </View>
-                  <Text style={{ color: "red", marginTop: 1 }}> {props.errors.berthday_day} </Text>
-                  <Text style={{ color: "red", marginTop: 1 }}> {props.errors.berthday_month} </Text>
-                  <Text style={{ color: "red", marginTop: 1 }}> {props.errors.berthday_year} </Text>
+                  <Text style={{ color: "red", marginTop: 1 }}> {props.errors.birth_day} </Text>
+                  <Text style={{ color: "red", marginTop: 1 }}> {props.errors.birth_month} </Text>
+                  <Text style={{ color: "red", marginTop: 1 }}> {props.errors.birth_year} </Text>
                 </View>
                 <View style={{ marginTop: 40 }}>
                   <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Changer le mot de passe</Text>
@@ -250,7 +249,7 @@ export default function CollectEditProfile({ navigation }) {
                   Enregistrer
                 </Text>
                 <Text
-                  style={styles.btnDefault}>
+                  style={styles.btnDefault} onPress={() => props.resetForm()} >
                   Réinitialiser
                 </Text>
               </View>

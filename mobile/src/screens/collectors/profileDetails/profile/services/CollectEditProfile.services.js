@@ -1,4 +1,7 @@
 import * as yup from "yup";
+import { axiosInstance } from "../../../../../api/client";
+import { getData, storeData } from "../../../../../hooks/hooks";
+
 
 export const defaultValues = {
     first_name: "",
@@ -18,7 +21,15 @@ export const defaultValues = {
 
 
 // TODO : Authentication with server
-export const handleAuth = (values, navigation) => {
+export const handleAuth = async (values, navigation) => {
+    // * get the user
+    const user = await getData('user')
+
+    const { data } = await axiosInstance.put(`users/update/${user.id}`, values, {
+        headers: { 'Authorization': user.auth.type + ' ' + user.auth.token }
+    } )
+
+    await storeData("user", data);
     if (values && navigation) {
         navigation.navigate("Profile")
     }
@@ -34,12 +45,12 @@ export const schemaValidation = yup.object().shape({
         .typeError("That doesn't look like a phone number")
         .positive("A phone number can't start with a minus")
         .integer("A phone number can't include a decimal point"),
-    address: yup.string().required(),
+    // address: yup.string().required(),
     city: yup.string().required(),
     cin: yup.string().required(),
-    berthday_day: yup.number().required().max(30).min(1),
-    berthday_month: yup.number().required().max(12).min(1),
-    berthday_year: yup.number().required().max(2006),
+    birth_day: yup.number().required().max(30).min(1),
+    birth_month: yup.number().required().max(12).min(1),
+    birth_year: yup.number().required().max(2006),
     current_password: yup.string().required().min(8).max(25),
     new_password: yup
         .string()

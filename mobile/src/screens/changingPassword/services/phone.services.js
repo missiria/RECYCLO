@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const defaultValues = {
   phone: "",
-  contryCode: "212",
+  countryCode: "212",
 };
 
 export const handleAuth = (values, navigation) => {
@@ -18,5 +18,5 @@ export const schemaValidation = yup.object().shape({
     .typeError("That doesn't look like a phone number")
     .positive("A phone number can't start with a minus")
     .integer("A phone number can't include a decimal point"),
-  contryCode: yup.number().required().max(212),
+  countryCode: yup.number().required().max(212),
 });

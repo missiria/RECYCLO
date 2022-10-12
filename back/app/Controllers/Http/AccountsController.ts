@@ -1,6 +1,7 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Account from 'App/Models/Account'
 import AccountForm from 'App/Validators/AccountFormValidator'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
 export default class AccountsController {
 
@@ -11,22 +12,24 @@ export default class AccountsController {
   }
   */
 
-  public async show({ auth,response }) {
+  public async show({ auth, response }) {
     const user = auth.use('api').user;
     const account: any = await Account.findBy('user_id',user.id)
 
     if (!account) {
-      return response.notFound({ message: 'Compte none trouvé' })
+      return response.notFound({ message: 'Compte non trouvée' })
     }
 
     return response.ok(account)
   }
 
-  public async update({ auth,request, response }) {
-
+  public async update({ auth,request, response }: HttpContextContract) {
     const user = auth.use('api').user;
+    console.log(user)
     const payload: any = await request.validate( AccountForm )
-    const account: any = await Account.findBy('user_id',user.id)
+    const account = await Account.findBy('user_id', user?.id)
+
+    if(!account) return response.notFound({ message: 'Compte non trouvée' })
 
     if(payload.type != null)
       account.type = payload.type
