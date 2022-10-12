@@ -16,6 +16,7 @@ export const defaultValues = {
 export const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required").min(2).max(200),
   last_name: yup.string().required("Last Name is required").min(2).max(200),
+  // EDGE-1006_BUG_Authentication
   phone: yup
     .number()
     .required("A phone number is required")

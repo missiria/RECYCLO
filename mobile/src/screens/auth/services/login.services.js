@@ -46,6 +46,7 @@ export const handleLogin = async (
 export const schema = yup.object().shape({
   phone: yup
     .number()
+    // EDGE-1006_BUG_Authentication
     .required("A phone number is required")
     .typeError("That doesn't look like a phone number")
     .positive("A phone number can't start with a minus")

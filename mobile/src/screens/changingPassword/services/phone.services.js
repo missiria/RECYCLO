@@ -12,6 +12,7 @@ export const handleAuth = (values, navigation) => {
 };
 
 export const schemaValidation = yup.object().shape({
+  // EDGE-1006_BUG_Authentication
   phone: yup
     .number()
     .required("A phone number is required")
