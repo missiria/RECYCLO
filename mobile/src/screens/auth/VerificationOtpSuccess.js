@@ -16,11 +16,11 @@ export default function ValidationSuccess({ navigation }) {
       <View style={styles.imgContainer}>
         <Image source={HeaderSuccess} style={styles.Img} />
         <Text style={styles.TextInput}>
-          Maintenant vous pouvez commencer à recycler vos déchets
+          {i18n.t("login.congratulation_caption")}
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <EdgeButton text="Terminé" onPress={() => navigation.navigate("Home")}/>
+        <EdgeButton text="Terminé" onPress={() => navigation.navigate("MenageHome")}/>
       </View>
     </View>
   );

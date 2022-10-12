@@ -1,17 +1,21 @@
 import React from "react";
 import i18n from "i18next";
-import { View, Text, StyleSheet, ScrollView,ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { Formik } from "formik";
-import {useEffect,useState} from 'react';
+import { useState } from "react";
 
 // Services
 import { handleLogin, schema, defaultValues } from "./services/login.services";
-import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
 
 export default function Login({ navigation }) {
-
   const [authLoaded, setAuthLoaded] = useState(false);
-
   return (
     <View style={styles.container}>
       <View style={styles.textTitle}>
@@ -22,10 +26,9 @@ export default function Login({ navigation }) {
         <Formik
           initialValues={defaultValues}
           validationSchema={schema}
-            onSubmit={(values, { setErrors }) => {
-              handleLogin(values, navigation, setErrors, setAuthLoaded)
-            }
-          }
+          onSubmit={(values, { setErrors }) => {
+            handleLogin(values, navigation, setErrors, setAuthLoaded);
+          }}
         >
           {(props) => (
             <ScrollView>
@@ -48,10 +51,24 @@ export default function Login({ navigation }) {
               >
                 {i18n.t("login.forget_password")}
               </Text>
+<<<<<<< HEAD
               {errors.api && <Text style={{ color: "red" }}>{ errors.api }</Text>}
+=======
+              {props.errors.api && (
+                <Text style={{ color: "red" }}>{props.errors.api}</Text>
+              )}
+>>>>>>> 47df9c75dc19f39bc54e42247ddbd331a9bdb2bd
               <Text style={{ color: "red" }}>{props.errors.api}</Text>
-              <Text style={styles.buttonLogin} onPress={props.handleSubmit} disabled={ authLoaded }>
-                {authLoaded ? <ActivityIndicator size="small" color="#ffffff" /> : i18n.t("login.sign_in")}
+              <Text
+                style={styles.buttonLogin}
+                onPress={props.handleSubmit}
+                disabled={authLoaded}
+              >
+                {authLoaded ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  i18n.t("login.sign_in")
+                )}
               </Text>
               <Text style={styles.textRegister}>
                 {i18n.t("login.need_account")}

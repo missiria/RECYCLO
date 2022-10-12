@@ -24,12 +24,19 @@
     "@adonisjs/lucid",
     "@adonisjs/auth",
     "@adonisjs/session",
-    "@adonisjs/mail"
+    "@adonisjs/mail",
+    "@adonisjs/view"
   ],
   "aceProviders": [
     "@adonisjs/repl"
   ],
   "directories": {
     "public": "./uploads"
-  }
+  },
+  "metaFiles": [
+    {
+      "pattern": "resources/views/**/*.edge",
+      "reloadServer": false
+    }
+  ]
 }

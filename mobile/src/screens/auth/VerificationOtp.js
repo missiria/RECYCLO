@@ -1,11 +1,30 @@
 import { View, Text, StyleSheet, TextInput, Image, SafeAreaView, ScrollView } from 'react-native'
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import smsIcon from '../../assets/images/sms.png';
 
 import { schemaValidation, handleRegister } from './services/verification.services'
+import { getData } from '../../hooks/hooks';
+import { useMemo } from 'react';
+import i18next from 'i18next';
 
 export default function VerificationUser({ navigation }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false)
+
+    // * Keep the object reference
+    const memoUser = useMemo(() => user, [loading])
+
+    // * Set user
+    useEffect(() => {
+        if (!memoUser) {
+            (async () =>  {
+                setLoading(true)
+                setUser(await getData("user"))
+                setLoading(false)
+            })()
+        }
+      }, [memoUser]);
     return (
         <View style={styles.container}>
             <View style={styles.imgContainer}>
@@ -15,9 +34,9 @@ export default function VerificationUser({ navigation }) {
                 />
             </View>
             <View style={styles.textContainer}>
-                <Text style={styles.bigText}>Vérifiez votre numéro de téléphone</Text>
-                <Text style={styles.smallText}>Le c12ode de vérification a été envoyé à</Text>
-                <Text style={styles.phoneText}>+212 67 97 98 23</Text>
+                <Text style={styles.bigText}>{i18next.t("login.verification_title")} </Text>
+                <Text style={styles.smallText}>{i18next.t('login.verification_sub_title')}</Text>
+                <Text style={styles.phoneText}>+212 {user?.phone}</Text>
             </View>
             <Formik
                 initialValues={{ n1: '', n2: '', n3: '', n4: '', n5: '' }}
@@ -80,14 +99,14 @@ export default function VerificationUser({ navigation }) {
                             <Text style={{ color: 'red' }}> {props.errors.n4} </Text>
                             <Text style={{ color: 'red' }}> {props.errors.n5} </Text>
                             <Text style={styles.TextInput}>
-                                Je n'ai pas reçu de code. <Text>Renvoyer le code</Text>
+                                {i18next.t('login.verification_resend_code')}
                             </Text>
                         </View>
                         <View style={styles.buttonContainer}>
                             <Text
                                 onPress={props.handleSubmit}
                                 style={styles.button}>
-                                Vérifier
+                                {i18next.t('login.verification_button')}
                             </Text>
                         </View>
                     </ScrollView>

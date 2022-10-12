@@ -1,6 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import i18n from "i18next"
-import { View, Text, StyleSheet, ScrollView } from "react-native"
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native"
 import { Formik } from "formik"
 import {
   defaultValues,
@@ -11,6 +11,8 @@ import { RadioButton } from "react-native-paper"
 import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
 
 export default function Register({ navigation }) {
+  const [authLoaded, setAuthLoaded] = useState(false);
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -23,7 +25,7 @@ export default function Register({ navigation }) {
             initialValues={defaultValues}
             validationSchema={schema}
             onSubmit={(values, { setErrors }) =>
-              handleRegister(values, navigation, setErrors)
+              handleRegister(values, navigation, setErrors, setAuthLoaded)
             }
           >
             {(props) => (
@@ -77,8 +79,13 @@ export default function Register({ navigation }) {
                     </View>
                   </View>
                 </RadioButton.Group>
-                <Text style={styles.buttonLogin} onPress={props.handleSubmit}>
-                  {i18n.t("login.sign_up")}
+                
+                <Text  style={styles.buttonLogin} onPress={props.handleSubmit}>
+                    {authLoaded ? (
+                      <Text><ActivityIndicator size="small" color="#fff" /></Text>
+                    ) : (
+                      i18n.t("login.sign_up")
+                    )}
                 </Text>
                 <Text style={styles.textAlreadyRegistered}>
                   {i18n.t("login.already_registered")}
@@ -86,7 +93,7 @@ export default function Register({ navigation }) {
                     onPress={() => navigation.navigate("Login")}
                     style={styles.registerTextLink}
                   >
-                    {i18n.t("login.sign_in")}
+                    {' '} {i18n.t("login.sign_in")}
                   </Text>
                 </Text>
               </View>
@@ -170,7 +177,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    zIndex: 999,
+    // zIndex: 999,
   },
   textAlreadyRegistered: {
     textAlign: "center",

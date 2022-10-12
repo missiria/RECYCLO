@@ -68,7 +68,7 @@ import Filter from "../screens/collectors/filter/Filter";
 import DeclarationDetails from "../screens/collectors/declarations/DeclarationDetails";
 
 // collector veriefy hes address after register to app
-import Adress from "../screens/collectors/profileDetails/Adress";
+import Address from "../screens/collectors/profileDetails/Address";
 import ChooseTypeIdentityConfirmation from "../screens/collectors/profileDetails/ChooseTypeIdentityConfirmation";
 import UploadIdentity from "../screens/collectors/profileDetails/UploadIdentity";
 
@@ -564,7 +564,7 @@ const RootStack = () => {
           component={MenageAddCreditCard}
         />
 
-        <Stack.Screen name="Adress" component={Adress} />
+        <Stack.Screen name="Address" component={Address} />
         <Stack.Screen
           name="ChooseTypeIdentityConfirmation"
           component={ChooseTypeIdentityConfirmation}
