@@ -10,13 +10,13 @@ export function useFetch(url, options){
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    
+
     (async () => {
       setIsLoading(true)
       const user = await getData('user');
       const response = await fetch(`${API_URL}/${url}`, {
         headers: {
-          'Authorization' : user.auth.type+' '+user.auth.token
+          'Authorization' : `${user.auth.type} ${user.auth.token}`
         },
         ...options
       })
@@ -36,7 +36,7 @@ export const useAPI = (axiosParams,isAuth = false) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const fetchData = async (params) => {
     try {
       if(isAuth == true)

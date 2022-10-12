@@ -24,10 +24,16 @@ export default class UsersController {
         return response.badRequest('Invalid credentials')
       }
 
+      // If user doesn't verify his email
+      if (!user.active) {
+        return response.badRequest('You need to verify your address email!')
+      }
+
       // Create token
       let token = await auth.use('api').generate(user, {
         expiresIn: '30days',
       })
+
       let account = await Account.findBy('user_id', user.id)
 
       let result = { auth: token, account: account }
@@ -127,15 +133,15 @@ export default class UsersController {
   public async update({ request, params, response, auth }: HttpContextContract) {
     // * No need to validate the request
     const {
-        first_name, 
-        last_name, 
-        email, 
-        phone, 
-        cin , 
-        city, 
-        address , 
-        birth_day, 
-        birth_month, 
+        first_name,
+        last_name,
+        email,
+        phone,
+        cin ,
+        city,
+        address ,
+        birth_day,
+        birth_month,
         birth_year
       } = request.body()
 
@@ -152,9 +158,9 @@ export default class UsersController {
     email && (user.email = email)
     phone && (user.phone = phone)
     // cin && (user.cin = cin)
-    
 
-    
+
+
     // * re-create token object
     const token = await auth.use('api').generate(user, {
       expiresIn: '30days',

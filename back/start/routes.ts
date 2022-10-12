@@ -21,7 +21,8 @@ import Application from '@ioc:Adonis/Core/Application'
 */
 // Route should be private
 Route.group(() => {
-  //Route.post('accounts', 'AccountsController.store')
+  Route.get('users/all', 'UsersController.index')
+  Route.put('/users/update/:id', 'UsersController.update').as('users.update')
 
   Route.get('account', 'AccountsController.show')
   Route.put('accounts', 'AccountsController.update')
@@ -37,29 +38,21 @@ Route.group(() => {
   Route.post('declarations', 'DeclarationsController.index')
   Route.post('declarations/add', 'DeclarationsController.save')
 
-    // * Update user profile
-    Route.put('/users/update/:id', 'UsersController.update').as('users.update')
+  // TODO : We should create a public list
+  Route.resource('cities', 'CitiesController').apiOnly()
+  Route.resource('countries', 'CountriesController').apiOnly()
 })
   .prefix('/api/v1')
   .middleware('api_auth')
 
 // This route it's public routes
 Route.group(() => {
-  Route.resource('cities', 'CitiesController').apiOnly()
   Route.post('users', 'UsersController.store')
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')
 
-  // * Delete this route after
-  Route.get('users/all', 'UsersController.index')
-
-  // TODO : Verify if we should use resource of manuel post !!!
-  // ---------------------------------------------------------
-  //Route.resource('users', 'UsersController').apiOnly()
-
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
-  Route.resource('countries', 'CountriesController').apiOnly()
 
   Route.get('/verify/:email', async ({ request }) => {
     if (request.hasValidSignature()) {
