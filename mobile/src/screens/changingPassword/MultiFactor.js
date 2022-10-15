@@ -6,7 +6,8 @@ import { handleAuth, schemaValidation, defaultValues } from "./services/verifyPh
 import smsIcon from '../../assets/images/sms.png';
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
-export default function MultiFactor({ navigation }) {
+export default function MultiFactor({ navigation, route }) {
+  const { email } = route.params
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -22,7 +23,7 @@ export default function MultiFactor({ navigation }) {
             <Text style={styles.smallText}>
               Veuillez entrer le code de vérification envoyé à
             </Text>
-            <Text style={styles.phoneText}>aberdaze.hassan@gmail.com</Text>
+            <Text style={styles.phoneText}>{email}</Text>
           </View>
           <Formik
             initialValues={defaultValues}

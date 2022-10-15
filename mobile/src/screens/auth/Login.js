@@ -51,13 +51,12 @@ export default function Login({ navigation }) {
               >
                 {i18n.t("login.forget_password")}
               </Text>
-<<<<<<< HEAD
-              {errors.api && <Text style={{ color: "red" }}>{ errors.api }</Text>}
-=======
+              {/* It's props.errors NOT errors */}
+              {props.errors.api && <Text style={{ color: "red" }}>{ props.errors.api }</Text>}
+
               {props.errors.api && (
                 <Text style={{ color: "red" }}>{props.errors.api}</Text>
               )}
->>>>>>> 47df9c75dc19f39bc54e42247ddbd331a9bdb2bd
               <Text style={{ color: "red" }}>{props.errors.api}</Text>
               <Text
                 style={styles.buttonLogin}

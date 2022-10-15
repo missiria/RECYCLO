@@ -28,7 +28,7 @@ export default function GetEmail({ navigation }) {
       </View>
       <Text style={styles.textTitle}>Récupération de mot de passe</Text>
       <Text style={styles.textDesc}>
-        Entrez votre numéro de téléphone pour récupérer votre mot de passe
+        Entrez votre Email pour récupérer votre mot de passe
       </Text>
       <Formik
         initialValues={defaultValues}
@@ -41,24 +41,24 @@ export default function GetEmail({ navigation }) {
             <View
               style={[
                 styles.inputNumber,
-                props.errors.phone
+                props.errors.email
                   ? { borderColor: "red", borderWidth: 1 }
                   : null,
               ]}
             >
               <View>
                 <TextInput
-                  onChangeText={props.handleChange("phone")}
-                  value={props.values.phone}
-                  onBlur={props.handleBlur("phone")}
-                  keyboardType="numeric"
-                  placeholder="Votre numéro  mobile"
+                  onChangeText={props.handleChange("email")}
+                  value={props.values.email}
+                  onBlur={props.handleBlur("email")}
+                  keyboardType="email-address"
+                  placeholder="Votre Email"
                   style={styles.input}
                 />
               </View>
             </View>
             <Text style={{ color: "red", marginHorizontal: 20, marginTop: 2 }}>
-              {props.errors.phone}
+              {props.errors.email}
             </Text>
             <View style={styles.buttonContainer}>
               <Text onPress={props.handleSubmit} style={styles.button}>

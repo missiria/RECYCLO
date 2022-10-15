@@ -11,6 +11,7 @@ import { Picker } from '@react-native-picker/picker';
 
 //typeWastData, cityData, 
 import { periodData } from './FilterData';
+import { useFetch } from '../../../hooks/hooks';
 
 export default function Filter({ navigation: { goBack } }) {
 
@@ -22,15 +23,18 @@ export default function Filter({ navigation: { goBack } }) {
   const [cities, setCities] = useState([]);
   const [collects, setCollects] = useState([]);
 
-  const { data:dataCities } = useAPI({
+  const { data:dataCities, isLoading: isCitiesLoading } = useAPI({
     url: 'cities',
     method: 'GET'
-  });
+  }, true);
 
-  const { data:dataCollects } = useAPI({
+  const { data:dataCollects, isLoading:isDataCollectsLoading } = useAPI({
     url: 'collects',
     method: 'GET'
-  });
+  }, true);
+
+  // * Fetch the required data
+  const [trigger, { data, isLoading }] = useFetch("", {}, true)
 
   const onPressReset = () => {
     setSelected("")
@@ -41,19 +45,20 @@ export default function Filter({ navigation: { goBack } }) {
 
   const onPressSubmit = () => {
     goBack()
+    trigger()
   }
 
   useEffect(() => {
     if (dataCities !== null){
       setCities(dataCities);
     }
-  }, [dataCities]);
+  }, [isCitiesLoading]);
 
   useEffect(() => {
     if (dataCollects !== null){
       setCollects(dataCollects);
     }
-  }, [dataCollects]);
+  }, [isDataCollectsLoading]);
 
   return (
     <View style={styles.container}>
@@ -92,7 +97,7 @@ export default function Filter({ navigation: { goBack } }) {
                   value="-1"
                   key="-1"
                 />
-                {cities && cities.map(item => {
+                {cities && cities?.map(item => {
                   return (
                     <Picker.Item
                       label={item.name}

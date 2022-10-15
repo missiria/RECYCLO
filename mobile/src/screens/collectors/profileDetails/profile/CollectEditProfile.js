@@ -16,7 +16,7 @@ export default function CollectEditProfile({ navigation }) {
       <ScrollView>
         <Formik
           initialValues={defaultValues}
-          // validationSchema={schemaValidation}
+          validationSchema={schemaValidation}
           onSubmit={(values) => handleAuth(values, navigation)}
         >
           {(props) => (

@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity,ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity,ScrollView, ActivityIndicator } from 'react-native'
 import {useState,useEffect} from 'react';
 import i18n from "i18next";
 import DeclarationItem from './declarationItem/DeclarationItem';
@@ -25,8 +25,8 @@ export default function Declaration({navigation}) {
         time: filterTime,
         peroid: filterPeroid,
       },
-    });
-    
+    }, true);
+
     useEffect(() => {
       if (data !== null){
         setDeclarations(data);

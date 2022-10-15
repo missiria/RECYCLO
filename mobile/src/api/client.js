@@ -6,7 +6,7 @@ const config = {
   baseURL: API_URL,
   headers: {
     accept: "*/*",
-    "content-type": "application/json; charset=utf-8",
+    "content-type": "application/json",
   },
 };
 

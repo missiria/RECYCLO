@@ -5,30 +5,31 @@ import { API_URL } from "~/api/constants";
 
 //axios.defaults.baseURL = API_URL;
 
-export function useFetch(url, options){
+// * Add lazy param to control when the request should be triggered
+export function useFetch(url, options, lazy){
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-
-    (async () => {
-      setIsLoading(true)
-      const user = await getData('user');
-      const response = await fetch(`${API_URL}/${url}`, {
-        headers: {
-          'Authorization' : `${user.auth.type} ${user.auth.token}`
-        },
-        ...options
-      })
-      setData(await response.json())
+  const trigger = async () => {
+    setIsLoading(true)
+    const user = await getData('user');
+    const response = await fetch(`${API_URL}/${url}`, {
+      headers: {
+        'Authorization' : `${user.auth.type} ${user.auth.token}`
+      },
+      ...options
     })
-
-  }, [url])
-
-  setIsLoading(false)
-  return {
-    data, isLoading
+    setData(await response.json())
+    setIsLoading(false)
   }
+  
+  useEffect(() => {
+    if(!lazy){
+      trigger()
+    }
+  }, [url, lazy])
+
+  return !lazy ? { data, isLoading } : [trigger, { data, isLoading }]
 }
 
 export const useAPI = (axiosParams,isAuth = false) => {
@@ -38,6 +39,7 @@ export const useAPI = (axiosParams,isAuth = false) => {
   const [error, setError] = useState(null);
 
   const fetchData = async (params) => {
+    setIsLoading(true);
     try {
       if(isAuth == true)
       {
@@ -47,12 +49,11 @@ export const useAPI = (axiosParams,isAuth = false) => {
         };
       }
       const result = await apiClient.any(params);
-      setIsLoading(false);
       setData(result.data);
     } catch (error) {
-      setIsLoading(false);
       setError(error);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {

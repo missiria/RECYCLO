@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'
 import City from 'App/Models/City'
-import { column, hasOne, HasOne,belongsTo,BelongsTo, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, hasOne, HasOne, belongsTo, BelongsTo, BaseModel } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
@@ -25,8 +25,25 @@ export default class Account extends BaseModel {
   @column()
   public address: string
 
+  // * New Fields -----
   @column()
-  public city_id?: number
+  public first_name: string
+
+  @column()
+  public last_name: string
+
+  @column()
+  public cin: string
+
+  @column()
+  public phone: string
+
+  @column()
+  public email: string
+
+  @column()
+  public birth_date: string | Date
+  // * ----------
 
   @column()
   public country: string

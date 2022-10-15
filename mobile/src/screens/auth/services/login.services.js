@@ -1,10 +1,12 @@
 import * as yup from "yup";
 import apiClient from "~/api/client";
 import { storeData } from "~/hooks/hooks";
+import 'yup-phone'
+
 
 export const defaultValues = {
   phone: "0656560552",
-  password: "c++",
+  password: "123456789",
 };
 
 // TODO : Set error message if the server is down (500)
@@ -45,11 +47,10 @@ export const handleLogin = async (
 
 export const schema = yup.object().shape({
   phone: yup
-    .number()
-    // EDGE-1006_BUG_Authentication
-    .required("A phone number is required")
-    .typeError("That doesn't look like a phone number")
-    .positive("A phone number can't start with a minus")
-    .integer("A phone number can't include a decimal point"),
+  // EDGE-1006_BUG_Authentication
+  .string()
+  .optional()
+  .phone('MA')
+  .typeError("That doesn't look like a phone number"),
   password: yup.string().required().min(3).max(25),
 });
