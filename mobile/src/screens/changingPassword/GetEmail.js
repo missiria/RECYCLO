@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -7,10 +7,9 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { Formik } from "formik";
-import smsTextIcon  from '../../assets/images/sms_text.png'
-import iconMaroc from '../../assets/images/mr.png';
+import smsTextIcon from "../../assets/images/sms_text.png";
+import iconMaroc from "../../assets/images/mr.png";
 // Services
 import {
   handleAuth,
@@ -22,9 +21,7 @@ export default function GetEmail({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.groupImageContainer}>
-        <Image
-          source={smsTextIcon}
-        />
+        <Image source={smsTextIcon} />
       </View>
       <Text style={styles.textTitle}>Récupération de mot de passe</Text>
       <Text style={styles.textDesc}>
