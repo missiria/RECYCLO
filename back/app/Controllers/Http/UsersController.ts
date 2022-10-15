@@ -33,9 +33,9 @@ export default class UsersController {
       let token = await auth.use('api').generate(user, {
         expiresIn: '30days',
       })
-      
+
       let account = await Account.findBy('user_id', user.id)
-      
+
       let result = { auth: token, account: account }
 
       return Object.assign(result, user.serialize())
@@ -76,8 +76,12 @@ export default class UsersController {
   public async store({ request, auth, response }: HttpContextContract) {
     const payload: any = await request.validate(UserForm)
 
+    // TODO : To verify
     let account_type = payload.type
     delete payload.type
+
+    // Generate the code for confirm the user email
+    payload['code'] = generateCode();
 
     // * find if the email is duplicated
     const user = await User.findBy('email', payload.email)
@@ -147,9 +151,6 @@ export default class UsersController {
     const user = await User.findBy('email', email)
     if (!user) return response.notFound(`No user with that email: ${email}`)
 
-    // * Generate a random number of 5 digits on each request
-    const verificationCode = Math.floor(Math.random() * 90000) + 10000
-
     // TODO: FIX => Emails considered as Spam in Gmail
     // @ts-ignore
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
@@ -160,11 +161,15 @@ export default class UsersController {
         .from('edge_recyclo@gmail.com')
         .to(email)
         .subject('Here is you verification code')
-        .htmlView('emails/forget_password', { verificationCode })
+        .htmlView('emails/forget_password', { verificationCode: generateCode() })
     })
 
     // TODO Saving code to DB
     // * -----
     return response.ok({ message: `A verification code is sent to: ${email}` })
   }
+}
+
+export const generateCode = () => {
+  return Math.floor(Math.random() * 90000) + 10000
 }

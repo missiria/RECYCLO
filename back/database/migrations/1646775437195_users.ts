@@ -13,11 +13,11 @@ export default class UsersSchema extends BaseSchema {
 
       table.string('first_name', 255)
       table.string('last_name', 255)
+      table.string('code', 255)
 
       table.integer('user_id', 12)
 
       table.enum('role', ['ADMIN', 'MODERATOR', 'USER']).defaultTo('USER')
-      //table.enum('type', ['MENAGE', 'COLLECTOR'])
 
       table.boolean('is_verified').defaultTo(false)
       table.boolean('active').defaultTo(true)

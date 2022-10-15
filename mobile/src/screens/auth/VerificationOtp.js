@@ -18,6 +18,7 @@ import {
 import { getData } from "../../hooks/hooks";
 import { useMemo } from "react";
 import i18next from "i18next";
+import { EdgeTextInput } from "../../ui/inputs/EdgeTextInput";
 
 export default function VerificationUser({ navigation, route }) {
   const { email, code } = route.params
@@ -60,42 +61,34 @@ export default function VerificationUser({ navigation, route }) {
           <ScrollView>
             <View style={styles.inputsContainer}>
               <SafeAreaView style={styles.inputsStyle}>
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  placeholder="*"
-                  onChangeText={props.handleChange("n1")}
-                  value={props.values.n1}
-                  onBlur={props.handleBlur("n1")}
-                  maxLength={1}
-                />
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  placeholder="*"
-                  maxLength={1}
-                  onChangeText={props.handleChange("n2")}
-                  value={props.values.n2}
-                  onBlur={props.handleBlur("n2")}
-                />
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  placeholder="*"
-                  maxLength={1}
-                  onChangeText={props.handleChange("n3")}
-                  value={props.values.n3}
-                  onBlur={props.handleBlur("n3")}
-                />
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric"
-                  placeholder="*"
-                  maxLength={1}
-                  onChangeText={props.handleChange("n4")}
-                  value={props.values.n4}
-                  onBlur={props.handleBlur("n4")}
-                />
+              <EdgeTextInput
+                name="n1"
+                props={props}
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder={'*'}
+              />
+              <EdgeTextInput
+                name="n2"
+                props={props}
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder={'*'}
+              />
+              <EdgeTextInput
+                name="n3"
+                props={props}
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder={'*'}
+              />
+              <EdgeTextInput
+                name="n3"
+                props={props}
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder={'*'}
+              />
               </SafeAreaView>
               <Text style={styles.TextInput}>
                 {i18next.t("login.verification_resend_code")}
