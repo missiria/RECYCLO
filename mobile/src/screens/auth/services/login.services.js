@@ -25,15 +25,19 @@ export const handleLogin = async (
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
         await storeData("user", response.data);
-
-        if (response.data.account.type == "MENAGE") {
-          navigation.navigate("MenageHome");
-        } else if (response.data.account.type == "COLLECTOR") {
-          navigation.navigate("CollectorHome");
+        // TODO : To verify address with API
+        if ( response.data.account.address === '' ) {
+          navigation.navigate("Address");
+        } else {
+          if (response.data.account.type == "MENAGE") {
+            navigation.navigate("MenageHome");
+          } else if (response.data.account.type == "COLLECTOR") {
+            navigation.navigate("CollectorHome");
+          }
         }
         //alert("Vous étes bien connecté sur notre application");
       } else {
-        setErrors({ api: "You need to activate your account" });
+        navigation.navigate("VerificationUser", { email: response.data.email });
       }
     }
 

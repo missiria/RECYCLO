@@ -143,7 +143,7 @@ const RootStack = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
 
-        <Stack.Screen name="VerificationPhone" component={VerificationUser} />
+        <Stack.Screen name="VerificationUser" component={VerificationUser} />
         <Stack.Screen
           name="VerificationSuccess"
           component={ValidationSuccess}
