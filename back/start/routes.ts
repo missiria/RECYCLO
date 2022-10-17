@@ -47,8 +47,15 @@ Route.group(() => {
 // This route it's public routes
 Route.group(() => {
   Route.post('users', 'UsersController.store')
+
   // * Forget password
   Route.post('forget_password', 'UsersController.forget_password')
+
+  // * Update password
+  Route.post('update_password', 'UsersController.update_password')
+
+  // * Verify email
+  Route.post('verify', "UsersController.verifyEmail")
 
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')
@@ -56,7 +63,7 @@ Route.group(() => {
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
 
-  // * This route is not reached
+  // * We don't need this route
   Route.get('/verify/:email', async ({ request }) => {
     if (request.hasValidSignature()) {
       // * here is where we need to update "active" property in the User Model

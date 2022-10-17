@@ -9,24 +9,24 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class UsersController {
-  public async login({ auth, request, response }:HttpContextContract) {
+  public async login({ auth, request, response }: HttpContextContract) {
     const phone = request.input('phone')
     const password = request.input('password')
 
     // Lookup user manually
-    const user = await User.query().where('phone', phone).where('active', 1).first()
+    const user = await User.query().where('phone', phone).first()
     // TODO : Need to login just user who are active
-    //.where('active', 1)
 
     if (user) {
       // Verify password
+
       if (!(await Hash.verify(user.password, password))) {
         return response.badRequest('Invalid credentials')
       }
 
       // If user doesn't verify his email
       if (!user.active) {
-        return response.badRequest('You need to verify your address email!')
+        return response.status(400).json({user: 'You need to verify your address email!'})
       }
 
       // Create token
@@ -36,11 +36,11 @@ export default class UsersController {
 
       let account = await Account.findBy('user_id', user.id)
 
-      let result = { auth: token, account: account }
+      let result = { auth: token, account }
 
       return Object.assign(result, user.serialize())
     } else {
-      return { user: "Doesn't exist in our application!" }
+      return response.status(400).json({ user: "You Doesn't exist in our application!" })
     }
   }
 
@@ -80,13 +80,14 @@ export default class UsersController {
     let account_type = payload.type
     delete payload.type
 
-    // Generate the code for confirm the user email
-    payload['code'] = generateCode();
+    // * Generate the code for confirm the user email
+    payload['code'] = generateCode()
 
     // * find if the email is duplicated
     const user = await User.findBy('email', payload.email)
     if (user) return response.badRequest('duplicated')
 
+    // * Create a new user
     const newUser: User = await User.create(payload)
 
     // * Create & get token object
@@ -103,20 +104,43 @@ export default class UsersController {
       email: newUser.email,
     })
 
+    // * Send code verify his email
     await Mail.send((message) => {
       message
         .from('edge_recyclo@gmail.com')
         .to(newUser.email)
         .subject('Welcome Onboard! RECYCLOO')
-        .htmlView('emails/welcome', { newUser, signature: `http://${process.env.HOST}${signature}` })
+        .htmlView('emails/welcome', {
+          newUser,
+          signature: `http://${process.env.HOST}${signature}`,
+          code: payload['code'],
+        })
     })
 
-    // *! Do we need to verify phone number ??!!
-
-    // * Login immediately
-    await auth.login(newUser)
-
     return Object.assign({ auth: token, account }, newUser.serialize())
+  }
+
+  public async verifyEmail({ request, auth, response }: HttpContextContract){
+    // * Get the email from body
+    const { email } = request.body()
+
+    // * find the user
+    const user = await User.findBy("email", email)
+    if(!user) return response.notFound('No user with that email')
+
+    // * Update the active field & Find account for that user
+    const [{}, account]  = await Promise.all([
+      await user.merge({ active: true }).save(),
+      await Account.findBy('user_id', user.id)
+    ])
+
+    // * Create & get token object
+    const token = await auth.use('api').generate(user, {
+      expiresIn: '30days',
+    })
+
+    // * Response : send the user object
+    return Object.assign({ auth: token, account }, user.serialize())
   }
 
   public async show({ params, response }) {
@@ -146,30 +170,48 @@ export default class UsersController {
 
   // TODO
   public async forget_password({ response, request }: HttpContextContract) {
-    const { email } = request.body()
+    const payload = request.body()
 
-    const user = await User.findBy('email', email)
-    if (!user) return response.notFound(`No user with that email: ${email}`)
+    // * Generate the code for confirm the user email
+    payload['code'] = generateCode()
+    
 
-    // TODO: FIX => Emails considered as Spam in Gmail
-    // @ts-ignore
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+    // * Checker for the user
+    const user = await User.findBy('email', payload.email)
+    if (!user) return response.notFound(`No user with that email: ${payload.email}`)
+
+    await user.merge({ forget_password_code: payload['code'] }).save(),
 
     // * Send the verification code via email
     await Mail.send((message) => {
       message
         .from('edge_recyclo@gmail.com')
-        .to(email)
+        .to(payload.email)
         .subject('Here is you verification code')
-        .htmlView('emails/forget_password', { verificationCode: generateCode() })
+        .htmlView('emails/forget_password', { verificationCode: payload['code'] })
     })
+    
+    return response.ok({ message: `A verification code is sent to: ${payload.email}`, code: payload['code'] })
+  }
 
-    // TODO Saving code to DB
-    // * -----
-    return response.ok({ message: `A verification code is sent to: ${email}` })
+  public async update_password({ response, request }: HttpContextContract){
+    // * Get the email
+    const { email, password } = request.body()
+    console.log(password);
+    // * Find the user
+    const user = await User.findBy('email', email)
+    if(!user) 
+      return response.status(400).json({ user: "You Doesn't exist in our application!" })
+
+    // * Change the password
+    await user.merge({ password: await Hash.make(password) }).save()
+
+    // * Response
+    return response.status(201).json({ message: "You've changed your password successfully" })
   }
 }
 
+
 export const generateCode = () => {
-  return Math.floor(Math.random() * 90000) + 10000
+  return Math.floor(Math.random() * 9000) + 1000
 }

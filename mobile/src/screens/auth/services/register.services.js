@@ -21,7 +21,7 @@ export const schema = yup.object().shape({
     .optional()
     .phone("MA")
     .typeError("That doesn't look like a phone number"),
-  email: yup.string().required().min(8).max(250), // TODO : verify email rules
+  email: yup.string().required().email().min(8).max(250), // TODO : verify email rules
   // TODO : https://stackoverflow.com/a/55604455
   password: yup.string().required().min(8).max(25),
 });

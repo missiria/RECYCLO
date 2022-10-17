@@ -1,13 +1,14 @@
 
 import { View, Text, StyleSheet, TextInput, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik } from 'formik';
 import { handleAuth, schemaValidation, defaultValues } from "./services/verifyPhone.services";
 import smsIcon from '../../assets/images/sms.png';
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
 export default function MultiFactor({ navigation, route }) {
-  const { email } = route.params
+  const { email, code } = route.params
+  const [error, setError] = useState(null)
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -28,7 +29,7 @@ export default function MultiFactor({ navigation, route }) {
           <Formik
             initialValues={defaultValues}
             validationSchema={schemaValidation}
-            onSubmit={(values) => handleAuth(values, navigation)}
+            onSubmit={(values) => handleAuth(values, navigation, code, setError, email)}
           >
             {(props) => (
               <View>
@@ -86,7 +87,7 @@ export default function MultiFactor({ navigation, route }) {
                   <Text style={styles.errorStyle}>
                     {props.errors.n4}
                   </Text>
- 
+                  <Text style={{color: 'red'}} >{error}</Text>
 
                 </View>
                 <View style={styles.buttonContainer}>

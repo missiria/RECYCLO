@@ -31,6 +31,7 @@ export default function Login({ navigation }) {
           }}>
           {(props) => (
             <ScrollView>
+              {  console.log(props.errors)}
               <EdgeTextInput
                 name="phone"
                 props={props}
@@ -52,7 +53,6 @@ export default function Login({ navigation }) {
               {props.errors.api && (
                 <Text style={{ color: "red" }}>{props.errors.api}</Text>
               )}
-              <Text style={{ color: "red" }}>{props.errors.api}</Text>
               <Text
                 style={styles.buttonLogin}
                 onPress={props.handleSubmit}

@@ -5,13 +5,14 @@ export const defaultValues = {
   email: "",
 };
 
-export const handleAuth = async ({ email }, navigation, ) => {
-  await axiosInstance.post('forget_password', { email })
+export const handleAuth = async ({ email }, navigation, setLoading) => {
+  setLoading(true)
+  const { data } = await axiosInstance.post('forget_password', { email })
 
-  if (email && navigation) {
+  setLoading(false)
+  if (email && navigation && data) {
     navigation.navigate("VerifyPhone", {
-      name:"VerifyPhone",
-      params: { email }
+     email, code: data?.code
     });
   }
 };

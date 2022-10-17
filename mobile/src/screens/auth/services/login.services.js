@@ -14,14 +14,14 @@ export const handleLogin = async (
   userData,
   navigation,
   setErrors,
-  setAuthLoaded
+  setAuthLoaded,
 ) => {
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
-
+    console.log(response)
     if (response.status === 400 || response.status === 500) {
-      setErrors({ api: response.data });
+      setErrors({ api: response.data.user ?? response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
         await storeData("user", response.data);

@@ -21,9 +21,10 @@ import i18next from "i18next";
 import { EdgeTextInput } from "../../ui/inputs/EdgeTextInput";
 
 export default function VerificationUser({ navigation, route }) {
-  const { email, code } = route.params
+  const { email, code } = route.params;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(null)
 
   // * Keep the object reference
   const memoUser = useMemo(() => user, [loading]);
@@ -31,7 +32,7 @@ export default function VerificationUser({ navigation, route }) {
   // * Set user
   useEffect(() => {
     if (!memoUser) {
-      (async () => {
+      (() => {
         setLoading(true);
         setUser({ email });
         setLoading(false);
@@ -51,45 +52,46 @@ export default function VerificationUser({ navigation, route }) {
           {i18next.t("login.verification_sub_title")}
         </Text>
         <Text style={styles.phoneText}>Verifier votre email {user?.email}</Text>
+        
       </View>
       <Formik
         initialValues={{ n1: "", n2: "", n3: "", n4: "" }}
         validationSchema={schemaValidation}
-        onSubmit={(values) => handleRegister(values, navigation)}
-      >
+        onSubmit={(values) => handleRegister(values, code, navigation, setErr, user?.email)}>
         {(props) => (
           <ScrollView>
             <View style={styles.inputsContainer}>
               <SafeAreaView style={styles.inputsStyle}>
-              <EdgeTextInput
-                name="n1"
-                props={props}
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder={'*'}
-              />
-              <EdgeTextInput
-                name="n2"
-                props={props}
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder={'*'}
-              />
-              <EdgeTextInput
-                name="n3"
-                props={props}
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder={'*'}
-              />
-              <EdgeTextInput
-                name="n3"
-                props={props}
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder={'*'}
-              />
+                <EdgeTextInput
+                  name="n1"
+                  props={props}
+                  style={styles.input}
+                  keyboardType="numeric"
+                  placeholder={"*"}
+                />
+                <EdgeTextInput
+                  name="n2"
+                  props={props}
+                  style={styles.input}
+                  keyboardType="numeric"
+                  placeholder={"*"}
+                />
+                <EdgeTextInput
+                  name="n3"
+                  props={props}
+                  style={styles.input}
+                  keyboardType="numeric"
+                  placeholder={"*"}
+                />
+                <EdgeTextInput
+                  name="n4"
+                  props={props}
+                  style={styles.input}
+                  keyboardType="numeric"
+                  placeholder={"*"}
+                />
               </SafeAreaView>
+              <Text style={{}}>{err}</Text>
               <Text style={styles.TextInput}>
                 {i18next.t("login.verification_resend_code")}
               </Text>

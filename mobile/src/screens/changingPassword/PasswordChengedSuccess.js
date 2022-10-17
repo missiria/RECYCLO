@@ -19,7 +19,7 @@ export default function Done({ navigation }) {
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <EdgeButton text="Terminé" onPress={() => navigation.navigate("Home")}/>
+                <EdgeButton text="Terminé" onPress={() => navigation.navigate("Login")}/>
             </View>
     </View>
   );
