@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from "~/api/client";
 import { API_URL } from "~/api/constants";
+import { useRef } from "react";
 
 //axios.defaults.baseURL = API_URL;
 
@@ -9,15 +10,19 @@ import { API_URL } from "~/api/constants";
 export function useFetch(url, options, lazy){
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
+  
+  // TODO: setting up cache
+  const cache = useRef({})
+  
   const trigger = async () => {
     setIsLoading(true)
     const user = await getData('user');
-    const response = await fetch(`${API_URL}/${url}`, {
+    const response = await fetch(`${API_URL}${url}`, {
       headers: {
-        'Authorization' : `${user.auth.type} ${user.auth.token}`
+        ...(user && { 'Authorization' : `${user?.auth?.type} ${user?.auth?.token}`}),
+        "content-type": "application/json; charset=utf-8"
       },
-      ...options
+      ...options,
     })
     setData(await response.json())
     setIsLoading(false)

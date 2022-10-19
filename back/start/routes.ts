@@ -54,6 +54,9 @@ Route.group(() => {
   // * Update password
   Route.post('update_password', 'UsersController.update_password')
 
+  // * Resend verification code
+  Route.post('resend_code', 'UsersController.resend_code')
+
   // * Verify email
   Route.post('verify', "UsersController.verifyEmail")
 

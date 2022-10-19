@@ -7,7 +7,7 @@ import {EdgeCardCollect} from "../../../ui/cards/EdgeCardCollect"
 import { moreCollects } from "./collectData";
 import { UPLOAD_FOLDER_URL } from "../../../api/constants";
 
-export default function Otherscollect({ navigation }) {
+export default function OthersCollect({ navigation }) {
   return (
     <SafeAreaView style={styles.containerOne}>
       <Navbar navigation={navigation} />
@@ -33,7 +33,7 @@ export default function Otherscollect({ navigation }) {
                 })}
                 style={{ width : "50%" }}
                 imageStyle={{ height:130 }}
-                img={`${UPLOAD_FOLDER_URL + collect.image}`}
+                img={`${UPLOAD_FOLDER_URL + collect.img}`}
               />
               );
             })}

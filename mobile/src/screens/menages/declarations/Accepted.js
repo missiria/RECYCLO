@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/Entypo";
@@ -55,7 +56,7 @@ export default function Accepted() {
           <ActivityIndicator size="small" color="#ff00ff" />
         ) : (
           declarations &&
-          declarations.map((declaration) => (
+          declarations?.map((declaration) => (
             <EdgeCardDemande
               key={declaration.id}
               declaration={declaration}

@@ -197,19 +197,48 @@ export default class UsersController {
   public async update_password({ response, request }: HttpContextContract){
     // * Get the email
     const { email, password } = request.body()
-    console.log(password);
+
     // * Find the user
     const user = await User.findBy('email', email)
     if(!user) 
       return response.status(400).json({ user: "You Doesn't exist in our application!" })
 
     // * Change the password
-    await user.merge({ password: await Hash.make(password) }).save()
+    await user.merge({ password }).save()
 
     // * Response
     return response.status(201).json({ message: "You've changed your password successfully" })
   }
+
+  public async resend_code({ response, request }: HttpContextContract){
+    // * Get the email
+    const payload = request.body()
+    console.log(payload);
+    
+    // * Generate the code for confirm the user email
+    payload['code'] = generateCode()
+
+    // * Checker for the user
+    const user = await User.findBy('email', payload.email)
+    if (!user) return response.notFound(`No user with that email: ${payload.email}`)
+
+    // * Update code in DB
+    await user.merge({ forget_password_code: payload['code'] }).save()
+
+    // * Send the verification code via email
+    await Mail.send((message) => {
+      message
+        .from('edge_recyclo@gmail.com')
+        .to(payload.email)
+        .subject('Here is you verification code')
+        .htmlView('emails/forget_password', { verificationCode: payload['code'] })
+    })
+
+    // * Response
+    return response.status(200).json({ message: `A verification code is sent to: ${payload.email}`, code: payload['code'] })
+  }
 }
+
 
 
 export const generateCode = () => {

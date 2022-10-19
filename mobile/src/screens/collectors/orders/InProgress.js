@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React,{useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icond from 'react-native-vector-icons/FontAwesome';
@@ -23,7 +23,7 @@ export default function InProgress() {
     if (data !== null){
       setOrders(data);
     }
-  }, [data]);
+  }, [isLoading]);
   
   const textAction = i18n.t("menageDemend.notReady");
 

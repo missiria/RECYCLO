@@ -40,7 +40,7 @@ export default function Ended() {
           <ActivityIndicator size="small" color="#ff00ff" />
         ) : (
           declarations &&
-          declarations.map((declaration) => (
+          declarations?.map((declaration) => (
             <EdgeCardDemande
               key={declaration.id}
               declaration={declaration}

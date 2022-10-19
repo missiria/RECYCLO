@@ -31,7 +31,9 @@ export default function Declaration({navigation}) {
       if (data !== null){
         setDeclarations(data);
       }
-    }, [data]);
+    }, [isLoading]);
+
+    console.log(declarations);
 
     return (
         <View style={styles.container}>
@@ -57,7 +59,7 @@ export default function Declaration({navigation}) {
                     isLoading ? 
                         <ActivityIndicator size="small" color="#ff00ff" />
                     :
-                    declarations && declarations.map((declaration) => (
+                    declarations && declarations?.map((declaration) => (
                         <DeclarationItem
                             key={declaration.id}
                             navigation={navigation}

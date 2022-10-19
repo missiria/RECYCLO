@@ -33,9 +33,6 @@ export default function Filter({ navigation: { goBack } }) {
     method: 'GET'
   }, true);
 
-  // * Fetch the required data
-  const [trigger, { data, isLoading }] = useFetch("", {}, true)
-
   const onPressReset = () => {
     setSelected("")
     setWaste("-1")
@@ -45,7 +42,6 @@ export default function Filter({ navigation: { goBack } }) {
 
   const onPressSubmit = () => {
     goBack()
-    trigger()
   }
 
   useEffect(() => {
@@ -58,7 +54,7 @@ export default function Filter({ navigation: { goBack } }) {
     if (dataCollects !== null){
       setCollects(dataCollects);
     }
-  }, [isDataCollectsLoading]);
+  }, [isDataCollectsLoading, isCitiesLoading]);
 
   return (
     <View style={styles.container}>
