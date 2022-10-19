@@ -64,7 +64,7 @@ export default class AccountsController {
 
     if (frontVerify) {
       await frontVerify.move('uploads/validations/' + user.id, {
-        name: 'front_' + Date.now() + '.' + frontVerify.extname,
+        name: `front_${Date.now()}.${frontVerify.extname}`,
         overwrite: true,
       })
     }
@@ -75,7 +75,7 @@ export default class AccountsController {
     const backVerify = request.file('back_card')
     if (backVerify) {
       await backVerify.move('uploads/validations/' + user.id, {
-        name: 'back_' + Date.now() + '.' + backVerify.extname,
+        name: `back_${Date.now()}.${backVerify.extname}`,
         overwrite: true,
       })
     }

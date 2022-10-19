@@ -26,7 +26,7 @@ export default class UsersController {
 
       // If user doesn't verify his email
       if (!user.active) {
-        return response.status(400).json({user: 'You need to verify your address email!'})
+        return response.badRequest({user: 'You need to verify your address email!'})
       }
 
       // Create token
@@ -40,7 +40,7 @@ export default class UsersController {
 
       return Object.assign(result, user.serialize())
     } else {
-      return response.status(400).json({ user: "You Doesn't exist in our application!" })
+      return response.badRequest({ user: "You Doesn't exist in our application!" })
     }
   }
 
@@ -174,7 +174,7 @@ export default class UsersController {
 
     // * Generate the code for confirm the user email
     payload['code'] = generateCode()
-    
+
 
     // * Checker for the user
     const user = await User.findBy('email', payload.email)
@@ -190,7 +190,7 @@ export default class UsersController {
         .subject('Here is you verification code')
         .htmlView('emails/forget_password', { verificationCode: payload['code'] })
     })
-    
+
     return response.ok({ message: `A verification code is sent to: ${payload.email}`, code: payload['code'] })
   }
 
@@ -200,7 +200,7 @@ export default class UsersController {
 
     // * Find the user
     const user = await User.findBy('email', email)
-    if(!user) 
+    if(!user)
       return response.status(400).json({ user: "You Doesn't exist in our application!" })
 
     // * Change the password
@@ -214,7 +214,7 @@ export default class UsersController {
     // * Get the email
     const payload = request.body()
     console.log(payload);
-    
+
     // * Generate the code for confirm the user email
     payload['code'] = generateCode()
 
