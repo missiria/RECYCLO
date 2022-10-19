@@ -6,11 +6,11 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { Formik } from "formik";
-import smsTextIcon  from '../../assets/images/sms_text.png'
-import iconMaroc from '../../assets/images/mr.png';
+import smsTextIcon from "../../assets/images/sms_text.png";
+import iconMaroc from "../../assets/images/mr.png";
 // Services
 import {
   handleAuth,
@@ -19,21 +19,20 @@ import {
 } from "./services/phone.services";
 
 export default function GetEmail({ navigation }) {
+  const [loading, setLoading] = useState(false)
   return (
     <View style={styles.container}>
       <View style={styles.groupImageContainer}>
-        <Image
-          source={smsTextIcon}
-        />
+        <Image source={smsTextIcon} />
       </View>
       <Text style={styles.textTitle}>Récupération de mot de passe</Text>
       <Text style={styles.textDesc}>
-        Entrez votre numéro de téléphone pour récupérer votre mot de passe
+        Entrez votre Email pour récupérer votre mot de passe
       </Text>
       <Formik
         initialValues={defaultValues}
         validationSchema={schemaValidation}
-        onSubmit={(values) => handleAuth(values, navigation)}
+        onSubmit={(values) => handleAuth(values, navigation, setLoading)}
       >
         {(props) => (
           <ScrollView>
@@ -41,28 +40,28 @@ export default function GetEmail({ navigation }) {
             <View
               style={[
                 styles.inputNumber,
-                props.errors.phone
+                props.errors.email
                   ? { borderColor: "red", borderWidth: 1 }
                   : null,
               ]}
             >
               <View>
                 <TextInput
-                  onChangeText={props.handleChange("phone")}
-                  value={props.values.phone}
-                  onBlur={props.handleBlur("phone")}
-                  keyboardType="numeric"
-                  placeholder="Votre numéro  mobile"
+                  onChangeText={props.handleChange("email")}
+                  value={props.values.email}
+                  onBlur={props.handleBlur("email")}
+                  keyboardType="email-address"
+                  placeholder="Votre Email"
                   style={styles.input}
                 />
               </View>
             </View>
             <Text style={{ color: "red", marginHorizontal: 20, marginTop: 2 }}>
-              {props.errors.phone}
+              {props.errors.email}
             </Text>
             <View style={styles.buttonContainer}>
               <Text onPress={props.handleSubmit} style={styles.button}>
-                Envoyer le code
+                {loading ? <ActivityIndicator color={'#fff'} /> : "Envoyer le code"} 
               </Text>
             </View>
           </ScrollView>

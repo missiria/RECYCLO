@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image, ActivityIndicator } from 'react-native'
 import React,{useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icond from 'react-native-vector-icons/FontAwesome';
@@ -37,8 +37,8 @@ export default function Accepted({ navigation }) {
           isLoading ? 
             <ActivityIndicator size="small" color="#ff00ff" />
           :
-          orders != undefined && orders.map((order) => (
-            <EdgeCardOrder key={order.id} order={order} textAction={textConfirm} styleAction={styles.butonLeft} onPressAction={()=>{console.log("onPressAction")}} textAction2={textStartWay} styleAction2={styles.butonRight} onPressAction2={()=>{console.log("onPressAction")}} onPressEdit={()=>{console.log("Edit")}} />
+           orders?.map((order) => (
+            <EdgeCardOrder key={order.id} order={order} textAction={textConfirm} styleAction={styles.buttonLeft} onPressAction={()=>{console.log("onPressAction")}} textAction2={textStartWay} styleAction2={styles.butonRight} onPressAction2={()=>{console.log("onPressAction")}} onPressEdit={()=>{console.log("Edit")}} />
           )) 
         }
       </ScrollView>
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  butonLeft: {
+  buttonLeft: {
     backgroundColor: '#A3A3A3',
     padding: 9,
     borderRadius: 5,

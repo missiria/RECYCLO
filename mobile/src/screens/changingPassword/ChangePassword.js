@@ -5,6 +5,7 @@ import {
   TextInput,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native"
 import React, { useState } from "react"
 import { Formik } from "formik"
@@ -13,7 +14,9 @@ import ChangePasswordHeader from "../../assets/images/5.png"
 import lockIcon from "../../assets/images/lock.png"
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
 
-export default function ChangePassword({ navigation }) {
+export default function ChangePassword({ navigation, route }) {
+  const { email } = route.params
+  const [loading, setLoading] = useState(false)
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -31,7 +34,7 @@ export default function ChangePassword({ navigation }) {
           // TODO : Import default values from services => done
           initialValues={defaultValues}
           validationSchema={schema}
-          onSubmit={(values) => handleAuth(values, navigation)}
+          onSubmit={(values) => handleAuth(values, navigation, email, setLoading)}
         >
           {(props) => (
             <View>
@@ -108,7 +111,7 @@ export default function ChangePassword({ navigation }) {
                 </View>
               </View>
               <View style={styles.btnContainer}>
-                <EdgeButton onPress={props.handleSubmit} text="Valider"/>
+                <EdgeButton onPress={props.handleSubmit} text={loading ? <ActivityIndicator color={'#fff'} /> : "Valider"}  />
               </View>
             </View>
           )}

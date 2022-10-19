@@ -31,8 +31,20 @@ export default class AccountFormValidator {
     country: schema.string.optional({}, [rules.minLength(4)]),
     nationality: schema.string.optional({}, [rules.minLength(4)]),
     society_id: schema.string.optional(),
-    type: schema.enum.optional(['MENAGE','COLLECTOR']),
-    zip_code: schema.number.optional()
+    type: schema.enum.optional(['MENAGE', 'COLLECTOR']),
+    zip_code: schema.number.optional(),
+    // * New Fields
+    cin: schema.string.optional(),
+    birth_date: schema.date.optional({ format: 'yyyy-MM-dd' }),
+    first_name: schema.string.optional({}, [rules.minLength(10)]),
+    last_name: schema.string.optional({}, [rules.minLength(10)]),
+    phone: schema.string.optional({}, [rules.minLength(10)]),
+    email: schema.string.optional({}, [rules.minLength(10)]),
+
+    // * merge these values to birth_date
+    birth_day: schema.string.optional(),
+    birth_month: schema.string.optional(),
+    birth_year: schema.string.optional(),
   })
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`

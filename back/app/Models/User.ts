@@ -26,6 +26,12 @@ export default class User extends BaseModel {
   public phone: number | string
 
   @column()
+  public code: string
+
+  @column()
+  public forget_password_code: string
+
+  @column()
   public is_verified: boolean
 
   @column()

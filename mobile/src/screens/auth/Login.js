@@ -28,10 +28,10 @@ export default function Login({ navigation }) {
           validationSchema={schema}
           onSubmit={(values, { setErrors }) => {
             handleLogin(values, navigation, setErrors, setAuthLoaded);
-          }}
-        >
+          }}>
           {(props) => (
             <ScrollView>
+              {  console.log(props.errors)}
               <EdgeTextInput
                 name="phone"
                 props={props}
@@ -47,23 +47,16 @@ export default function Login({ navigation }) {
               />
               <Text
                 onPress={() => navigation.navigate("ChangePasswordIndex")}
-                style={styles.forgetCode}
-              >
+                style={styles.forgetCode}>
                 {i18n.t("login.forget_password")}
               </Text>
-<<<<<<< HEAD
-              {errors.api && <Text style={{ color: "red" }}>{ errors.api }</Text>}
-=======
               {props.errors.api && (
                 <Text style={{ color: "red" }}>{props.errors.api}</Text>
               )}
->>>>>>> 47df9c75dc19f39bc54e42247ddbd331a9bdb2bd
-              <Text style={{ color: "red" }}>{props.errors.api}</Text>
               <Text
                 style={styles.buttonLogin}
                 onPress={props.handleSubmit}
-                disabled={authLoaded}
-              >
+                disabled={authLoaded}>
                 {authLoaded ? (
                   <ActivityIndicator size="small" color="#ffffff" />
                 ) : (
@@ -74,8 +67,7 @@ export default function Login({ navigation }) {
                 {i18n.t("login.need_account")}
                 <Text
                   onPress={() => navigation.navigate("Register")}
-                  style={styles.signUpTextLink}
-                >
+                  style={styles.signUpTextLink}>
                   {i18n.t("login.sign_up")}
                 </Text>
               </Text>

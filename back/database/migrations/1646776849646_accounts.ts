@@ -17,6 +17,13 @@ export default class Accounts extends BaseSchema {
 
       // TODO : Edit profile
       table.string('avatar', 255)
+      // * New Fields
+      table.string('first_name', 10)
+      table.string('last_name', 10)
+      table.string('email', 20)
+      table.string('phone', 10)
+      table.string('cin', 10)
+      table.dateTime('birth_date', {})
 
       table.enum('type_verification', ['PERMIT', 'CARTE'])
       table.string('front_verification_path', 255)

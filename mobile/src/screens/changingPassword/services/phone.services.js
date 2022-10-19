@@ -1,22 +1,26 @@
 import * as yup from "yup";
+import { axiosInstance } from "../../../api/client";
 
 export const defaultValues = {
-  phone: "",
-  countryCode: "212",
+  email: "",
 };
 
-export const handleAuth = (values, navigation) => {
-  if (values && navigation) {
-    navigation.navigate("VerifyPhone");
+export const handleAuth = async ({ email }, navigation, setLoading) => {
+  setLoading(true)
+  const { data } = await axiosInstance.post('forget_password', { email })
+
+  setLoading(false)
+  if (email && navigation && data) {
+    navigation.navigate("VerifyPhone", {
+     email, code: data?.code
+    });
   }
 };
 
 export const schemaValidation = yup.object().shape({
-  phone: yup
-    .number()
-    .required("A phone number is required")
-    .typeError("That doesn't look like a phone number")
-    .positive("A phone number can't start with a minus")
-    .integer("A phone number can't include a decimal point"),
-  countryCode: yup.number().required().max(212),
+  // EDGE-1006_BUG_Authentication
+  email: yup
+    .string()
+    .email()
+    .required("Email is required")
 });

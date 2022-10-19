@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity,ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity,ScrollView, ActivityIndicator } from 'react-native'
 import {useState,useEffect} from 'react';
 import i18n from "i18next";
 import DeclarationItem from './declarationItem/DeclarationItem';
@@ -25,13 +25,15 @@ export default function Declaration({navigation}) {
         time: filterTime,
         peroid: filterPeroid,
       },
-    });
-    
+    }, true);
+
     useEffect(() => {
       if (data !== null){
         setDeclarations(data);
       }
-    }, [data]);
+    }, [isLoading]);
+
+    console.log(declarations);
 
     return (
         <View style={styles.container}>
@@ -57,7 +59,7 @@ export default function Declaration({navigation}) {
                     isLoading ? 
                         <ActivityIndicator size="small" color="#ff00ff" />
                     :
-                    declarations && declarations.map((declaration) => (
+                    declarations && declarations?.map((declaration) => (
                         <DeclarationItem
                             key={declaration.id}
                             navigation={navigation}

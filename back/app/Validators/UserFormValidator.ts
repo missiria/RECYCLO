@@ -23,18 +23,16 @@ export default class UserFormValidator {
    *     ])
    *    ```
    */
-  public schema = schema.create(
-    {
-      email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
-      password: schema.string({}, [rules.minLength(3), rules.maxLength(50)]),
-      first_name: schema.string({}, [rules.minLength(2), rules.maxLength(255)]),
-      last_name: schema.string({}, [rules.minLength(2), rules.maxLength(255)]),
-      phone: schema.number([rules.unique({ table: 'users', column: 'phone' })]),
-      type: schema.enum(['MENAGE', 'COLLECTOR']),
-      active: schema.boolean.optional(),
-      remember_me_token: schema.boolean.optional()
-    }
-  )
+  public schema = schema.create({
+    email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
+    password: schema.string({}, [rules.minLength(3), rules.maxLength(50)]),
+    first_name: schema.string({}, [rules.minLength(2), rules.maxLength(255)]),
+    last_name: schema.string({}, [rules.minLength(2), rules.maxLength(255)]),
+    phone: schema.string([rules.unique({ table: 'users', column: 'phone' })]),
+    type: schema.enum(['MENAGE', 'COLLECTOR']),
+    active: schema.boolean.optional(),
+    remember_me_token: schema.boolean.optional(),
+  })
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
@@ -48,6 +46,6 @@ export default class UserFormValidator {
    *
    */
   public messages = {
-    unique: 'The {{ field }} is already an account'
+    unique: 'The {{ field }} is already an account',
   }
 }

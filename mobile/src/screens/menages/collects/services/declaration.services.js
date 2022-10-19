@@ -10,7 +10,8 @@ export const handleDeclaration = async (
   price,
   images,
   collectId,
-  navigation
+  navigation,
+  setErrors
 ) => {
   const user = await getData("user");
   const formData = new FormData();
@@ -26,7 +27,7 @@ export const handleDeclaration = async (
       type: "image/jpg",
     });
   });
-  //console.log("user",user);
+  // console.log("user",user);
 
   apiClient
     .post("declarations/add", formData, {
@@ -38,11 +39,9 @@ export const handleDeclaration = async (
     .then((response) => {
       //console.log('response.data',response.data);
       if (response.data?.errors) {
-        setErrors(response.data.errors);
-        return;
+        console.log(response.data.errors);
       } else if (response.data?.error) {
-        setErrors(response.data.message);
-        return;
+        throw new Error(response.data.message);
       } else {
         navigation.navigate("DeclarationSuccess");
       }

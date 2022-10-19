@@ -22,13 +22,12 @@ import Application from '@ioc:Adonis/Core/Application'
 // Route should be private
 Route.group(() => {
   Route.get('users/all', 'UsersController.index')
-  Route.put('/users/update/:id', 'UsersController.update').as('users.update')
 
   Route.get('account', 'AccountsController.show')
-  Route.put('accounts', 'AccountsController.update')
+  Route.put('accounts/update', 'AccountsController.update')
 
   // TODO : upload_verfication => rename to => upload_verification
-  Route.post('account/upload_verfication', 'AccountsController.upload_verfication')
+  Route.post('account/upload_verfication', 'AccountsController.upload_verification')
 
   Route.delete('accounts', 'AccountsController.destroy')
 
@@ -48,14 +47,29 @@ Route.group(() => {
 // This route it's public routes
 Route.group(() => {
   Route.post('users', 'UsersController.store')
+
+  // * Forget password
+  Route.post('forget_password', 'UsersController.forget_password')
+
+  // * Update password
+  Route.post('update_password', 'UsersController.update_password')
+
+  // * Resend verification code
+  Route.post('resend_code', 'UsersController.resend_code')
+
+  // * Verify email
+  Route.post('verify', "UsersController.verifyEmail")
+
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')
 
   Route.resource('donations', 'DonationsController').apiOnly()
   Route.resource('recharges', 'RechargesController').apiOnly()
 
+  // * We don't need this route
   Route.get('/verify/:email', async ({ request }) => {
     if (request.hasValidSignature()) {
+      // * here is where we need to update "active" property in the User Model
       return 'Votre compte est verifié par email!'
     }
     return 'Signature is missing or URL was tampered.'

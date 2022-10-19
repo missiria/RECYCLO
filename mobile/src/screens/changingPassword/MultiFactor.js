@@ -1,12 +1,41 @@
 
 import { View, Text, StyleSheet, TextInput, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik } from 'formik';
 import { handleAuth, schemaValidation, defaultValues } from "./services/verifyPhone.services";
 import smsIcon from '../../assets/images/sms.png';
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
+import { useFetch } from '../../hooks/hooks';
 
-export default function MultiFactor({ navigation }) {
+export default function MultiFactor({ navigation, route }) {
+  var { email, code } = route.params
+  const [error, setError] = useState(null)
+  const [message, setMessage] = useState(null)
+
+  // * resend code
+  const [trigger, { isLoading, data }] = useFetch('resend_code', {
+    method: 'POST', 
+    body: JSON.stringify({ email }),
+  }, true)
+  
+  useEffect(() => {
+    if(data && data?.code){
+      setMessage("Un nouveau code de vérification est envoyé")
+    }
+
+  }, [isLoading])
+
+
+  useEffect(() => {
+    if(message){
+      const id = setTimeout(() => {
+        setMessage(null)
+      }, 3000)
+  
+      return () => clearTimeout(id)
+    }
+  }, [message])
+  
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -22,12 +51,12 @@ export default function MultiFactor({ navigation }) {
             <Text style={styles.smallText}>
               Veuillez entrer le code de vérification envoyé à
             </Text>
-            <Text style={styles.phoneText}>aberdaze.hassan@gmail.com</Text>
+            <Text style={styles.phoneText}>{email}</Text>
           </View>
           <Formik
             initialValues={defaultValues}
             validationSchema={schemaValidation}
-            onSubmit={(values) => handleAuth(values, navigation)}
+            onSubmit={(values) => handleAuth(values, navigation, (data?.code ?? code), setError, email)}
           >
             {(props) => (
               <View>
@@ -71,7 +100,9 @@ export default function MultiFactor({ navigation }) {
                     />
                   </View>
                   <Text style={styles.TextInput}>
-                    Je n'ai pas reçu de code. <Text style={styles.revoy}>Renvoyer le code</Text>
+                    Je n'ai pas reçu de code. <Text onPress={async () => await trigger()} style={styles.revoy}>
+                      {message ? message : isLoading ? "Envoi en cours..." : "Renvoyer le code"}
+                    </Text>
                   </Text>
                   <Text style={styles.errorStyle}>
                     {props.errors.n1}
@@ -85,7 +116,7 @@ export default function MultiFactor({ navigation }) {
                   <Text style={styles.errorStyle}>
                     {props.errors.n4}
                   </Text>
- 
+                  <Text style={{color: 'red'}} >{error}</Text>
 
                 </View>
                 <View style={styles.buttonContainer}>
