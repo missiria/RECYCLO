@@ -26,7 +26,7 @@ export default function CollectDetails({ navigation, route }) {
   const [mode, setMode] = useState("");
   const [show, setShow] = useState(false);
   const [text, setText] = useState("Sélectionner la date");
-  const [timeDeclary, setTimeDeclary] = useState("9 AM - 12 PM");
+  const [timeDeclaration, setTimeDeclaration] = useState("9 AM - 12 PM");
   const [quantity, setQuantity] = useState(5);
 
   const price = route.params?.collect.point / 100;
@@ -96,7 +96,7 @@ export default function CollectDetails({ navigation, route }) {
 
   //declarer button function
   const declaryDeshet = () => {
-    Alert.alert(" You Chose Date : " + text + " At : " + timeDeclary);
+    Alert.alert(" You Chose Date : " + text + " At : " + timeDeclaration);
   };
 
   //check if the quantity is less than 5 and return error
@@ -105,17 +105,9 @@ export default function CollectDetails({ navigation, route }) {
     setQuantity(5);
   }
 
-  const onSubmitDeclare = () => {
-    //console.log("date : "+date)
-    //console.log("mode : "+mode)
-    //console.log("show : "+show)
-    //console.log("text : "+text)
-    //console.log("timeDeclary : "+timeDeclary)
-    //console.log("quantity : "+quantity)
-    //console.log("price : "+price)
-    //console.log("------------")
+  const onSubmitDeclare = async () => {
     if (mode == "date") {
-      let dateDeclary =
+      let dateDeclaration =
         date.getDate().toString().padStart(2, "0") +
         "/" +
         parseInt(date.getMonth() + 1)
@@ -123,13 +115,32 @@ export default function CollectDetails({ navigation, route }) {
           .padStart(2, "0") +
         "/" +
         date.getFullYear();
-      navigation.navigate("CollectDetailsUploadImages", {
-        dateDeclary: dateDeclary,
-        timeDeclary: timeDeclary,
-        quantityDeclary: quantity,
-        priceDeclary: price,
+
+      const data = {
+        dateDeclaration: dateDeclaration,
+        timeDeclaration: timeDeclaration,
+        quantity: quantity,
+        price: price,
         collectId: route.params?.collect.id,
-      });
+      };
+
+      // TODO : Next version
+      // navigation.navigate("CollectDetailsUploadImages", {
+      //   dateDeclary: dateDeclary,
+      //   timeDeclaration: timeDeclaration,
+      //   quantity: quantity,
+      //   price: price,
+      //   collectId: route.params?.collect.id,
+      // });
+
+      // TODO : Add api post to save declaration
+      // EDGE 1019 : Home / Collects (Menages)
+      const response = await axiosInstance.post("declaration", data);
+      if (response.status > 400) {
+        return setErrors(setErrorsAPI(response.data.errors));
+      }
+
+      navigation.navigate("DeclaredSuccess", data);
     } else Alert.alert("select date");
   };
 
@@ -203,41 +214,41 @@ export default function CollectDetails({ navigation, route }) {
           <View>
             <Text
               style={
-                timeDeclary === "9 AM - 12 PM"
+                timeDeclaration === "9 AM - 12 PM"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("9 AM - 12 PM")}
+              onPress={() => setTimeDeclaration("9 AM - 12 PM")}
             >
               9 AM - 12 PM
             </Text>
             <Text
               style={
-                timeDeclary === "12 PM - 3 PM"
+                timeDeclaration === "12 PM - 3 PM"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("12 PM - 3 PM")}
+              onPress={() => setTimeDeclaration("12 PM - 3 PM")}
             >
               12 PM - 3 PM
             </Text>
             <Text
               style={
-                timeDeclary == "3 PM - 6 PM"
+                timeDeclaration == "3 PM - 6 PM"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("3 PM - 6 PM")}
+              onPress={() => setTimeDeclaration("3 PM - 6 PM")}
             >
               3 PM - 6 PM
             </Text>
             <Text
               style={
-                timeDeclary == "6 PM - 9 PM"
+                timeDeclaration == "6 PM - 9 PM"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("6 PM - 9 PM")}
+              onPress={() => setTimeDeclaration("6 PM - 9 PM")}
             >
               6 PM - 9 PM
             </Text>
