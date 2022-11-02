@@ -9,7 +9,7 @@ import apiClient from "~/api/client";
 export default function PaymentsDetails({ navigation, route }) {
 
     const { declaration } = route.params;
-    const total = (declaration.collect.point / 100) * declaration.quantity;
+    const total = (declaration?.collect?.point / 100) * declaration?.quantity;
     const faris = total * 0.1;
 
     const onSubmitPayment = async () => {
@@ -69,7 +69,7 @@ export default function PaymentsDetails({ navigation, route }) {
                                 <Text>Prix :</Text>
                                 <Text
                                     style={styles.textBoldFlex}>
-                                    {declaration.collect.point / 100 } Dhs
+                                    {declaration?.collect?.point / 100 } Dhs
                                 </Text>
                             </View>
                             <View style={styles.cardBody}>

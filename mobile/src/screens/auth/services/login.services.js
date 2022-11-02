@@ -19,8 +19,11 @@ export const handleLogin = async (
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
-    console.log(response)
-    if (response.status === 400 || response.status === 500) {
+    console.log(response.data)
+
+    if(response.data.active === 0){ 
+      navigation.navigate("VerificationUser", { email: response.data.email });
+    } else if (response.status === 400 || response.status === 500) {
       setErrors({ api: response.data.user ?? response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
@@ -36,9 +39,7 @@ export const handleLogin = async (
           }
         }
         //alert("Vous étes bien connecté sur notre application");
-      } else {
-        navigation.navigate("VerificationUser", { email: response.data.email });
-      }
+      } 
     }
 
     if (response.status === "ERR_DLOPEN_FAILED") {

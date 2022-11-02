@@ -50,11 +50,14 @@ export default function CollectDetailsUploadImages({ navigation,route }) {
     }
 
     const onSubmit = () => {
-        //console.log("dateDeclary :"+ dateDeclary);
-        //console.log(dateDeclary);
-        //console.log(images);
+        console.log("dateDeclary :"+ dateDeclary);
+        console.log('timeDeclary', timeDeclary);
+        console.log('images', images);
+        console.log('quantityDeclary', quantityDeclary);
+        console.log('priceDeclary', priceDeclary);
+        console.log('collectId', collectId);
 
-        handleDeclaration(dateDeclary,timeDeclary,quantityDeclary,priceDeclary,images,collectId);
+        handleDeclaration(dateDeclary,timeDeclary,quantityDeclary,priceDeclary,images,collectId, navigation);
 
         //navigation.navigate("DeclarationSuccess")
     }

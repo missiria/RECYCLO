@@ -21,7 +21,7 @@ export default function SuccessPayment({navigation}) {
                         </Text>
                     </View>
                     <View style={styles.btnStylesBox}>
-                        <Text style={styles.textBtnOne} onPress={()=>navigation.navigate("ColectorOrders")}>
+                        <Text style={styles.textBtnOne} onPress={()=>navigation.navigate("CollectorOrders")}>
                             Mes Ordres
                         </Text>
                         <Text style={styles.textBtnTwo}>

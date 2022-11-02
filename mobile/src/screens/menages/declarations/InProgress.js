@@ -32,6 +32,8 @@ export default function InProgress() {
     }
   }, [data]);
 
+  console.log("data >>",  data)
+
   const textAction = i18n.t("menageDemend.wait");
   return (
     <View style={styles.container}>

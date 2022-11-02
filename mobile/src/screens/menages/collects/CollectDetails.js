@@ -29,7 +29,7 @@ export default function CollectDetails({ navigation, route }) {
   const [timeDeclary, setTimeDeclary] = useState("9 AM - 12 PM");
   const [quantity, setQuantity] = useState(5);
 
-  const price = route.params?.collect.point / 100;
+  const price = Number(route.params?.collect.point ?? 1000) / 100;
 
   // TODO : Use moment library to get months
   const months = [
@@ -203,42 +203,38 @@ export default function CollectDetails({ navigation, route }) {
           <View>
             <Text
               style={
-                timeDeclary === "9 AM - 12 PM"
+                timeDeclary === "08:00 - 12:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("9 AM - 12 PM")}
-            >
+              onPress={() => setTimeDeclary("08:00 - 12:00")}>
               9 AM - 12 PM
             </Text>
             <Text
               style={
-                timeDeclary === "12 PM - 3 PM"
+                timeDeclary === "12:00 - 16:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("12 PM - 3 PM")}
-            >
+              onPress={() => setTimeDeclary("12:00 - 16:00")}>
               12 PM - 3 PM
             </Text>
             <Text
               style={
-                timeDeclary == "3 PM - 6 PM"
+                timeDeclary == "16:00 - 20:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("3 PM - 6 PM")}
-            >
+              onPress={() => setTimeDeclary("16:00 - 20:00")}>
               3 PM - 6 PM
             </Text>
             <Text
               style={
-                timeDeclary == "6 PM - 9 PM"
+                timeDeclary == "20:00 - 00:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("6 PM - 9 PM")}
-            >
+              onPress={() => setTimeDeclary("20:00 - 00:00")}>
               6 PM - 9 PM
             </Text>
             <View style={styles.quantityBox}>
@@ -271,8 +267,7 @@ export default function CollectDetails({ navigation, route }) {
               // onPress={() => navigation.navigate("DeclarationSuccess")}
               //onPress={() => navigation.navigate("CollectDetailsUploadImages")}
               onPress={() => onSubmitDeclare()}
-              style={styles.btnDeclaration}
-            >
+              style={styles.btnDeclaration}>
               {i18n.t("introduction.next")}
             </Text>
           </View>

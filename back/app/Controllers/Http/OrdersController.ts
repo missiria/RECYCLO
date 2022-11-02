@@ -2,6 +2,7 @@
 import Order from 'App/Models/Order'
 import Declaration from 'App/Models/Declaration'
 import OrderForm from 'App/Validators/OrderFormValidator'
+import Notification from '../../Models/Notification';
 
 export default class OrdersController {
 
@@ -39,6 +40,11 @@ export default class OrdersController {
 
     declaration.status = 'PAID'
     declaration.save()
+
+    // * Create notifications
+    // const notification = await Notification.create({
+
+    // })
 
     return response.ok({error:false,message : 'Success',order:newOrder})
   }

@@ -6,10 +6,10 @@ import moment from "moment";
 export default function DeclarationItem({navigation, declaration }) {
     //img, username, typeDechet, city, date, quantity
 
-    const img = UPLOAD_FOLDER_URL + (declaration.images.length > 0? declaration.images[0].image:declaration.collect.image);
+    const img = UPLOAD_FOLDER_URL + (declaration.images.length > 0? declaration.images[0].image:declaration?.collect?.image);
     console.log(img);
-    const username = declaration.user.fullName;
-    const typeDechet = declaration.collect.collect_name;
+    const username = declaration?.user?.fullName;
+    const typeDechet = declaration?.collect?.collect_name;
     const city = "Agadir";
     const date = moment(declaration.created_at, moment.ISO_8601).fromNow();
     const quantity = declaration.quantity;

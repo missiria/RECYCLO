@@ -20,6 +20,9 @@ export default class Declaration extends BaseModel {
   public status: string
 
   @column()
+  public price: string
+
+  @column()
   public date: string
 
   @column()

@@ -15,7 +15,7 @@ export default function MultiFactor({ navigation, route }) {
   // * resend code
   const [trigger, { isLoading, data }] = useFetch('resend_code', {
     method: 'POST', 
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ email, activation: true }),
   }, true)
   
   useEffect(() => {
