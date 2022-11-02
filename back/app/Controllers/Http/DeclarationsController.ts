@@ -134,7 +134,6 @@ export default class DeclarationsController {
       })
     }
 
-
     return response.ok({ error: false, message: 'Success' })
   }
 }
