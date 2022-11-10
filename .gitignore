@@ -118,3 +118,8 @@ mobile/.expo/web/cache
 mobile/src/api/bootstrap.js
 ./mobile/src/api/bootstrap.js
 /mobile/src/api/bootstrap.js
+
+./back/tmp
+./back/tmp/*
+/back/tmp
+/back/tmp/*
