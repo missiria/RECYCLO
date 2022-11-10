@@ -38,7 +38,7 @@ export const handleRegister = async (
     if (response.status === 422) {
       setErrors(setErrorsAPI(response.data.errors));
     } else if (parseInt(response.data.id) > 0) {
-      navigation.navigate("VerificationUser", { email: response.data.email, code: response.data.code });
+      navigation.navigate("VerificationUser", { email: response.data.email, code: response.data.code, account: response.data.account });
       setAuthLoaded(false);
     }
   }

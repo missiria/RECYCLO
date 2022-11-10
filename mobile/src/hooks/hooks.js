@@ -6,17 +6,39 @@ import { useRef } from "react";
 
 //axios.defaults.baseURL = API_URL;
 
+// * get current user
+export function useLoggedInUser(){
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    (async function () {
+      setLoading(true)
+      const user = await getData('user');
+      setUser(user);
+      setLoading(true)
+    })();
+  }, [loading]);
+
+  return { user, loading }
+}
+
 // * Add lazy param to control when the request should be triggered
 export function useFetch(url, options, lazy){
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   
-  // TODO: setting up cache
   const cache = useRef({})
-  
+  console.log(cache);
   const trigger = async () => {
-    setIsLoading(true)
     const user = await getData('user');
+    
+    // * if the cache for that url exists
+    if(cache.current[url]) {
+      setData(cache.current[url])
+      return;
+    }
+    setIsLoading(true)
     const response = await fetch(`${API_URL}${url}`, {
       headers: {
         ...(user && { 'Authorization' : `${user?.auth?.type} ${user?.auth?.token}`}),
@@ -24,9 +46,21 @@ export function useFetch(url, options, lazy){
       },
       ...options,
     })
-    setData(await response.json())
+    const data = await response.json()
+    console.log(response.ok)
+    if(response.ok) cache.current[url] = data
+    setData(data)
     setIsLoading(false)
   }
+
+  // * clear cache every 60 seconds (redux style)
+  useEffect(() => {
+    const id = setTimeout(() => {
+      cache.current = {}
+    }, 1000 * 60)
+
+    return () => clearTimeout(id)
+  }, [])
   
   useEffect(() => {
     if(!lazy){

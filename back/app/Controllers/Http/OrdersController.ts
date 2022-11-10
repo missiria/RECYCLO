@@ -2,30 +2,33 @@
 import Order from 'App/Models/Order'
 import Declaration from 'App/Models/Declaration'
 import OrderForm from 'App/Validators/OrderFormValidator'
+import Notification from '../../Models/Notification'
 
 export default class OrdersController {
-
-  public async index({ auth,request,response }) {
-
-    const user = auth.use('api').user;
+  public async index({ auth, request, response }) {
+    const user = auth.use('api').user
     const payload: any = await request.validate(OrderForm)
 
-    const orders = await Order.query().preload('declaration',(query)=>{
-      query.preload('collect',(query)=>{
-        query.select('id','collect_name','image','point','description')
-      }).preload('user',(query)=>{
-        query.select('id','first_name','last_name','email','phone')
+    const orders = await Order.query()
+      .preload('declaration', (query) => {
+        query
+          .preload('collect', (query) => {
+            query.select('id', 'collect_name', 'image', 'point', 'description')
+          })
+          .preload('user', (query) => {
+            query.select('id', 'first_name', 'last_name', 'email', 'phone')
+          })
       })
-    }).where('status', payload.status).where('user_id', user.id)
+      .where('status', payload.status)
+      .where('user_id', user.id)
     return response.ok(orders)
   }
 
-  public async accept({ auth,params,response }) {
-
+  public async accept({ auth, params, response }) {
     const { id }: { id: number } = params
-    const user = auth.use('api').user;
+    const user = auth.use('api').user
 
-    const declaration: any = await Declaration.find(id)
+    const declaration = await Declaration.find(id)
 
     if (!declaration) {
       return response.notFound({ message: 'Déclaration none trouvé' })
@@ -33,14 +36,20 @@ export default class OrdersController {
 
     const newOrder: Order = await Order.create({
       declaration_id: id,
-      user_id : user.id,
-      status : 'PENDING',
+      user_id: user.id,
+      status: 'PENDING',
     })
 
     declaration.status = 'PAID'
     declaration.save()
 
-    return response.ok({error:false,message : 'Success',order:newOrder})
-  }
+    // * Create notifications
+    await Notification.create({
+      note: `${user.first_name} ${user.last_name} a ${newOrder.id} (${declaration.quantity})`,
+      type: "DECLARATION",
+      status: "UNREAD"
+    })
 
+    return response.ok({ error: false, message: 'Success', order: newOrder })
+  }
 }

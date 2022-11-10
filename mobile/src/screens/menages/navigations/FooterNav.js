@@ -22,7 +22,7 @@ export default function FooterNav({ navigation }) {
       <View style={styles.flexFooter}>
         <TouchableOpacity 
            style={styles.iconBox}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => navigation.navigate('MenageHome')}>
           <Image
             style={styles.iconStyleBold}
             source={screenName == "Home" ? home : homeOuline}

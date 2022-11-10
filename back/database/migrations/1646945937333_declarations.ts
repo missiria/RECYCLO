@@ -14,8 +14,9 @@ export default class Declarations extends BaseSchema {
       //   .references('collects.id')
       //   .onDelete('CASCADE')
       table.float('quantity', 255)
+      table.float('price', 5)
       table.enum('status', ['PENDING', 'VALID', 'CANCELED', 'PAID'])
-      table.date('date')
+      table.string('date')
       table.enum('time', ['08:00 - 12:00', '12:00 - 16:00','16:00 - 20:00','20:00 - 00:00'])
 
       /**

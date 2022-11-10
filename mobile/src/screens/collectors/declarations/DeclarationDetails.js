@@ -18,7 +18,7 @@ export default function DeclarationDetails({navigation, route }) {
         images.push(UPLOAD_FOLDER_URL + img.image);
     });
 
-    const userImage = declaration.user.avatar != null ? UPLOAD_FOLDER_URL + declaration.user.avatar : DEFAULT_AVATAR_URL;
+    const userImage = declaration?.user?.avatar != null ? UPLOAD_FOLDER_URL + declaration?.user?.avatar : DEFAULT_AVATAR_URL;
     
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -93,7 +93,7 @@ export default function DeclarationDetails({navigation, route }) {
                     <View style={styles.declarationInfo}>
                         <View style={styles.declarationVetmentBox}>
                             <Text style={styles.decVetTitle}>
-                            {declaration.collect.collect_name}
+                            {declaration?.collect?.collect_name}
                             </Text>
                             <Text style={styles.decVetName}>
                             {declaration.quantity} kgs
@@ -104,7 +104,7 @@ export default function DeclarationDetails({navigation, route }) {
                                 Prix
                             </Text>
                             <Text style={styles.centerName}>
-                            {declaration.collect.point / 100 } Dhs/kgs
+                            {declaration?.collect?.point / 100 } Dhs/kgs
                             </Text>
                         </View>
                     </View>
@@ -164,7 +164,7 @@ export default function DeclarationDetails({navigation, route }) {
                                     longitude: parseFloat(longitude),
                                 }}
                                 title={'Here We Put The User Name Of Menage'}
-                                description={declaration.user.fullName}
+                                description={declaration?.user?.fullName}
                             >
                             </Marker>
                         </MapView>

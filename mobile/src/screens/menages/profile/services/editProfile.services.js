@@ -1,4 +1,6 @@
 import * as yup from "yup";
+import { axiosInstance } from "../../../../api/client";
+import { getData } from "../../../../hooks/hooks";
 
 export const defaultValues = {
     first_name: "",
@@ -21,7 +23,12 @@ export const defaultValues = {
 
 
 // TODO : Authentication with server
-export const handleAuth = (values, navigation) => {
+export const handleAuth = async (values, navigation) => {
+    // * get the user
+  const user = await getData("user");
+  await axiosInstance.put(`accounts/update`, values, {
+    headers: { Authorization: `${user.auth.type} ${user.auth.token}` },
+  });
     if (values && navigation) {
         navigation.navigate("Profile")
     }

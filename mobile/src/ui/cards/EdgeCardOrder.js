@@ -24,9 +24,9 @@ export function EdgeCardOrder({
   const date = moment(order.created_at, moment.ISO_8601).format("DD-MM-YYYY");
   const time = moment(order.created_at, moment.ISO_8601).format("hh:mm");
 
-  const type = order.declaration.collect.collect_name;
+  const type = order?.declaration?.collect?.collect_name;
   const qty = order.declaration.quantity;
-  const price = order.declaration.collect.point / 100;
+  const price = order.declaration.collect?.point / 100;
   const total_order = price * qty;
   const frai = total_order * 0.1
   const total = total_order + frai;

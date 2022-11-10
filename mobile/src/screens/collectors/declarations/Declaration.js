@@ -7,6 +7,7 @@ import { FakeData } from './DeclarationFakeData'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { useAPI,useAsyncStorage } from "~/hooks/hooks";
+import { useFetch } from '../../../hooks/hooks';
 
 export default function Declaration({navigation}) {
 
@@ -14,18 +15,18 @@ export default function Declaration({navigation}) {
     const [filterTypeCollects] = useAsyncStorage("filterTypeCollects","-1");
     const [filterCity] = useAsyncStorage("filterCity","-1");
     const [filterPeroid] = useAsyncStorage("filterPeroid","-1");
-
+    // * Declarations
     const [declarations, setDeclarations] = useState([]);
-    const { isLoading, error, data } = useAPI({
-      url: 'declarations',
-      method: 'GET',
-      params: {
-        collect_id: filterTypeCollects,
-        city_id: filterCity,
-        time: filterTime,
-        peroid: filterPeroid,
-      },
-    }, true);
+    const {data, isLoading} = useFetch("declarations", {
+        method: 'POST',
+        body: JSON.stringify({
+            collect_id: filterTypeCollects,
+            city_id: filterCity,
+            time: filterTime,
+            peroid: filterPeroid,
+            status: 'PENDING'
+        })
+    })
 
     useEffect(() => {
       if (data !== null){
@@ -33,7 +34,6 @@ export default function Declaration({navigation}) {
       }
     }, [isLoading]);
 
-    console.log(declarations);
 
     return (
         <View style={styles.container}>
@@ -55,7 +55,7 @@ export default function Declaration({navigation}) {
                 </TouchableOpacity>
             </View>
             <ScrollView>
-                { error !== null ? <Text>{error.message}</Text> : 
+                {!data && !isLoading ? <Text>{"Une erreur est servenue "}</Text> : 
                     isLoading ? 
                         <ActivityIndicator size="small" color="#ff00ff" />
                     :

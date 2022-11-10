@@ -1,14 +1,24 @@
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
 import NotificationItems from "./NotificationItems";
 import { Data } from "./NotificationTestFakeData";
 import EmptyNotification from "./NotificationEmpty";
+import { getData, useFetch, useLoggedInUser } from "../../../hooks/hooks";
 
 export default function Notification({ navigation }) {
+  const { user } = useLoggedInUser()
+
+  const { data } = useFetch("notifications/all", {
+    method: "GET",
+    headers: {
+      Authorization: `${user?.auth?.type} ${user?.auth?.token}`,
+    },
+  });
+
   const showNotifications = () => {
-    if (Data.length <= 0) {
+    if (data && data?.length == 0) {
       return (
         // if notification is empty
         <EmptyNotification />
@@ -16,7 +26,7 @@ export default function Notification({ navigation }) {
     } else {
       return (
         // if notifications is not empty
-        Data.map((item) => (
+        data?.map((item) => (
           <NotificationItems
             key={item}
             title={item.title}

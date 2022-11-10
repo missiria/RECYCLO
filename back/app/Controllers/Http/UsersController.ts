@@ -26,7 +26,7 @@ export default class UsersController {
 
       // If user doesn't verify his email
       if (!user.active) {
-        return response.badRequest({user: 'You need to verify your address email!'})
+        return response.badRequest(user)
       }
 
       // Create token
@@ -107,7 +107,7 @@ export default class UsersController {
     // * Send code verify his email
     await Mail.send((message) => {
       message
-        .from('edge_recyclo@gmail.com')
+        .from(process.env.EMAIL as string)
         .to(newUser.email)
         .subject('Welcome Onboard! RECYCLOO')
         .htmlView('emails/welcome', {
@@ -185,7 +185,7 @@ export default class UsersController {
     // * Send the verification code via email
     await Mail.send((message) => {
       message
-        .from('edge_recyclo@gmail.com')
+        .from(process.env.EMAIL as string)
         .to(payload.email)
         .subject('Here is you verification code')
         .htmlView('emails/forget_password', { verificationCode: payload['code'] })
@@ -225,14 +225,29 @@ export default class UsersController {
     // * Update code in DB
     await user.merge({ forget_password_code: payload['code'] }).save()
 
-    // * Send the verification code via email
-    await Mail.send((message) => {
-      message
-        .from('edge_recyclo@gmail.com')
-        .to(payload.email)
-        .subject('Here is you verification code')
-        .htmlView('emails/forget_password', { verificationCode: payload['code'] })
-    })
+      if(!payload.activation){
+          // * Send the verification code via email
+          await Mail.send((message) => {
+            message
+              .from(process.env.EMAIL as string)
+              .to(payload.email)
+              .subject('Here is you verification code')
+              .htmlView('emails/forget_password', { verificationCode: payload['code'] })
+          })
+      } else {
+        // * Send code verify his email
+        await Mail.send((message) => {
+          message
+            .from(process.env.EMAIL as string)
+            .to(user.email)
+            .subject('Welcome Onboard! RECYCLOO')
+            .htmlView('emails/welcome', {
+              user,
+              signature: ``,
+              code: payload['code'],
+            })
+        })
+    }
 
     // * Response
     return response.status(200).json({ message: `A verification code is sent to: ${payload.email}`, code: payload['code'] })

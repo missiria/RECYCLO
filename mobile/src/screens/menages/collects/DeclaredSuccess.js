@@ -34,7 +34,7 @@ export default function DeclaredSuccess({ navigation }) {
             SUIVI
           </Text>
           <Text
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("MenageHome")}
             style={styles.btnLighted}
           >
             HOME
