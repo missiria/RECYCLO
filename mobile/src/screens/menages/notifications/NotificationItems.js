@@ -10,6 +10,7 @@ export default function NotificationItems() {
                 return (
                     <NotificationProps
                         key={notification.id}
+                        id={notification.id}
                         title={notification.title}
                         time={notification.time}
                         date={notification.date}

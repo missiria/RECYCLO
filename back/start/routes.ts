@@ -37,6 +37,8 @@ Route.group(() => {
   Route.post('declarations', 'DeclarationsController.index')
   Route.post('declarations/add', 'DeclarationsController.save')
 
+  Route.get('notifications/all', 'NotificationsController.getAllNotification')
+
   // TODO : We should create a public list
   Route.resource('cities', 'CitiesController').apiOnly()
   Route.resource('countries', 'CountriesController').apiOnly()
@@ -58,7 +60,7 @@ Route.group(() => {
   Route.post('resend_code', 'UsersController.resend_code')
 
   // * Verify email
-  Route.post('verify', "UsersController.verifyEmail")
+  Route.post('verify', 'UsersController.verifyEmail')
 
   Route.get('collects', 'CollectsController.index')
   Route.get('declarations', 'DeclarationsController.list')

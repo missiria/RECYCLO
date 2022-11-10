@@ -5,7 +5,7 @@ export default class ApiAuth {
     await auth.use('api').check()
 
     if (!auth.use('api').isAuthenticated) {
-      response.accepted({error:401,message:'Must be logged in'})
+      response.status(401).json({error:401,message:'Must be logged in'})
       //response.unauthorized({error:401,message:'Must be logged in'})
       return
     }

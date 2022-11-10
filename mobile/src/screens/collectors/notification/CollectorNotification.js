@@ -1,15 +1,20 @@
 import { View, Text,ScrollView, StyleSheet, SafeAreaView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../navigation/Navbar';
 import FooterNav from '../navigation/FooterNav'
 import NotificationProp from './NotificationProp';
-import { Data } from '../../menages/notifications/NotificationTestFakeData';
 import EmptyNotifi from './NotificationEmpty';
+import { useFetch, useLoggedInUser } from '../../../hooks/hooks';
 
 
 export default function CollectorNotification({navigation}) {
+  // * GET notifications
+  const { data } = useFetch("notifications/all", {
+    method: "GET",
+  });
+
   const emptyData = () => {
-    if(Data.length <= 0) {
+    if(data?.length === 0) {
         return(
             // if notification is empty 
             <EmptyNotifi />
@@ -17,7 +22,7 @@ export default function CollectorNotification({navigation}) {
     }else {
         return(
             // if notifications is not empty
-            Data.map(item => (
+            data?.map(item => (
               <NotificationProp 
                 title={item.title}
                 time={item.time}

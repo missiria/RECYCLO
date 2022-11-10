@@ -35,8 +35,6 @@ export default function Declaration({navigation}) {
     }, [isLoading]);
 
 
-    console.log("declarations >>", declarations);
-
     return (
         <View style={styles.container}>
             <View style={styles.headerHome}>
