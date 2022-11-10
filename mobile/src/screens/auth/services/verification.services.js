@@ -9,7 +9,7 @@ export const schemaValidation = yup.object().shape({
   n4: yup.number().required("Number 4 Is Requered"),
 });
 
-export const handleRegister = async (values, code, navigation, setErr, email) => {
+export const handleRegister = async (values, code, navigation, setErr, email, account) => {
   const currentCode = `${values.n1}${values.n2}${values.n3}${values.n4}`
 
   if ( code == parseInt( currentCode ) ) {
@@ -18,7 +18,10 @@ export const handleRegister = async (values, code, navigation, setErr, email) =>
 
     // * Save the user
     await storeData('user', user)
-    navigation.navigate("VerificationSuccess");
+    console.log("user >>", user);
+    navigation.navigate("VerificationSuccess", {
+      account
+    });
   } else {
     // TODO : setErrors like login
     setErr("Code DOESN'T MATCH !")

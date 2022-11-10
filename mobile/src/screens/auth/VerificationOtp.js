@@ -15,16 +15,32 @@ import {
   schemaValidation,
   handleRegister,
 } from "./services/verification.services";
-import { getData } from "../../hooks/hooks";
+
+import { getData, useFetch } from "../../hooks/hooks";
 import { useMemo } from "react";
 import i18next from "i18next";
 import { EdgeTextInput } from "../../ui/inputs/EdgeTextInput";
 
 export default function VerificationUser({ navigation, route }) {
-  const { email, code } = route.params;
+
+  const { email, code, account } = route.params;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null)
+  const [message, setMessage] = useState(null)
+
+ // * resend code
+  const [trigger, { isLoading, data }] = useFetch('resend_code', {
+    method: 'POST', 
+    body: JSON.stringify({ email }),
+  }, true)
+
+  useEffect(() => {
+    if(data && data?.code){
+      setMessage("Un nouveau code de vérification est envoyé")
+    }
+
+  }, [isLoading])
 
   // * Keep the object reference
   const memoUser = useMemo(() => user, [loading]);
@@ -39,6 +55,17 @@ export default function VerificationUser({ navigation, route }) {
       })();
     }
   }, [memoUser]);
+
+  useEffect(() => {
+    if(message){
+      const id = setTimeout(() => {
+        setMessage(null)
+      }, 3000)
+  
+      return () => clearTimeout(id)
+    }
+  }, [message])
+
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
@@ -57,7 +84,7 @@ export default function VerificationUser({ navigation, route }) {
       <Formik
         initialValues={{ n1: "", n2: "", n3: "", n4: "" }}
         validationSchema={schemaValidation}
-        onSubmit={(values) => handleRegister(values, code, navigation, setErr, user?.email)}>
+        onSubmit={(values) => handleRegister(values, (data?.code ?? code), navigation, setErr, user?.email, account)}>
         {(props) => (
           <ScrollView>
             <View style={styles.inputsContainer}>
@@ -92,8 +119,8 @@ export default function VerificationUser({ navigation, route }) {
                 />
               </SafeAreaView>
               <Text style={{}}>{err}</Text>
-              <Text style={styles.TextInput}>
-                {i18next.t("login.verification_resend_code")}
+              <Text onPress={async () => await trigger()} style={styles.TextInput}>
+                {message ? message : isLoading ? "Envoi en cours..." : i18next.t("login.verification_resend_code")}
               </Text>
             </View>
             <View style={styles.buttonContainer}>

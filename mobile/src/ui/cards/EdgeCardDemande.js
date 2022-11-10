@@ -12,9 +12,9 @@ export function EdgeCardDemande({declaration,onPressCancel,onPressDelete,textAct
 
     const date = moment(declaration.created_at, moment.ISO_8601).format('DD-MM-YYYY');
     const time = moment(declaration.created_at, moment.ISO_8601).format('hh:mm');
-    const type = declaration.collect.collect_name;
-    const qty = declaration.quantity;
-    const price = declaration.collect.point/100;
+    const type = declaration?.collect?.collect_name;
+    const qty = declaration?.quantity;
+    const price = (declaration?.collect?.point ?? declaration.price) /100;
     const total = price * qty;
     const points = total * 100;
 

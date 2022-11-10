@@ -3,8 +3,21 @@ import React from "react";
 import HeaderSuccess from "../../assets/images/done.png";
 import i18n from "i18next";
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
+import { useState } from "react";
+import { useEffect } from "react";
+import { getData } from "../../hooks/hooks";
 
-export default function ValidationSuccess({ navigation }) {
+export default function ValidationSuccess({ navigation, route }) {
+  const [user, setUser] = useState(null)
+  useEffect(() => {
+    (async () => {
+      const user = await getData("user")
+      console.log(user);
+      setUser(user)
+    })()
+  },[])
+console.log(user);
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -20,7 +33,9 @@ export default function ValidationSuccess({ navigation }) {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <EdgeButton text="Terminé" onPress={() => navigation.navigate("MenageHome")}/>
+        <EdgeButton text="Terminé" onPress={() => {
+          user.account.type === 'MENAGE' ? navigation.navigate("MenageHome") : navigation.navigate("CollectorHome")
+        }}/>
       </View>
     </View>
   );
