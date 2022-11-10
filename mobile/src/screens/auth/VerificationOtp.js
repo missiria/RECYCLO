@@ -15,12 +15,14 @@ import {
   schemaValidation,
   handleRegister,
 } from "./services/verification.services";
+
 import { getData, useFetch } from "../../hooks/hooks";
 import { useMemo } from "react";
 import i18next from "i18next";
 import { EdgeTextInput } from "../../ui/inputs/EdgeTextInput";
 
 export default function VerificationUser({ navigation, route }) {
+
   const { email, code, account } = route.params;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -63,6 +65,7 @@ export default function VerificationUser({ navigation, route }) {
       return () => clearTimeout(id)
     }
   }, [message])
+
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>

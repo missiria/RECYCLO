@@ -19,8 +19,6 @@ export const handleLogin = async (
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
-    console.log(response.data)
-
     if(response.data.active === 0){ 
       navigation.navigate("VerificationUser", { email: response.data.email });
     } else if (response.status === 400 || response.status === 500) {
@@ -38,8 +36,8 @@ export const handleLogin = async (
             navigation.navigate("CollectorHome");
           }
         }
-        //alert("Vous étes bien connecté sur notre application");
       } 
+
     }
 
     if (response.status === "ERR_DLOPEN_FAILED") {

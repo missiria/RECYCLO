@@ -29,7 +29,6 @@ export function useFetch(url, options, lazy){
   const [isLoading, setIsLoading] = useState(false);
   
   const cache = useRef({})
-  console.log(cache);
   const trigger = async () => {
     const user = await getData('user');
     
@@ -39,6 +38,7 @@ export function useFetch(url, options, lazy){
       return;
     }
     setIsLoading(true)
+
     const response = await fetch(`${API_URL}${url}`, {
       headers: {
         ...(user && { 'Authorization' : `${user?.auth?.type} ${user?.auth?.token}`}),
@@ -46,8 +46,8 @@ export function useFetch(url, options, lazy){
       },
       ...options,
     })
+
     const data = await response.json()
-    console.log(response.ok)
     if(response.ok) cache.current[url] = data
     setData(data)
     setIsLoading(false)

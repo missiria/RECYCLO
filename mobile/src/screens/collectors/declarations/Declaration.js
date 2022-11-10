@@ -34,7 +34,6 @@ export default function Declaration({navigation}) {
       }
     }, [isLoading]);
 
-
     return (
         <View style={styles.container}>
             <View style={styles.headerHome}>

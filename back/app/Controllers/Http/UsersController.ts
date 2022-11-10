@@ -26,7 +26,7 @@ export default class UsersController {
 
       // If user doesn't verify his email
       if (!user.active) {
-        return response.badRequest(user)
+        return response.badRequest({user: 'You need to verify your address email!'})
       }
 
       // Create token
