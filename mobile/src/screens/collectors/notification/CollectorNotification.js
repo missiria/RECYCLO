@@ -4,12 +4,13 @@ import Navbar from '../navigation/Navbar';
 import FooterNav from '../navigation/FooterNav'
 import NotificationProp from './NotificationProp';
 import EmptyNotifi from './NotificationEmpty';
-import { useFetch, useLoggedInUser } from '../../../hooks/hooks';
+import { useFetch } from '../../../hooks/hooks';
+import moment from 'moment';
 
 
 export default function CollectorNotification({navigation}) {
   // * GET notifications
-  const { data } = useFetch("notifications/all", {
+  const { data } = useFetch("notifications", {
     method: "GET",
   });
 
@@ -24,9 +25,9 @@ export default function CollectorNotification({navigation}) {
             // if notifications is not empty
             data?.map(item => (
               <NotificationProp 
-                title={item.title}
-                time={item.time}
-                date={item.date}
+                title={item.note}
+                time={new Date(item.created_at).toLocaleDateString()}
+                date={moment(item.created_at).fromNow()}
               />  
             ))
         )

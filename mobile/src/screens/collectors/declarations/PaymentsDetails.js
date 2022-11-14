@@ -13,7 +13,6 @@ export default function PaymentsDetails({ navigation, route }) {
     const faris = total * 0.1;
 
     const onSubmitPayment = async () => {
-
         let params = {
             url: 'orders/'+declaration.id+'/accept',
             method: 'POST',
@@ -26,12 +25,13 @@ export default function PaymentsDetails({ navigation, route }) {
 
         try {
             const result = await apiClient.any(params);
+            console.log(result);
             if(result.data.error == false)
             {
                 navigation.navigate('SuccessPayment');
             }
         } catch (error) {
-
+            console.log(error);
         }
     }
 

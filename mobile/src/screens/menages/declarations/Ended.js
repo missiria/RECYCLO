@@ -29,7 +29,7 @@ export default function Ended() {
     if (data !== null) {
       setDeclarations(data);
     }
-  }, [data]);
+  }, [isLoading]);
 
   return (
     <View style={styles.container}>

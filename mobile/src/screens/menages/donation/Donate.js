@@ -4,9 +4,16 @@ import React, { useState, useEffect } from 'react'
 
 
 
-export default function Donate({navigation}) {
-    const [number, setNumber] = useState('500')
-
+export default function Donate({navigation, route}) {
+    const { action, amount } = route.params
+    const [value, setValue] = useState(amount.toString())
+    // TODO: Uncomment this in prod
+    // useEffect(() => {
+    //     if (Number(value) > amount) {
+    //         setValue(amount.toString())
+    //         console.log("checked")
+    //     }
+    // }, [value])
 
     return (
         <View
@@ -25,19 +32,19 @@ export default function Donate({navigation}) {
                     <View style={styles.theIntputs}>
                         <TextInput
                             autoFocus={true}
-                            onChangeText={setNumber}
+                            onChangeText={setValue}
                             style={styles.input}
-                            value={number}
+                            value={value}
                             placeholderTextColor="#33CC66"
                             keyboardType="numeric"
                             blurOnSubmit={false}
-                            maxLength={3}
+                            maxLength={4}
                         />
                         <Text style={styles.dh}>
                             Dh
                         </Text>
                     </View>
-                    <View style={styles.cardsBoxs}>
+                    {/* <View style={styles.cardsBoxs}>
                         <TouchableOpacity
                             onPress={() => setNumber("100")}
                         >
@@ -70,12 +77,12 @@ export default function Donate({navigation}) {
                                 500 Dh
                             </Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
             <View style={styles.btnFooter}>
                 <Text
-                    onPress={() => navigation.navigate("DonationAddCard")}
+                    onPress={() => navigation.navigate("MenageBankDetails", { value , action })}
                     style={styles.buttonBtn}>
                     valider
                 </Text>
@@ -109,7 +116,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginRight: 10,
         color: '#33CC66',
-        width: 50,
+        width: 70,
         fontWeight: 'bold'
     },
     dh: {

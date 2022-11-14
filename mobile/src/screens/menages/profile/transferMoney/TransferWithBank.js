@@ -1,12 +1,19 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Keyboard } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 
 
 
 
-export default function TransferWithBank({navigation}) {
-    const [number, setNumber] = useState('500')
-
+export default function TransferWithBank({navigation, route}) {
+    const { action, amount } = route.params
+    const [value, setValue] = useState(amount.toString())
+    // TODO: Uncomment this in prod
+    // useEffect(() => {
+    //     if (Number(value) > amount) {
+    //         setValue(amount.toString())
+    //         console.log("checked")
+    //     }
+    // }, [value])
     return (
         <View
             style={styles.container}
@@ -24,13 +31,13 @@ export default function TransferWithBank({navigation}) {
                     <View style={styles.theIntputs}>
                         <TextInput
                             autoFocus={true}
-                            onChangeText={setNumber}
+                            onChangeText={(text) => setValue(text)}
                             style={styles.input}
-                            value={number}
+                            value={value}
                             placeholderTextColor="#33CC66"
                             keyboardType="numeric"
                             blurOnSubmit={false}
-                            maxLength={3}
+                            maxLength={4}
                         />
                         <Text style={styles.dh}>
                             Dh
@@ -74,7 +81,7 @@ export default function TransferWithBank({navigation}) {
             </ScrollView>
             <View style={styles.btnFooter}>
                 <Text
-                    onPress={() => navigation.navigate("MenageAddCardInfo")}
+                    onPress={() => navigation.navigate("MenageBankDetails", { value, action })}
                     style={styles.buttonBtn}>
                     valider
                 </Text>
@@ -108,7 +115,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginRight: 10,
         color: '#33CC66',
-        width: 50,
+        width: 70,
         fontWeight: 'bold'
     },
     dh: {

@@ -122,6 +122,8 @@ import MenageModePayment from "../screens/menages/payments/MenageModePayment";
 import MenageAddCreditCard from "../screens/menages/payments/MenageAddCreditCard";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MenageBankDetails from "../screens/menages/profile/transferMoney/menageBankAddCard/MenageBankDetails";
+import TransactionSuccess from "../screens/menages/wallet/TransactionSuccess";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -133,8 +135,7 @@ const RootStack = () => {
           gestureEnabled: true,
           gestureDirection: "horizontal",
           animation: "none",
-        }}
-      >
+        }}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Language" component={Language} />
         <Stack.Screen name="Hello" component={Welcome} />
@@ -283,6 +284,21 @@ const RootStack = () => {
           }}
           name="MenageAddCardInfo"
           component={MenageAddCardInfo}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Ajouter les details du compte",
+            headerTitleAlign: "center",
+            headerTintColor: "#33CC66",
+            headerShadowVisible: false,
+          }}
+          name="MenageBankDetails"
+          component={MenageBankDetails}
+        />
+        <Stack.Screen
+          name="TransactionSuccess"
+          component={TransactionSuccess}
         />
         <Stack.Screen name="TransSuccess" component={TransformationSuccess} />
         <Stack.Screen
