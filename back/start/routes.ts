@@ -33,11 +33,22 @@ Route.group(() => {
 
   Route.post('orders', 'OrdersController.index')
   Route.post('orders/:id/accept', 'OrdersController.accept')
+  Route.put('orders/:id/update', 'OrdersController.updateOrder')
 
   Route.post('declarations', 'DeclarationsController.index')
   Route.post('declarations/add', 'DeclarationsController.save')
+  Route.put('declarations/update/:id', 'DeclarationsController.update')
 
   Route.get('notifications/all', 'NotificationsController.getAllNotification')
+  Route.get('notifications', 'NotificationsController.getUserNotifications')
+
+  // * Wallet
+  Route.get('wallet/balance', 'WalletsController.getWalletInfo')
+
+  // * Payment
+  Route.post('payment/create', 'PaymentsController.createPayment')
+  Route.get('payment/transactions', 'PaymentsController.getPayments')
+  Route.resource('recharges', 'RechargesController').apiOnly()
 
   // TODO : We should create a public list
   Route.resource('cities', 'CitiesController').apiOnly()
@@ -66,7 +77,6 @@ Route.group(() => {
   Route.get('declarations', 'DeclarationsController.list')
 
   Route.resource('donations', 'DonationsController').apiOnly()
-  Route.resource('recharges', 'RechargesController').apiOnly()
 
   // * We don't need this route
   Route.get('/verify/:email', async ({ request }) => {

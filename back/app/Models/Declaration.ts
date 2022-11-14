@@ -23,7 +23,7 @@ export default class Declaration extends BaseModel {
   public price: string
 
   @column()
-  public date: string
+  public date: string 
 
   @column()
   public time: string

@@ -6,6 +6,7 @@ import DeclarationFilterForm from 'App/Validators/DeclarationFilterFormValidator
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Collect from '../../Models/Collect'
 import User from 'App/Models/User'
+import Notification from '../../Models/Notification';
 
 export default class DeclarationsController {
   public async list({ request, response }) {
@@ -89,6 +90,7 @@ export default class DeclarationsController {
       .preload('images')
       .preload('collect')
       .where('status', payload.status)
+      .orderBy('created_at', 'desc')
     // .where('user_id', user.id)
 
     for (const declaration of declarations) {
@@ -134,6 +136,39 @@ export default class DeclarationsController {
       })
     }
 
+    await Notification.create({
+      type: 'DECLARATION', 
+      note: `${user?.first_name} ${user?.last_name} a ${newDeclaration.id} (${newDeclaration.quantity})`,
+      status: "UNREAD",
+      // @ts-ignore
+      user_id: user.id
+    })
+
     return response.ok({ error: false, message: 'Success' })
+  }
+
+  // * Update Declaration
+  public async update({auth, request, response, params}: HttpContextContract){
+    const user = auth.use('api').user
+    const { id } = params
+    const { status } = request.body()
+    console.log(status, id);
+    
+    const declaration = await Declaration.find(id)
+    if (!declaration) return response.notFound({ message: "Declaration non trouvée" })
+
+    declaration.status = status
+    declaration.save()
+
+    await Notification.create({
+      type: 'DECLARATION', 
+      note: `${user?.first_name} ${user?.last_name} a modifée la déclaration (${declaration.id}) `,
+      status: "UNREAD",
+      // @ts-ignore
+      user_id: user.id
+    })
+
+    response.ok({ message: "Declaration modifiée" })
+
   }
 }
