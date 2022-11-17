@@ -15,8 +15,6 @@ export default class WalletsController {
       return acc + curr.collect.point / 100
     }, 0)
 
-    console.log("amount >>", amount);
-
     // * Calculate profit percentage
     const DATE = new Date()
     const LAST_MONTH = new Date(DATE.setMonth(DATE.getMonth() - 1))

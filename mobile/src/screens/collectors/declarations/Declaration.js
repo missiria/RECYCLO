@@ -37,8 +37,6 @@ export default function Declaration({navigation}) {
       }
     }, [isLoading]);
 
-    console.log(data)
-
     return (
         <View style={styles.container}>
             <View style={styles.headerHome}>

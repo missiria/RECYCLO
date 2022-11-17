@@ -6,8 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import notificationIcon from "../../../assets/images/notif.png";
 import Swipeout from 'react-native-swipeout';
 
-
-
 export default function NotificationItems({ title, date, time }) {
         //the swipe delete putton
         const swipeoutBtns = [

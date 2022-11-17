@@ -80,7 +80,7 @@ export default function CollectDetails({ navigation, route }) {
   const showDatepicker = () => {
     showMode("date");
   };
-  
+
   //check if the quantity is less than 5 and return error
   if (quantity < 5) {
     Alert.alert("You Must Declare at least 5 Kg");
@@ -240,7 +240,7 @@ export default function CollectDetails({ navigation, route }) {
           <View style={styles.btnBoxDec}>
             <Text
               // onPress={() => navigation.navigate("DeclarationSuccess")}
-              //onPress={() => navigation.navigate("CollectDetailsUploadImages")}
+              // onPress={() => navigation.navigate("CollectDetailsUploadImages")}
               onPress={() => onSubmitDeclare()}
               style={styles.btnDeclaration}>
               {isLoading ? <ActivityIndicator color={'#fff'} /> : i18n.t("introduction.next")}

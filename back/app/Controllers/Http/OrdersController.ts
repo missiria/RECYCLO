@@ -27,6 +27,7 @@ export default class OrdersController {
 
   public async accept({ auth, params, response }: HttpContextContract) {
     const { id } = params
+
     const user = auth.use('api').user
 
     const declaration = await Declaration.find(id)

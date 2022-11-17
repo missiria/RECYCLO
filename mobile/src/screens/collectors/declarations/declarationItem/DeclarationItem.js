@@ -4,10 +4,8 @@ import { UPLOAD_FOLDER_URL } from "~/api/constants"
 import moment from "moment";
 
 export default function DeclarationItem({navigation, declaration }) {
-    //img, username, typeDechet, city, date, quantity
 
     const img = UPLOAD_FOLDER_URL + (declaration.images.length > 0? declaration.images[0].image:declaration?.collect?.image);
-
     const username = declaration?.user?.fullName;
     const typeDechet = declaration?.collect?.collect_name;
     const city = "Agadir";

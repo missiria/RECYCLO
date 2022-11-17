@@ -4,9 +4,6 @@ import apiClient from "~/api/client";
 import { API_URL } from "~/api/constants";
 import { useRef } from "react";
 
-//axios.defaults.baseURL = API_URL;
-
-
 export function currencyFormat(n) {
   const formatter = new Intl.NumberFormat(undefined, {
     currency: "MAD",

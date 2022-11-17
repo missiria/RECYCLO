@@ -7,7 +7,6 @@ import EmptyNotifi from './NotificationEmpty';
 import { useFetch } from '../../../hooks/hooks';
 import moment from 'moment';
 
-
 export default function CollectorNotification({navigation}) {
   // * GET notifications
   const { data } = useFetch("notifications", {

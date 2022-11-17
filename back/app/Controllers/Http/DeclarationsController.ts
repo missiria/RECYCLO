@@ -81,11 +81,6 @@ export default class DeclarationsController {
       })
       .orderBy('created_at', 'desc')
 
-    // for (const declaration of declarations) {
-    //   // @ts-ignore
-    //   declaration.user = await User.findBy('id', declaration.user_id)
-    // }
-
     return response.ok(declarations)
   }
 

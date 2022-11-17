@@ -6,14 +6,13 @@ import NotificationItems from "./NotificationItems";
 import { Data } from "./NotificationTestFakeData";
 import EmptyNotification from "./NotificationEmpty";
 import { getData, useFetch, useLoggedInUser } from "../../../hooks/hooks";
+
 import moment from 'moment'
 
 export default function Notification({ navigation }) {
   const { data } = useFetch("notifications", {
     method: "GET",
   });
-
-  console.log(data)
 
   const showNotifications = () => {
     if (data && data?.length == 0) {
