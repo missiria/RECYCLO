@@ -1,8 +1,10 @@
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import React from 'react';
 import successImg from "../../../../../assets/images/done.png";
+import { useNavigation } from '@react-navigation/native';
 
 export default function SuccessCollectorPayment() {
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -21,7 +23,7 @@ export default function SuccessCollectorPayment() {
                         </Text>
                     </View>
                     <View style={styles.btnStylesBox}>
-                        <Text style={styles.textBtnOne}>
+                        <Text style={styles.textBtnOne} onPress={() => navigation.navigate('CollectorHome')} >
                             Portefeuille
                         </Text>
                         <Text style={styles.textBtnTwo}>

@@ -34,7 +34,7 @@ console.log(user);
       </View>
       <View style={styles.buttonContainer}>
         <EdgeButton text="Terminé" onPress={() => {
-          user.account.type === 'MENAGE' ? navigation.navigate("MenageHome") : navigation.navigate("CollectorHome")
+          user.account.type === 'MENAGE' ? navigation.navigate("MenageHome") : navigation.navigate("Address")
         }}/>
       </View>
     </View>

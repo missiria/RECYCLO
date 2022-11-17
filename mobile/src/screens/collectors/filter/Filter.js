@@ -11,19 +11,17 @@ import { Picker } from '@react-native-picker/picker';
 
 //typeWastData, cityData, 
 import { periodData } from './FilterData';
-import { useFetch } from '../../../hooks/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterCity, setFilterPeriod, setFilterTime, setFilterTypeCollects } from '../../../../redux/slices/filter';
 
 export default function Filter({ navigation: { goBack } }) {
-
-  const [selected, setSelected] = useAsyncStorage("filterTime","")
-  const [waste, setWaste] = useAsyncStorage("filterTypeCollects","-1");
-  const [city, setCity] = useAsyncStorage("filterCity","-1");
-  const [period, setPeriod] = useAsyncStorage("filterPeroid","-1");
-
   const [cities, setCities] = useState([]);
   const [collects, setCollects] = useState([]);
-
-  const { data:dataCities, isLoading: isCitiesLoading } = useAPI({
+  
+  // * Redux hooks
+  const { filterCity, filterPeriod, filterTime, filterTypeCollects } = useSelector((state) => state.filter)
+  const dispatch = useDispatch()
+  const { data: dataCities, isLoading: isCitiesLoading } = useAPI({
     url: 'cities',
     method: 'GET'
   }, true);
@@ -34,10 +32,10 @@ export default function Filter({ navigation: { goBack } }) {
   }, true);
 
   const onPressReset = () => {
-    setSelected("")
-    setWaste("-1")
-    setCity("-1")
-    setPeriod("-1")
+    dispatch(setFilterTime(null))
+    dispatch(setFilterTypeCollects(null))
+    dispatch(setFilterCity(null))
+    dispatch(setFilterPeriod(null))
   }
 
   const onPressSubmit = () => {
@@ -64,8 +62,8 @@ export default function Filter({ navigation: { goBack } }) {
           <View style={styles.cards}>
             <View style={styles.cardBox}>
               <Picker
-                selectedValue={waste}
-                onValueChange={(itemValue, itemIndex) => setWaste(itemIndex)}
+                selectedValue={filterTypeCollects}
+                onValueChange={(itemValue, itemIndex) => dispatch(setFilterTypeCollects(itemIndex))}
               >
                 <Picker.Item
                   label="All"
@@ -85,8 +83,8 @@ export default function Filter({ navigation: { goBack } }) {
             </View>
             <View style={styles.cardBox}>
               <Picker
-                selectedValue={city}
-                onValueChange={(itemValue, itemIndex) => setCity(itemIndex)}
+                selectedValue={filterCity}
+                onValueChange={(itemValue, itemIndex) => dispatch(setFilterCity(itemIndex))}
               >
                 <Picker.Item
                   label="All"
@@ -106,8 +104,8 @@ export default function Filter({ navigation: { goBack } }) {
             </View>
             <View style={styles.cardBox}>
               <Picker
-                selectedValue={period}
-                onValueChange={(itemValue, itemIndex) => setPeriod(itemIndex)}
+                selectedValue={filterPeriod}
+                onValueChange={(itemValue, itemIndex) => dispatch(setFilterPeriod(itemIndex))}
               >
                 <Picker.Item
                       label="All"
@@ -135,9 +133,9 @@ export default function Filter({ navigation: { goBack } }) {
           </Text>
           <View style={styles.cardsTimes}>
             <TouchableOpacity
-              onPress={() => setSelected("08:00 - 12:00")}
+              onPress={() => dispatch(setFilterTime("08:00 - 12:00"))}
               style={
-                selected == "08:00 - 12:00" ?
+                filterTime == "08:00 - 12:00" ?
                   styles.activetimeBox : styles.timeBox
               } >
               <Text style={styles.textCardTimeBox}>
@@ -145,9 +143,9 @@ export default function Filter({ navigation: { goBack } }) {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setSelected("12:00 - 16:00")}
+              onPress={() => dispatch(setFilterTime("12:00 - 16:00"))}
               style={
-                selected == "12:00 - 16:00" ?
+                filterTime == "12:00 - 16:00" ?
                   styles.activetimeBox : styles.timeBox
               } >
               <Text style={styles.textCardTimeBox}>
@@ -155,9 +153,9 @@ export default function Filter({ navigation: { goBack } }) {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setSelected("16:00 - 20:00")}
+              onPress={() => dispatch(setFilterTime("16:00 - 20:00"))}
               style={
-                selected == "16:00 - 20:00" ?
+                filterTime == "16:00 - 20:00" ?
                   styles.activetimeBox : styles.timeBox
               } >
               <Text style={styles.textCardTimeBox}>
@@ -165,9 +163,9 @@ export default function Filter({ navigation: { goBack } }) {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setSelected("20:00 - 00:00")}
+              onPress={() => dispatch(setFilterTime("20:00 - 00:00"))}
               style={
-                selected == "20:00 - 00:00" ?
+                filterTime == "20:00 - 00:00" ?
                   styles.activetimeBox : styles.timeBox
               }>
               <Text style={styles.textCardTimeBox} >

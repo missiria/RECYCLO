@@ -2,33 +2,43 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import i18next from 'i18next';
+import { currencyFormat, useFetch } from '../../../hooks/hooks';
+import moment from 'moment';
 
 export default function WithdrawalNotices() {
+  const { data } = useFetch("withdrawals", {})
+  console.log(data);
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.cardBox}>
-          <Text style={styles.cardTitle}> {i18next.t('wallet.avis-ret-ob')} 15-10-2021 </Text>
-          <Text style={styles.cardPrice}>100.00  {i18next.t('wallet.dh')}</Text>
-          <Text style={styles.boxTextWhat}> {i18next.t('wallet.via-gechet')}</Text>
-          <Text style={styles.cardTextDesc}> {i18next.t('wallet.code-of-retrait')} : </Text>
-          <View style={styles.firstFlexBx}>
-            <Text style={styles.cradNumBank}>84983457873476</Text>
-            <Text style={styles.textCopie}>{i18next.t('wallet.copie')}</Text>
-          </View>
-          <View style={styles.bottomCrdBox}>
-            <View style={styles.cardFotBox}>
-              <Icon
-                style={styles.dateIcon}
-                name="time-slot"
-              />
-              <Text style={styles.dateText}>{i18next.t('wallet.end-date')} : 1j 23h 59mn </Text>
+        {data?.map((item) => (
+          <View key={item.id} style={styles.cardBox}>
+            <Text style={styles.cardTitle}> {i18next.t('wallet.avis-ret-ob')} {new Date(item.created_at).toLocaleDateString()} </Text>
+            <Text style={styles.cardPrice}>{currencyFormat(item.amount)}  {i18next.t('wallet.dh')}</Text>
+            <Text style={styles.boxTextWhat}> {i18next.t('wallet.via-gechet')}</Text>
+            <Text style={styles.cardTextDesc}> {i18next.t('wallet.code-of-retrait')} : </Text>
+            <View style={styles.firstFlexBx}>
+              <Text style={styles.cradNumBank}>{item?.withdrawal_code}</Text>
+              <Text style={styles.textCopie}>{i18next.t('wallet.copie')}</Text>
             </View>
-            <Text style={styles.textAnull}>
-            {i18next.t('wallet.cancel')}
-            </Text>
+            <View style={styles.firstFlexBx}>
+              <Text>Nom du bank:</Text>
+              <Text style={styles.cradNumBank}> {item?.bank.bank_name}</Text>
+            </View>
+            <View style={styles.bottomCrdBox}>
+              <View style={styles.cardFotBox}>
+                <Icon
+                  style={styles.dateIcon}
+                  name="time-slot"
+                />
+                <Text style={styles.dateText}>{i18next.t('wallet.end-date')} : {moment(item.expires_in).fromNow()} </Text>
+              </View>
+              <Text style={styles.textAnull}>
+              {i18next.t('wallet.cancel')}
+              </Text>
+            </View>
           </View>
-        </View>
+        ))}
 
       </ScrollView>
     </View>

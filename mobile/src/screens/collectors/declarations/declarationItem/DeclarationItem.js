@@ -4,10 +4,8 @@ import { UPLOAD_FOLDER_URL } from "~/api/constants"
 import moment from "moment";
 
 export default function DeclarationItem({navigation, declaration }) {
-    //img, username, typeDechet, city, date, quantity
 
     const img = UPLOAD_FOLDER_URL + (declaration.images.length > 0? declaration.images[0].image:declaration?.collect?.image);
-    console.log(img);
     const username = declaration?.user?.fullName;
     const typeDechet = declaration?.collect?.collect_name;
     const city = "Agadir";
@@ -24,7 +22,7 @@ export default function DeclarationItem({navigation, declaration }) {
                     source={{uri:img}}
                 />
             </View>
-            <View>
+            <View style={styles.cardContent} >
                 <View style={styles.cardBodyHeader}>
                     <Text style={styles.boxUsername}>{username}</Text>
                     <Text style={styles.typeDechet}>{typeDechet}</Text>
@@ -35,7 +33,7 @@ export default function DeclarationItem({navigation, declaration }) {
                 </View>
                 <View style={styles.cardBodyHeader}>
                     <Text style={styles.timeBox}>{date}</Text>
-                    <Text style={styles.priceOfQauantity}>0.50 Dhs/kgs</Text>
+                    <Text style={styles.priceOfQauantity}>{declaration.price ?? 'null'} Dhs/kgs</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -68,6 +66,9 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         borderRadius: 5,
         marginRight: 13
+    },
+    cardContent: {
+        flex: 1,
     },
     cardBodyHeader: {
         flexDirection: 'row',

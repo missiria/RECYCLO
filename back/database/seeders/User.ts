@@ -2,7 +2,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import User from 'App/Models/User'
 
 export default class UserSeeder extends BaseSeeder {
-  public async run () {
+  public async run() {
     await User.createMany([
       {
         email: 'missiria@gmail.com',
@@ -11,7 +11,7 @@ export default class UserSeeder extends BaseSeeder {
         last_name: 'MISSIRIA',
         password: 'c++',
         role: 'ADMIN',
-        active: true
+        active: true,
       },
       {
         email: 'amine@gmail.com',
@@ -20,7 +20,7 @@ export default class UserSeeder extends BaseSeeder {
         last_name: 'MISSIRIA',
         password: 'p@ssword',
         role: 'ADMIN',
-        active: true
+        active: true,
       },
       {
         email: 'youssef@gmail.com',
@@ -29,7 +29,7 @@ export default class UserSeeder extends BaseSeeder {
         last_name: 'MISSIRIA',
         password: 'p@ssword',
         role: 'ADMIN',
-        active: false
+        active: false,
       },
       {
         email: 'salem@gmail.com',
@@ -38,7 +38,7 @@ export default class UserSeeder extends BaseSeeder {
         last_name: 'MISSIRIA',
         password: '321321321',
         role: 'MODERATOR',
-        active: true
+        active: true,
       },
       {
         email: 'hassan@gmail.com',
@@ -47,8 +47,26 @@ export default class UserSeeder extends BaseSeeder {
         last_name: 'MISSIRIA',
         password: '321321321',
         role: 'USER',
-        active: true
-      }
+        active: true,
+      },
+      {
+        email: 'mohamedmajilan@gmail.com',
+        phone: '0615690996',
+        first_name: 'Mohamed',
+        last_name: 'Majilan',
+        password: '123456789',
+        role: 'USER',
+        active: true,
+      },
+      {
+        email: 'saidmajilan@gmail.com',
+        phone: '0661728409',
+        first_name: 'Said',
+        last_name: 'Majilan',
+        password: '123456789',
+        role: 'USER',
+        active: true,
+      },
     ])
   }
 }

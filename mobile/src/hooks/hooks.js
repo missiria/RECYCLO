@@ -1,10 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from "~/api/client";
 import { API_URL } from "~/api/constants";
 import { useRef } from "react";
 
-//axios.defaults.baseURL = API_URL;
+export function currencyFormat(n) {
+  const formatter = new Intl.NumberFormat(undefined, {
+    currency: "MAD",
+    style: "currency",
+  });
+
+  if (isNaN(n)) {
+    return formatter.format(0);
+  }
+  return formatter.format(n);
+}
 
 // * get current user
 export function useLoggedInUser(){
@@ -27,48 +37,59 @@ export function useLoggedInUser(){
 export function useFetch(url, options, lazy){
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null)
   
   const cache = useRef({})
-  const trigger = async () => {
+  
+  // * Memorize callback
+  const trigger = useCallback(async (triggerUrl = url) => {
     const user = await getData('user');
-    
+
     // * if the cache for that url exists
-    if(cache.current[url]) {
-      setData(cache.current[url])
-      return;
-    }
+    // if(cache.current[triggerUrl]) {
+    //   setData(cache.current[triggerUrl])
+    //   return;
+    // }
     setIsLoading(true)
 
-    const response = await fetch(`${API_URL}${url}`, {
-      headers: {
-        ...(user && { 'Authorization' : `${user?.auth?.type} ${user?.auth?.token}`}),
-        "content-type": "application/json; charset=utf-8"
-      },
-      ...options,
-    })
-
-    const data = await response.json()
-    if(response.ok) cache.current[url] = data
-    setData(data)
+    try {
+      const response = await fetch(`${API_URL}${triggerUrl}`, {
+        headers: {
+          ...(user && { 'Authorization' : `${user?.auth?.type} ${user?.auth?.token}`}),
+          "content-type": "application/json; charset=utf-8"
+        },
+        ...options,
+      })
+  
+      const data = await response.json()
+      if(response.ok) cache.current[triggerUrl] = data
+      setData(data)
+    } catch (err) {
+      setError(err)
+    }
     setIsLoading(false)
-  }
+  }, [url, options])
 
   // * clear cache every 60 seconds (redux style)
   useEffect(() => {
-    const id = setTimeout(() => {
+    const id = setInterval(() => {
       cache.current = {}
+      console.log("cache cleared");
     }, 1000 * 60)
 
-    return () => clearTimeout(id)
+    return () => clearInterval(id)
   }, [])
   
   useEffect(() => {
     if(!lazy){
-      trigger()
+      trigger(url)
     }
   }, [url, lazy])
 
-  return !lazy ? { data, isLoading } : [trigger, { data, isLoading }]
+  // * Force refetch when needed
+  const refetch = async () =>  await trigger(url)
+
+  return !lazy ? { data, isLoading, error, refetch } : [trigger, { data, isLoading,error, refetch }]
 }
 
 export const useAPI = (axiosParams,isAuth = false) => {
@@ -99,7 +120,7 @@ export const useAPI = (axiosParams,isAuth = false) => {
     fetchData(axiosParams);
   }, []);
 
-  return { data, error, isLoading,fetchData };
+  return { data, error, isLoading, fetchData };
 };
 
 export const useAsyncStorage = (key, initialValue) => {

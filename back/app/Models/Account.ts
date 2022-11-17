@@ -43,6 +43,9 @@ export default class Account extends BaseModel {
 
   @column()
   public birth_date: string | Date
+
+  @column()
+  public city_id: number
   // * ----------
 
   @column()
@@ -72,6 +75,6 @@ export default class Account extends BaseModel {
   @hasOne(() => User)
   public user: HasOne<typeof User>
 
-  @belongsTo(() => City)
+  @belongsTo(() => City, { localKey: 'id', foreignKey: 'city_id' })
   public city: BelongsTo<typeof City>
 }

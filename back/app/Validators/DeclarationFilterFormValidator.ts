@@ -27,19 +27,17 @@ export default class CollectFormValidator {
           periodData
           cardsTimes
    */
-  public schema = schema.create(
-    {
-      status: schema.enum.optional(['PENDING','VALID','CANCELED','PAID']),
-      collect_id: schema.number.optional(),
-      city_id: schema.number.optional(),
-      peroid: schema.number.optional(),
-      time: schema.string.optional(),
-      //type_wast: schema.string({trim: true}, [rules.minLength(10)]),
-      //city: schema.number(),
-      //period: schema.string({trim: true}, [rules.minLength(20)]),
-      //time: schema.string()
-    }
-  )
+  public schema = schema.create({
+    status: schema.enum.optional(['PENDING', 'VALID', 'CANCELED', 'PAID']),
+    collect_id: schema.number.optional(),
+    city_id: schema.number.optional(),
+    period: schema.number.optional(),
+    time: schema.string.optional(),
+    //type_wast: schema.string({trim: true}, [rules.minLength(10)]),
+    //city: schema.number(),
+    //period: schema.string({trim: true}, [rules.minLength(20)]),
+    //time: schema.string()
+  })
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
