@@ -135,6 +135,7 @@ export default function Historique({ navigation }) {
                                                     : transaction?.action === "DONATION" ? 'Don'
                                                     : "Guichet" }
                                             </Text>
+                                            <Text>{transaction?.bank?.bank_name}</Text>
                                             <View style={styles.textDateTime}>
                                                 <Text style={styles.date}>
                                                     {new Date(transaction?.created_at).toLocaleDateString()}

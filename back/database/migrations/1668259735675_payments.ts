@@ -8,8 +8,9 @@ export default class Payments extends BaseSchema {
       table.increments('id')
       table.integer('user_id')
       table.float('amount')
-      table.enum('action', ['DONATION', 'ATM', 'TRANSFER'])
+      table.enum('action', ['DONATION', 'ATM', 'TRANSFER', 'DEPOSIT'])
       table.string('full_name', 20)
+      table.integer('bank_id')
       table.integer('rib')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

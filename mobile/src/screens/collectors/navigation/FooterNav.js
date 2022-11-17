@@ -41,14 +41,14 @@ export default function FooterNav({ navigation }) {
         </View>
 
         <View>
-          <Text style={styles.textBoxIcon} onPress={() => navigation.navigate('CollecttorWallet')}>
+          <Text style={styles.textBoxIcon} onPress={() => navigation.navigate('CollectorWallet')}>
             <Icon
-              style={screenName == "CollecttorWallet" ? styles.iconStyleBold : styles.iconStyle}
-              name={screenName == "CollecttorWallet" ? "wallet" : "wallet-outline"}
+              style={screenName == "CollectorWallet" ? styles.iconStyleBold : styles.iconStyle}
+              name={screenName == "CollectorWallet" ? "wallet" : "wallet-outline"}
             />
           </Text>
           <Text
-            style={screenName == "CollecttorWallet" ?
+            style={screenName == "CollectorWallet" ?
               styles.textUnderIconActive : styles.textUnderIconUnactive
             }>
             {i18n.t('collectorfooterNavigation.wallet')}

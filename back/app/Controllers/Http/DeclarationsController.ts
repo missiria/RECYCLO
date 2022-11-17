@@ -6,80 +6,62 @@ import DeclarationFilterForm from 'App/Validators/DeclarationFilterFormValidator
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Collect from '../../Models/Collect'
 import User from 'App/Models/User'
-import Notification from '../../Models/Notification';
+import Notification from '../../Models/Notification'
 
 export default class DeclarationsController {
-  public async list({ request, response }) {
-    const payload: any = await request.validate(DeclarationFilterForm)
-
-    const declarations = await Declaration.query()
-      .select(
-        'id',
-        'collect_id',
-        'user_id',
-        'quantity',
-        'status',
-        'date',
-        'time',
-        'created_at',
-        'updated_at'
-      )
-      .preload('images', (query) => {
-        query.select('id', 'declaration_id', 'image')
-      })
-      .preload('collect', (query) => {
-        query.select('id', 'collect_name', 'image', 'point', 'description')
-      })
+  public async list({ request, response }: HttpContextContract) {
+    const { city_id, collect_id, period, status, time } = request.body()
+    const declarationsPromise = Declaration.query()
+      .preload('images')
+      .preload('collect')
       .preload('user', (query) => {
-        query
-          .select('id', 'first_name', 'last_name', 'email', 'phone')
-          .preload('account', (query) => {
-            query
-              .select('id', 'gender', 'type', 'avatar', 'address', 'country', 'city_id')
-              .preload('city', (query) => {
-                query.select('id', 'name')
-              })
+        query.select('*').preload('account', (query) => {
+          query.select('*').preload('city', (query) => {
+            query.select('id', 'name')
           })
+        })
       })
-      .where((query) => {
-        query.where('status', 'VALID')
+      .where('status', status as string)
+      .orderBy('created_at', 'desc')
 
-        if (!payload.time) {
-          query.where('time', payload.time)
-        }
-
-        if (payload.collect_id !== undefined && payload.collect_id !== -1) {
-          query.where('collect_id', payload.collect_id)
-        }
-
-        if (payload.city_id !== undefined && payload.city_id !== -1) {
-          query.whereHas('user', (query) => {
-            query.whereHas('account', (query) => {
-              query.where('city_id', payload.city_id)
+    if (city_id && city_id !== -1) {
+      declarationsPromise.preload('user', (query) => {
+        query.select('*').preload('account', (query) => {
+          query
+            .select('id', 'gender', 'type', 'avatar', 'address', 'city_id')
+            .preload('city', (query) => {
+              query.select('id', 'name')
             })
-          })
-        }
-
-        if (payload.peroid !== undefined && payload.peroid !== -1) {
-          // 1 : Dernière heure
-          // 2 : Aujourd'hui
-          // 3 : 7 derniers jours
-          // 4 : Ce mois-ci
-          if (payload.peroid == 1) {
-            query.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 1 HOUR)')
-          } else if (payload.peroid == 2) {
-            query.whereRaw('DATE(created_at) = DATE(NOW())')
-          } else if (payload.peroid == 3) {
-            query.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 7 days)')
-          } else if (payload.peroid == 4) {
-            query
-              .whereRaw('month(created_at) = month(NOW())')
-              .whereRaw('year(created_at) = year(NOW())')
-          }
-        }
+        })
       })
+    }
+    if (collect_id && collect_id !== -1) {
+      declarationsPromise.where('collect_id', collect_id)
+    }
 
-    return response.ok(declarations)
+    if (time) {
+      declarationsPromise.where('time', time)
+    }
+
+    if (period !== undefined && period !== -1) {
+      // 1 : Dernière heure
+      // 2 : Aujourd'hui
+      // 3 : 7 derniers jours
+      // 4 : Ce mois-ci
+      if (period == 1) {
+        declarationsPromise.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 1 HOUR)')
+      } else if (period == 2) {
+        declarationsPromise.whereRaw('DATE(created_at) = DATE(NOW())')
+      } else if (period == 3) {
+        declarationsPromise.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 7 days)')
+      } else if (period == 4) {
+        declarationsPromise
+          .whereRaw('month(created_at) = month(NOW())')
+          .whereRaw('year(created_at) = year(NOW())')
+      }
+    }
+
+    return response.ok(await declarationsPromise)
   }
 
   public async index({ request, response }: HttpContextContract) {
@@ -90,13 +72,19 @@ export default class DeclarationsController {
       .preload('images')
       .preload('collect')
       .where('status', payload.status)
+      .preload('user', (query) => {
+        query.select('*').preload('account', (query) => {
+          query.select('*').preload('city', (query) => {
+            query.select('id', 'name')
+          })
+        })
+      })
       .orderBy('created_at', 'desc')
-    // .where('user_id', user.id)
 
-    for (const declaration of declarations) {
-      // @ts-ignore
-      declaration.user = await User.findBy('id', declaration.user_id)
-    }
+    // for (const declaration of declarations) {
+    //   // @ts-ignore
+    //   declaration.user = await User.findBy('id', declaration.user_id)
+    // }
 
     return response.ok(declarations)
   }
@@ -137,38 +125,37 @@ export default class DeclarationsController {
     }
 
     await Notification.create({
-      type: 'DECLARATION', 
+      type: 'DECLARATION',
       note: `${user?.first_name} ${user?.last_name} a ${newDeclaration.id} (${newDeclaration.quantity})`,
-      status: "UNREAD",
+      status: 'UNREAD',
       // @ts-ignore
-      user_id: user.id
+      user_id: user.id,
     })
 
     return response.ok({ error: false, message: 'Success' })
   }
 
   // * Update Declaration
-  public async update({auth, request, response, params}: HttpContextContract){
+  public async update({ auth, request, response, params }: HttpContextContract) {
     const user = auth.use('api').user
     const { id } = params
     const { status } = request.body()
-    console.log(status, id);
-    
+    console.log(status, id)
+
     const declaration = await Declaration.find(id)
-    if (!declaration) return response.notFound({ message: "Declaration non trouvée" })
+    if (!declaration) return response.notFound({ message: 'Declaration non trouvée' })
 
     declaration.status = status
     declaration.save()
 
     await Notification.create({
-      type: 'DECLARATION', 
+      type: 'DECLARATION',
       note: `${user?.first_name} ${user?.last_name} a modifée la déclaration (${declaration.id}) `,
-      status: "UNREAD",
+      status: 'UNREAD',
       // @ts-ignore
-      user_id: user.id
+      user_id: user.id,
     })
 
-    response.ok({ message: "Declaration modifiée" })
-
+    response.ok({ message: 'Declaration modifiée' })
   }
 }

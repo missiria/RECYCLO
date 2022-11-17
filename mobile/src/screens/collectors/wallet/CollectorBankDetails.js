@@ -8,16 +8,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import { useFetch } from "../../../../../hooks/hooks";
+import { useFetch } from "../../../hooks/hooks";
 
-export default function MenageBankDetails({ navigation, route }) {
+export default function CollectorBankDetails({ navigation, route }) {
   const { value, action, bank } = route.params;
   const [values, setValues] = useState({
     full_name: "",
     rib: "",
   });
 
-  console.log("bank >>", bank);
+  console.log("value, action, bank >>", value, action, bank);
 
   const [trigger, { isLoading, data }] = useFetch(
     `payment/create`,
@@ -36,11 +36,11 @@ export default function MenageBankDetails({ navigation, route }) {
   console.log(data);
   return (
     <View>
-      <Text>MenageBankDetails</Text>
+      <Text>CollectorBankDetails</Text>
       <TextInput
         onChangeText={(text) => setValues({ ...values, full_name: text })}
-        style={styles.TextInput}
         value={values.full_name} 
+        style={styles.TextInput}
         label="Nom Complet"
         mode="outlined"
       />
@@ -56,7 +56,7 @@ export default function MenageBankDetails({ navigation, route }) {
         <Text
           onPress={async () => {
             await trigger();
-            navigation.navigate("TransactionSuccess", { action });
+            navigation.navigate("SuccessCollectorPayment", { action });
           }}
           style={styles.buttonBtn}>
           {isLoading ? (

@@ -1,12 +1,31 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Keyboard } from 'react-native'
 import React, { useState, useEffect, useLayoutEffect } from 'react'
+import { Picker } from '@react-native-picker/picker';
+import { useFetch } from '../../../../hooks/hooks';
 
 
 
+const values = [
+    { label: "100 DH", value: 100 },
+    { label: "200 DH", value: 200 },
+    { label: "300 DH", value: 300 },
+    { label: "400 DH", value: 400 },
+    { label: "500 DH", value: 500 },
+    { label: "700 DH", value: 700 },
+    { label: "800 DH", value: 800 },
+    { label: "900 DH", value: 900 },
+    { label: "1000 DH", value: 1000 },
+]
 
 export default function TransferWithBank({navigation, route}) {
     const { action, amount } = route.params
-    const [value, setValue] = useState(amount.toString())
+    const [value, setValue] = useState()
+    const [bank, setBank] = useState()
+    console.log(bank);
+    const { data: banks } = useFetch("banks/all", {
+        method: 'GET',
+    })
+    
     // TODO: Uncomment this in prod
     // useEffect(() => {
     //     if (Number(value) > amount) {
@@ -28,60 +47,54 @@ export default function TransferWithBank({navigation, route}) {
                             Combien d'argent voudriez-vous Déposer?
                         </Text>
                     </View>
-                    <View style={styles.theIntputs}>
-                        <TextInput
-                            autoFocus={true}
-                            onChangeText={(text) => setValue(text)}
-                            style={styles.input}
-                            value={value}
-                            placeholderTextColor="#33CC66"
-                            keyboardType="numeric"
-                            blurOnSubmit={false}
-                            maxLength={4}
-                        />
-                        <Text style={styles.dh}>
-                            Dh
-                        </Text>
+                    <View style={styles.viewPickerParent} >
+                        <Text style={styles.viewPickerLabel} >Selectionér votre bank</Text>
+                        <View style={styles.viewPicker} >
+                            <Picker
+                                selectedValue={bank}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    setBank(itemValue)
+                                }}
+                            >
+                                {/* <Picker.Item
+                                label="All"
+                                value="-1"
+                                key="-1"
+                                /> */}
+                                {banks?.map(item => (
+                                    <Picker.Item
+                                        label={item.bank_name}
+                                        value={item.id}
+                                        key={item.id}
+                                    />
+                                )
+                                )}
+                            </Picker>
+                        </View>
                     </View>
-                    <View style={styles.cardsBoxs}>
-                        <TouchableOpacity
-                            onPress={() => setNumber("100")}
-                        >
-                            <Text
-                                style={styles.cardBox}>
-                                100 Dh
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setNumber("200")}
-                        >
-                            <Text
-                                style={styles.cardBox}>
-                                200 Dh
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setNumber("300")}
-                        >
-                            <Text
-                                style={styles.cardBox}>
-                                300 Dh
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setNumber("500")}
-                        >
-                            <Text
-                                style={styles.cardBox}>
-                                500 Dh
-                            </Text>
-                        </TouchableOpacity>
+                    <View style={styles.viewPickerParent} >
+                        <Text style={styles.viewPickerLabel} >Selectionér un montant</Text>
+                        <View style={styles.viewPicker} >
+                            <Picker
+                                selectedValue={value}
+                                onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
+                            >
+                                {values?.map(item => (
+                                    <Picker.Item
+                                        label={item.label}
+                                        value={item.value}
+                                        key={item.value}
+                                    />
+                                )
+                                )}
+                            </Picker>
+                        </View>
                     </View>
                 </View>
             </ScrollView>
             <View style={styles.btnFooter}>
                 <Text
-                    onPress={() => navigation.navigate("MenageBankDetails", { value, action })}
+                    onPress={() => navigation.navigate("MenageBankDetails", { value, action, bank })}
                     style={styles.buttonBtn}>
                     valider
                 </Text>
@@ -104,6 +117,22 @@ const styles = StyleSheet.create({
     destText: {
         marginHorizontal: 20,
         fontSize: 12,
+    },
+    // * Picker
+    viewPickerParent: {
+        marginTop: 10,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    viewPickerLabel: {
+        
+    },
+    viewPicker: {
+        borderWidth: 1,
+        borderColor: '#C4C4C4',
+        borderRadius: 5,
+        marginTop: 10,
+        marginBottom: 13,
     },
     theIntputs: {
         flexDirection: 'row',

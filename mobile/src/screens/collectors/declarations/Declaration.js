@@ -8,31 +8,36 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { useAPI,useAsyncStorage } from "~/hooks/hooks";
 import { useFetch } from '../../../hooks/hooks';
+import { useSelector } from 'react-redux';
 
 export default function Declaration({navigation}) {
+    const { filterCity, filterPeriod, filterTime, filterTypeCollects } = useSelector((state) => state.filter)
 
-    const [filterTime] = useAsyncStorage("filterTime","")
-    const [filterTypeCollects] = useAsyncStorage("filterTypeCollects","-1");
-    const [filterCity] = useAsyncStorage("filterCity","-1");
-    const [filterPeroid] = useAsyncStorage("filterPeroid","-1");
     // * Declarations
     const [declarations, setDeclarations] = useState([]);
-    const {data, isLoading} = useFetch("declarations", {
+    const { data, isLoading, refetch } = useFetch("declarations/filtered", {
         method: 'POST',
         body: JSON.stringify({
             collect_id: filterTypeCollects,
             city_id: filterCity,
             time: filterTime,
-            peroid: filterPeroid,
+            period: filterPeriod,
             status: 'PENDING'
         })
     })
+
+    // * Refetch when params change
+    useEffect(() => {
+        refetch()
+    }, [filterTypeCollects, filterCity, filterTime, filterPeriod])
 
     useEffect(() => {
       if (data !== null){
         setDeclarations(data);
       }
     }, [isLoading]);
+
+    console.log(data)
 
     return (
         <View style={styles.container}>
@@ -67,6 +72,7 @@ export default function Declaration({navigation}) {
                     )) 
                     
                 }
+                {data?.length === 0 && <Text style={styles.titleNotFound} >Pas de declaration</Text>}
             </ScrollView>
         </View>
     )
@@ -76,6 +82,12 @@ const styles = StyleSheet.create({
     containerOne: {
         flex: 1,
         backgroundColor: "white",
+    },
+    titleNotFound: {
+        fontSize: 18,
+        textAlign: "center",
+        marginTop: 30,
+        color: '#999'
     },
     headerHome : {
         flexDirection:'row',

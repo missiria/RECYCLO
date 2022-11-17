@@ -6,6 +6,19 @@ import { useRef } from "react";
 
 //axios.defaults.baseURL = API_URL;
 
+
+export function currencyFormat(n) {
+  const formatter = new Intl.NumberFormat(undefined, {
+    currency: "MAD",
+    style: "currency",
+  });
+
+  if (isNaN(n)) {
+    return formatter.format(0);
+  }
+  return formatter.format(n);
+}
+
 // * get current user
 export function useLoggedInUser(){
   const [user, setUser] = useState(null);
@@ -36,10 +49,10 @@ export function useFetch(url, options, lazy){
     const user = await getData('user');
 
     // * if the cache for that url exists
-    if(cache.current[triggerUrl]) {
-      setData(cache.current[triggerUrl])
-      return;
-    }
+    // if(cache.current[triggerUrl]) {
+    //   setData(cache.current[triggerUrl])
+    //   return;
+    // }
     setIsLoading(true)
 
     try {

@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Notification from 'App/Models/Notification'
 import Payment from 'App/Models/Payment'
+import Withdrawal from 'App/Models/Withdrawal'
 
 export default class PaymentsController {
   async createPayment({ auth, request, response }: HttpContextContract) {
@@ -26,7 +27,7 @@ export default class PaymentsController {
 
   async getPayments({ auth, request, response }: HttpContextContract) {
     const user = auth.use('api').user
-    const transactions = await Payment.query().where('user_id', user!.id)
+    const transactions = await Payment.query().where('user_id', user!.id).preload('bank')
 
     response.ok(transactions)
   }

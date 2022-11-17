@@ -36,6 +36,7 @@ Route.group(() => {
   Route.put('orders/:id/update', 'OrdersController.updateOrder')
 
   Route.post('declarations', 'DeclarationsController.index')
+  Route.post('declarations/filtered', 'DeclarationsController.list')
   Route.post('declarations/add', 'DeclarationsController.save')
   Route.put('declarations/update/:id', 'DeclarationsController.update')
 
@@ -49,6 +50,12 @@ Route.group(() => {
   Route.post('payment/create', 'PaymentsController.createPayment')
   Route.get('payment/transactions', 'PaymentsController.getPayments')
   Route.resource('recharges', 'RechargesController').apiOnly()
+
+  // * Banks
+  Route.get('banks/all', 'BanksController.getAllBanks')
+
+  // * Withdrawals
+  Route.get('withdrawals', 'WithdrawalsController.getWithdrawal')
 
   // TODO : We should create a public list
   Route.resource('cities', 'CitiesController').apiOnly()
