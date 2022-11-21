@@ -58,7 +58,6 @@ export default function InProgress() {
                 console.log("onPressAction");
               }}
               onPressCancel={() => {
-                console.log("Cancelled");
                 trigger(`declarations/update/${declaration.id}`)
 
                 // * Refetch

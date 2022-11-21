@@ -9,17 +9,26 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import { Picker } from "@react-native-picker/picker";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cityData } from "../filter/FilterData";
 import {
   handleRegister,
   schema,
   defaultValues,
 } from "./services/address.services";
+import { useFetch } from "../../../hooks/hooks";
 
 export default function Address({ navigation }) {
   const [loading, setLoading] = useState(false);
 
+  // * Get cities
+  const { data: cities } = useFetch("cities", {});
+
+  // * Find city id
+  const [cityId, setCityId] = useState(null);
+
+  useEffect(() => {}, []);
+  console.log(cities);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -36,17 +45,23 @@ export default function Address({ navigation }) {
             initialValues={defaultValues}
             validationSchema={schema}
             onSubmit={(values, { setErrors }) =>
-              handleRegister(values, navigation, setErrors, setLoading)
+              handleRegister(values, navigation, setErrors, setLoading, cities)
             }>
             {(props) => (
               <View>
                 <View style={styles.pickerBox}>
+                  {console.log(props.errors)}
                   <Picker
-                    selectedValue={props.values.city}
+                    selectedValue={props.values?.city}
                     style={styles.picker}
-                    onValueChange={props.handleChange("city")}>
-                    <Picker.Item label="Choisissez votre ville" value="" />
-                    {cityData.map((item, index) => (
+                    onValueChange={(itemValue, itemIndex) => {
+                      console.log("itemIndex >>", itemIndex);
+                      console.log("itemValue >>", itemValue);
+                      // setCityId()
+                      props.handleChange("city")(String(itemValue));
+                    }}>
+                    <Picker.Item label="Choisissez votre ville" value=" " />
+                    {cities?.map((item, index) => (
                       <Picker.Item
                         label={item.name}
                         value={item.name}

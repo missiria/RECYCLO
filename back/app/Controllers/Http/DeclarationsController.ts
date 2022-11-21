@@ -7,6 +7,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Collect from '../../Models/Collect'
 import User from 'App/Models/User'
 import Notification from '../../Models/Notification'
+import { createNotification } from 'App/Helpers'
 
 export default class DeclarationsController {
   public async list({ request, response }: HttpContextContract) {
@@ -119,12 +120,15 @@ export default class DeclarationsController {
       })
     }
 
-    await Notification.create({
+    await createNotification({
       type: 'DECLARATION',
-      note: `${user?.first_name} ${user?.last_name} a ${newDeclaration.id} (${newDeclaration.quantity})`,
+      note: `${user?.first_name} ${
+        user?.last_name
+      } a Crée une declaration en ${newDeclaration.createdAt.toLocaleString()} de quantité ${
+        newDeclaration.quantity
+      }`,
       status: 'UNREAD',
-      // @ts-ignore
-      user_id: user.id,
+      user_id: user!.id,
     })
 
     return response.ok({ error: false, message: 'Success' })
@@ -135,22 +139,49 @@ export default class DeclarationsController {
     const user = auth.use('api').user
     const { id } = params
     const { status } = request.body()
-    console.log(status, id)
 
     const declaration = await Declaration.find(id)
     if (!declaration) return response.notFound({ message: 'Declaration non trouvée' })
 
-    declaration.status = status
-    declaration.save()
-
-    await Notification.create({
-      type: 'DECLARATION',
-      note: `${user?.first_name} ${user?.last_name} a modifée la déclaration (${declaration.id}) `,
-      status: 'UNREAD',
-      // @ts-ignore
-      user_id: user.id,
-    })
+    await Promise.all([
+      declaration.merge({ status }).save(),
+      createNotification({
+        type: 'DECLARATION',
+        note: `${
+          user?.fullName
+        } a modifée la declaration en ${declaration.updatedAt.toLocaleString()} de quantité ${
+          declaration.quantity
+        }`,
+        status: 'UNREAD',
+        user_id: user!.id,
+      }),
+    ])
 
     response.ok({ message: 'Declaration modifiée' })
+  }
+
+  // * Delete Declaration
+  public async remove({ auth, params, response }: HttpContextContract) {
+    const user = auth.use('api').user
+    const { id } = params
+
+    const declaration = await Declaration.find(id)
+    if (!declaration) return response.notFound({ message: 'Declaration non trouvée' })
+
+    await Promise.all([
+      declaration.delete(),
+      createNotification({
+        type: 'DECLARATION',
+        note: `${
+          user?.fullName
+        } a supprimée la declaration en ${new Date().toLocaleDateString()} de quantité ${
+          declaration.quantity
+        }`,
+        status: 'UNREAD',
+        user_id: user!.id,
+      }),
+    ])
+
+    response.ok({ message: 'Declaration Supprimée' })
   }
 }

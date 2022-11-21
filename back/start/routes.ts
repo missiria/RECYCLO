@@ -39,9 +39,13 @@ Route.group(() => {
   Route.post('declarations/filtered', 'DeclarationsController.list')
   Route.post('declarations/add', 'DeclarationsController.save')
   Route.put('declarations/update/:id', 'DeclarationsController.update')
+  Route.delete('declarations/delete/:id', 'DeclarationsController.remove')
 
+  // * Notification
   Route.get('notifications/all', 'NotificationsController.getAllNotification')
   Route.get('notifications', 'NotificationsController.getUserNotifications')
+  Route.get('notifications/length', 'NotificationsController.length')
+  Route.post('notifications/create', 'NotificationsController.create')
 
   // * Wallet
   Route.get('wallet/balance', 'WalletsController.getWalletInfo')
@@ -56,12 +60,6 @@ Route.group(() => {
 
   // * Withdrawals
   Route.get('withdrawals', 'WithdrawalsController.getWithdrawal')
-
-  Route.get('notifications/all', 'NotificationsController.getAllNotification')
-
-  // TODO : We should create a public list
-  Route.resource('cities', 'CitiesController').apiOnly()
-  Route.resource('countries', 'CountriesController').apiOnly()
 })
   .prefix('/api/v1')
   .middleware('api_auth')
@@ -69,6 +67,10 @@ Route.group(() => {
 // This route it's public routes
 Route.group(() => {
   Route.post('users', 'UsersController.store')
+
+  // TODO : We should create a public list
+  Route.resource('cities', 'CitiesController').apiOnly()
+  Route.resource('countries', 'CountriesController').apiOnly()
 
   // * Forget password
   Route.post('forget_password', 'UsersController.forget_password')

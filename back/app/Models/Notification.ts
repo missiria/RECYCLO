@@ -9,13 +9,15 @@ export default class Notification extends BaseModel {
   public note: string
 
   @column()
-  public type: string
+  public type: 'DECLARATION' | 'MESSAGE' | 'PAYMENT' | 'POINT' | 'UPDATE'
 
   @hasOne(() => User, {
-    localKey: 'id'
+    foreignKey: 'user_id',
   })
+  public user: HasOne<typeof User>
+
   @column({})
-  public user_id: HasOne<typeof User>
+  public user_id: number
 
   @column()
   public status: string

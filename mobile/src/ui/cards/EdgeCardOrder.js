@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import Icond from "react-native-vector-icons/FontAwesome";
 import i18n from "i18next";
@@ -15,7 +15,7 @@ export function EdgeCardOrder({
   textAction,
   onPressAction,
   styleAction,
-
+  isLoading,
   textAction2,
   onPressAction2,
   styleAction2,
@@ -25,12 +25,12 @@ export function EdgeCardOrder({
   const time = moment(order.created_at, moment.ISO_8601).format("hh:mm");
 
   const type = order?.declaration?.collect?.collect_name;
-  const qty = order.declaration.quantity;
-  const price = order.declaration.collect?.point / 100;
+  const qty = order?.declaration?.quantity;
+  const price = order?.declaration?.collect?.point / 100;
   const total_order = price * qty;
   const frai = total_order * 0.1
   const total = total_order + frai;
-  const client_name = order.declaration.user.fullName;
+  const client_name = order?.declaration?.user.fullName;
 
   const [details, setDetails] = useState(false);
 
@@ -113,7 +113,7 @@ export function EdgeCardOrder({
           )}
           {onPressAction2 && (
             <Text style={[styles.action, styleAction2]} onPress={onPressAction2}>
-              {textAction2}
+              {isLoading ? <ActivityIndicator color={'#fff'} size='small' /> : textAction2}
             </Text>
           )}
         </View>

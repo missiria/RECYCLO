@@ -7,38 +7,103 @@ import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardOrder } from '~/ui/cards/EdgeCardOrder';
+import { useFetch, useLoggedInUser } from '../../../../hooks/hooks';
 
 export default function Accepted({ navigation }) {
 
   const [orders, setOrders] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [declarationId, setDeclarationId] = useState(null)
 
-  const { isLoading, error, data } = useAPI({
-    url: 'orders',
+  // * Single order
+  const [singleOrder, setSingleOrderOrder] = useState({})
+
+  // * Check if "singleOrder" is not an empty object
+  const checker = Object.keys(singleOrder).length !== 0
+
+  const { isLoading: isFetching, error, data, refetch } = useFetch(
+     'orders',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        status: 'CONFIRM'
+      }),
+    }
+  );
+
+
+  const { user } = useLoggedInUser()
+
+  console.log("user >>", user);
+  console.log("data >>", data);
+  console.log("order >>", singleOrder);
+
+  const [createNotification, { isLoading }] = useFetch(`notifications/create`, {
     method: 'POST',
-    data: {
-      status: 'CONFIRM'
-    },
-  },true);
+    body: JSON.stringify({
+
+      note: `Le collecteur ${user?.fullName} a pris la route ( délaration de ${
+        singleOrder?.declaration?.collect?.collect_name
+      } crée en ${
+        new Date(singleOrder?.declaration?.created_at).toLocaleDateString()
+      } )`,
+
+      user_id: singleOrder?.declaration?.user_id,
+      type: 'DECLARATION',
+    })
+  }, true)
+
+  // * When user clicks "Confirmer"
+  const [confirmOrder, { isLoading: isConfirmLoading, data: message }] = useFetch(`orders/${declarationId}/update`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      status: "DONE"
+    })
+  }, true)
+
+  console.log("declarationId >>", declarationId);
 
   useEffect(() => {
     if (data !== null){
       setOrders(data);
     }
-  }, [data]);
+  }, [isFetching]);
+
+  useEffect(() => {
+    if(checker){
+      createNotification()
+      setSingleOrderOrder({})
+    }
+  }, [createNotification])
 
   const textConfirm = i18n.t("menageDemend.confirm");
   const textStartWay = i18n.t("menageDemend.startWay");
 
-  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView>
-      { error !== null ? <Text>{error.message}</Text> : 
-          isLoading ? 
+      { error !== null ? <Text>{error?.message}</Text> : 
+          isFetching ? 
             <ActivityIndicator size="small" color="#ff00ff" />
           :
            orders?.map((order) => (
-            <EdgeCardOrder key={order.id} order={order} textAction={textConfirm} styleAction={styles.buttonLeft} onPressAction={()=>{console.log("onPressAction")}} textAction2={textStartWay} styleAction2={styles.butonRight} onPressAction2={()=>{console.log("onPressAction")}} onPressEdit={()=>{console.log("Edit")}} />
+            <EdgeCardOrder 
+              key={order.id} 
+              order={order} 
+              textAction={textConfirm} 
+              styleAction={styles.buttonLeft} 
+              onPressAction={async () => {
+                setModalVisible(true);
+                setDeclarationId(order.declaration_id)
+              }}
+              isLoading={isLoading}
+              textAction2={checker ? "Vous avez prenez la route" : textStartWay} 
+              styleAction2={styles.buttonRight} 
+              onPressAction2={async () => {
+                setSingleOrderOrder(order)
+              }}
+              onPressEdit={() => console.log("Edit")} 
+            />
           )) 
         }
       </ScrollView>
@@ -62,8 +127,13 @@ export default function Accepted({ navigation }) {
               Voulez-vous vraiment
               confirmer cette ordre ?
             </Text>
-            <Text style={styles.confirmButon}>
-              Confirmer
+            <Text onPress={async () => {
+              await confirmOrder()
+              setDeclarationId(null)
+              await refetch()
+              setModalVisible(false)
+            }} style={styles.confirmButon}>
+              {isConfirmLoading ? <ActivityIndicator color={'#fff'} size='small' /> : "Confirmer"}
             </Text>
 
             <Text
@@ -196,7 +266,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
   },
-  butonRight: {
+  buttonRight: {
     backgroundColor: '#33CC66',
     padding: 9,
     borderRadius: 5,

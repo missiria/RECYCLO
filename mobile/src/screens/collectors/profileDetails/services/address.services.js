@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import apiClient from "../../../../api/client";
+import apiClient, { axiosInstance } from "../../../../api/client";
 import {getData,storeData} from "../../../../hooks/hooks";
 
 export const defaultValues = {
@@ -12,11 +12,12 @@ export const schema = yup.object().shape({
     neighborhood: yup.string().required("neighborhood is required").min(2).max(200),
 });
 
-export const handleRegister = async (userData, navigation, setErrors, setLoading) => {
+export const handleRegister = async (userData, navigation, setErrors, setLoading, cities) => {
     setLoading(true)
     const user = await getData('user');
-    
-    apiClient.put("accounts", {
+
+    axiosInstance.put("accounts/update", {
+        'city_id': cities.find((city) => city.name === userData.city)?.id,
         'city' : userData.city,
         'address' : userData.neighborhood,
     },{ headers: { 'Authorization': user.auth.type+' '+user.auth.token }, }).then((response) => {
