@@ -122,6 +122,7 @@ import MenageModePayment from "../screens/menages/payments/MenageModePayment";
 import MenageAddCreditCard from "../screens/menages/payments/MenageAddCreditCard";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import GiveFeedback from "../screens/feedback/GiveFeedback";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -133,8 +134,7 @@ const RootStack = () => {
           gestureEnabled: true,
           gestureDirection: "horizontal",
           animation: "none",
-        }}
-      >
+        }}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Language" component={Language} />
         <Stack.Screen name="Hello" component={Welcome} />
@@ -606,6 +606,16 @@ const RootStack = () => {
           name="CollectLanguages"
           component={CollectLanguages}
         />
+        <Stack.Screen name="Feedback"
+          options={{
+            headerShown: true,
+            title: "Feedback",
+            headerTitleAlign: "center",
+            headerTintColor: "#33CC66",
+            headerShadowVisible: false,
+          }} 
+          component={GiveFeedback} 
+          />
         <Stack.Screen
           options={{
             headerShown: true,

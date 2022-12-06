@@ -15,7 +15,7 @@ export default function FeedbackSentPopup({ navigation, visible, setVisible }) {
                 <View  style={styles.modalView}>
                     <Image
                         style={styles.img}
-                        source={require('../../../assets/images/done.png')}
+                        source={require('../../assets/images/done.png')}
                     />
                     <Text style={styles.textModal}>
                         Merci

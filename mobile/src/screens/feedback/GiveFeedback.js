@@ -2,6 +2,8 @@ import { ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import FeedbackSentPopup from "./FeedbackSentPopup";
+import { useFetch } from "../../hooks/hooks";
+import { ActivityIndicator } from "react-native-paper";
 
 
 export default function GiveFeedback({navigation}) {
@@ -9,12 +11,23 @@ export default function GiveFeedback({navigation}) {
   const [feedback, setFeedback] = React.useState("");
   const [feedbackSubmitted, setFeedbackSubmitted] = React.useState(false);
 
+  // * Call to api
+  const [createReview, { isLoading }] = useFetch("feedback/create", {
+    method: 'POST',
+    body: JSON.stringify({
+      comment: feedback,
+      star_rating: starRating
+    })
+  }, true)
+
   const onStarRatingPress = (rating) => {
     setStarRating(rating);
   };
 
-  const onFeedbackSubmit = (bool) => {
+  const onFeedbackSubmit = async (bool) => {
     setFeedbackSubmitted(bool);
+    setFeedback('')
+    await createReview()
   };
   return (
     <View style={styles.container}>
@@ -75,10 +88,10 @@ export default function GiveFeedback({navigation}) {
       <View style={styles.btnBoxDec}>
         <Text
           // onPress={() => navigation.navigate("DeclarationSuccess")}
-          onPress={() => setFeedbackSubmitted(true)}
+          onPress={() => onFeedbackSubmit(true)}
           style={styles.btnDeclar}
         >
-          Envoyer
+          {isLoading ? <ActivityIndicator color="#fff" /> : "Envoyer"}
         </Text>
       </View>
     </View>
