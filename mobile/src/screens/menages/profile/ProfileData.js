@@ -19,18 +19,24 @@ export const ProfileData = [
     },
     {
         id: 4,
+        title: 'Feedback',
+        icon : 'wallet',
+        goTo : 'Feedback', 
+    },
+    {
+        id: 5,
         title: 'FAQs',
         icon : 'message1',
         goTo : 'FAQs',
     },
     {
-        id: 5,
+        id: 6,
         title: 'Support',
         icon : 'exception1',
         goTo : 'CollectSupport',
     },
     {
-        id: 6,
+        id: 7,
         title: 'Déconnexion',
         icon : 'logout',
         goTo : 'Logout',

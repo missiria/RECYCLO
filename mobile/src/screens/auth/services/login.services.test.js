@@ -47,7 +47,7 @@ describe('API auth handles', () => {
     test.skip('handleLogin - failed with status 500 or 400', async () => {
         // GIVEN
             let login = {
-                phone: '0656560552',
+            phone: '0656560552',
             password: 'c++'
         }
 
@@ -56,5 +56,18 @@ describe('API auth handles', () => {
 
         // THEN
         expect(response.setErrors.api).toBe('You need to activate your account')
+    });
+    test.skip('handleLogin - Check if user has an active account', async () => {
+        // GIVEN
+            let login = {
+            phone: '0656560552',
+            password: 'c++'
+        }
+
+        // WHEN
+        const response = handleLogin(login, navigation, setErrors, loader);
+
+        // THEN
+        expect(response.data.active).toBe(1)
     });
 })

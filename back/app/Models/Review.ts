@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import User from 'App/Models/User';
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import User from 'App/Models/User'
+import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Review extends BaseModel {
   @column({ isPrimary: true })
@@ -9,11 +9,19 @@ export default class Review extends BaseModel {
   @column()
   public comment: string
 
+  // @column()
+  // public account_id: number
   @column()
-  public account_id: number
+  public active: boolean
 
   @column()
-  public category_id: number
+  public user_id: number
+
+  @column()
+  public star_rating: number
+
+  // @column()
+  // public category_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -21,7 +29,8 @@ export default class Review extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => User)
-  public users: HasMany<typeof User>
-
+  @hasOne(() => User, {
+    localKey: 'user_id',
+  })
+  public user: HasOne<typeof User>
 }
