@@ -6,11 +6,12 @@ import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardOrder } from '~/ui/cards/EdgeCardOrder';
+import { useFetch } from '../../../hooks/hooks';
 
 export default function InProgress() {
   
   const [orders, setOrders] = useState([]);
-
+  console.log(orders)
   const { isLoading, error, data } = useAPI({
     url: 'orders',
     method: 'POST',
@@ -18,6 +19,16 @@ export default function InProgress() {
       status: 'PENDING'
     },
   },true);
+
+  // * Cancel Order
+  const [trigger, { data: message, isLoading: isOrderUpdateLoading }] = useFetch(undefined, {
+    method: "PUT",
+    body: JSON.stringify({
+      status: "CANCELED"
+    })
+  }, true)
+
+  console.log(message);
 
   useEffect(() => {
     if (data !== null){
@@ -35,7 +46,7 @@ export default function InProgress() {
             <ActivityIndicator size="small" color="#ff00ff" />
           :
           orders != undefined && orders.map((order) => (
-            <EdgeCardOrder key={order.id} order={order} textAction={textAction} styleAction={styles.actionNotReady} onPressAction={()=>{console.log("onPressAction")}} onPressEdit={()=>{console.log("Edit")}} />
+            <EdgeCardOrder key={order.id} order={order} textAction={textAction} styleAction={styles.actionNotReady} onPressAction={()=>trigger(`orders/${order.declaration_id}/update`)} onPressEdit={()=>{console.log("Edit")}} />
           )) 
         }
       </ScrollView>

@@ -3,6 +3,7 @@ import Order from 'App/Models/Order'
 import Declaration from 'App/Models/Declaration'
 import OrderForm from 'App/Validators/OrderFormValidator'
 import Notification from '../../Models/Notification'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
 export default class OrdersController {
   public async index({ auth, request, response }) {
@@ -24,8 +25,9 @@ export default class OrdersController {
     return response.ok(orders)
   }
 
-  public async accept({ auth, params, response }) {
-    const { id }: { id: number } = params
+  public async accept({ auth, params, response }: HttpContextContract) {
+    const { id } = params
+
     const user = auth.use('api').user
 
     const declaration = await Declaration.find(id)
@@ -36,20 +38,49 @@ export default class OrdersController {
 
     const newOrder: Order = await Order.create({
       declaration_id: id,
-      user_id: user.id,
+      user_id: user?.id,
       status: 'PENDING',
     })
 
-    declaration.status = 'PAID'
+    declaration.status = 'VALID'
     declaration.save()
 
     // * Create notifications
     await Notification.create({
-      note: `${user.first_name} ${user.last_name} a ${newOrder.id} (${declaration.quantity})`,
-      type: "DECLARATION",
-      status: "UNREAD"
+      note: `le collecteur ${user?.first_name} ${user?.last_name} a validée la déclaration`,
+      // TODO: which type is this notification
+      type: "UPDATE",
+      status: "UNREAD",
+      // @ts-ignore
+      user_id: user?.id,
     })
 
     return response.ok({ error: false, message: 'Success', order: newOrder })
+  }
+
+  public async updateOrder({ auth, params, request, response }: HttpContextContract){
+    const { id } = params
+    const { status } = request.body()
+    const user = auth.use('api').user
+
+    const declaration = await Declaration.find(id)
+    const order = await Order.findBy("declaration_id", declaration?.id)
+
+    if (!declaration || !order) {
+      return response.notFound({ message: 'Element non trouvé' })
+    }
+
+    await order.merge({ status }).save()
+
+    // * Create notifications
+    await Notification.create({
+      note: `${user?.first_name} ${user?.last_name} Modifier la declaration ${declaration.id} `,
+      type: "UPDATE",
+      status: "UNREAD",
+      // @ts-ignore
+      user_id: user?.id
+    })
+
+    response.ok({ message: "Order modifiée" })
   }
 }

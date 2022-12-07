@@ -3,7 +3,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class Declarations extends BaseSchema {
   protected tableName = 'declarations'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.integer('collect_id')
@@ -17,7 +17,7 @@ export default class Declarations extends BaseSchema {
       table.float('price', 5)
       table.enum('status', ['PENDING', 'VALID', 'CANCELED', 'PAID'])
       table.string('date')
-      table.enum('time', ['08:00 - 12:00', '12:00 - 16:00','16:00 - 20:00','20:00 - 00:00'])
+      table.enum('time', ['08:00 - 12:00', '12:00 - 16:00', '16:00 - 20:00', '20:00 - 00:00'])
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
@@ -27,7 +27,7 @@ export default class Declarations extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

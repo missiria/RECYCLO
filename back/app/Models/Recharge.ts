@@ -15,6 +15,9 @@ export default class Recharge extends BaseModel {
   public amount: number
 
   @column()
+  public phone: string
+
+  @column()
   public type: string
 
   @column()

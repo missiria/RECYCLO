@@ -27,7 +27,7 @@ export default function TransformationSuccess({navigation}) {
                             Portefeuille
                         </Text>
                         <Text 
-                            onPress={() => navigation.navigate("Home")}
+                            onPress={() => navigation.navigate("MenageHome")}
                             style={styles.textBtnTwo}>
                             domicile
                         </Text>

@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import bankType from '../../../../assets/images/bb.png'
 
-export default function ChooseTypeMoneyTransfer({ navigation }) {
-
+export default function ChooseTypeMoneyTransfer({ navigation, route }) {
+    const { amount } = route.params
+    console.log(amount);
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     const [isEnabledTwo, setIsEnabledTwo] = useState(false);
-    const toggleSwitchTwho = () => setIsEnabledTwo(previousState => !previousState);
+    const toggleSwitchTwo = () => setIsEnabledTwo(previousState => !previousState);
 
     const [isEnabledTree, setIsEnabledTree] = useState(false);
     const toggleSwitchTree = () => setIsEnabledTree(previousState => !previousState);
@@ -21,7 +22,7 @@ export default function ChooseTypeMoneyTransfer({ navigation }) {
                     <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 22, }}>
                         Retrait d'argent
                     </Text>
-                    <View>
+                    {/* <View>
                         <Text style={{ color: '#262626', marginTop: 30, fontSize: 14, }}>Versement au compte bancaire</Text>
                         <View style={styles.boxVers}>
                             <View style={styles.topOfBox}>
@@ -42,18 +43,18 @@ export default function ChooseTypeMoneyTransfer({ navigation }) {
                                 <Text style={{ fontSize: 13, }}>Opération 100% sécurisé</Text>
                             </View>
                         </View>
-                    </View>
+                    </View> */}
 
                     <View>
-                        <Text style={{ color: '#262626', marginTop: 30, fontSize: 14, }}>Je retire l'argent via app bancaire</Text>
+                        <Text style={{ color: '#262626', marginTop: 30, fontSize: 14, }}>Je retire l'argent via mon compte bancaire</Text>
                         <View style={styles.boxVers}>
                             <View style={styles.topOfBox}>
-                                <Text style={{ fontWeight: 'bold' }}>Retrait via app bancaire</Text>
+                                <Text style={{ fontWeight: 'bold' }}>Retrait via compte bancaire</Text>
                                 <Switch
                                     trackColor={{ false: "#767577", true: "#B3FFCA" }}
                                     thumbColor={isEnabledTwo ? "#33CC66" : "#f4f3f4"}
                                     ios_backgroundColor="#B3FFCA"
-                                    onValueChange={toggleSwitchTwho}
+                                    onValueChange={toggleSwitchTwo}
                                     value={isEnabledTwo}
                                 />
                             </View>
@@ -92,9 +93,9 @@ export default function ChooseTypeMoneyTransfer({ navigation }) {
                 <View style={styles.boxBtn}>
                     <Text
                         onPress={
-                            isEnabled ? () => navigation.navigate("WithBank") :
-                                isEnabledTwo ? () => navigation.navigate("DescScreen") :
-                                    isEnabledTree ? () => navigation.navigate("DescScreenT") : null
+                            // isEnabled ? () => navigation.navigate("WithBank", { action: "TRANSFER" }) :
+                                isEnabledTwo ? () => navigation.navigate("WithBank", { action: "TRANSFER", amount }) :
+                                    isEnabledTree ? () => navigation.navigate("DescScreenT", { action: "ATM", amount }) : null
                         }
                         style={
                             isEnabled ? styles.btnNext :

@@ -93,7 +93,7 @@ import CollectorOrders from "../screens/collectors/orders/CollectorOrders";
 import EditeAccepted from "../screens/collectors/orders/Accepte/EditeAccepted";
 
 // Wallet COLLECTOR
-import CollecttorWallet from "../screens/collectors/wallet/CollecttorWallet";
+import CollectorWallet from "../screens/collectors/wallet/CollectorWallet";
 import Deposit from "../screens/collectors/wallet/deposit/Deposit";
 import CollectorAddCard from "../screens/collectors/wallet/deposit/payments/CollectorAddCard";
 import AddCardInfo from "../screens/collectors/wallet/deposit/payments/AddCardInfo";
@@ -123,6 +123,10 @@ import MenageAddCreditCard from "../screens/menages/payments/MenageAddCreditCard
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import GiveFeedback from "../screens/feedback/GiveFeedback";
+import MenageBankDetails from "../screens/menages/profile/transferMoney/menageBankAddCard/MenageBankDetails";
+import TransactionSuccess from "../screens/menages/wallet/TransactionSuccess";
+import CollectorBankDetails from "../screens/collectors/wallet/CollectorBankDetails";
+import CollectorTypeTransfer from "../screens/collectors/wallet/withdrawal/CollectorTypeTransfer";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -283,6 +287,33 @@ const RootStack = () => {
           }}
           name="MenageAddCardInfo"
           component={MenageAddCardInfo}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Ajouter les details du compte",
+            headerTitleAlign: "center",
+            headerTintColor: "#33CC66",
+            headerShadowVisible: false,
+          }}
+          name="MenageBankDetails"
+          component={MenageBankDetails}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Ajouter les details du compte",
+            headerTitleAlign: "center",
+            headerTintColor: "#33CC66",
+            headerShadowVisible: false,
+          }}
+          name="CollectorBankDetails"
+          component={CollectorBankDetails}
+        />
+        {/* CollectorBankDetails */}
+        <Stack.Screen
+          name="TransactionSuccess"
+          component={TransactionSuccess}
         />
         <Stack.Screen name="TransSuccess" component={TransformationSuccess} />
         <Stack.Screen
@@ -663,8 +694,8 @@ const RootStack = () => {
             headerTintColor: "#33CC66",
             headerShadowVisible: false,
           }}
-          name="CollecttorWallet"
-          component={CollecttorWallet}
+          name="CollectorWallet"
+          component={CollectorWallet}
         />
         <Stack.Screen
           options={{
@@ -735,6 +766,17 @@ const RootStack = () => {
           }}
           name="CollectorWithdrawalAddCard"
           component={CollectorWithdrawalAddCard}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Retirer",
+            headerTitleAlign: "center",
+            headerTintColor: "#33CC66",
+            headerShadowVisible: false,
+          }}
+          name="CollectorTypeTransfer"
+          component={CollectorTypeTransfer}
         />
         <Stack.Screen
           options={{

@@ -7,14 +7,11 @@ import { Data } from "./NotificationTestFakeData";
 import EmptyNotification from "./NotificationEmpty";
 import { getData, useFetch, useLoggedInUser } from "../../../hooks/hooks";
 
-export default function Notification({ navigation }) {
-  const { user } = useLoggedInUser()
+import moment from 'moment'
 
-  const { data } = useFetch("notifications/all", {
+export default function Notification({ navigation }) {
+  const { data } = useFetch("notifications", {
     method: "GET",
-    headers: {
-      Authorization: `${user?.auth?.type} ${user?.auth?.token}`,
-    },
   });
 
   const showNotifications = () => {
@@ -29,9 +26,9 @@ export default function Notification({ navigation }) {
         data?.map((item) => (
           <NotificationItems
             key={item}
-            title={item.title}
-            time={item.time}
-            date={item.date}
+            title={item.note}
+            time={new Date(item.created_at).toLocaleDateString()}
+            date={moment(item.created_at).fromNow()}
           />
         ))
       );

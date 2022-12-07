@@ -9,28 +9,33 @@ import {
 import { useState, useEffect } from "react";
 import i18n from "i18next";
 
-import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
+import { useFetch } from "../../../hooks/hooks";
 
 export default function InProgress() {
   const [declarations, setDeclarations] = useState([]);
-  const { isLoading, error, data } = useAPI(
-    {
-      url: "declarations",
-      method: "POST",
-      data: {
-        status: "PENDING",
-      },
-    },
-    true
-  );
+
+  // * Fetch Declarations
+  const { data, isLoading, error, refetch } = useFetch("declarations", {
+    method: "POST",
+    body: JSON.stringify({
+      status: "PENDING",
+    })
+  })
+
+  // * When the user clicks "Annuler"
+  const [trigger, {}] = useFetch(undefined, {
+    method: "PUT",
+    body: JSON.stringify({
+      status: "CANCELED",
+    })
+  }, true)
 
   useEffect(() => {
     if (data !== null) {
       setDeclarations(data);
-      console.log(data);
     }
-  }, [data]);
+  }, [isLoading]);
 
   console.log("data >>",  data)
 
@@ -41,9 +46,8 @@ export default function InProgress() {
         {error !== null ? (
           <Text>{error.message}</Text>
         ) : isLoading ? (
-          <ActivityIndicator size="small" color="#ff00ff" />
+          <ActivityIndicator size="large" color="#ff00ff" />
         ) : (
-          declarations &&
           declarations?.map((declaration) => (
             <EdgeCardDemande
               key={declaration.id}
@@ -55,6 +59,10 @@ export default function InProgress() {
               }}
               onPressCancel={() => {
                 console.log("Cancelled");
+                trigger(`declarations/update/${declaration.id}`)
+
+                // * Refetch
+                refetch()
               }}
             />
           ))

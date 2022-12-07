@@ -19,13 +19,13 @@ export default class WalletsController {
     const DATE = new Date()
     const LAST_MONTH = new Date(DATE.setMonth(DATE.getMonth() - 1))
 
-    const lastMonthDeclarations = await Declaration.query().where('created_at', '<', LAST_MONTH)
+    const lastMonthDeclarations = await Declaration.query().preload('collect').where('status', 'PAID').where('created_at', '<', LAST_MONTH)
     const lastMonthAmount = lastMonthDeclarations.reduce((acc, curr) => {
       return acc + curr.collect.point / 100
     }, 0)
-
     // * the percentage
-    const percentage = (Math.abs(amount - lastMonthAmount) / lastMonthAmount) * 100
+    const percentage = (Math.abs(amount - lastMonthAmount) / (lastMonthAmount == 0 ? 1 : lastMonthAmount)) / 100
+    console.log("percentage >>", percentage)
 
     return response.ok({ amount, percentage })
   }

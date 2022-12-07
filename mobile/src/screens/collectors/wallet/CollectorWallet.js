@@ -4,12 +4,14 @@ import FooterNav from '../navigation/FooterNav';
 import Icon from 'react-native-vector-icons/AntDesign'
 import poser from '../../../assets/images/poser.png'
 import i18n from "i18next";
+import { currencyFormat, useFetch } from '../../../hooks/hooks';
+import moment from 'moment';
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-export default function CollecttorWallet({ navigation }) {
+export default function CollectorWallet({ navigation }) {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -18,6 +20,14 @@ export default function CollecttorWallet({ navigation }) {
         wait(2000).then(() => setRefreshing(false));
     }, []);
 
+    // * get balance
+    const { data, isLoading } = useFetch("wallet/balance", {
+        method: "GET"
+    })
+
+    const { data: transactions, isLoading: isTransactionsLoading } = useFetch("payment/transactions", {
+        method: "GET"
+    })
 
     return (
         <View style={styles.container}>
@@ -34,7 +44,7 @@ export default function CollecttorWallet({ navigation }) {
                         <Text style={styles.textBtm}>Solde actuel</Text>
                         <View style={styles.cartbody}>
                             <View style={styles.priceBox}>
-                                <Text style={styles.price}>2000,00</Text>
+                                <Text style={styles.price}>{isLoading ? "Chargement..." : 2000.00}</Text>
                                 <Text style={styles.dh}>Dhs</Text>
                             </View>
                             <View style={styles.ben}>
@@ -54,7 +64,7 @@ export default function CollecttorWallet({ navigation }) {
 
                     <View style={styles.boxs}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate("Deposit")}
+                            onPress={() => navigation.navigate("Deposit", { action: "DEPOSIT", amount: data?.amount })}
                             style={styles.box}>
                             <Image
                                 style={styles.iconTop}
@@ -66,7 +76,7 @@ export default function CollecttorWallet({ navigation }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => navigation.navigate("CollectorWithdrawal")}
+                            onPress={() => navigation.navigate("CollectorTypeTransfer", { action: "TRANSFER", amount: data?.amount })}
                             style={styles.box}>
                             <Image
                                 style={styles.iconTop}
@@ -96,117 +106,43 @@ export default function CollecttorWallet({ navigation }) {
                         </Text>
                     </View>
                     <View style={styles.bodyScreenCardsBoxs}>
-                        <TouchableOpacity style={styles.bodyBoxCard}>
-                            <View style={styles.boxContetnLeft}>
-                                <View>
-                                    <Image
-                                        source={poser}
-                                        style={styles.iconBody}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={styles.cardTitle}>
-                                        Transfer de grossiste
-                                    </Text>
-                                    <View style={styles.textDateTime}>
-                                        <Text style={styles.date}>18-04-2022</Text>
-                                        <Text style={styles.date}>18:22</Text>
+                        {transactions?.map((transaction) => (
+                            <>
+                                <TouchableOpacity style={styles.bodyBoxCard}>
+                                    <View style={styles.boxContetnLeft}>
+                                        <View>
+                                            <Image
+                                                source={poser}
+                                                style={styles.iconBody}
+                                            />
+                                        </View>
+                                        <View>
+                                            <Text style={styles.cardTitle}>
+                                                {transaction?.action === "TRANSFER" ? 'Transfer'
+                                                    : transaction?.action === "DEPOSIT" ? 'Versement'
+                                                    : "Guichet" }
+                                            </Text>
+                                            <View style={styles.textDateTime}>
+                                                <Text style={styles.date}>
+                                                    {new Date(transaction?.created_at).toLocaleDateString()}
+                                                </Text>
+                                                <Text style={styles.date}>{moment(transaction?.created_at).fromNow()}</Text>
+                                            </View>
+                                        </View>
                                     </View>
-                                </View>
-                            </View>
-                            <View style={styles.boxContetnRight}>
-                                <Text style={styles.boxPriceGreen}>
-                                    +700.00 Dhs
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-
-
-                        <View style={styles.miniBreakLine}></View>
-
-
-                        <TouchableOpacity style={styles.bodyBoxCard}>
-                            <View style={styles.boxContetnLeft}>
-                                <View>
-                                    <Image
-                                        source={poser}
-                                        style={styles.iconBody}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={styles.cardTitle}>
-                                        Transfer de grossiste
-                                    </Text>
-                                    <View style={styles.textDateTime}>
-                                        <Text style={styles.date}>18-04-2022</Text>
-                                        <Text style={styles.date}>18:22</Text>
+                                    <View style={styles.boxContetnRight}>
+                                        <Text style={(transaction?.action === "TRANSFER") ? styles.boxPriceGreen : styles.boxPriceBlue}>
+                                            {
+                                                transaction?.action === "TRANSFER" ? '+'
+                                                : transaction?.action === "DEPOSIT" ? '-'
+                                                : "+"
+                                            }{' '}{currencyFormat(transaction?.amount)}
+                                        </Text>
                                     </View>
-                                </View>
-                            </View>
-                            <View style={styles.boxContetnRight}>
-                                <Text style={styles.boxPriceBlue}>
-                                    -10.50 Dh
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-
-
-                        <View style={styles.miniBreakLine}></View>
-
-
-                        <TouchableOpacity style={styles.bodyBoxCard}>
-                            <View style={styles.boxContetnLeft}>
-                                <View>
-                                    <Image
-                                        source={poser}
-                                        style={styles.iconBody}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={styles.cardTitle}>
-                                        Transfer de grossiste
-                                    </Text>
-                                    <View style={styles.textDateTime}>
-                                        <Text style={styles.date}>18-04-2022</Text>
-                                        <Text style={styles.date}>18:22</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={styles.boxContetnRight}>
-                                <Text style={styles.boxPriceBlue}>
-                                    -10.50 Dh
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <View style={styles.miniBreakLine}></View>
-
-                        <TouchableOpacity style={styles.bodyBoxCard}>
-                            <View style={styles.boxContetnLeft}>
-                                <View>
-                                    <Image
-                                        source={poser}
-                                        style={styles.iconBody}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={styles.cardTitle}>
-                                        Transfer de grossiste
-                                    </Text>
-                                    <View style={styles.textDateTime}>
-                                        <Text style={styles.date}>18-04-2022</Text>
-                                        <Text style={styles.date}>18:22</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={styles.boxContetnRight}>
-                                <Text style={styles.boxPriceGreen}>
-                                    +700.00 Dhs
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-
-
+                                </TouchableOpacity>
+                                <View style={styles.miniBreakLine}></View>
+                            </>
+                        ))}
                     </View>
                 </View>
             </ScrollView>
@@ -239,12 +175,14 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         flexDirection: 'row',
     },
+    
     price: {
         marginRight: 5,
         fontSize: 25,
         color: 'white',
         fontWeight: 'bold'
     },
+    
     dh: {
         color: 'white',
         fontWeight: 'bold'

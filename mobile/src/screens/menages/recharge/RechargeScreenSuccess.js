@@ -20,7 +20,7 @@ export default function RechargeScreenSuccess({ navigation }) {
                 </View>
                 <View style={styles.btns}>
                     <Text onPress={() => navigation.navigate('DeclarationsIndex')} style={styles.btnBolded}>Ma pochette</Text>
-                    <Text onPress={() => navigation.navigate("Home")} style={styles.btnLighted}>HOME</Text>
+                    <Text onPress={() => navigation.navigate("MenageHome")} style={styles.btnLighted}>HOME</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>

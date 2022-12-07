@@ -33,7 +33,7 @@ export default function Accepted() {
     if (data !== null) {
       setDeclarations(data);
     }
-  }, [data]);
+  }, [isLoading]);
 
   const textAction = i18n.t("menageDemend.confirm");
   /*

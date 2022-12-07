@@ -8,6 +8,7 @@ import {
   Platform,
   Alert,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import FooterNav from "../navigations/FooterNav";
@@ -20,6 +21,8 @@ import { UPLOAD_FOLDER_URL } from "~/api/constants";
 import deshetImg from "../../../assets/images/t.png";
 import coinImg from "../../../assets/images/coin.png";
 import i18n from "i18next";
+import { axiosInstance } from "../../../api/client";
+import { useFetch } from "../../../hooks/hooks";
 
 export default function CollectDetails({ navigation, route }) {
   const [date, setDate] = useState(new Date());
@@ -29,8 +32,7 @@ export default function CollectDetails({ navigation, route }) {
   const [timeDeclaration, setTimeDeclaration] = useState("9 AM - 12 PM");
   const [quantity, setQuantity] = useState(5);
 
-  const price = Number(route.params?.collect.point ?? 1000) / 100;
-
+  const price = Number(route.params?.collect.point) / 100;
   // TODO : Use moment library to get months
   const months = [
     "Janvier",
@@ -79,68 +81,30 @@ export default function CollectDetails({ navigation, route }) {
     showMode("date");
   };
 
-  const Data = [
-    {
-      id: 1,
-      text: "Bouteilles d'huile",
-    },
-    {
-      id: 2,
-      text: "Sacs et emballages",
-    },
-    {
-      id: 3,
-      text: "Pots de yaourts, etc....",
-    },
-  ];
-
-  //declarer button function
-  const declaryDeshet = () => {
-    Alert.alert(" You Chose Date : " + text + " At : " + timeDeclaration);
-  };
-
   //check if the quantity is less than 5 and return error
   if (quantity < 5) {
     Alert.alert("You Must Declare at least 5 Kg");
     setQuantity(5);
   }
 
+  const [trigger, { data, isLoading }] = useFetch("declarations/add", {
+    method: 'POST',
+    body: JSON.stringify({
+      date: date.toLocaleDateString(),
+      time: timeDeclaration,
+      quantity: quantity,
+      price: price,
+      collect_id: route.params?.collect.id,
+    })
+  }, true)
+
   const onSubmitDeclare = async () => {
     if (mode == "date") {
-      let dateDeclaration =
-        date.getDate().toString().padStart(2, "0") +
-        "/" +
-        parseInt(date.getMonth() + 1)
-          .toString()
-          .padStart(2, "0") +
-        "/" +
-        date.getFullYear();
+      console.log(timeDeclaration)
+      await trigger()
+      console.log("declaration created >> ", data);
 
-      const data = {
-        dateDeclaration: dateDeclaration,
-        timeDeclaration: timeDeclaration,
-        quantity: quantity,
-        price: price,
-        collectId: route.params?.collect.id,
-      };
-
-      // TODO : Next version
-      // navigation.navigate("CollectDetailsUploadImages", {
-      //   dateDeclary: dateDeclary,
-      //   timeDeclaration: timeDeclaration,
-      //   quantity: quantity,
-      //   price: price,
-      //   collectId: route.params?.collect.id,
-      // });
-
-      // TODO : Add api post to save declaration
-      // EDGE 1019 : Home / Collects (Menages)
-      const response = await axiosInstance.post("declaration", data);
-      if (response.status > 400) {
-        return setErrors(setErrorsAPI(response.data.errors));
-      }
-
-      navigation.navigate("DeclaredSuccess", data);
+      navigation.navigate("DeclarationSuccess", data);
     } else Alert.alert("select date");
   };
 
@@ -214,38 +178,38 @@ export default function CollectDetails({ navigation, route }) {
           <View>
             <Text
               style={
-                timeDeclary === "08:00 - 12:00"
+                timeDeclaration === "08:00 - 12:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("08:00 - 12:00")}>
+              onPress={() => setTimeDeclaration("08:00 - 12:00")}>
               9 AM - 12 PM
             </Text>
             <Text
               style={
-                timeDeclary === "12:00 - 16:00"
+                timeDeclaration === "12:00 - 16:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("12:00 - 16:00")}>
+              onPress={() => setTimeDeclaration("12:00 - 16:00")}>
               12 PM - 3 PM
             </Text>
             <Text
               style={
-                timeDeclary == "16:00 - 20:00"
+                timeDeclaration == "16:00 - 20:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("16:00 - 20:00")}>
+              onPress={() => setTimeDeclaration("16:00 - 20:00")}>
               3 PM - 6 PM
             </Text>
             <Text
               style={
-                timeDeclary == "20:00 - 00:00"
+                timeDeclaration == "20:00 - 00:00"
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclary("20:00 - 00:00")}>
+              onPress={() => setTimeDeclaration("20:00 - 00:00")}>
               6 PM - 9 PM
             </Text>
             <View style={styles.quantityBox}>
@@ -276,10 +240,10 @@ export default function CollectDetails({ navigation, route }) {
           <View style={styles.btnBoxDec}>
             <Text
               // onPress={() => navigation.navigate("DeclarationSuccess")}
-              //onPress={() => navigation.navigate("CollectDetailsUploadImages")}
+              // onPress={() => navigation.navigate("CollectDetailsUploadImages")}
               onPress={() => onSubmitDeclare()}
               style={styles.btnDeclaration}>
-              {i18n.t("introduction.next")}
+              {isLoading ? <ActivityIndicator color={'#fff'} /> : i18n.t("introduction.next")}
             </Text>
           </View>
         </View>

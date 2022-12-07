@@ -7,7 +7,7 @@ export default class Accounts extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
 
-      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE') // delete post when user is deleted
+      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
 
       table.unique(['user_id'])
 
@@ -32,6 +32,7 @@ export default class Accounts extends BaseSchema {
       table.string('address', 255)
       table.integer('city_id').unsigned().references('cities.id').onDelete('CASCADE')
 
+      table.string('country')
       table.string('nationality', 255)
       table.integer('zip_code', 18)
 

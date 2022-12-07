@@ -9,6 +9,7 @@ export default class Notifications extends BaseSchema {
       table.string('note', 255)
       table.enum('type', ['DECLARATION', 'MESSAGE', 'PAYMENT', 'POINT', 'UPDATE'])
       table.enum('status', ['READ', 'UNREAD'])
+      table.integer('user_id').unsigned().references("users.id")
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
@@ -16,6 +17,7 @@ export default class Notifications extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
+
   }
 
   public async down () {

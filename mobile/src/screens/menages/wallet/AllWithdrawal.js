@@ -2,19 +2,23 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react';
 import EmptyData from './EmptyData';
 import i18next from 'i18next';
+import { currencyFormat, useFetch } from '../../../hooks/hooks';
 
 export default function AllWithdrawal() {
+  const { data } = useFetch("withdrawals", {})
   return (
     <View style={styles.container}>
       <ScrollView>
-      
+        {data?.map((item) => (
+
         <View style={styles.boxItem}> 
           <Text style={{ fontWeight:'bold', }}>{i18next.t('wallet.via-gechet')}</Text>
           <View style={styles.AllWithdrawal}>
-            <Text>18:22    18-04-2022</Text>
-            <Text style={styles.price}>100.00 {i18next.t('wallet.dh')}</Text>
+            <Text>{new Date(item.created_at).toLocaleDateString()}</Text>
+            <Text style={styles.price}>{currencyFormat(item.amount)}</Text>
           </View>
         </View>
+        ))}
 
         <View style={styles.boxItem}> 
           <Text style={{ fontWeight:'bold', }}>{i18next.t('wallet.via_app')}</Text>

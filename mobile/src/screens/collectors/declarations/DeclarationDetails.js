@@ -82,7 +82,7 @@ export default function DeclarationDetails({navigation, route }) {
                                     name='map-marker-outline'
                                 />
                                 <Text style={styles.descUserMap}>
-                                    {declaration.user.account?.city.name},{declaration.user.account?.country}
+                                    {declaration.user.account?.city?.name},{declaration.user.account?.country}
                                 </Text>
                             </View>
                         </View>

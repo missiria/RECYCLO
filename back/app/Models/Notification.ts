@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import User from 'App/Models/User';
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import User from 'App/Models/User'
+import { BaseModel, column, hasMany, HasMany, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 export default class Notification extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -10,6 +10,12 @@ export default class Notification extends BaseModel {
 
   @column()
   public type: string
+
+  @hasOne(() => User, {
+    localKey: 'id'
+  })
+  @column({})
+  public user_id: HasOne<typeof User>
 
   @column()
   public status: string
