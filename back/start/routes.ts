@@ -59,6 +59,10 @@ Route.group(() => {
 
   Route.get('notifications/all', 'NotificationsController.getAllNotification')
 
+  // * Feedback (Reviews)
+  Route.post('feedback/create', 'ReviewsController.createReview')
+  Route.get('feedback', 'ReviewsController.getReviewsByUserId')
+
   // TODO : We should create a public list
   Route.resource('cities', 'CitiesController').apiOnly()
   Route.resource('countries', 'CountriesController').apiOnly()

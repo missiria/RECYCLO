@@ -122,6 +122,7 @@ import MenageModePayment from "../screens/menages/payments/MenageModePayment";
 import MenageAddCreditCard from "../screens/menages/payments/MenageAddCreditCard";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import GiveFeedback from "../screens/feedback/GiveFeedback";
 import MenageBankDetails from "../screens/menages/profile/transferMoney/menageBankAddCard/MenageBankDetails";
 import TransactionSuccess from "../screens/menages/wallet/TransactionSuccess";
 import CollectorBankDetails from "../screens/collectors/wallet/CollectorBankDetails";
@@ -636,6 +637,16 @@ const RootStack = () => {
           name="CollectLanguages"
           component={CollectLanguages}
         />
+        <Stack.Screen name="Feedback"
+          options={{
+            headerShown: true,
+            title: "Feedback",
+            headerTitleAlign: "center",
+            headerTintColor: "#33CC66",
+            headerShadowVisible: false,
+          }} 
+          component={GiveFeedback} 
+          />
         <Stack.Screen
           options={{
             headerShown: true,
