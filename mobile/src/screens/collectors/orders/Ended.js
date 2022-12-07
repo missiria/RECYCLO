@@ -6,24 +6,31 @@ import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardOrder } from '~/ui/cards/EdgeCardOrder';
+import { useFetch } from '../../../hooks/hooks';
 
 export default function Ended() {
 
   const [orders, setOrders] = useState([]);
 
-  const { isLoading, error, data } = useAPI({
-    url: 'orders',
-    method: 'POST',
-    data: {
-      status: 'DONE'
-    },
-  },true);
+  const { isLoading, error, data, refetch } = useFetch(
+    'orders',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        status: 'DONE'
+      }),
+    }
+  );
 
   useEffect(() => {
     if (data !== null){
       setOrders(data);
     }
-  }, [data]);
+  }, [isLoading]);
+
+  useEffect(() => {
+    refetch()
+  }, [])
 
   return (
     <View style={styles.container}>

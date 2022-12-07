@@ -11,10 +11,11 @@ import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
+import { useFetch } from "../../../hooks/hooks";
 
 export default function Canceled() {
   const [declarations, setDeclarations] = useState([]);
-  const { isLoading, error, data } = useAPI(
+  const { isLoading: isFetching, error, data } = useAPI(
     {
       url: "declarations",
       method: "POST",
@@ -29,14 +30,18 @@ export default function Canceled() {
     if (data !== null) {
       setDeclarations(data);
     }
-  }, [isLoading]);
+  }, [isFetching]);
+
+  const [deleteDeclaration, { isLoading, refetch }] = useFetch(null, {
+    method: 'DELETE',
+  }, true)
 
   return (
     <View style={styles.container}>
       <ScrollView>
         {error !== null ? (
           <Text>{error.message}</Text>
-        ) : isLoading ? (
+        ) : isFetching ? (
           <ActivityIndicator size="small" color="#ff00ff" />
         ) : (
           declarations &&
@@ -44,8 +49,9 @@ export default function Canceled() {
             <EdgeCardDemande
               key={declaration.id}
               declaration={declaration}
-              onPressDelete={() => {
-                console.log("onPressDelete");
+              onPressDelete={async () => {
+                await deleteDeclaration(`declarations/delete/${declaration.id}`)
+                await refetch()
               }}
             />
           ))

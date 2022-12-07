@@ -3,5 +3,14 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"]
-  }
+  },
+  "eslint.workingDirectories": ["/back"],
+  "overrides": [
+    {
+      "files": "*.ts",
+      "parserOptions": {
+        "project": "**/tsconfig.json"
+      }
+    }
+  ]
 }

@@ -5,7 +5,7 @@ import i18n from "i18next";
 
 export function EdgeActionDelete({onPress}) {
   return (
-    <TouchableOpacity style={styles.btn} onPress={() => onPress}>
+    <TouchableOpacity style={styles.btn} onPress={() => onPress()}>
         <Text style={styles.text}>
             {i18n.t("menageDemend.delete")}
         </Text>

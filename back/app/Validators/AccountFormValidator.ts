@@ -34,6 +34,7 @@ export default class AccountFormValidator {
     type: schema.enum.optional(['MENAGE', 'COLLECTOR']),
     zip_code: schema.number.optional(),
     // * New Fields
+    city_id: schema.number.optional(),
     cin: schema.string.optional(),
     birth_date: schema.date.optional({ format: 'yyyy-MM-dd' }),
     first_name: schema.string.optional({}, [rules.minLength(10)]),
