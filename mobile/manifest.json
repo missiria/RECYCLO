@@ -1,0 +1,9 @@
+{
+  "lang": "en",
+  "background_color": "#00aae7",
+  "theme_color": "#00aae7",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "any",
+  "prefer_related_applications": false
+}

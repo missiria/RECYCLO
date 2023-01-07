@@ -57,7 +57,7 @@ Route.group(() => {
   // * Withdrawals
   Route.get('withdrawals', 'WithdrawalsController.getWithdrawal')
 
-  Route.get('notifications/all', 'NotificationsController.getAllNotification')
+  // Route.get('notifications/all', 'NotificationsController.getAllNotification')
 
   // TODO : We should create a public list
   Route.resource('cities', 'CitiesController').apiOnly()
