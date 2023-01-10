@@ -11,3 +11,7 @@
     2 - SAVE THE CODE IN DATABASE
     3 - REDIRECT : VERIFICATION CODE : [ - - - - ]
     4 - UPDATE STATUS OF THE ACCOUNT (status : 0 to be 1)
+
+[5] => CONFIRMATION :
+    1 - PRENDRE: LA ROUTE (Alert = Collector AND MAIL = Menage)
+    2 - CONFIRMATION: (Alert = Collector AND MAIL = Menage): Change status of Declaration to Archived

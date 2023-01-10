@@ -34,7 +34,11 @@ export const handleRegister = async (
 ) => {
   if (userData && navigation) {
     setAuthLoaded(true);
-    const response = await axiosInstance.post("users", userData);
+    const response = await axiosInstance.post("users", userData, {
+      headers: {
+        "content-type": "application/json; charset=utf-8"
+      }
+    });
     if (response.status === 422) {
       setErrors(setErrorsAPI(response.data.errors));
     } else if (parseInt(response.data.id) > 0) {

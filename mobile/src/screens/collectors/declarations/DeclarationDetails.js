@@ -123,7 +123,7 @@ export default function DeclarationDetails({navigation, route }) {
                         </View>
                         <View style={styles.cardDispoBox}>
                             <Text style={styles.despoTime}>
-                                {moment(declaration.date, moment.ISO_8601).format('dddd, MMMM DD YYYY')}
+                                {declaration.date}
                             </Text>
                             <Text style={styles.despoDate}>
                                 {declaration.time}

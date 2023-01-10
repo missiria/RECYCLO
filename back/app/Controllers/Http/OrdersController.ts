@@ -3,7 +3,8 @@ import Order from 'App/Models/Order'
 import Declaration from 'App/Models/Declaration'
 import OrderForm from 'App/Validators/OrderFormValidator'
 import Notification from '../../Models/Notification'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { createNotification } from 'App/Helpers'
 
 export default class OrdersController {
   public async index({ auth, request, response }) {
@@ -46,41 +47,44 @@ export default class OrdersController {
     declaration.save()
 
     // * Create notifications
-    await Notification.create({
-      note: `le collecteur ${user?.first_name} ${user?.last_name} a validée la déclaration`,
-      // TODO: which type is this notification
-      type: "UPDATE",
-      status: "UNREAD",
-      // @ts-ignore
-      user_id: user?.id,
+    await createNotification({
+      note: `le collecteur ${user?.first_name} ${
+        user?.last_name
+      } a validée la déclaration qui est créé en ${declaration.createdAt.toLocaleString()} de quantité ${
+        declaration.quantity
+      }`,
+      type: 'DECLARATION',
+      status: 'UNREAD',
+      user_id: user!.id,
     })
 
     return response.ok({ error: false, message: 'Success', order: newOrder })
   }
 
-  public async updateOrder({ auth, params, request, response }: HttpContextContract){
+  public async updateOrder({ auth, params, request, response }: HttpContextContract) {
     const { id } = params
     const { status } = request.body()
     const user = auth.use('api').user
 
     const declaration = await Declaration.find(id)
-    const order = await Order.findBy("declaration_id", declaration?.id)
+    const order = await Order.findBy('declaration_id', declaration?.id)
 
     if (!declaration || !order) {
       return response.notFound({ message: 'Element non trouvé' })
     }
 
     await order.merge({ status }).save()
-
+    console.log('reached')
     // * Create notifications
-    await Notification.create({
-      note: `${user?.first_name} ${user?.last_name} Modifier la declaration ${declaration.id} `,
-      type: "UPDATE",
-      status: "UNREAD",
-      // @ts-ignore
-      user_id: user?.id
+    await createNotification({
+      note: `${user?.first_name} ${user?.last_name} Modifier la declaration ${
+        declaration.id
+      } créé en ${declaration.createdAt.toLocaleString()} de quantité ${declaration.quantity}`,
+      type: 'DECLARATION',
+      status: 'UNREAD',
+      user_id: user!.id,
     })
 
-    response.ok({ message: "Order modifiée" })
+    response.ok({ message: 'Order modifiée' })
   }
 }

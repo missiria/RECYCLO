@@ -15,47 +15,68 @@ import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
+import { useFetch } from "../../../hooks/hooks";
 
 export default function Accepted() {
   const [declarations, setDeclarations] = useState([]);
-  const { isLoading, error, data } = useAPI(
+  const [declarationId, setDeclarationId] = useState("")
+
+  const { isLoading: isFetching, error, data, refetch } = useFetch(
+    "declarations",
     {
-      url: "declarations",
       method: "POST",
-      data: {
+      body: JSON.stringify({
         status: "VALID",
-      },
+      }),
     },
-    true
   );
+
+  // * Update declaration
+  const [trigger, { isLoading: isUpdateDeclarationLoading }] = useFetch(`declarations/update/${declarationId}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      status: "PAID"
+    })
+  }, true)
+
+  // * Update Order
+  const [updateOrder, { isLoading: isUpdateOrderLoading }] = useFetch(`orders/${declarationId}/update`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      status: "CONFIRM"
+    })
+  }, true)
+
+  // * When user clicks "Confirmer"
+  const confirmOrder = async () => {
+    await Promise.all([
+      trigger(),
+      updateOrder()
+    ])
+    setModalVisible(!modalVisible)
+  }
 
   useEffect(() => {
     if (data !== null) {
       setDeclarations(data);
     }
-  }, [isLoading]);
+  }, [isFetching]);
+
+  useEffect(() => {
+    refetch()
+  }, [isUpdateDeclarationLoading, isUpdateOrderLoading])
 
   const textAction = i18n.t("menageDemend.confirm");
-  /*
-  const [details, setDetails] = useState(true);
-  const showDetails = () => {
-    setDetails(true);
-  }
 
-  const hideDetailse = () => {
-    setDetails(false);
-  }
-  */
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={data?.length === 0 && styles.scrollView} >
         {error !== null ? (
           <Text>{error.message}</Text>
-        ) : isLoading ? (
+        ) : isFetching ? (
           <ActivityIndicator size="small" color="#ff00ff" />
         ) : (
-          declarations &&
           declarations?.map((declaration) => (
             <EdgeCardDemande
               key={declaration.id}
@@ -63,11 +84,16 @@ export default function Accepted() {
               textAction={textAction}
               styleAction={styles.actionValid}
               onPressAction={() => {
-                console.log("onPressAction");
+                setDeclarationId(declaration.id)
                 setModalVisible(true);
               }}
             />
           ))
+        )}
+        {data?.length === 0 && (
+          <View style={styles.notFound} >
+            <Text style={styles.notFoundText} >Vous avez pas de déclaration acceptée!</Text>
+          </View>
         )}
       </ScrollView>
 
@@ -76,18 +102,17 @@ export default function Accepted() {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Image style={styles.iconImg} source={checkIcon} />
-            <Text style={styles.popUpMsg}>
+            <Text  style={styles.popUpMsg}>
               {i18n.t("menageDemend.modalSubtitle")}
             </Text>
-            <Text style={styles.confirmButon}>
-              {i18n.t("menageDemend.modalYes")}
+            <Text onPress={confirmOrder} style={styles.confirmButon}>
+              {(isUpdateDeclarationLoading || isUpdateOrderLoading) ? <ActivityIndicator size="small" color="#fff" /> : i18n.t("menageDemend.modalYes") } 
             </Text>
 
             <Text
@@ -107,6 +132,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+  // * Not Found
+  scrollView: {
+    flex: 1,
+  },
+  notFound: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  notFoundText: {
+    color: "#999"
   },
   TopCard: {
     backgroundColor: "white",

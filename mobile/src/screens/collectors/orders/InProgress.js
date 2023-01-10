@@ -20,6 +20,8 @@ export default function InProgress() {
     },
   },true);
 
+  console.log(data)
+
   // * Cancel Order
   const [trigger, { data: message, isLoading: isOrderUpdateLoading }] = useFetch(undefined, {
     method: "PUT",
@@ -45,8 +47,15 @@ export default function InProgress() {
           isLoading ? 
             <ActivityIndicator size="small" color="#ff00ff" />
           :
-          orders != undefined && orders.map((order) => (
-            <EdgeCardOrder key={order.id} order={order} textAction={textAction} styleAction={styles.actionNotReady} onPressAction={()=>trigger(`orders/${order.declaration_id}/update`)} onPressEdit={()=>{console.log("Edit")}} />
+          orders?.length !==0 && orders?.map((order) => (
+            <EdgeCardOrder 
+              key={order.id} 
+              order={order} 
+              textAction={textAction} 
+              styleAction={styles.actionNotReady} 
+              onPressAction={() => trigger(`orders/${order.declaration_id}/update`)} 
+              onPressEdit={() => {console.log("Edit")}} 
+            />
           )) 
         }
       </ScrollView>

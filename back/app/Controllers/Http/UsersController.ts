@@ -140,6 +140,8 @@ export default class UsersController {
     })
 
     // * Response : send the user object
+    // Example of notification
+    // notification(user, note: `You account has been active successful!`)
     return Object.assign({ auth: token, account }, user.serialize())
   }
 

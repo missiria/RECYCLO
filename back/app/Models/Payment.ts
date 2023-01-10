@@ -10,8 +10,10 @@ export default class Payment extends BaseModel {
   @hasOne(() => User, {
     foreignKey: 'id',
   })
+  user: HasOne<typeof User>
+
   @column()
-  user_id: HasOne<typeof User>
+  user_id: number
 
   @column()
   amount: number
