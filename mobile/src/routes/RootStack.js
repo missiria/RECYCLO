@@ -310,7 +310,7 @@ const RootStack = () => {
           name="CollectorBankDetails"
           component={CollectorBankDetails}
         />
-        {/* CollectorBankDetails */}
+        
         <Stack.Screen
           name="TransactionSuccess"
           component={TransactionSuccess}

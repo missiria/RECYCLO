@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import RootStack from "./src/routes/RootStack";
 import "./src/locales";
 import { Provider } from "react-redux";
@@ -9,6 +9,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Provider store={store}>
+        {/* <Text>dddd</Text> */}
         <RootStack />
       </Provider>
     </View>

@@ -4,7 +4,7 @@ import NotificationProps from './NotificationProps';
 import { Data } from './NotificationTestFakeData';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import notificationIcon from "../../../assets/images/notif.png";
-import Swipeout from 'react-native-swipeout';
+// import Swipeout from 'react-native-swipeout';
 
 export default function NotificationItems({ title, date, time }) {
         //the swipe delete putton
@@ -21,10 +21,11 @@ export default function NotificationItems({ title, date, time }) {
     return (
         <View>
             <TouchableOpacity >
-            <Swipeout
+            {/* <Swipeout
                 backgroundColor='transparent'
                 style={styles.container}
                 autoClose={true} right={swipeoutBtns}>
+            </Swipeout> */}
                 <TouchableOpacity onPress={() => alert(title)} style={styles.notifiBoxCard}>
                     <View>
                         <Image
@@ -40,7 +41,6 @@ export default function NotificationItems({ title, date, time }) {
                         </View>
                     </View>
                 </TouchableOpacity>
-            </Swipeout>
         </TouchableOpacity>
         </View>
     )

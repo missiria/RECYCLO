@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Image, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react';
-import { SliderBox } from "react-native-image-slider-box";
+// import { SliderBox } from "react-native-image-slider-box";
 //import { FakeImagesDataSliders } from './FakeImagesDataSliders'
 //import userImage from '../../../assets/images/p.png'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -56,14 +56,14 @@ export default function DeclarationDetails({navigation, route }) {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <SliderBox
+                {/* <SliderBox
                     disableOnPress={true}
                     paginationBoxVerticalPadding={20}
                     swipeThreshold={40}
                     width="100%"
                     images={images}
                     autoplay
-                />
+                /> */}
                 <View style={styles.profileContetn}>
                     <View style={styles.userInfo}>
                         <View >

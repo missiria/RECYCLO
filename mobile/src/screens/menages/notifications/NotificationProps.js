@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, Alert,TouchableOpacity } from 'react-native'
 import React from 'react';
-import Swipeout from 'react-native-swipeout';
+// import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import notificationIcon from "../../../assets/images/notif.png";
 
@@ -19,10 +19,11 @@ export default function NotificationProps({ title, time, date }) {
     ]
     return (
         <TouchableOpacity >
-            <Swipeout
+            {/* <Swipeout
                 backgroundColor='transparent'
                 style={styles.container}
                 autoClose={true} right={swipeoutBtns}>
+            </Swipeout> */}
                 <TouchableOpacity onPress={() => alert(title)} style={styles.notifiBoxCard}>
                     <View>
                         <Image
@@ -38,7 +39,6 @@ export default function NotificationProps({ title, time, date }) {
                         </View>
                     </View>
                 </TouchableOpacity>
-            </Swipeout>
         </TouchableOpacity>
     )
 }
