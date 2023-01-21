@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const luxon_1 = require("luxon");
 const User_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/User"));
 const Orm_1 = global[Symbol.for('ioc.use')]("Adonis/Lucid/Orm");
+const Bank_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/Bank"));
 class Withdrawal extends Orm_1.BaseModel {
 }
 __decorate([
@@ -28,11 +29,33 @@ __decorate([
 __decorate([
     (0, Orm_1.column)(),
     __metadata("design:type", Number)
+], Withdrawal.prototype, "user_id", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", Number)
+], Withdrawal.prototype, "bank_id", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", Number)
+], Withdrawal.prototype, "withdrawal_code", void 0);
+__decorate([
+    (0, Orm_1.belongsTo)(() => Bank_1.default, {
+        foreignKey: 'bank_id',
+    }),
+    __metadata("design:type", Object)
+], Withdrawal.prototype, "bank", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", Number)
 ], Withdrawal.prototype, "amount", void 0);
 __decorate([
     (0, Orm_1.column)(),
     __metadata("design:type", String)
 ], Withdrawal.prototype, "status", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", Object)
+], Withdrawal.prototype, "expires_in", void 0);
 __decorate([
     Orm_1.column.dateTime({ autoCreate: true }),
     __metadata("design:type", luxon_1.DateTime)

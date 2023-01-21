@@ -22,7 +22,7 @@ const databaseConfig = {
             healthCheck: false,
             debug: true,
         },
-    }
+    },
 };
 exports.default = databaseConfig;
 //# sourceMappingURL=database.js.map

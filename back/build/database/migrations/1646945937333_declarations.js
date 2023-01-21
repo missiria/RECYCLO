@@ -15,8 +15,9 @@ class Declarations extends Schema_1.default {
             table.integer('collect_id');
             table.integer('user_id');
             table.float('quantity', 255);
+            table.float('price', 5);
             table.enum('status', ['PENDING', 'VALID', 'CANCELED', 'PAID']);
-            table.date('date');
+            table.string('date');
             table.enum('time', ['08:00 - 12:00', '12:00 - 16:00', '16:00 - 20:00', '20:00 - 00:00']);
             table.timestamp('created_at', { useTz: true });
             table.timestamp('updated_at', { useTz: true });

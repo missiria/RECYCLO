@@ -11,7 +11,7 @@ class Orders extends Schema_1.default {
     }
     async up() {
         this.schema.createTable(this.tableName, (table) => {
-            table.increments('id');
+            table.increments('id').primary();
             table.integer('declaration_id');
             table.integer('user_id');
             table.enum('status', ['PENDING', 'CONFIRM', 'DONE', 'CANCELED']);

@@ -13,7 +13,17 @@ class AccountFormValidator {
             nationality: Validator_1.schema.string.optional({}, [Validator_1.rules.minLength(4)]),
             society_id: Validator_1.schema.string.optional(),
             type: Validator_1.schema.enum.optional(['MENAGE', 'COLLECTOR']),
-            zip_code: Validator_1.schema.number.optional()
+            zip_code: Validator_1.schema.number.optional(),
+            city_id: Validator_1.schema.number.optional(),
+            cin: Validator_1.schema.string.optional(),
+            birth_date: Validator_1.schema.date.optional({ format: 'yyyy-MM-dd' }),
+            first_name: Validator_1.schema.string.optional({}, [Validator_1.rules.minLength(10)]),
+            last_name: Validator_1.schema.string.optional({}, [Validator_1.rules.minLength(10)]),
+            phone: Validator_1.schema.string.optional({}, [Validator_1.rules.minLength(10)]),
+            email: Validator_1.schema.string.optional({}, [Validator_1.rules.minLength(10)]),
+            birth_day: Validator_1.schema.string.optional(),
+            birth_month: Validator_1.schema.string.optional(),
+            birth_year: Validator_1.schema.string.optional(),
         });
         this.messages = {};
     }

@@ -16,6 +16,7 @@ class Recharges extends Schema_1.default {
             table.enum('operator', ['ORANGE', 'IAM', 'INWI']);
             table.enum('type', ['INTERNET', 'MINUTES', 'BALANCE']);
             table.enum('status', ['PENDING', 'CHARGED']);
+            table.string('phone');
             table.integer('amount');
             table.timestamp('created_at', { useTz: true });
             table.timestamp('updated_at', { useTz: true });

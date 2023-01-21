@@ -12,10 +12,8 @@ class Reviews extends Schema_1.default {
     async up() {
         this.schema.createTable(this.tableName, (table) => {
             table.increments('id').primary();
-            table
-                .integer('user_id')
-                .unsigned()
-                .references('users.id');
+            table.integer('user_id').unsigned().references('users.id');
+            table.integer('star_rating');
             table.text('comment', 'long');
             table.boolean('active');
             table.timestamp('created_at', { useTz: true });

@@ -48,6 +48,30 @@ __decorate([
 ], Account.prototype, "address", void 0);
 __decorate([
     (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], Account.prototype, "first_name", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], Account.prototype, "last_name", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], Account.prototype, "cin", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], Account.prototype, "phone", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], Account.prototype, "email", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", Object)
+], Account.prototype, "birth_date", void 0);
+__decorate([
+    (0, Orm_1.column)(),
     __metadata("design:type", Number)
 ], Account.prototype, "city_id", void 0);
 __decorate([
@@ -87,10 +111,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Account.prototype, "user", void 0);
 __decorate([
-    (0, Orm_1.belongsTo)(() => City_1.default, {
-        localKey: 'id',
-        foreignKey: 'city_id',
-    }),
+    (0, Orm_1.belongsTo)(() => City_1.default, { localKey: 'id', foreignKey: 'city_id' }),
     __metadata("design:type", Object)
 ], Account.prototype, "city", void 0);
 exports.default = Account;

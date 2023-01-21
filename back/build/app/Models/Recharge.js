@@ -32,6 +32,10 @@ __decorate([
 __decorate([
     (0, Orm_1.column)(),
     __metadata("design:type", String)
+], Recharge.prototype, "phone", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
 ], Recharge.prototype, "type", void 0);
 __decorate([
     (0, Orm_1.column)(),

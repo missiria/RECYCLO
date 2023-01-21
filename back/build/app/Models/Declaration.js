@@ -42,6 +42,10 @@ __decorate([
 __decorate([
     (0, Orm_1.column)(),
     __metadata("design:type", String)
+], Declaration.prototype, "price", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
 ], Declaration.prototype, "date", void 0);
 __decorate([
     (0, Orm_1.column)(),

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder_1.default {
                 last_name: 'MISSIRIA',
                 password: 'c++',
                 role: 'ADMIN',
-                active: true
+                active: true,
             },
             {
                 email: 'amine@gmail.com',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder_1.default {
                 last_name: 'MISSIRIA',
                 password: 'p@ssword',
                 role: 'ADMIN',
-                active: true
+                active: true,
             },
             {
                 email: 'youssef@gmail.com',
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder_1.default {
                 last_name: 'MISSIRIA',
                 password: 'p@ssword',
                 role: 'ADMIN',
-                active: false
+                active: false,
             },
             {
                 email: 'salem@gmail.com',
@@ -42,7 +42,7 @@ class UserSeeder extends Seeder_1.default {
                 last_name: 'MISSIRIA',
                 password: '321321321',
                 role: 'MODERATOR',
-                active: true
+                active: true,
             },
             {
                 email: 'hassan@gmail.com',
@@ -51,8 +51,26 @@ class UserSeeder extends Seeder_1.default {
                 last_name: 'MISSIRIA',
                 password: '321321321',
                 role: 'USER',
-                active: true
-            }
+                active: true,
+            },
+            {
+                email: 'mohamedmajilan@gmail.com',
+                phone: '0615690996',
+                first_name: 'Mohamed',
+                last_name: 'Majilan',
+                password: '123456789',
+                role: 'USER',
+                active: true,
+            },
+            {
+                email: 'saidmajilan@gmail.com',
+                phone: '0661728409',
+                first_name: 'Said',
+                last_name: 'Majilan',
+                password: '123456789',
+                role: 'USER',
+                active: true,
+            },
         ]);
     }
 }

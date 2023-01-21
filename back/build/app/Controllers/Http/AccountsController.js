@@ -10,49 +10,52 @@ class AccountsController {
         const user = auth.use('api').user;
         const account = await Account_1.default.findBy('user_id', user.id);
         if (!account) {
-            return response.notFound({ message: 'Compte none trouvé' });
+            return response.notFound({ message: 'Compte non trouvée' });
         }
         return response.ok(account);
     }
     async update({ auth, request, response }) {
         const user = auth.use('api').user;
-        const payload = await request.validate(AccountFormValidator_1.default);
-        const account = await Account_1.default.findBy('user_id', user.id);
-        if (payload.type != null)
-            account.type = payload.type;
-        if (payload.gender != null)
-            account.gender = payload.gender;
-        if (payload.society_id != null)
-            account.society_id = payload.society_id;
-        if (payload.avatar != null)
-            account.avatar = payload.avatar;
-        if (payload.address != null)
-            account.address = payload.address;
-        if (payload.city != null)
-            account.city = payload.city;
-        if (payload.nationality != null)
-            account.nationality = payload.nationality;
-        if (payload.zip_code != null)
-            account.zip_code = payload.zip_code;
-        await account.save();
-        return response.ok(account);
+        if (!user)
+            return response.badRequest('Need to be logged in');
+        const { birth_day, birth_month, birth_year, ...rest } = await request.validate(AccountFormValidator_1.default);
+        console.log(rest);
+        const account = await Account_1.default.findBy('user_id', user?.id);
+        if (!account)
+            return response.notFound({ message: 'Compte non trouvée' });
+        await account
+            .merge({
+            ...rest,
+            ...(birth_year &&
+                birth_month &&
+                birth_day && {
+                birth_date: new Date(`${birth_year}/${birth_month}/${birth_day}`),
+            }),
+        })
+            .save();
+        const token = await auth.use('api').generate(user ?? {}, {
+            expiresIn: '30days',
+        });
+        return Object.assign({ auth: token, account }, user?.serialize());
     }
-    async upload_verfication({ auth, request, response }) {
+    async upload_verification({ auth, request, response }) {
         const user = auth.use('api').user;
         const account = await Account_1.default.findBy('user_id', user.id);
         account.type_verification = request.type;
         const frontVerify = request.file('front_card');
         if (frontVerify) {
             await frontVerify.move('uploads/validations/' + user.id, {
-                name: 'front_' + Date.now() + '.' + frontVerify.extname,
+                name: `front_${Date.now()}.${frontVerify.extname}`,
                 overwrite: true,
             });
         }
-        account.front_verification_path = frontVerify.filePath.replace(/\\/g, '/').replace('uploads/', '');
+        account.front_verification_path = frontVerify.filePath
+            .replace(/\\/g, '/')
+            .replace('uploads/', '');
         const backVerify = request.file('back_card');
         if (backVerify) {
             await backVerify.move('uploads/validations/' + user.id, {
-                name: 'back_' + Date.now() + '.' + backVerify.extname,
+                name: `back_${Date.now()}.${backVerify.extname}`,
                 overwrite: true,
             });
         }
@@ -64,7 +67,7 @@ class AccountsController {
         const user = auth.use('api').user;
         const account = await Account_1.default.findBy('user_id', user.id);
         if (!account) {
-            return response.notFound({ message: "Compte none trouvé" });
+            return response.notFound({ message: 'Compte none trouvé' });
         }
         await account.delete();
         return response.ok({ message: 'Compte est bien supprimer successfully.' });

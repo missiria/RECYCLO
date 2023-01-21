@@ -30,6 +30,16 @@ __decorate([
     __metadata("design:type", String)
 ], Notification.prototype, "type", void 0);
 __decorate([
+    (0, Orm_1.hasOne)(() => User_1.default, {
+        foreignKey: 'user_id',
+    }),
+    __metadata("design:type", Object)
+], Notification.prototype, "user", void 0);
+__decorate([
+    (0, Orm_1.column)({}),
+    __metadata("design:type", Number)
+], Notification.prototype, "user_id", void 0);
+__decorate([
     (0, Orm_1.column)(),
     __metadata("design:type", String)
 ], Notification.prototype, "status", void 0);

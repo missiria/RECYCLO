@@ -52,6 +52,14 @@ __decorate([
 ], User.prototype, "phone", void 0);
 __decorate([
     (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], User.prototype, "code", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", String)
+], User.prototype, "forget_password_code", void 0);
+__decorate([
+    (0, Orm_1.column)(),
     __metadata("design:type", Boolean)
 ], User.prototype, "is_verified", void 0);
 __decorate([

@@ -27,12 +27,16 @@ __decorate([
 ], Review.prototype, "comment", void 0);
 __decorate([
     (0, Orm_1.column)(),
-    __metadata("design:type", Number)
-], Review.prototype, "account_id", void 0);
+    __metadata("design:type", Boolean)
+], Review.prototype, "active", void 0);
 __decorate([
     (0, Orm_1.column)(),
     __metadata("design:type", Number)
-], Review.prototype, "category_id", void 0);
+], Review.prototype, "user_id", void 0);
+__decorate([
+    (0, Orm_1.column)(),
+    __metadata("design:type", Number)
+], Review.prototype, "star_rating", void 0);
 __decorate([
     Orm_1.column.dateTime({ autoCreate: true }),
     __metadata("design:type", luxon_1.DateTime)
@@ -42,8 +46,10 @@ __decorate([
     __metadata("design:type", luxon_1.DateTime)
 ], Review.prototype, "updatedAt", void 0);
 __decorate([
-    (0, Orm_1.hasMany)(() => User_1.default),
+    (0, Orm_1.hasOne)(() => User_1.default, {
+        localKey: 'user_id',
+    }),
     __metadata("design:type", Object)
-], Review.prototype, "users", void 0);
+], Review.prototype, "user", void 0);
 exports.default = Review;
 //# sourceMappingURL=Review.js.map

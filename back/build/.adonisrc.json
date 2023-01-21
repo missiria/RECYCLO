@@ -24,7 +24,8 @@
     "@adonisjs/lucid",
     "@adonisjs/auth",
     "@adonisjs/session",
-    "@adonisjs/mail"
+    "@adonisjs/mail",
+    "@adonisjs/view"
   ],
   "aceProviders": [
     "@adonisjs/repl"
@@ -32,5 +33,11 @@
   "directories": {
     "public": "./uploads"
   },
-  "lastCompiledAt": "2022-09-09T13:45:52.726Z"
+  "metaFiles": [
+    {
+      "pattern": "resources/views/**/*.edge",
+      "reloadServer": false
+    }
+  ],
+  "lastCompiledAt": "2023-01-21T17:59:39.848Z"
 }

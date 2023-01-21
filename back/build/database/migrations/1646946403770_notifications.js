@@ -15,6 +15,7 @@ class Notifications extends Schema_1.default {
             table.string('note', 255);
             table.enum('type', ['DECLARATION', 'MESSAGE', 'PAYMENT', 'POINT', 'UPDATE']);
             table.enum('status', ['READ', 'UNREAD']);
+            table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
             table.timestamp('created_at', { useTz: true });
             table.timestamp('updated_at', { useTz: true });
         });

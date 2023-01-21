@@ -12,26 +12,26 @@ class CollectSeeder extends Seeder_1.default {
                 collect_name: 'Plastique',
                 image: 'collects/ci_1.png',
                 point: 50,
-                description: 'lorem ipsum'
+                description: 'lorem ipsum',
             },
             {
                 collect_name: 'Carton-Papier',
                 image: 'collects/ci_2.png',
                 point: 100,
-                description: 'lorem ipsum'
+                description: 'lorem ipsum',
             },
             {
                 collect_name: 'Metal',
                 image: 'collects/ci_3.png',
                 point: 20,
-                description: 'lorem ipsum'
+                description: 'lorem ipsum',
             },
             {
                 collect_name: 'Huile Végétale',
                 image: 'collects/ci_4.png',
                 point: 200,
-                description: 'lorem ipsum'
-            }
+                description: 'lorem ipsum',
+            },
         ]);
     }
 }

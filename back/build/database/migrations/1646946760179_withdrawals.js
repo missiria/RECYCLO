@@ -12,12 +12,12 @@ class Withdrawals extends Schema_1.default {
     async up() {
         this.schema.createTable(this.tableName, (table) => {
             table.increments('id').primary();
-            table
-                .integer('user_id')
-                .unsigned()
-                .references('users.id')
-                .onDelete('CASCADE');
+            table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE');
+            table.integer('account_id').unsigned().references('accounts.id').onDelete('CASCADE');
+            table.integer('bank_id').unsigned().references('banks.id').onDelete('CASCADE');
+            table.integer('withdrawal_code', 15);
             table.float('amount', 255);
+            table.timestamp('expires_in', {});
             table.enum('status', ['PENDING', 'VALID', 'PAID', 'CANCELED']);
             table.timestamp('created_at', { useTz: true });
             table.timestamp('updated_at', { useTz: true });

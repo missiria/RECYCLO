@@ -9,13 +9,13 @@ class UserFormValidator {
             password: Validator_1.schema.string({}, [Validator_1.rules.minLength(3), Validator_1.rules.maxLength(50)]),
             first_name: Validator_1.schema.string({}, [Validator_1.rules.minLength(2), Validator_1.rules.maxLength(255)]),
             last_name: Validator_1.schema.string({}, [Validator_1.rules.minLength(2), Validator_1.rules.maxLength(255)]),
-            phone: Validator_1.schema.number([Validator_1.rules.unique({ table: 'users', column: 'phone' })]),
+            phone: Validator_1.schema.string([Validator_1.rules.unique({ table: 'users', column: 'phone' })]),
             type: Validator_1.schema.enum(['MENAGE', 'COLLECTOR']),
             active: Validator_1.schema.boolean.optional(),
-            remember_me_token: Validator_1.schema.boolean.optional()
+            remember_me_token: Validator_1.schema.boolean.optional(),
         });
         this.messages = {
-            unique: 'The {{ field }} is already an account'
+            unique: 'The {{ field }} is already an account',
         };
     }
 }

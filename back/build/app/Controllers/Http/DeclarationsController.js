@@ -5,59 +5,72 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Declaration_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/Declaration"));
 const ImagesDeclaration_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/ImagesDeclaration"));
-const DeclarationFormValidator_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Validators/DeclarationFormValidator"));
-const DeclarationFilterFormValidator_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Validators/DeclarationFilterFormValidator"));
+const Helpers_1 = global[Symbol.for('ioc.use')]("App/Helpers");
 class DeclarationsController {
     async list({ request, response }) {
-        const payload = await request.validate(DeclarationFilterFormValidator_1.default);
-        const declarations = await Declaration_1.default.query().select('id', 'collect_id', 'user_id', 'quantity', 'status', 'date', 'time', 'created_at', 'updated_at').preload('images', (query) => {
-            query.select('id', 'declaration_id', 'image');
-        })
-            .preload('collect', (query) => {
-            query.select('id', 'collect_name', 'image', 'point', 'description');
-        })
+        const { city_id, collect_id, period, status, time } = request.body();
+        const declarationsPromise = Declaration_1.default.query()
+            .preload('images')
+            .preload('collect')
             .preload('user', (query) => {
-            query.select('id', 'first_name', 'last_name', 'email', 'phone').preload('account', (query) => {
-                query.select('id', 'gender', 'type', 'avatar', 'address', 'country', 'city_id').preload('city', (query) => {
+            query.select('*').preload('account', (query) => {
+                query.select('*').preload('city', (query) => {
                     query.select('id', 'name');
                 });
             });
-        }).where((query) => {
-            query.where('status', 'VALID');
-            if (payload.time !== undefined && payload.time !== '') {
-                query.where('time', payload.time);
-            }
-            if (payload.collect_id !== undefined && payload.collect_id !== -1) {
-                query.where('collect_id', payload.collect_id);
-            }
-            if (payload.city_id !== undefined && payload.city_id !== -1) {
-                query.whereHas('user', (query) => {
-                    query.whereHas('account', (query) => {
-                        query.where('city_id', payload.city_id);
+        })
+            .where('status', status)
+            .orderBy('created_at', 'desc');
+        if (city_id && city_id !== -1) {
+            declarationsPromise.preload('user', (query) => {
+                query.select('*').preload('account', (query) => {
+                    query
+                        .select('id', 'gender', 'type', 'avatar', 'address', 'city_id')
+                        .preload('city', (query) => {
+                        query.select('id', 'name');
                     });
                 });
+            });
+        }
+        if (collect_id && collect_id !== -1) {
+            declarationsPromise.where('collect_id', collect_id);
+        }
+        if (time) {
+            declarationsPromise.where('time', time);
+        }
+        if (period !== undefined && period !== -1) {
+            if (period == 1) {
+                declarationsPromise.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 1 HOUR)');
             }
-            if (payload.peroid !== undefined && payload.peroid !== -1) {
-                if (payload.peroid == 1) {
-                    query.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 1 HOUR)');
-                }
-                else if (payload.peroid == 2) {
-                    query.whereRaw('DATE(created_at) = DATE(NOW())');
-                }
-                else if (payload.peroid == 3) {
-                    query.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 7 days)');
-                }
-                else if (payload.peroid == 4) {
-                    query.whereRaw('month(created_at) = month(NOW())').whereRaw('year(created_at) = year(NOW())');
-                }
+            else if (period == 2) {
+                declarationsPromise.whereRaw('DATE(created_at) = DATE(NOW())');
             }
-        });
-        return response.ok(declarations);
+            else if (period == 3) {
+                declarationsPromise.where('created_at', '>', 'DATE_SUB(NOW(),INTERVAL 7 days)');
+            }
+            else if (period == 4) {
+                declarationsPromise
+                    .whereRaw('month(created_at) = month(NOW())')
+                    .whereRaw('year(created_at) = year(NOW())');
+            }
+        }
+        return response.ok(await declarationsPromise);
     }
-    async index({ auth, request, response }) {
-        const user = auth.use('api').user;
-        const payload = await request.validate(DeclarationFilterFormValidator_1.default);
-        const declarations = await Declaration_1.default.query().preload('images').preload('collect').where('status', payload.status).where('user_id', user.id);
+    async index({ request, response }) {
+        const payload = request.body();
+        console.log('payload >', payload);
+        const declarations = await Declaration_1.default.query()
+            .preload('images')
+            .preload('collect')
+            .where('status', payload.status)
+            .preload('user', (query) => {
+            query.select('*').preload('account', (query) => {
+                query.select('*').preload('city', (query) => {
+                    query.select('id', 'name');
+                });
+            });
+        })
+            .orderBy('created_at', 'desc');
         return response.ok(declarations);
     }
     async show({ params, response }) {
@@ -70,22 +83,63 @@ class DeclarationsController {
     }
     async save({ auth, request, response }) {
         const user = auth.use('api').user;
-        const payload = await request.validate(DeclarationFormValidator_1.default);
-        payload.user_id = user.id;
+        const payload = request.body();
+        payload.user_id = user?.id;
         payload.status = 'PENDING';
         const newDeclaration = await Declaration_1.default.create(payload);
         const images = request.files('images');
         for (let image of images) {
-            await image.move('uploads/declarations/' + user.id, {
+            await image.move('uploads/declarations/' + user?.id, {
                 name: 'd_' + Date.now() + '.' + image.extname,
                 overwrite: true,
             });
             await ImagesDeclaration_1.default.create({
                 declaration_id: newDeclaration.id,
-                image: image.filePath.replace(/\\/g, '/').replace('uploads/', ''),
+                image: image?.filePath?.replace(/\\/g, '/').replace('uploads/', ''),
             });
         }
+        await (0, Helpers_1.createNotification)({
+            type: 'DECLARATION',
+            note: `${user?.first_name} ${user?.last_name} a Crée une declaration en ${newDeclaration.createdAt.toLocaleString()} de quantité ${newDeclaration.quantity}`,
+            status: 'UNREAD',
+            user_id: user.id,
+        });
         return response.ok({ error: false, message: 'Success' });
+    }
+    async update({ auth, request, response, params }) {
+        const user = auth.use('api').user;
+        const { id } = params;
+        const { status } = request.body();
+        const declaration = await Declaration_1.default.find(id);
+        if (!declaration)
+            return response.notFound({ message: 'Declaration non trouvée' });
+        await Promise.all([
+            declaration.merge({ status }).save(),
+            (0, Helpers_1.createNotification)({
+                type: 'DECLARATION',
+                note: `${user?.fullName} a modifée la declaration en ${declaration.updatedAt.toLocaleString()} de quantité ${declaration.quantity}`,
+                status: 'UNREAD',
+                user_id: user.id,
+            }),
+        ]);
+        response.ok({ message: 'Declaration modifiée' });
+    }
+    async remove({ auth, params, response }) {
+        const user = auth.use('api').user;
+        const { id } = params;
+        const declaration = await Declaration_1.default.find(id);
+        if (!declaration)
+            return response.notFound({ message: 'Declaration non trouvée' });
+        await Promise.all([
+            declaration.delete(),
+            (0, Helpers_1.createNotification)({
+                type: 'DECLARATION',
+                note: `${user?.fullName} a supprimée la declaration en ${new Date().toLocaleDateString()} de quantité ${declaration.quantity}`,
+                status: 'UNREAD',
+                user_id: user.id,
+            }),
+        ]);
+        response.ok({ message: 'Declaration Supprimée' });
     }
 }
 exports.default = DeclarationsController;
