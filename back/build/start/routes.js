@@ -31,8 +31,6 @@ Route_1.default.group(() => {
     Route_1.default.get('withdrawals', 'WithdrawalsController.getWithdrawal');
     Route_1.default.post('feedback/create', 'ReviewsController.createReview');
     Route_1.default.get('feedback', 'ReviewsController.getReviewsByUserId');
-    Route_1.default.resource('cities', 'CitiesController').apiOnly();
-    Route_1.default.resource('countries', 'CountriesController').apiOnly();
 })
     .prefix('/api/v1')
     .middleware('api_auth');
