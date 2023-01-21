@@ -68,8 +68,8 @@ Route.group(() => {
   Route.get('feedback', 'ReviewsController.getReviewsByUserId')
 
   // TODO : We should create a public list
-  Route.resource('cities', 'CitiesController').apiOnly()
-  Route.resource('countries', 'CountriesController').apiOnly()
+  // Route.resource('cities', 'CitiesController').apiOnly()
+  // Route.resource('countries', 'CountriesController').apiOnly()
 })
   .prefix('/api/v1')
   .middleware('api_auth')
