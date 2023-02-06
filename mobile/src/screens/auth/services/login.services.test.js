@@ -1,73 +1,151 @@
-import { handleLogin, schema } from '../services/login.services';
+import { handleLogin, schema } from "../services/login.services";
+import apiClient from "~/api/client";
+import { storeData } from "~/hooks/hooks";
 
-describe('Validation - Sign In', () => {
-    test("Return object of fields with values when form is valid", async () => {
-        let user = { phone: '0656565656', password: '7895123554' }
+jest.mock("~/api/client");
+jest.mock("~/hooks/hooks");
 
-        // WHEN
-        const result = await schema.isValid(user)
+describe("Validation - Sign In", () => {
+  test("Return object of fields with values when form is valid", async () => {
+    let user = { phone: "0656565656", password: "7895123554" };
 
-        // THEN
-        expect(result).toBe(true)
+    // WHEN
+    const result = await schema.isValid(user);
+
+    // THEN
+    expect(result).toBe(true);
+  });
+
+  test("Return error when password is empty", async () => {
+    let user = { phone: 12345678, password: "" };
+
+    // WHEN
+    const result = await schema.isValid(user);
+
+    // THEN
+    expect(result).toBe(false);
+  });
+
+  test("Return error when phone is empty", async () => {
+    let user = { phone: "", password: "78987544" };
+
+    // WHEN
+    const result = await schema.isValid(user);
+
+    // THEN
+    expect(result).toBe(false);
+  });
+
+  test("Return error when phone equal of 0000", async () => {
+    let user = { phone: "0000", password: "78987544" };
+
+    // WHEN
+    const result = await schema.isValid(user);
+
+    // THEN
+    expect(result).toBe(false);
+  });
+});
+
+describe("API auth handles", () => {
+  let userData, navigation, setErrors, setAuthLoaded;
+
+  beforeEach(() => {
+    userData = {
+      email: "test@example.com",
+      password: "password123",
+    };
+    navigation = {
+      navigate: jest.fn(),
+    };
+    setErrors = jest.fn();
+    setAuthLoaded = jest.fn();
+  });
+
+  it("calls apiClient with the correct data and navigates to VerificationUser if response is inactive", async () => {
+    apiClient.post.mockResolvedValue({
+      status: 200,
+      data: {
+        active: 0,
+        email: "test@example.com",
+      },
     });
 
-    test("Return error when password is empty", async () => {
-        let user = { phone: 12345678, password: '' }
+    await handleLogin(userData, navigation, setErrors, setAuthLoaded);
 
-        // WHEN
-        const result = await schema.isValid(user)
+    expect(apiClient.post).toHaveBeenCalledWith("users/login", userData);
+    expect(navigation.navigate).toHaveBeenCalledWith("VerificationUser", {
+      email: "test@example.com",
+    });
+    expect(setErrors).not.toHaveBeenCalled();
+    expect(setAuthLoaded).toHaveBeenCalledWith(false);
+  });
 
-        // THEN
-        expect(result).toBe(false)
+  it("calls setErrors with the API error message if the response is not successful", async () => {
+    apiClient.post.mockResolvedValue({
+      status: 400,
+      data: { user: "Bad request" },
     });
 
-    test("Return error when phone is empty", async () => {
-        let user = { phone: '', password: '78987544' }
+    await handleLogin(userData, navigation, setErrors, setAuthLoaded);
 
-        // WHEN
-        const result = await schema.isValid(user)
+    expect(apiClient.post).toHaveBeenCalledWith("users/login", userData);
+    expect(navigation.navigate).not.toHaveBeenCalled();
+    expect(setErrors).toHaveBeenCalledWith({ api: "Bad request" });
+    expect(setAuthLoaded).toHaveBeenCalledWith(false);
+  });
 
-        // THEN
-        expect(result).toBe(false)
+  it("should set the errors if response status is 400 or 500", async () => {
+    const userData = { email: "test@email.com", password: "testpassword" };
+    const navigation = { navigate: jest.fn() };
+    const setErrors = jest.fn();
+    const setAuthLoaded = jest.fn();
+    apiClient.post.mockResolvedValue({
+      status: 400,
+      data: { user: "Error occurred" },
     });
 
-    test("Return error when phone equal of 0000", async () => {
-        let user = { phone: '0000', password: '78987544' }
+    await handleLogin(userData, navigation, setErrors, setAuthLoaded);
 
-        // WHEN
-        const result = await schema.isValid(user)
+    expect(setErrors).toHaveBeenCalledWith({ api: "Error occurred" });
+    expect(navigation.navigate).not.toHaveBeenCalled();
+  });
 
-        // THEN
-        expect(result).toBe(false)
+  it("should navigate to VerificationUser if response.data.active is 0", async () => {
+    const userData = { email: "test@email.com", password: "testpassword" };
+    const navigation = { navigate: jest.fn() };
+    const setErrors = jest.fn();
+    const setAuthLoaded = jest.fn();
+    apiClient.post.mockResolvedValue({
+      status: 200,
+      data: { active: 0, email: "test@email.com" },
     });
-})
 
-describe('API auth handles', () => {
-    // TODO !
-    test.skip('handleLogin - failed with status 500 or 400', async () => {
-        // GIVEN
-            let login = {
-            phone: '0656560552',
-            password: 'c++'
-        }
+    await handleLogin(userData, navigation, setErrors, setAuthLoaded);
 
-        // WHEN
-        const response = handleLogin(login, navigation, setErrors, loader);
-
-        // THEN
-        expect(response.setErrors.api).toBe('You need to activate your account')
+    expect(navigation.navigate).toHaveBeenCalledWith("VerificationUser", {
+      email: "test@email.com",
     });
-    test.skip('handleLogin - Check if user has an active account', async () => {
-        // GIVEN
-            let login = {
-            phone: '0656560552',
-            password: 'c++'
-        }
+    expect(setErrors).not.toHaveBeenCalled();
+  });
 
-        // WHEN
-        const response = handleLogin(login, navigation, setErrors, loader);
-
-        // THEN
-        expect(response.data.active).toBe(1)
+  it("should navigate to Address if response.data.account.address is empty", async () => {
+    const userData = { email: "test@email.com", password: "testpassword" };
+    const navigation = { navigate: jest.fn() };
+    const setErrors = jest.fn();
+    const setAuthLoaded = jest.fn();
+    apiClient.post.mockResolvedValue({
+      status: 200,
+      data: {
+        id: 1,
+        active: 1,
+        account: { address: "", type: "COLLECTOR" },
+      },
     });
-})
+
+    await handleLogin(userData, navigation, setErrors, setAuthLoaded);
+
+    expect(navigation.navigate).toHaveBeenCalledWith("Address");
+    expect(setErrors).not.toHaveBeenCalled();
+  });
+});
