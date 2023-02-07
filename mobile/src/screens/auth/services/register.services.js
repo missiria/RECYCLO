@@ -13,19 +13,6 @@ export const defaultValues = {
   type: "COLLECTOR",
 };
 
-export const schema = yup.object().shape({
-  first_name: yup.string().required("First Name is required").min(2).max(200),
-  last_name: yup.string().required("Last Name is required").min(2).max(200),
-  phone: yup
-    .string()
-    .optional()
-    .phone("MA")
-    .typeError("That doesn't look like a phone number"),
-  email: yup.string().required().email().min(8).max(250), // TODO : verify email rules
-  // TODO : https://stackoverflow.com/a/55604455
-  password: yup.string().required().min(8).max(25),
-});
-
 export const handleRegister = async (
   userData,
   navigation,
@@ -47,3 +34,16 @@ export const handleRegister = async (
     }
   }
 };
+
+export const schema = yup.object().shape({
+  first_name: yup.string().required("First Name is required").min(2).max(200),
+  last_name: yup.string().required("Last Name is required").min(2).max(200),
+  phone: yup
+    .string()
+    .optional()
+    .phone("MA")
+    .typeError("That doesn't look like a phone number"),
+  email: yup.string().required().email().min(8).max(250), // TODO : verify email rules
+  // TODO : https://stackoverflow.com/a/55604455
+  password: yup.string().required().min(8).max(25),
+});
