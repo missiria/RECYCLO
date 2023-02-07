@@ -10,16 +10,11 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import smsTextIcon from "../../assets/images/sms_text.png";
-import iconMaroc from "../../assets/images/mr.png";
 // Services
-import {
-  handleAuth,
-  schemaValidation,
-  defaultValues,
-} from "./services/phone.services";
+import { VerifyPhone, schema, defaultValues } from "./services/phone.services";
 
 export default function GetEmail({ navigation }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.groupImageContainer}>
@@ -31,8 +26,8 @@ export default function GetEmail({ navigation }) {
       </Text>
       <Formik
         initialValues={defaultValues}
-        validationSchema={schemaValidation}
-        onSubmit={(values) => handleAuth(values, navigation, setLoading)}
+        validationSchema={schema}
+        onSubmit={(values) => VerifyPhone(values, navigation, setLoading)}
       >
         {(props) => (
           <ScrollView>
@@ -61,7 +56,11 @@ export default function GetEmail({ navigation }) {
             </Text>
             <View style={styles.buttonContainer}>
               <Text onPress={props.handleSubmit} style={styles.button}>
-                {loading ? <ActivityIndicator color={'#fff'} /> : "Envoyer le code"} 
+                {loading ? (
+                  <ActivityIndicator color={"#fff"} />
+                ) : (
+                  "Envoyer le code"
+                )}
               </Text>
             </View>
           </ScrollView>
