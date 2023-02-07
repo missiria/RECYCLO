@@ -31,7 +31,8 @@ export const VerifyPhone = async ({ email }, navigation, setLoading) => {
       code: data.code,
     });
   } catch (error) {
-    console.error(error);
+    // TODO : set Error in useState and show it in front
+    console.log(error);
   } finally {
     setLoading(false);
   }

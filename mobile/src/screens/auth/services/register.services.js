@@ -40,7 +40,8 @@ export const handleRegister = async (
     if (error.response && error.response.status === 422) {
       setErrors(setErrorsAPI(error.response.data.errors));
     } else {
-      console.error(error);
+    // TODO : set Error in useState and show it in front
+      console.log(error);
     }
   } finally {
     setAuthLoaded(false);

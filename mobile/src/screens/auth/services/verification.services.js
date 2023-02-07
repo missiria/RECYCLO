@@ -23,7 +23,6 @@ export const handleRegister = async (
         account,
       });
     } catch (error) {
-      console.error(error);
       setErr("Error updating the user");
     }
   } else {

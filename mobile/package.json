@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest src --watchAll --reporters",
+    "test": "jest src/ --useStderr --verbose --errorOnDeprecated --logHeapUsage",
     "eas-build-pre-install": "npm config set legacy-peer-deps true"
   },
   "dependencies": {

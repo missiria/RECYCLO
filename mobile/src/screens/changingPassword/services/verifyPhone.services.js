@@ -8,17 +8,14 @@ export const defaultValues = {
 };
 
 export const handleAuth = (values, navigation, code, setError, email) => {
-  const currentCode = `${values.n1}${values.n2}${values.n3}${values.n4}`
+  const currentCode = `${values.n1}${values.n2}${values.n3}${values.n4}`;
 
   if (Number(currentCode) === code) {
-    navigation.navigate("ChangePassword", {
-      // * Send email
-      email
-    });
+    navigation.navigate("ChangePassword", { email });
   } else {
     console.log("CODE DON'T MATCH");
   }
-  setError("Code incorrect")
+  setError("Code incorrect");
 };
 
 export const schemaValidation = yup.object().shape({
