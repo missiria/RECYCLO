@@ -2,13 +2,17 @@ import * as yup from "yup";
 import { axiosInstance } from "../../../api/client";
 
 export const handleAuth = async (values, navigation, email, setLoading) => {
-  if (values && navigation) {
-    setLoading(true)
-    console.log(values);
-    const { data } = await axiosInstance.post('update_password', { email, password: values.password })
-    console.log(data)
-    setLoading(false)
+  try {
+    const { data } = await axiosInstance.post("update_password", {
+      email,
+      password: values.password,
+    });
+
     navigation.navigate("Done");
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
   }
 };
 
