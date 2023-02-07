@@ -1,6 +1,5 @@
 import * as yup from "yup";
 import "yup-phone";
-import { storeData } from "~/hooks/hooks";
 import { axiosInstance } from "../../../api/client";
 import { setErrorsAPI } from "../../../services/v12";
 
@@ -19,19 +18,32 @@ export const handleRegister = async (
   setErrors,
   setAuthLoaded
 ) => {
-  if (userData && navigation) {
-    setAuthLoaded(true);
+  setAuthLoaded(true);
+
+  try {
     const response = await axiosInstance.post("users", userData, {
       headers: {
-        "content-type": "application/json; charset=utf-8"
-      }
+        "content-type": "application/json; charset=utf-8",
+      },
     });
-    if (response.status === 422) {
-      setErrors(setErrorsAPI(response.data.errors));
-    } else if (parseInt(response.data.id) > 0) {
-      navigation.navigate("VerificationUser", { email: response.data.email, code: response.data.code, account: response.data.account });
-      setAuthLoaded(false);
+
+    if (response.status !== 201) {
+      throw new Error("Unexpected response status code");
     }
+
+    navigation.navigate("VerificationUser", {
+      email: response.data.email,
+      code: response.data.code,
+      account: response.data.account,
+    });
+  } catch (error) {
+    if (error.response && error.response.status === 422) {
+      setErrors(setErrorsAPI(error.response.data.errors));
+    } else {
+      console.error(error);
+    }
+  } finally {
+    setAuthLoaded(false);
   }
 };
 

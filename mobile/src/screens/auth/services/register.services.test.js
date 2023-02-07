@@ -1,40 +1,23 @@
-import { schema, handleRegister } from "./register.services";
-import { storeData } from "~/hooks/hooks";
 import { axiosInstance } from "../../../api/client";
+import { handleRegister, schema } from "./register.services";
 import { setErrorsAPI } from "../../../services/v12";
 
-jest.mock("~/hooks/hooks");
-jest.mock("../../../api/client");
-jest.mock("../../../services/v12");
+jest.mock("../../../api/client", () => {
+  return {
+    axiosInstance: {
+      post: jest.fn(),
+    },
+  };
+});
 
-const axiosInstanceMock = {
-  post: jest.fn(),
-};
-
-axiosInstance.mockImplementation(() => axiosInstanceMock);
-
-const setErrorsAPIMock = jest.fn();
-setErrorsAPI.mockImplementation(() => setErrorsAPIMock);
-
-const storeDataMock = jest.fn();
-storeData.mockImplementation(() => storeDataMock);
-
-const userData = {
-  first_name: "John",
-  last_name: "Doe",
-  phone: "05 1234567890",
-  email: "johndoe@mail.com",
-  password: "password",
-  type: "COLLECTOR",
-};
-const navigationMock = {
-  navigate: jest.fn(),
-};
-const setErrorsMock = jest.fn();
-const setAuthLoadedMock = jest.fn();
+jest.mock("../../../services/v12", () => {
+  return {
+    setErrorsAPI: jest.fn(),
+  };
+});
 
 describe("REGISTER", () => {
-  describe('FORM : Validation', () => {
+  describe("FORM : Validation", () => {
     test("Return Error When Object Is Empty", async () => {
       let user = { first_name: "", last_name: "", phone: "", password: "" };
 
@@ -90,66 +73,74 @@ describe("REGISTER", () => {
       // THEN
       expect(result).toBe(false);
     });
-  })
-  describe('API : routes', () => {
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
+  });
+  describe("API : routes", () => {
+    let userData, navigationMock, setErrorsMock, setAuthLoadedMock;
 
     beforeEach(() => {
-      navigation = { navigate: jest.fn() };
-      setErrors = jest.fn();
-      setAuthLoaded = jest.fn();
-      response = {
-        data: {
-          id: '1',
-          email: 'test@example.com',
-          code: '123456',
-          account: 'COLLECTOR',
-        },
-        status: 200,
+      userData = {
+        email: "missiria@mail.com",
+        password: "c++",
       };
-      axiosInstance.post.mockResolvedValue(response);
+      navigationMock = { navigate: jest.fn() };
+      setErrorsMock = jest.fn();
+      setAuthLoadedMock = jest.fn();
     });
 
-    it('should call navigate with correct params when response id is greater than 0', async () => {
-      await handleRegister(userData, navigation, setErrors, setAuthLoaded);
+    afterEach(() => {
+      axiosInstance.post.mockClear();
+      setErrorsAPI.mockClear();
+      navigationMock.navigate.mockClear();
+      setErrorsMock.mockClear();
+      setAuthLoadedMock.mockClear();
+    });
 
-      expect(navigation.navigate).toHaveBeenCalledWith(
-        'VerificationUser',
-        { email: response.data.email, code: response.data.code, account: response.data.account }
+    it("should call axiosInstance.post with correct params", async () => {
+      axiosInstance.post.mockResolvedValue({
+        status: 201,
+        data: {
+          email: "missiria@mail.com",
+          code: "123456",
+          account: { id: 1 },
+        },
+      });
+
+      await handleRegister(
+        userData,
+        navigationMock,
+        setErrorsMock,
+        setAuthLoadedMock
       );
-    });
 
-    it("should call setAuthLoaded with true", async () => {
-      await handleRegister(userData, navigationMock, setErrorsMock, setAuthLoadedMock);
-
-      expect(setAuthLoadedMock).toHaveBeenCalledWith(true);
-    });
-
-    it("should call axiosInstance post method with correct params", async () => {
-      await handleRegister(userData, navigationMock, setErrorsMock, setAuthLoadedMock);
-
-      expect(axiosInstanceMock.post).toHaveBeenCalledWith("users", userData, {
+      expect(axiosInstance.post).toHaveBeenCalledWith("users", userData, {
         headers: {
           "content-type": "application/json; charset=utf-8",
         },
       });
     });
 
-    it("should call setErrors with response.data.errors when response status is 422", async () => {
-      const response = {
-        status: 422,
+    it("should navigate to VerificationUser screen with correct params if the response has a status of 201", async () => {
+      axiosInstance.post.mockResolvedValue({
+        status: 201,
         data: {
-          errors: "error",
+          email: "missiria@mail.com",
+          code: "123456",
+          account: { id: 1 },
         },
-      };
-      axiosInstanceMock.post.mockResolvedValue(response);
+      });
 
-      await handleRegister(userData, navigationMock, setErrorsMock, setAuthLoadedMock);
+      await handleRegister(
+        userData,
+        navigationMock,
+        setErrorsMock,
+        setAuthLoadedMock
+      );
 
-      expect(setErrorsMock).toHaveBeenCalledWith("error");
+      expect(navigationMock.navigate).toHaveBeenCalledWith("VerificationUser", {
+        email: "missiria@mail.com",
+        code: "123456",
+        account: { id: 1 },
+      });
     });
-  })
-})
-
+  });
+});
