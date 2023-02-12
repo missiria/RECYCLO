@@ -3,6 +3,8 @@ import { axiosInstance } from "../../../api/client";
 
 export const handleAuth = async (values, navigation, email, setLoading) => {
   try {
+
+    // TODO : Check data and status of response and make the right navigation
     const { data } = await axiosInstance.post("update_password", {
       email,
       password: values.password,
