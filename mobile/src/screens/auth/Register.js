@@ -1,14 +1,20 @@
-import React, { useState } from "react"
-import i18n from "i18next"
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native"
-import { Formik } from "formik"
+import React, { useState } from "react";
+import i18n from "i18next";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { Formik } from "formik";
 import {
   defaultValues,
   schema,
-  handleRegister
-} from "./services/register.services"
-import { RadioButton } from "react-native-paper"
-import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput"
+  handleRegister,
+} from "./services/register.services";
+import { RadioButton } from "react-native-paper";
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
 
 export default function Register({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
@@ -66,7 +72,6 @@ export default function Register({ navigation }) {
                 <RadioButton.Group
                   onValueChange={props.handleChange("type")}
                   value={props.values.type}
-                  
                 >
                   <View style={styles.radioGroup}>
                     <View style={styles.radioInputBox}>
@@ -79,21 +84,27 @@ export default function Register({ navigation }) {
                     </View>
                   </View>
                 </RadioButton.Group>
-                
-                <Text  style={styles.buttonLogin} onPress={props.handleSubmit}>
-                    {authLoaded ? (
-                      <Text><ActivityIndicator size="small" color="#fff" /></Text>
-                    ) : (
-                      i18n.t("login.sign_up")
-                    )}
+
+                <Text style={styles.buttonLogin} onPress={props.handleSubmit}>
+                  {authLoaded ? (
+                    <Text>
+                      <ActivityIndicator size="small" color="#fff" />
+                    </Text>
+                  ) : (
+                    i18n.t("login.sign_up")
+                  )}
                 </Text>
+                {props.errors.api && (
+                  <Text style={{ color: "red" }}>{props.errors.api}</Text>
+                )}
                 <Text style={styles.textAlreadyRegistered}>
                   {i18n.t("login.already_registered")}
                   <Text
                     onPress={() => navigation.navigate("Login")}
                     style={styles.registerTextLink}
                   >
-                    {' '} {i18n.t("login.sign_in")}
+                    {" "}
+                    {i18n.t("login.sign_in")}
                   </Text>
                 </Text>
               </View>
@@ -115,8 +126,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  textRadio : {
-    color:'#A3A3A3',
+  textRadio: {
+    color: "#A3A3A3",
   },
   textTitle: {
     flex: 1,
@@ -125,11 +136,11 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 20,
   },
-  radioInputBox : {
+  radioInputBox: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    marginRight:20
+    marginRight: 20,
   },
   connectTitle: {
     fontWeight: "bold",
@@ -193,7 +204,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom:20,
+    marginBottom: 20,
   },
   textBottomDesc: {
     textAlign: "center",
@@ -204,6 +215,6 @@ const styles = StyleSheet.create({
   },
   radioGroup: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
   },
 });

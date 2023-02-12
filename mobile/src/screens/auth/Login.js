@@ -31,7 +31,7 @@ export default function Login({ navigation }) {
           }}>
           {(props) => (
             <ScrollView>
-              {  console.log(props.errors)}
+              { console.log(props.errors) }
               <EdgeTextInput
                 name="phone"
                 props={props}

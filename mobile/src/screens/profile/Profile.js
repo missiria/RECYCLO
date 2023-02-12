@@ -6,9 +6,11 @@ import {
   SafeAreaView,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FooterNav from "../navigations/FooterNav";
 import GiftCard from "./GiftCard";
+
+// ButtonEditProfile => file doesn't exist ?!!
 import ButtonEditProfile from "./ButtonEditProfile";
 import SoldCard from "./SoldCard";
 import OperationsCards from "./OperationsCards";
@@ -17,11 +19,16 @@ import profileImg from "../../assets/images/p.jpg";
 import apiClient from "../../api/client";
 
 export const fetchData = async () => {
-  const response = await apiClient.get("/auth");
+  const user = await apiClient.get("/auth");
   return console.log('User => ', response);
 }
 
 export default function Profile({ navigation }) {
+  const [user, setUser] = useState([])
+  useEffect(() => {
+    const currentUser = fetchData()
+    setUser(currentUser)
+  }, [user, currentUser])
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

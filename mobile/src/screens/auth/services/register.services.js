@@ -38,9 +38,11 @@ export const handleRegister = async (
     });
   } catch (error) {
     if (error.response && error.response.status === 422) {
+      // TODO : To check if setErrorsAPI function
       setErrors(setErrorsAPI(error.response.data.errors));
     } else {
-    // TODO : set Error in useState and show it in front
+      // TODO : set Error in useState and show it in front
+      setErrors({ api: response.message });
       console.log(error);
     }
   } finally {

@@ -13,6 +13,7 @@ export default function Splash({ navigation }) {
     setIsFirstTime(firstTime === null ? "true" : firstTime);
   };
 
+  // TODO : there is 3 useEffect() hooks ?!! We should merge all the code inside of one!
   useEffect(() => {
     if (user == null) {
       async function getCurrentUser() {
