@@ -10,9 +10,8 @@ import {
 import { Formik } from "formik";
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
-import { cityData } from "../filter/FilterData";
 import {
-  handleRegister,
+  handleAddressRegister,
   schema,
   defaultValues,
 } from "./services/address.services";
@@ -45,7 +44,7 @@ export default function Address({ navigation }) {
             initialValues={defaultValues}
             validationSchema={schema}
             onSubmit={(values, { setErrors }) =>
-              handleRegister(values, navigation, setErrors, setLoading, cities)
+              handleAddressRegister(values, navigation, setErrors, setLoading, cities)
             }>
             {(props) => (
               <View>

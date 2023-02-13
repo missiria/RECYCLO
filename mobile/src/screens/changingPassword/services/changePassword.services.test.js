@@ -9,7 +9,7 @@ jest.mock("../../../api/client", () => ({
 
 describe("CHANGE PASSWORD", () => {
   describe("FORM : Validation", () => {
-    test("ChangePassword - RETURN object of passwords when retyping is correct", async () => {
+    it("RETURN object of passwords when retyping is correct", async () => {
       // GIVEN
       const password = { password: "123456789", retypePassword: "123456789" };
 
@@ -20,7 +20,7 @@ describe("CHANGE PASSWORD", () => {
       expect(validation).toBe(password);
     });
 
-    test("ChangePassword - RETURN error when retyping isn't correct", async () => {
+    it("RETURN error when retyping isn't correct", async () => {
       // GIVEN
       const password = { password: "123456789", retypePassword: "12345678" };
 
@@ -31,7 +31,7 @@ describe("CHANGE PASSWORD", () => {
       expect(validation).toBe(false);
     });
 
-    test("ChangePassword - RETURN error when retyping password is empty", async () => {
+    it("RETURN error when retyping password is empty", async () => {
       // GIVEN
       const password = { password: "123456789", retypePassword: "" };
 
@@ -42,7 +42,7 @@ describe("CHANGE PASSWORD", () => {
       expect(validation).toBe(false);
     });
 
-    test("ChangePassword - RETURN error when password is empty", async () => {
+    it("RETURN error when password is empty", async () => {
       // GIVEN
       const password = { retypePassword: "123456789" };
 

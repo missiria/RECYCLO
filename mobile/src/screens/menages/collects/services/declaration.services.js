@@ -1,11 +1,9 @@
-import * as yup from "yup";
 import apiClient from "~/api/client";
-import { getData, storeData } from "~/hooks/hooks";
+import { getData } from "~/hooks/hooks";
 
-// TODO : Create tests for this method
 export const handleDeclaration = async (
-  dateDeclary,
-  timeDeclary,
+  date,
+  time,
   quantity,
   price,
   images,
@@ -13,37 +11,42 @@ export const handleDeclaration = async (
   navigation,
   setErrors
 ) => {
-  const user = await getData("user");
-  const formData = new FormData();
-  formData.append("date", dateDeclary);
-  formData.append("time", timeDeclary);
-  formData.append("quantity", quantity);
-  formData.append("price", price);
-  formData.append("collect_id", collectId);
-  images.forEach((imageUri, i) => {
-    formData.append("images[" + i + "]", {
-      uri: imageUri,
-      name: i + ".jpg",
-      type: "image/jpg",
+  try {
+    const user = await getData("user");
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const formData = new FormData();
+    formData.append("date", date);
+    formData.append("time", time);
+    formData.append("quantity", quantity);
+    formData.append("price", price);
+    formData.append("collect_id", collectId);
+    images.forEach((imageUri, i) => {
+      formData.append("images[" + i + "]", {
+        uri: imageUri,
+        name: i + ".jpg",
+        type: "image/jpg",
+      });
     });
-  });
-  // console.log("user",user);
 
-  apiClient
-    .post("declarations/add", formData, {
+    const response = await apiClient.post("declarations/add", formData, {
       headers: {
-        Authorization: user.auth.type + " " + user.auth.token,
+        Authorization: `${user.auth.type} ${user.auth.token}`,
         "Content-Type": "multipart/form-data",
       },
-    })
-    .then((response) => {
-      console.log("response.data", response.data);
-      if (response.data?.errors) {
-        console.log(response.data.errors);
-      } else if (response.data?.error) {
-        throw new Error(response.data.message);
-      } else {
-        navigation.navigate("DeclarationSuccess");
-      }
     });
+
+    if (response.data?.errors) {
+      console.log(response.data.errors);
+      setErrors(response.data.errors);
+    } else if (response.data?.error) {
+      throw new Error(response.data.message);
+    } else {
+      navigation.navigate("DeclarationSuccess");
+    }
+  } catch (error) {
+    console.error(error);
+    setErrors([error.message]);
+  }
 };

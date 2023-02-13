@@ -3,7 +3,6 @@ import {useState,useEffect} from 'react';
 import i18n from "i18next";
 import DeclarationItem from './declarationItem/DeclarationItem';
 import HeaderImage from "../../../assets/images/c.png";
-import { FakeData } from './DeclarationFakeData'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { useAPI,useAsyncStorage } from "~/hooks/hooks";
@@ -57,8 +56,8 @@ export default function Declaration({navigation}) {
                 </TouchableOpacity>
             </View>
             <ScrollView>
-                {!data && !isLoading ? <Text>{"Une erreur est servenue "}</Text> : 
-                    isLoading ? 
+                {!data && !isLoading ? <Text>{"Une erreur est servenue "}</Text> :
+                    isLoading ?
                         <ActivityIndicator size="small" color="#ff00ff" />
                     :
                     declarations && declarations?.map((declaration) => (
@@ -67,8 +66,8 @@ export default function Declaration({navigation}) {
                             navigation={navigation}
                             declaration={declaration}
                         />
-                    )) 
-                    
+                    ))
+
                 }
                 {data?.length === 0 && <Text style={styles.titleNotFound} >Pas de declaration</Text>}
             </ScrollView>
