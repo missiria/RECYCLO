@@ -9,7 +9,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Provider store={store}>
-        {/* <Text>dddd</Text> */}
         <RootStack />
       </Provider>
     </View>
