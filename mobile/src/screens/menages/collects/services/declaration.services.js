@@ -1,6 +1,5 @@
 import apiClient from "~/api/client";
 import { getData } from "~/hooks/hooks";
-import FormData from "isomorphic-form-data";
 
 export const handleDeclaration = async (
   date,
