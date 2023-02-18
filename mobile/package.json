@@ -46,6 +46,7 @@
     "deprecated-react-native-prop-types": "^4.0.0",
     "expo": "~47.0.13",
     "expo-camera": "~13.1.0",
+    "expo-font": "~11.0.1",
     "expo-image-loader": "^4.0.0",
     "expo-image-picker": "~14.0.2",
     "expo-local-authentication": "~13.0.2",

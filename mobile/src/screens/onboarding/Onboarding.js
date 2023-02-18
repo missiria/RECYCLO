@@ -5,9 +5,6 @@ import { slides } from "./slides"
 import OnboardingItem from "./OnboardingItem/OnboardingItem"
 import Pagination from "./Pagination"
 import NextButton from "./NextButton/NextButton"
-import { EdgeButton } from "~/ui/buttons/EdgeButton"
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Onboarding({ navigation }) {
   const [currentIndex, seCurrentIndex] = useState(0);
@@ -23,17 +20,7 @@ export default function Onboarding({ navigation }) {
   const scrollTo = () => {
     if (currentIndex < slides.length - 1) {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
-    } else {
-      console.log('FirstTime is false');
-      AsyncStorage.setItem('FirstTime','false');
     }
-  };
-
-  const finished = () => {
-    console.log('FirstTime is false');
-    AsyncStorage.setItem('FirstTime','false');
-    navigation.navigate("LoginIndex");
-    //() => navigation.navigate("LoginIndex")
   };
 
   {/* Separate this component in folder */}
@@ -41,9 +28,12 @@ export default function Onboarding({ navigation }) {
   const terminiOnb = () => {
     if (currentIndex >= 2) {
       return (
-        <View style={styles.container}>
-          <EdgeButton text={i18n.t('introduction.finished')} onPress={finished}/>
-        </View>
+          <Text
+            onPress={() => navigation.navigate("LoginIndex")}
+            style={styles.button}
+          >
+            {i18n.t('introduction.finished')}
+          </Text>
       );
     } else {
       return (
@@ -91,5 +81,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-  }
+  },
+  button: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: '#33CC66',
+    padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    borderRadius: 5,
+    marginBottom: 30,
+    width: 360,
+    maxWidth: "100%",
+    color: 'white',
+    fontFamily: 'MetropoliceLight',
+  },
 });

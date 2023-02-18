@@ -164,7 +164,6 @@ export const storeData = async (key,value) => {
   }
   return true;
 }
-
 export const getData = async (key) => {
   try {
     const jsonValue = await AsyncStorage.getItem(key)

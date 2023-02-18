@@ -6,7 +6,7 @@ import { setErrorsAPI } from "../../../services/v12";
 export const defaultValues = {
   first_name: "",
   last_name: "",
-  phone: `05 ${Date.now().toString().substring(5)}`,
+  phone: `06 ${Date.now().toString().substring(5)}`,
   email: `${Date.now()}@mail.com`,
   password: "123456789",
   type: "COLLECTOR",

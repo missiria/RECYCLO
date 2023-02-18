@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import HeaderIndexLogin from "../assets/images/logo_2.png";
 import { getData } from "../hooks/hooks";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Splash({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
@@ -52,7 +53,10 @@ export default function Splash({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.logoImg}>
-        <Image source={HeaderIndexLogin} />
+        <Image 
+          style={styles.logoStyle}
+          source={HeaderIndexLogin}
+        />
       </View>
     </View>
   );
@@ -68,5 +72,10 @@ const styles = StyleSheet.create({
   logoImg: {
     flex: 5,
     justifyContent: "center",
+  },
+  logoStyle: {
+    width: 100,
+    height: 100,
+    resizeMode: "contain",
   },
 });
