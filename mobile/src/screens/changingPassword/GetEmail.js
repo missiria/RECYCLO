@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   View,
   Text,
@@ -8,22 +8,41 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
+import i18n from "i18next";
 import { Formik } from "formik";
 import smsTextIcon from "../../assets/images/sms_text.png";
 // Services
 import { VerifyPhone, schema, defaultValues } from "./services/phone.services";
+import Toast from 'react-native-toast-message';
 
 export default function GetEmail({ navigation }) {
   const [loading, setLoading] = useState(false);
+  const [rtl, setRtl] = useState(false);
+  const rtlText = rtl && { textAlign: 'right', paddingRight: 20 };
+  const errorsRtlText = rtl && { textAlign: 'right', paddingRight: 0 };
+  useEffect(() => {
+      if (i18n.language == "ar") {
+          setRtl(true);
+      } else {
+          setRtl(false);
+      }
+  }, []);
   return (
     <View style={styles.container}>
+      <Toast
+        ref={(ref) => Toast.setRef(ref)}
+      />
       <View style={styles.groupImageContainer}>
-        <Image source={smsTextIcon} />
+        <Image source={smsTextIcon}  style={styles.img}/>
       </View>
-      <Text style={styles.textTitle}>Récupération de mot de passe</Text>
-      <Text style={styles.textDesc}>
-        Entrez votre Email pour récupérer votre mot de passe
-      </Text>
+      <View style={styles.contentText}>
+          <Text style={styles.titleText}>
+            {i18n.t("changePassword.title")}
+          </Text>
+          <Text style={styles.descText}>
+            {i18n.t("changePassword.desc")}
+          </Text>
+        </View>
       <Formik
         initialValues={defaultValues}
         validationSchema={schema}
@@ -32,37 +51,35 @@ export default function GetEmail({ navigation }) {
         {(props) => (
           <ScrollView>
             {/* TODO : remove inline styles */}
-            <View
-              style={[
-                styles.inputNumber,
-                props.errors.email
-                  ? { borderColor: "red", borderWidth: 1 }
-                  : null,
-              ]}
-            >
-              <View>
+              <View  style={styles.contentSection}>
                 <TextInput
                   onChangeText={props.handleChange("email")}
                   value={props.values.email}
                   onBlur={props.handleBlur("email")}
                   keyboardType="email-address"
                   placeholder="Votre Email"
-                  style={styles.input}
+                  style={[styles.input, rtlText, props.errors.email && styles.inputError]}
                 />
               </View>
-            </View>
-            <Text style={{ color: "red", marginHorizontal: 20, marginTop: 2 }}>
-              {props.errors.email}
-            </Text>
-            <View style={styles.buttonContainer}>
-              <Text onPress={props.handleSubmit} style={styles.button}>
+            {props.errors.email &&
+                Toast.show({
+                  type: 'error',
+                  position: 'top',
+                  text1: 'Error',
+                  text2: props.errors.email,
+                  visibilityTime: 5000,
+                  bottomOffset: 40,
+                }
+            )}
+              <Text 
+                style={styles.buttonLogin}
+                onPress={props.handleSubmit}>
                 {loading ? (
                   <ActivityIndicator color={"#fff"} />
                 ) : (
                   "Envoyer le code"
                 )}
               </Text>
-            </View>
           </ScrollView>
         )}
       </Formik>
@@ -74,72 +91,70 @@ export default function GetEmail({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: '#fff',
   },
-  groupImageContainer: {
-    marginTop: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 60,
+  contentSection: {
+    marginHorizontal: 30,
   },
-  groupTextFormContainer: {
-    marginTop: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "black",
-    textAlign: "center",
-  },
-  textDesc: {
-    fontWeight: "100",
-    color: "#7C7C7C",
-    textAlign: "center",
-    fontSize: 16,
-    marginTop: 10,
-    marginHorizontal: 10,
-  },
-  buttonContainer: {
+  img: {
+    width: 102,
+    height: 124,
+    alignSelf: 'center',
     marginTop: 100,
-    marginBottom: 35,
-    alignItems: "center",
-    justifyContent: "center",
   },
-  button: {
-    backgroundColor: "#33CC66",
-    borderRadius: 100,
-    padding: 15,
-    width: "90%",
-    color: "white",
-    textAlign: "center",
-    borderRadius: 7,
-    fontWeight: "bold",
-  },
-  dropDow: {
-    fontWeight: "bold",
-    color: "black",
-    height: 50,
-    width: 100,
-  },
-  inputNumber: {
+  contentText: {
     marginTop: 40,
-    backgroundColor: "#F8F8F8",
-    borderRadius: 5,
-    marginHorizontal: 20,
-    fontWeight: "bold",
   },
-  imdNadDrop: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+  titleText: {
+    fontSize: 17,
+    fontFamily: 'MetropoliceBold',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
+  descText: {
+    fontSize: 14,
+    fontFamily: 'MetropoliceLight',
+    textAlign: 'center',
+    color: '#A3A3A3',
+    lineHeight: 25,
+    marginTop: 20,
+    letterSpacing: 0.5,
   },
   input: {
-    fontWeight: "bold",
-    color: "black",
-    height: 50,
-    marginLeft: 20,
+    backgroundColor: '#F6F6F6',
+    paddingLeft: 20,
     borderRadius: 5,
+    height: 55,
+    fontFamily: 'MetropoliceLight',
+    letterSpacing: 0.5,
+    marginTop: 80,
+ 
   },
-});
+  buttonLogin: {
+    backgroundColor: '#33CC66',
+    padding: 15,
+    textAlign: 'left',
+    paddingLeft: 80,
+    paddingRight: 80,
+    borderRadius: 5,
+    marginTop: 20,
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 14,
+    fontFamily: 'MetropoliceLight',
+    letterSpacing: 0.5,
+    marginHorizontal: 30,
+    marginBottom: 30,
+  },
+  errorText : {
+    color: 'red',
+    fontSize: 14,
+    fontFamily: 'MetropoliceLight',
+    letterSpacing: 0.5,
+    marginTop: 10,
+  },
+  inputError : {
+    borderColor:'red',
+    borderWidth : 1,
+  },
+})

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,  Image,ScrollView, TouchableOpacity  } from "react-native";
+import { StyleSheet, Text, View,  Image,ScrollView, TouchableOpacity,StatusBar  } from "react-native";
 import i18n from "i18next";
 import header from "../assets/images/1.png";
 import { style } from "../assets/styles/Onboard";
@@ -7,7 +7,14 @@ import { EdgeButton } from "~/ui/buttons/EdgeButton"
 export default function Welcome({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image style={style.ImageStyle} source={header} />
+       <StatusBar 
+        style="auto"
+        backgroundColor={'#33CC66'}
+      />
+      <Image 
+        style={styles.ImageStyle} 
+        source={header}
+      />
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={styles.containerText}>
           <Text style={style.TitleText}>{i18n.t("welcome.hello")}</Text>
@@ -72,4 +79,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'MetropoliceLight',
   },
+  ImageStyle : {
+   width:"100%",
+   height:230,
+  }
 });

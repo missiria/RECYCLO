@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
+import Toast from 'react-native-toast-message';
 
 export function EdgeTextInput({
   style,
@@ -20,7 +21,18 @@ export function EdgeTextInput({
         onBlur={handleBlur(name)}
         onChangeText={handleChange(name)}
       />
-      <Text style={{ color: "red" }}>{errors[name]}</Text>
+      {/* <Text style={{ color: "red" }}>{errors[name]}</Text> */}
+      {errors[name] &&
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: errors[name],
+          visibilityTime: 5000,
+          autoHide: true,
+          bottomOffset: 40,
+        })
+      }
     </View>
   );
 }

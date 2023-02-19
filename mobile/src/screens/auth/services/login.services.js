@@ -5,8 +5,8 @@ import 'yup-phone'
 
 
 export const defaultValues = {
-  phone: "0656560552",
-  password: "123456789",
+  phone: "",
+  password: "",
 };
 
 // TODO : Set error message if the server is down (500)
