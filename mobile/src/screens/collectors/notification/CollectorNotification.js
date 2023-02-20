@@ -24,6 +24,7 @@ export default function CollectorNotification({navigation}) {
             // if notifications is not empty
             data?.map(item => (
               <NotificationProp 
+                key={item.id}
                 title={item.note}
                 time={new Date(item.created_at).toLocaleDateString()}
                 date={moment(item.created_at).fromNow()}

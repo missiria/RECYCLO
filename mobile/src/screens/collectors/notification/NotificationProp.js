@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: 'bold',
         fontSize: 12,
+        maxWidth: 250,
     },
     boxdates: {
         marginTop: 3,

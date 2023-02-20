@@ -8,7 +8,7 @@ export default function Declarations({ navigation }) {
   return (
     <View style={styles.container}>
       <MenageDeclarationsTab />
-      <FooterNav navigation={navigation} />
+      {/* <FooterNav navigation={navigation} /> */}
     </View>
   );
 }

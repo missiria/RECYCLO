@@ -31,7 +31,7 @@ export default function Register({ navigation }) {
   return (
     <View style={styles.container}>
       <Toast
-        ref={(ref) => Toast.setRef(ref)}
+        topOffset={25}
       />
       <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
         <View style={styles.textTitle}>

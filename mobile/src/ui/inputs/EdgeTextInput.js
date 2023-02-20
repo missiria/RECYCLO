@@ -20,8 +20,10 @@ export function EdgeTextInput({
         keyboardType={keyboardType}
         onBlur={handleBlur(name)}
         onChangeText={handleChange(name)}
+        secureTextEntry={name === "password"}
       />
       {/* <Text style={{ color: "red" }}>{errors[name]}</Text> */}
+      {/* todo : fix a warning in toast */}
       {errors[name] &&
         Toast.show({
           type: 'error',

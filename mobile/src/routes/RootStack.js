@@ -127,6 +127,7 @@ import MenageBankDetails from "../screens/menages/profile/transferMoney/menageBa
 import TransactionSuccess from "../screens/menages/wallet/TransactionSuccess";
 import CollectorBankDetails from "../screens/collectors/wallet/CollectorBankDetails";
 import CollectorTypeTransfer from "../screens/collectors/wallet/withdrawal/CollectorTypeTransfer";
+import { MennageBottomTab } from "./MennageBottomTab";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -156,7 +157,7 @@ const RootStack = () => {
         <Stack.Screen name="VerifyPhone" component={MultiFactor} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen name="Done" component={Done} />
-        <Stack.Screen name="MenageHome" component={MenageHome} />
+        <Stack.Screen name="MenageHome" component={MennageBottomTab} />
         <Stack.Screen name="Logout" component={Logout} />
         <Stack.Screen name="OtherCollects" component={Otherscollect} />
         <Stack.Screen
@@ -198,7 +199,7 @@ const RootStack = () => {
         />
 
         <Stack.Screen name="Notifications" component={Notification} />
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{
             headerShown: true,
             title: "Suport Message",
@@ -208,7 +209,7 @@ const RootStack = () => {
           }}
           name="Suports"
           component={Message}
-        />
+        /> */}
         <Stack.Screen
           options={{
             headerShown: true,
@@ -485,7 +486,7 @@ const RootStack = () => {
           name="DonationSuccess"
           component={DonationSuccess}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{
             headerShown: true,
             title: "Ma Pochette",
@@ -495,7 +496,7 @@ const RootStack = () => {
           }}
           name="WalletIndex"
           component={Wallet}
-        />
+        /> */}
 
         <Stack.Screen
           options={{

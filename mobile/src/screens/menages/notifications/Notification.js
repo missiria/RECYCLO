@@ -47,7 +47,7 @@ export default function Notification({ navigation }) {
         </View>
       </View>
       <ScrollView>{showNotifications()}</ScrollView>
-      <FooterNav navigation={navigation} />
+      {/* <FooterNav navigation={navigation} /> */}
     </SafeAreaView>
   );
 }

@@ -19,7 +19,6 @@ export default function GetEmail({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [rtl, setRtl] = useState(false);
   const rtlText = rtl && { textAlign: 'right', paddingRight: 20 };
-  const errorsRtlText = rtl && { textAlign: 'right', paddingRight: 0 };
   useEffect(() => {
       if (i18n.language == "ar") {
           setRtl(true);
@@ -29,9 +28,6 @@ export default function GetEmail({ navigation }) {
   }, []);
   return (
     <View style={styles.container}>
-      <Toast
-        ref={(ref) => Toast.setRef(ref)}
-      />
       <View style={styles.groupImageContainer}>
         <Image source={smsTextIcon}  style={styles.img}/>
       </View>
@@ -68,8 +64,7 @@ export default function GetEmail({ navigation }) {
                   text1: 'Error',
                   text2: props.errors.email,
                   visibilityTime: 5000,
-                  bottomOffset: 40,
-                }
+              }
             )}
               <Text 
                 style={styles.buttonLogin}

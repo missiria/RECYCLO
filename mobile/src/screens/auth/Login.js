@@ -28,9 +28,12 @@ export default function Login({ navigation }) {
   }, []);
   return (
     <View style={styles.container}>
-       <Toast
-        ref={(ref) => Toast.setRef(ref)}
-       />
+
+      <View>
+        <Toast
+          topOffset={25}
+        />
+      </View>
       <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center' }} >
         <View style={styles.textTitle}>
           <Text style={styles.connectTitle}>

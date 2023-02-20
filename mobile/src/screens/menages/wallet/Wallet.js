@@ -7,7 +7,7 @@ export default function Wallet({navigation}) {
     return (
         <View style={styles.container}>
             <TabBarWallet />
-            <FooterNav navigation={navigation} />
+            {/* <FooterNav navigation={navigation} /> */}
         </View>
     )
 }

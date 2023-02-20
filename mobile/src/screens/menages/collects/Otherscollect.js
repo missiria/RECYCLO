@@ -41,7 +41,7 @@ export default function OthersCollect({ navigation }) {
           <View></View>
         </View>
       </ScrollView>
-      <FooterNav navigation={navigation} />
+      {/* <FooterNav navigation={navigation} /> */}
     </SafeAreaView>
   );
 }
