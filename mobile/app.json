@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Recycloo",
-    "slug": "Recycloo",
+    "slug": "recyclo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "",
@@ -27,8 +27,9 @@
     "description": "",
     "extra": {
       "eas": {
-        "projectId": "28956116-e76a-490e-974b-53e930d1d158"
+        "projectId": "ca0cc290-2f5c-453b-a77b-c3f24ae37396"
       }
-    }
+    },
+    "owner": "missiria"
   }
 }
