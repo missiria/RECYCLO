@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getCurrentUser } from "./services/VerificationOtpSuccess.services";
 
-export default function ValidationSuccess({ navigation, route }) {
+export default function ValidationSuccess({ navigation }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
