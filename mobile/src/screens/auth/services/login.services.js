@@ -19,20 +19,21 @@ export const handleLogin = async (
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
+    console.log('response > ', response)
     if(response.data.active === 0){
       navigation.navigate("VerificationUser", { email: response.data.email });
     } else if (response.status === 400 || response.status === 500) {
-      setErrors({ api: response.data.user ?? response.data });
+      setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
       if (response.data.active === 1) {
         await storeData("user", response.data);
         // TODO : To verify address with API
-        if ( response.data.account.address === '' ) {
+        if ( response.data.account?.address === '' ) {
           navigation.navigate("Address");
         } else {
-          if (response.data.user.type == "MENAGE") {
+          if (response.data.type == "MENAGE") {
             navigation.navigate("MenageHome");
-          } else if (response.data.user.type == "COLLECTOR") {
+          } else if (response.data.type == "COLLECTOR") {
             navigation.navigate("CollectorHome");
           }
         }
