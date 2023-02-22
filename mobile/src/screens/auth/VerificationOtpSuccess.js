@@ -32,7 +32,7 @@ export default function ValidationSuccess({ navigation }) {
         <EdgeButton
           text="Terminé"
           onPress={() => {
-            user?.user.type === "MENAGE"
+            user?.type === "MENAGE"
               ? navigation.navigate("MenageHome")
               : navigation.navigate("Address");
           }}
