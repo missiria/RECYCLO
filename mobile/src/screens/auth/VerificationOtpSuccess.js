@@ -12,7 +12,7 @@ export default function ValidationSuccess({ navigation, route }) {
 
   useEffect(() => {
     getCurrentUser(setUser);
-  }, [user]);
+  }, []);
 
   return (
     <View style={styles.container}>
