@@ -30,9 +30,9 @@ export const handleLogin = async (
         if ( response.data.account.address === '' ) {
           navigation.navigate("Address");
         } else {
-          if (response.data.account.type == "MENAGE") {
+          if (response.data.user.type == "MENAGE") {
             navigation.navigate("MenageHome");
-          } else if (response.data.account.type == "COLLECTOR") {
+          } else if (response.data.user.type == "COLLECTOR") {
             navigation.navigate("CollectorHome");
           }
         }
