@@ -2,7 +2,8 @@ import * as yup from "yup";
 import { axiosInstance } from "../../../api/client";
 import { storeData } from "../../../hooks/hooks";
 
-export const handleRegister = async (
+// TODO : Create UT's
+export const handleUserVerification = async (
   values,
   code,
   navigation,

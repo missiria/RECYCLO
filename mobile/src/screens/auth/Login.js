@@ -26,12 +26,12 @@ export default function Login({ navigation }) {
         <Formik
           initialValues={defaultValues}
           validationSchema={schema}
-          onSubmit={(values, { setErrors }) => {
-            handleLogin(values, navigation, setErrors, setAuthLoaded);
-          }}>
+          onSubmit={(values, { setErrors }) =>
+            handleLogin(values, navigation, setErrors, setAuthLoaded)
+          }
+        >
           {(props) => (
             <ScrollView>
-              { console.log(props.errors) }
               <EdgeTextInput
                 name="phone"
                 props={props}
@@ -47,7 +47,8 @@ export default function Login({ navigation }) {
               />
               <Text
                 onPress={() => navigation.navigate("ChangePasswordIndex")}
-                style={styles.forgetCode}>
+                style={styles.forgetCode}
+              >
                 {i18n.t("login.forget_password")}
               </Text>
               {props.errors.api && (
@@ -56,7 +57,8 @@ export default function Login({ navigation }) {
               <Text
                 style={styles.buttonLogin}
                 onPress={props.handleSubmit}
-                disabled={authLoaded}>
+                disabled={authLoaded}
+              >
                 {authLoaded ? (
                   <ActivityIndicator size="small" color="#ffffff" />
                 ) : (
@@ -67,7 +69,8 @@ export default function Login({ navigation }) {
                 {i18n.t("login.need_account")}
                 <Text
                   onPress={() => navigation.navigate("Register")}
-                  style={styles.signUpTextLink}>
+                  style={styles.signUpTextLink}
+                >
                   {i18n.t("login.sign_up")}
                 </Text>
               </Text>

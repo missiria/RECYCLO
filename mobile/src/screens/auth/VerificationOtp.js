@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Image,
   SafeAreaView,
   ScrollView,
@@ -13,34 +12,36 @@ import smsIcon from "../../assets/images/sms.png";
 
 import {
   schemaValidation,
-  handleRegister,
+  handleUserVerification,
 } from "./services/verification.services";
 
-import { getData, useFetch } from "../../hooks/hooks";
+import { useFetch } from "../../hooks/hooks";
 import { useMemo } from "react";
 import i18next from "i18next";
 import { EdgeTextInput } from "../../ui/inputs/EdgeTextInput";
 
 export default function VerificationUser({ navigation, route }) {
-
   const { email, code, account } = route.params;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null)
-  const [message, setMessage] = useState(null)
+  const [err, setErr] = useState(null);
+  const [message, setMessage] = useState(null);
 
- // * resend code
-  const [trigger, { isLoading, data }] = useFetch('resend_code', {
-    method: 'POST', 
-    body: JSON.stringify({ email }),
-  }, true)
+  // * resend code
+  const [trigger, { isLoading, data }] = useFetch(
+    "resend_code",
+    {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    },
+    true
+  );
 
   useEffect(() => {
-    if(data && data?.code){
-      setMessage("Un nouveau code de vérification est envoyé")
+    if (data && data?.code) {
+      setMessage("Un nouveau code de vérification est envoyé");
     }
-
-  }, [isLoading])
+  }, [isLoading]);
 
   // * Keep the object reference
   const memoUser = useMemo(() => user, [loading]);
@@ -57,14 +58,14 @@ export default function VerificationUser({ navigation, route }) {
   }, [memoUser]);
 
   useEffect(() => {
-    if(message){
+    if (message) {
       const id = setTimeout(() => {
-        setMessage(null)
-      }, 3000)
-  
-      return () => clearTimeout(id)
+        setMessage(null);
+      }, 3000);
+
+      return () => clearTimeout(id);
     }
-  }, [message])
+  }, [message]);
 
   return (
     <View style={styles.container}>
@@ -79,12 +80,21 @@ export default function VerificationUser({ navigation, route }) {
           {i18next.t("login.verification_sub_title")}
         </Text>
         <Text style={styles.phoneText}>Verifier votre email {user?.email}</Text>
-        
       </View>
       <Formik
         initialValues={{ n1: "", n2: "", n3: "", n4: "" }}
         validationSchema={schemaValidation}
-        onSubmit={(values) => handleRegister(values, (data?.code ?? code), navigation, setErr, user?.email, account)}>
+        onSubmit={(values) =>
+          handleUserVerification(
+            values,
+            data?.code ?? code,
+            navigation,
+            setErr,
+            user?.email,
+            account
+          )
+        }
+      >
         {(props) => (
           <ScrollView>
             <View style={styles.inputsContainer}>
@@ -119,8 +129,15 @@ export default function VerificationUser({ navigation, route }) {
                 />
               </SafeAreaView>
               <Text style={{}}>{err}</Text>
-              <Text onPress={async () => await trigger()} style={styles.TextInput}>
-                {message ? message : isLoading ? "Envoi en cours..." : i18next.t("login.verification_resend_code")}
+              <Text
+                onPress={async () => await trigger()}
+                style={styles.TextInput}
+              >
+                {message
+                  ? message
+                  : isLoading
+                  ? "Envoi en cours..."
+                  : i18next.t("login.verification_resend_code")}
               </Text>
             </View>
             <View style={styles.buttonContainer}>
