@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { axiosInstance } from "../../../../api/client";
 import { getData } from "../../../../hooks/hooks";
+import apiClient from "~/api/client";
 
 export const defaultValues = {
   city: "",
@@ -58,5 +59,12 @@ export const handleAddressRegister = async (
     setErrors([error.message]);
   } finally {
     setLoading(false);
+  }
+};
+
+export const getCities = async (setCities) => {
+  const response = await apiClient.get("cities");
+  if (response.status === 200) {
+    setCities(response.data);
   }
 };
