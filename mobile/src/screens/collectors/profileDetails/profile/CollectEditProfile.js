@@ -2,12 +2,27 @@ import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/EvilIcons";
 import { Formik } from "formik";
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
+import i18n from "i18next";
+
 // Services
 import {
   handleUpdate,
   schemaValidation,
   defaultValues,
 } from "./services/CollectEditProfile.services";
+
+function HorizontalLine() {
+  return (
+    <Text
+      style={{
+        height: 0.5,
+        width: "100%",
+        backgroundColor: "#A3A3A3",
+      }}
+    />
+  );
+}
 
 export default function CollectEditProfile({ navigation }) {
   return (
@@ -17,119 +32,89 @@ export default function CollectEditProfile({ navigation }) {
           initialValues={defaultValues}
           validationSchema={schemaValidation}
           onSubmit={(values, { setErrors }) =>
-            handleAuth(values, navigation, setErrors)
+            handleUpdate(values, navigation, setErrors)
           }
         >
-          {({
-            values,
-            errors,
-            resetForm,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-          }) => (
+          {(props) => (
             <View>
               <View style={styles.container}>
-                <View style={{ marginTop: 30 }}>
+                <View style={styles.section}>
                   <Text>A prpos De vous</Text>
 
-                  <TextInput
+                  {/**last name */}
+                  <EdgeTextInput
                     style={[
                       styles.textInput,
-                      errors.first_name
-                        ? { borderColor: "red", borderWidth: 1 }
-                        : null,
+                      props.errors.first_name ? styles.errorInput : null,
                     ]}
-                    placeholderTextColor="#7C7C7C"
-                    placeholder="Nom"
-                    onChangeText={handleChange("first_name")}
-                    value={values.first_name}
-                    onBlur={handleBlur("first_name")}
+                    name="last_name"
+                    props={props}
+                    placeholder={i18n.t("login.last_name")}
                   />
-                  <Text style={{ color: "red", marginTop: 2 }}>
-                    {errors.first_name}
-                  </Text>
-                  <TextInput
+
+                  {/** last name */}
+                  <EdgeTextInput
                     style={[
                       styles.textInput,
-                      errors.last_name
-                        ? { borderColor: "red", borderWidth: 1 }
-                        : null,
+                      props.errors.last_name ? styles.errorInput : null,
                     ]}
-                    placeholderTextColor="#7C7C7C"
-                    placeholder="Prenom"
-                    onChangeText={handleChange("last_name")}
-                    value={values.last_name}
-                    onBlur={handleBlur("last_name")}
+                    name="first_name"
+                    props={props}
+                    placeholder={i18n.t("login.first_name")}
                   />
-                  <Text style={{ color: "red", marginTop: 2 }}>
-                    {errors.last_name}
-                  </Text>
-                  <TextInput
+
+                  {/** email */}
+                  <EdgeTextInput
                     style={[
                       styles.textInput,
-                      errors.email
-                        ? { borderColor: "red", borderWidth: 1 }
-                        : null,
+                      props.errors.email ? styles.errorInput : null,
                     ]}
-                    placeholderTextColor="#7C7C7C"
-                    placeholder="Email"
-                    onChangeText={handleChange("email")}
-                    value={values.email}
-                    onBlur={handleBlur("email")}
+                    name="email"
+                    props={props}
+                    keyboardType="email-address"
+                    placeholder={i18n.t("login.email")}
                   />
-                  <Text style={{ color: "red", marginTop: 2 }}>
-                    {errors.email}
-                  </Text>
-                  <TextInput
+
+                  {/** phone */}
+                  <EdgeTextInput
                     style={[
                       styles.textInput,
-                      errors.phone
-                        ? { borderColor: "red", borderWidth: 1 }
-                        : null,
+                      props.errors.phone ? styles.errorInput : null,
                     ]}
-                    placeholderTextColor="#7C7C7C"
-                    placeholder="Phone"
-                    onChangeText={handleChange("phone")}
-                    value={values.phone}
-                    onBlur={handleBlur("phone")}
+                    name="phone"
+                    props={props}
+                    keyboardType="phone-pad"
+                    placeholder={i18n.t("login.phone")}
                   />
-                  <Text style={{ color: "red", marginTop: 2 }}>
-                    {errors.phone}
-                  </Text>
-                  <TextInput
+
+                  {/** cin */}
+                  <EdgeTextInput
                     style={[
                       styles.textInput,
-                      errors.cin
-                        ? { borderColor: "red", borderWidth: 1 }
-                        : null,
+                      props.errors.cin ? styles.errorInput : null,
                     ]}
-                    placeholderTextColor="#7C7C7C"
-                    placeholder="CIN"
-                    onChangeText={handleChange("cin")}
-                    value={values.cin}
-                    onBlur={handleBlur("cin")}
+                    name="cin"
+                    props={props}
+                    placeholder={i18n.t("login.cin")}
                   />
-                  <Text style={{ color: "red", marginTop: 2 }}>
-                    {errors.cin}
-                  </Text>
                 </View>
 
-                <View style={styles.breakLine}></View>
-                <View style={{ marginTop: 30 }}>
+                <View style={styles.breakLine} />
+
+                <View style={styles.section}>
                   <Text>Ou Vivez Vous</Text>
+
+                  {/** city */}
                   <View style={styles.zipBox}>
                     <View
                       style={[
-                        styles.placeINcity,
-                        errors.city
-                          ? { borderColor: "red", borderWidth: 1 }
-                          : null,
+                        styles.city,
+                        props.errors.city ? styles.errorInput : null,
                       ]}
                     >
                       <Picker
-                        selectedValue={values.city}
-                        onValueChange={handleChange("city")}
+                        selectedValue={props.values.city}
+                        onValueChange={props.handleChange("city")}
                         style={styles.placeSelect}
                       >
                         <Picker.Item label="City" value="" />
@@ -138,78 +123,65 @@ export default function CollectEditProfile({ navigation }) {
                       </Picker>
                     </View>
                     <Text style={{ color: "red", marginTop: 2 }}>
-                      {errors.city}
+                      {props.errors.city}
                     </Text>
                   </View>
-                  <TextInput
+
+                  {/** address */}
+                  <EdgeTextInput
                     style={[
                       styles.textInput,
-                      errors.country
-                        ? { borderColor: "red", borderWidth: 1 }
-                        : null,
+                      props.errors.country ? styles.errorInput : null,
                     ]}
-                    onChangeText={handleChange("address")}
-                    value={values.address}
-                    onBlur={handleBlur("address")}
-                    placeholder="Address"
+                    name="address"
+                    props={props}
+                    placeholder={i18n.t("login.address")}
                   />
-                  <Text style={{ color: "red", marginTop: 2 }}>
-                    {errors.address}
-                  </Text>
                 </View>
 
-                <View style={styles.breakLine}></View>
+                <View style={styles.breakLine} />
 
-                <View style={{ marginTop: 30 }}>
+                {/** birthday */}
+                <View style={styles.section}>
                   <Text>Date De Naissance</Text>
                   <View
                     style={[
-                      styles.dateBerth,
-                      errors.birth_day ||
-                      errors.birth_month ||
-                      errors.birth_year
-                        ? { borderColor: "red", borderWidth: 1 }
+                      styles.birthday,
+                      props.errors.birth_day ||
+                      props.errors.birth_month ||
+                      props.errors.birth_year
+                        ? styles.errorInput
                         : null,
                     ]}
                   >
-                    <TextInput
+                    <EdgeTextInput
                       style={{ fontWeight: "bold" }}
-                      placeholder="DD"
                       keyboardType="numeric"
                       maxLength={2}
-                      onChangeText={handleChange("birth_day")}
-                      value={values.birth_day}
-                      onBlur={handleBlur("birth_day")}
+                      name="birth_day"
+                      props={props}
+                      placeholder={i18n.t("login.birth_day")}
                     />
-                    <TextInput
+                    <EdgeTextInput
                       style={styles.leftBordTextInp}
-                      placeholder="MM"
                       keyboardType="numeric"
                       maxLength={2}
-                      onChangeText={handleChange("birth_month")}
-                      value={values.birth_month}
-                      onBlur={handleBlur("birth_month")}
+                      name="birth_month"
+                      props={props}
+                      placeholder={i18n.t("login.birth_month")}
                     />
-                    <TextInput
+                    <EdgeTextInput
                       style={{ fontWeight: "bold" }}
-                      placeholder="YYY"
                       keyboardType="numeric"
                       maxLength={4}
-                      onChangeText={handleChange("birth_year")}
-                      value={values.birth_year}
-                      onBlur={handleBlur("birth_year")}
+                      name="birth_year"
+                      props={props}
+                      placeholder={i18n.t("login.birth_year")}
                     />
                   </View>
-                  <Text style={{ color: "red", marginTop: 1 }}>
-                    {errors.birth_day}
-                  </Text>
-                  <Text style={{ color: "red", marginTop: 1 }}>
-                    {errors.birth_month}
-                  </Text>
-                  <Text style={{ color: "red", marginTop: 1 }}>
-                    {errors.birth_year}
-                  </Text>
                 </View>
+
+                {/** password */}
                 <View style={{ marginTop: 40 }}>
                   <Text style={{ fontWeight: "bold", fontSize: 20 }}>
                     Changer le mot de passe
@@ -220,13 +192,11 @@ export default function CollectEditProfile({ navigation }) {
                   </Text>
 
                   <View style={styles.passBox}>
+                    {/** old password */}
                     <View style={{ padding: 30 }}>
                       <Text style={{ color: "#7C7C7C" }}>
                         Ancien Mot De Passe
                       </Text>
-                      <Text style={{ color: "red", marginTop: 2 }}>
-                        {errors.current_password}
-                      </Text>
                       <View style={styles.textPassBx}>
                         <Icon
                           style={{
@@ -237,30 +207,23 @@ export default function CollectEditProfile({ navigation }) {
                           }}
                           name="lock"
                         />
-                        <TextInput
+                        <EdgeTextInput
                           style={{ color: "#262626" }}
-                          placeholder="Current Password"
                           secureTextEntry
-                          onChangeText={handleChange("current_password")}
-                          value={values.current_password}
-                          onBlur={handleBlur("current_password")}
+                          name="current_password"
+                          props={props}
+                          placeholder={i18n.t("login.current_password")}
                         />
                       </View>
                     </View>
-                    <Text
-                      style={{
-                        height: 0.5,
-                        width: "100%",
-                        backgroundColor: "#A3A3A3",
-                      }}
-                    ></Text>
+
+                    <HorizontalLine />
+
+                    {/** new password */}
                     <View style={{ padding: 30 }}>
                       <Text style={{ color: "#7C7C7C" }}>
                         Nouveau Mot De Passe
                       </Text>
-                      <Text style={{ color: "red", marginTop: 2 }}>
-                        {errors.new_password}
-                      </Text>
                       <View style={styles.textPassBx}>
                         <Icon
                           style={{
@@ -271,31 +234,23 @@ export default function CollectEditProfile({ navigation }) {
                           }}
                           name="lock"
                         />
-                        <TextInput
+                        <EdgeTextInput
                           style={{ color: "#262626" }}
-                          placeholder="New Password"
                           secureTextEntry
-                          onChangeText={handleChange("new_password")}
-                          value={values.new_password}
-                          onBlur={handleBlur("new_password")}
+                          name="new_password"
+                          props={props}
+                          placeholder={i18n.t("login.new_password")}
                         />
                       </View>
                     </View>
-                    <Text
-                      style={{
-                        height: 0.5,
-                        width: "100%",
-                        backgroundColor: "#A3A3A3",
-                      }}
-                    ></Text>
+
+                    <HorizontalLine />
+
+                    {/** password confirmation */}
                     <View style={{ padding: 30 }}>
                       <Text style={{ color: "#7C7C7C" }}>
                         Confirmer Le Nouveau Mot De Passe
                       </Text>
-                      <Text style={{ color: "red", marginTop: 2 }}>
-                        {errors.confirm_password}
-                      </Text>
-
                       <View style={styles.textPassBx}>
                         <Icon
                           style={{
@@ -306,24 +261,28 @@ export default function CollectEditProfile({ navigation }) {
                           }}
                           name="lock"
                         />
-                        <TextInput
+                        <EdgeTextInput
                           style={{ color: "#262626" }}
-                          placeholder="Retype Password "
                           secureTextEntry
-                          onChangeText={handleChange("confirm_password")}
-                          value={values.confirm_password}
-                          onBlur={handleBlur("confirm_password")}
+                          name="confirm_password"
+                          props={props}
+                          placeholder={i18n.t("login.confirm_password")}
                         />
                       </View>
                     </View>
                   </View>
                 </View>
               </View>
+
+              {/** actions */}
               <View style={styles.btnSaved}>
-                <Text onPress={handleSubmit} style={styles.btnSave}>
+                <Text onPress={props.handleSubmit} style={styles.btnSave}>
                   Enregistrer
                 </Text>
-                <Text style={styles.btnDefault} onPress={() => resetForm()}>
+                <Text
+                  style={styles.btnDefault}
+                  onPress={() => props.resetForm()}
+                >
                   Réinitialiser
                 </Text>
               </View>
@@ -342,6 +301,9 @@ const styles = StyleSheet.create({
   },
   container: {
     marginHorizontal: 20,
+  },
+  section: {
+    padding: 30,
   },
   profileImgCard: {
     backgroundColor: "white",
@@ -414,19 +376,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
   },
-
-  placeINcity: {
+  city: {
     padding: 1,
     borderWidth: 1,
     borderColor: "#9296A1",
     borderRadius: 6,
     marginTop: 15,
-
     fontWeight: "bold",
     color: "black",
     width: "100%",
     marginRight: 18,
   },
+  errorInput: { borderColor: "red", borderWidth: 1 },
   inputZip: {
     padding: 12,
     borderWidth: 1,
@@ -438,10 +399,10 @@ const styles = StyleSheet.create({
     color: "black",
     width: "47%",
   },
-  dateBerth: {
+  birthday: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-around",
+    alignItems: "center",
     padding: 10,
     borderWidth: 1,
     borderColor: "#9296A1",
@@ -476,7 +437,7 @@ const styles = StyleSheet.create({
   textPassBx: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 13,
+    marginTop: 15,
   },
 
   btnSaved: {

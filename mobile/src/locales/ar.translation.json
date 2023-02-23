@@ -33,7 +33,15 @@
         "verification_title": "اكد على رقم هاتفك او جوالك",
         "verification_sub_title": "تم إرسال رمز التحقق إلى",
         "verification_resend_code": "لم أتلق أي رمز. أعد إرسال الكود",
-        "verification_button": "تحقق"
+        "verification_button": "تحقق",
+        "cin": "ر.ب.و",
+        "birth_day": "اليوم",
+        "birth_month": "الشهر",
+        "birth_year": "السنة",
+        "current_password": "كلمة المرور القديمة",
+        "new_password": "كلمة مرور جديدة",
+        "confirm_password": "أكد كلمة المرور",
+        "address": "عنوان"
     },
     "introduction": {
         "finished": "انتهى",

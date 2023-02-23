@@ -1,17 +1,19 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
+import { Text, TextInput } from "react-native";
 
 export function EdgeTextInput({
   style,
   name,
   keyboardType = "default",
   placeholder,
-  props
+  props,
+  ...rest
 }) {
-  const {values, handleBlur, handleChange, errors} = props;
+  const { values, handleBlur, handleChange, errors } = props;
   return (
-    <View>
+    <>
       <TextInput
+        {...rest}
         style={style}
         name={name}
         value={values[name]}
@@ -20,7 +22,8 @@ export function EdgeTextInput({
         onBlur={handleBlur(name)}
         onChangeText={handleChange(name)}
       />
-      <Text style={{ color: "red" }}>{errors[name]}</Text>
-    </View>
+      {/** we add this condition to avoid the render of the Text component if there is no error */}
+      {errors[name] && <Text style={{ color: "red" }}>{errors[name]}</Text>}
+    </>
   );
 }

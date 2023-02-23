@@ -34,7 +34,15 @@
         "verification_title": "Vérifiez votre numéro de téléphone",
         "verification_sub_title": "Le c12ode de vérification a été envoyée à",
         "verification_resend_code": "Je n'ai pas reçu de code. Renvoyer le code",
-        "verification_button": "Vérifier"
+        "verification_button": "Vérifier",
+        "cin": "CIN",
+        "birth_day": "DD",
+        "birth_month": "MM",
+        "birth_year": "YYYY",
+        "current_password": "Ancien mot de passe",
+        "new_password": "Nouveau mot de passe",
+        "confirm_password": "Confirmer le mot de passe",
+        "address": "Adresse"
     },
     "introduction": {
         "finished": "Terminé",
