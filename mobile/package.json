@@ -67,7 +67,7 @@
     "react-native-chart-kit": "^6.12.0",
     "react-native-check-box": "^2.1.7",
     "react-native-checkbox-reanimated": "^0.1.1",
-    "react-native-custom-checkbox": "^1.5.1",
+    "react-native-custom-checkbox": "^1.5.2",
     "react-native-dotenv": "^3.4.7",
     "react-native-image-picker": "^4.8.4",
     "react-native-localize": "^2.2.0",
