@@ -66,5 +66,7 @@ export const getCities = async (setCities) => {
   const response = await apiClient.get("cities");
   if (response.status === 200) {
     setCities(response.data);
+  } else {
+    return [];
   }
 };
