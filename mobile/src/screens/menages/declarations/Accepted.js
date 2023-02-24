@@ -92,7 +92,9 @@ export default function Accepted() {
         )}
         {data?.length === 0 && (
           <View style={styles.notFound} >
-            <Text style={styles.notFoundText} >Vous avez pas de déclaration acceptée!</Text>
+            <Text style={styles.notFoundText} >
+              {i18n.t("declarationEmpty.title")}
+            </Text>
           </View>
         )}
       </ScrollView>
