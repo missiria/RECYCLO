@@ -12,7 +12,7 @@
     "eas-build-pre-install": "npm config set legacy-peer-deps true"
   },
   "dependencies": {
-    "@expo/webpack-config": "^0.17.2",
+    "@expo/webpack-config": "^18.0.1",
     "@formatjs/intl-datetimeformat": "^5.0.0",
     "@formatjs/intl-displaynames": "^5.4.2",
     "@formatjs/intl-getcanonicallocales": "^1.9.0",
