@@ -15,6 +15,8 @@ import {
 } from "./services/register.services";
 import { RadioButton } from "react-native-paper";
 import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
+import { isRtl } from "../../helper/isRtl";
+import { stylesRtl } from "../../helper/styleRtl";
 
 export default function Register({ navigation }) {
   const [authLoaded, setAuthLoaded] = useState(false);
@@ -39,7 +41,7 @@ export default function Register({ navigation }) {
                 <EdgeTextInput
                   name="phone"
                   props={props}
-                  style={styles.inputPhone}
+                  style={[[styles.inputPhone,  isRtl && stylesRtl.rtlStyleInput], isRtl && stylesRtl.rtlStyleInput]}
                   keyboardType="phone-pad"
                   placeholder={i18n.t("login.phone")}
                 />
@@ -47,26 +49,26 @@ export default function Register({ navigation }) {
                 <EdgeTextInput
                   name="email"
                   props={props}
-                  style={styles.inputPhone}
+                  style={[styles.inputPhone,  isRtl && stylesRtl.rtlStyleInput]}
                   keyboardType="email-address"
                   placeholder={i18n.t("login.email")}
                 />
                 <EdgeTextInput
                   name="last_name"
                   props={props}
-                  style={styles.inputPhone}
+                  style={[styles.inputPhone,  isRtl && stylesRtl.rtlStyleInput]}
                   placeholder={i18n.t("login.last_name")}
                 />
                 <EdgeTextInput
                   name="first_name"
                   props={props}
-                  style={styles.inputPhone}
+                  style={[styles.inputPhone,  isRtl && stylesRtl.rtlStyleInput]}
                   placeholder={i18n.t("login.first_name")}
                 />
                 <EdgeTextInput
                   name="password"
                   props={props}
-                  style={styles.inputPhone}
+                  style={[styles.inputPhone,  isRtl && stylesRtl.rtlStyleInput]}
                   placeholder={i18n.t("login.password")}
                 />
                 <RadioButton.Group
