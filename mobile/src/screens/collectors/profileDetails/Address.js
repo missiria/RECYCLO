@@ -40,20 +40,22 @@ export default function Address({ navigation }) {
           <Formik
             initialValues={defaultValues}
             validationSchema={schema}
-            onSubmit={(values, { setErrors }) =>
+            onSubmit={(values, { setErrors }) => {
               handleAddressRegister(
                 values,
                 navigation,
                 setErrors,
                 setLoading,
                 cities
-              )
-            }
+              );
+            }}
           >
             {(props) => (
               <View>
+                {/* TODO : add this Picker component to the /ui and make it generic */}
                 <View style={styles.pickerBox}>
                   <Picker
+                    name="city"
                     selectedValue={props.values?.city}
                     style={styles.picker}
                     onValueChange={(itemValue, itemIndex) => {
@@ -72,10 +74,13 @@ export default function Address({ navigation }) {
                         />
                       ))}
                   </Picker>
+                  {props.errors.city && (
+                    <Text style={{ color: "red" }}>{props.errors.city}</Text>
+                  )}
                 </View>
                 <View>
                   <EdgeTextInput
-                    name="phone"
+                    name="neighborhood"
                     props={props}
                     style={styles.input}
                     placeholder={"Quartier"}
