@@ -1,9 +1,11 @@
 import axiosInstance from '../../../../api/client';
+import apiClient from '~/api/client';
 import { getData } from "../../../../hooks/hooks";
-import { handleAddressRegister, schema } from './address.services';
+import { handleAddressRegister, schema, getCities } from './address.services';
 
 jest.mock("../../../../api/client");
 jest.mock('~/hooks/hooks');
+jest.mock('~/api/client');
 
 describe('COLLECTOR ADDRESS', () => {
   describe('FORM : Validation', () => {
@@ -89,5 +91,28 @@ describe('COLLECTOR ADDRESS', () => {
       expect(setErrors).not.toHaveBeenCalled();
     });
   })
+  describe("getCities", () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    it("should set cities on successful response", async () => {
+      // Set up the mock response
+      apiClient.get.mockResolvedValueOnce({
+        status: 200,
+        data: [{ id: 1, name: "City 1" }, { id: 2, name: "City 2" }],
+      });
 
+      const setCities = jest.fn();
+
+      // Call the function
+      await getCities(setCities);
+
+      // Expectations
+      expect(apiClient.get).toHaveBeenCalledWith("cities");
+      expect(setCities).toHaveBeenCalledWith([
+        { id: 1, name: "City 1" },
+        { id: 2, name: "City 2" },
+      ]);
+    });
+  });
 })
