@@ -70,8 +70,12 @@
         "message": "رسائل"
     },
     "menageCollectDetails" : {
+        "shoseDateTtile" : "اختر التاريخ",
         "description-aswer" : "قم بتحديد الوقت الذي يناسبك من أجل جمع النفايات المنزلية",
-        "description-term" : "لا يمكنك التصريح حتى تصل إلى 10 كيلوغرام على الأقل!"
+        "description-term" : "لا يمكنك التصريح حتى تصل إلى 10 كيلوغرام على الأقل!",
+        "qty" : "الكمية",
+        "kg" : "كيلوغرام",
+        "dh" : "درهم"
     },
     "menageUploadImage" : {
         "desc" : "إضافة الصورة",
@@ -137,8 +141,9 @@
         "suport" : "مساعدة",
         "inviteFrient" : "دعوة أصدقاء",
         "logout" : "تسجيل الخروج",
-
-        "copyright" : "حقوق الطبع والنشر 2022 Recycloo . جميع الحقوق محفوظة"
+        "feadback" : "تقييم التطبيق",
+        "copyright" : "حقوق الطبع والنشر 2022 Recycloo . جميع الحقوق محفوظة",
+        "version" : "الإصدار"
     },
 
 
@@ -158,5 +163,14 @@
         "deposer" : "إيداع الأموال",
         "retirer" : "سحب الأموال",
         "chart" : "إحصائيات"
+    },
+    "declararionSuccess" : {
+        "title" : "تم بنجاح!",
+        "description" : "يمكنك تتبع طلبك في قسم طلباتي!",
+        "goBtn1" : "طلباتي",
+        "goBtn2" : "الرئيسية",
+    },
+    "declarationEmpty" : {
+        "title" : "لا يوجد طلبات! مقبولة",
     }
 }

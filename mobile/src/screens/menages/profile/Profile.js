@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { ProfileData } from './ProfileData'
 import { getData } from "~/hooks/hooks";
 import { DEFAULT_AVATAR_URL } from "~/api/constants"
+import i18n from 'i18next';
 
 export default function Profile({ navigation }) {
 
@@ -59,10 +60,10 @@ export default function Profile({ navigation }) {
                     })}
                 </View>
                 <Text style={styles.textBottom}>
-                    Copyrignt 2022 Recycloo. tous droits réservés
+                    {i18n.t("profile.copyright")}
                 </Text>
                 <Text style={styles.textVersion}>
-                    Version 1.0.0
+                    {i18n.t("profile.version")} 1.0.0
                 </Text>
             </ScrollView>
         </View>
