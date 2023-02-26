@@ -1,19 +1,21 @@
 import * as yup from "yup";
 import apiClient from "~/api/client";
+import { setErrorsAPI } from "~/services/v12";
+
 import { getData } from "../../../../hooks/hooks";
 
 export const defaultValues = {
   city: "",
-  neighborhood: "",
+  address: "",
 };
 
 export const schema = yup.object().shape({
   city: yup.string().required("City is required"),
-  neighborhood: yup
+  address: yup
     .string()
-    .required("neighborhood is required")
-    .min(10)
-    .max(200),
+    .required("address is required")
+    .min(2)
+    .max(250),
 });
 
 export const handleAddressRegister = async (
@@ -33,19 +35,20 @@ export const handleAddressRegister = async (
 
     const addressData = {
       city_id: city.id,
-      city: userData.city,
-      address: userData.neighborhood,
+      address: userData.address,
     };
 
     // TODO : It's good idea to makes the user token Authorization generic
-    const response = await apiClient.put("accounts/update", addressData, {
+    const response = await apiClient.put("accounts/address", addressData, {
       headers: {
         Authorization: `${user.auth.type} ${user.auth.token}`,
       },
     });
 
+    console.log('response.data.errors', response)
+
     if (response.data?.errors) {
-      setErrors(response.data.errors);
+      setErrors(setErrorsAPI(response.data.errors));
     } else if (response.data?.error) {
       throw new Error(response.data.message);
     } else {

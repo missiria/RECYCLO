@@ -40,15 +40,15 @@ export default function Address({ navigation }) {
           <Formik
             initialValues={defaultValues}
             validationSchema={schema}
-            onSubmit={(values, { setErrors }) => {
+            onSubmit={(values, { setErrors }) =>
               handleAddressRegister(
                 values,
                 navigation,
                 setErrors,
                 setLoading,
                 cities
-              );
-            }}
+              )
+            }
           >
             {(props) => (
               <View>
@@ -64,7 +64,8 @@ export default function Address({ navigation }) {
                       props.handleChange("city")(String(itemValue));
                     }}
                   >
-                    <Picker.Item label="Choisissez votre ville" value="" />
+                    {/* TODO : i18n translate */}
+                    <Picker.Item label="Choisissez votre ville" />
                     {cities &&
                       cities.map((item, index) => (
                         <Picker.Item
@@ -80,13 +81,13 @@ export default function Address({ navigation }) {
                 </View>
                 <View>
                   <EdgeTextInput
-                    name="neighborhood"
+                    name="address"
                     props={props}
                     style={styles.input}
                     placeholder={"Quartier"}
-                    value={props.values.neighborhood}
-                    onBlur={props.handleBlur("neighborhood")}
-                    onChangeText={props.handleChange("neighborhood")}
+                    value={props.values.address}
+                    onBlur={props.handleBlur("address")}
+                    onChangeText={props.handleChange("address")}
                   />
                 </View>
                 <Text
