@@ -1,4 +1,4 @@
-import uploadIdentityIcon from "../../../assets/images/uploadIdentity.png"
+import uploadIdentityIcon from "../../../assets/images/uploadIdentity.png";
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ export default function UploadIdentity({ route, navigation }) {
   const { typeIdentity } = route.params;
   const [imageRecto, setImageRecto] = useState(null);
   const [imageVerso, setImageVerso] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   async function pickImageRecto(e) {
     try {
@@ -61,10 +62,7 @@ export default function UploadIdentity({ route, navigation }) {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.containerBoxTwo}>
-          <Image
-            style={styles.img}
-            source={uploadIdentityIcon}
-          />
+          <Image style={styles.img} source={uploadIdentityIcon} />
           {/* TODO : i18n translate */}
           <Text style={styles.boldText}>
             {typeIdentity == "cin"
@@ -87,7 +85,6 @@ export default function UploadIdentity({ route, navigation }) {
                 <Icon style={styles.uploadCheked} name="checkcircle" />
               )}
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.uploadCardBox}
               onPress={pickImageVerso}
@@ -107,7 +104,7 @@ export default function UploadIdentity({ route, navigation }) {
           </View>
           <Text
             onPress={() =>
-              handleUploadId(typeIdentity, imageRecto, imageVerso, navigation)
+              handleUploadId(typeIdentity, imageRecto, imageVerso, setErrors, navigation)
             }
             style={
               !(imageRecto != null && imageVerso != null)
@@ -118,6 +115,9 @@ export default function UploadIdentity({ route, navigation }) {
           >
             Valider
           </Text>
+          {errors.api && (
+            <Text style={{ color: "red" }}>{errors.api}</Text>
+          )}
         </View>
       </ScrollView>
     </View>
