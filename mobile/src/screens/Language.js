@@ -4,14 +4,24 @@ import { style } from "../assets/styles/Lang";
 import { StyleSheet, Text, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { EdgeButton } from "~/ui/buttons/EdgeButton"
+import { getData } from "../hooks/hooks";
 
 function Language({ navigation }) {
 
   const [checked, setChecked] = useState("fr");
+  const [isFirstTime, setIsFirstTime] = useState("true");
 
+  const getStorage = async () => {
+    const firstTime = await getData("FirstTime");
+    setIsFirstTime(firstTime === null ? "true" : firstTime);
+  };
   const handleValidChoice = (lang) => {
     if (lang.length == 2) {
-      navigation.navigate("Hello");
+      if (isFirstTime != "true") {
+        navigation.replace("LoginIndex");
+      }else{
+        navigation.replace("Hello");
+      }
     } else {
       alert("Veuillez choisir une option!");
     }
@@ -21,7 +31,9 @@ function Language({ navigation }) {
     i18n.changeLanguage(lang);
     setChecked(lang);
   };
-
+  useEffect(() => {
+    getStorage();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.containerTwo}>
