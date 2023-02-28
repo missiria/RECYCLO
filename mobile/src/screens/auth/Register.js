@@ -41,7 +41,7 @@ export default function Register({ navigation }) {
                 <EdgeTextInput
                   name="phone"
                   props={props}
-                  style={[[styles.inputPhone,  isRtl(i18n) == true && stylesRtl.rtlStyleInput], isRtl(i18n) == true && stylesRtl.rtlStyleInput]}
+                  style={[[styles.inputPhone,  isRtl(i18n) && stylesRtl.rtlStyleInput], isRtl(i18n) && stylesRtl.rtlStyleInput]}
                   keyboardType="phone-pad"
                   placeholder={i18n.t("login.phone")}
                 />
@@ -49,26 +49,26 @@ export default function Register({ navigation }) {
                 <EdgeTextInput
                   name="email"
                   props={props}
-                  style={[styles.inputPhone,  isRtl(i18n) == true && stylesRtl.rtlStyleInput]}
+                  style={[styles.inputPhone,  isRtl(i18n) && stylesRtl.rtlStyleInput]}
                   keyboardType="email-address"
                   placeholder={i18n.t("login.email")}
                 />
                 <EdgeTextInput
                   name="last_name"
                   props={props}
-                  style={[styles.inputPhone,  isRtl(i18n) == true && stylesRtl.rtlStyleInput]}
+                  style={[styles.inputPhone,  isRtl(i18n) && stylesRtl.rtlStyleInput]}
                   placeholder={i18n.t("login.last_name")}
                 />
                 <EdgeTextInput
                   name="first_name"
                   props={props}
-                  style={[styles.inputPhone,  isRtl(i18n) == true && stylesRtl.rtlStyleInput]}
+                  style={[styles.inputPhone,  isRtl(i18n) && stylesRtl.rtlStyleInput]}
                   placeholder={i18n.t("login.first_name")}
                 />
                 <EdgeTextInput
                   name="password"
                   props={props}
-                  style={[styles.inputPhone,  isRtl(i18n) == true && stylesRtl.rtlStyleInput]}
+                  style={[styles.inputPhone,  isRtl(i18n) && stylesRtl.rtlStyleInput]}
                   placeholder={i18n.t("login.password")}
                 />
                 <RadioButton.Group
