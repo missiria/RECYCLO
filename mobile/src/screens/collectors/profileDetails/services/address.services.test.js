@@ -19,6 +19,16 @@ describe('COLLECTOR ADDRESS', () => {
       // THEN
       expect(validation).toBe(address);
     });
+    it("RETURN false when address is empty", async () => {
+      // GIVEN
+      const address = { neighborhood: "", city: "Agadir" };
+
+      // WHEN
+      const validation = await schema.isValid(address);
+
+      // THEN
+      expect(validation).toBe(false);
+    });
   })
   describe('API : Routes', () => {
     const setLoading = jest.fn();

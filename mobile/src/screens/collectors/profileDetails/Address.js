@@ -52,8 +52,10 @@ export default function Address({ navigation }) {
           >
             {(props) => (
               <View>
+                {/* TODO : add this Picker component to the /ui and make it generic */}
                 <View style={styles.pickerBox}>
                   <Picker
+                    name="city"
                     selectedValue={props.values?.city}
                     style={styles.picker}
                     onValueChange={(itemValue, itemIndex) => {
@@ -62,7 +64,8 @@ export default function Address({ navigation }) {
                       props.handleChange("city")(String(itemValue));
                     }}
                   >
-                    <Picker.Item label="Choisissez votre ville" value="" />
+                    {/* TODO : i18n translate */}
+                    <Picker.Item label="Choisissez votre ville" />
                     {cities &&
                       cities.map((item, index) => (
                         <Picker.Item
@@ -72,16 +75,19 @@ export default function Address({ navigation }) {
                         />
                       ))}
                   </Picker>
+                  {props.errors.city && (
+                    <Text style={{ color: "red" }}>{props.errors.city}</Text>
+                  )}
                 </View>
                 <View>
                   <EdgeTextInput
-                    name="phone"
+                    name="address"
                     props={props}
                     style={styles.input}
                     placeholder={"Quartier"}
-                    value={props.values.neighborhood}
-                    onBlur={props.handleBlur("neighborhood")}
-                    onChangeText={props.handleChange("neighborhood")}
+                    value={props.values.address}
+                    onBlur={props.handleBlur("address")}
+                    onChangeText={props.handleChange("address")}
                   />
                 </View>
                 <Text
