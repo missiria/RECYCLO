@@ -17,7 +17,7 @@ function Language({ navigation }) {
   };
   const handleValidChoice = (lang) => {
     if (lang.length == 2) {
-      if (isFirstTime != "true") {
+      if (!isFirstTime) {
         navigation.replace("LoginIndex");
       }else{
         navigation.replace("Hello");
