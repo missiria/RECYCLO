@@ -29,13 +29,15 @@ export const handleLogin = async (
 
         // TODO : To verify address with API
         if (!response.data.account || response.data.account?.address === "") {
-          navigation.navigate("Address");
+          return navigation.navigate("Address");
         }
 
         if (response.data.type == "MENAGE") {
-          navigation.navigate("MenageHome");
+          return navigation.navigate("MenageHome");
         } else if (response.data.type == "COLLECTOR") {
-          navigation.navigate("CollectorHome");
+          return navigation.navigate("CollectorHome");
+        } else {
+          setErrors({ api: 'ERROR : You should contact the support !' });
         }
       }
     }
