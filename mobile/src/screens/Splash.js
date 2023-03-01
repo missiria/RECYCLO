@@ -29,7 +29,7 @@ export default function Splash({ navigation }) {
   useEffect(() => {
     setTimeout(() => {
       setAuthLoaded(true);
-    }, 2000);
+    }, 50000);
   }, []);
 
   useEffect(() => {
