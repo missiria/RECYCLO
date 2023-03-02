@@ -20,7 +20,7 @@ export const handleLogin = async (
     const response = await apiClient.post("users/login", userData);
     console.log("response > ", response);
     if (response.data.active === 0) {
-      navigation.navigate("VerificationUser", { email: response.data.email });
+      navigation.navigate("VerificationUser", { email: response.data.email, code: response.data.code });
     } else if (response.status === 400 || response.status === 500) {
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
