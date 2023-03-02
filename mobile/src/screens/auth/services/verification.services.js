@@ -10,8 +10,7 @@ export const handleUserVerification = async (
   email
 ) => {
   const currentCode = `${values.n1}${values.n2}${values.n3}${values.n4}`;
-  console.log(`currentCode => ${ currentCode }`)
-  console.log(`Code => ${ code }`)
+
   if (code == new Number(currentCode)) {
     try {
       // * Update active field
@@ -23,11 +22,11 @@ export const handleUserVerification = async (
         navigation.navigate("VerificationSuccess");
       }
     } catch (error) {
-      setErrors({api: "Error verification for this user"});
+      setErrors({ api: "Error verification for this user" });
     }
   } else {
     // TODO : setErrors like login
-    setErrors({code: "Code DOESN'T MATCH !"});
+    setErrors({ code: "Code DOESN'T MATCH !" });
     console.log("CODE DOESN'T MATCH !");
   }
 };
