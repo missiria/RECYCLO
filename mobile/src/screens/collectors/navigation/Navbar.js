@@ -8,7 +8,7 @@ import { useNavigationState } from '@react-navigation/native';
 export default function Navbar({ navigation,title }) {
   const [showSidebar, setshowSidebar] = useState(false);
   const screenName = useNavigationState((state) => state.routes[state.index].name)
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.navBar} >
@@ -39,7 +39,7 @@ export default function Navbar({ navigation,title }) {
               color="#000000"
             />
           </Text>
-          <Text style={styles.notifiCount}>
+          <Text style={styles.notificationCount}>
             2
           </Text>
         </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   titleNav: {
     fontSize: 15,
   },
-  notifiCount: {
+  notificationCount: {
     backgroundColor: 'red',
     fontWeight: 'bold',
     width: 16,
