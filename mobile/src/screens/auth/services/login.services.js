@@ -27,7 +27,8 @@ export const handleLogin = async (
       if (response.data.active === 1) {
         await storeData("user", response.data);
 
-        // TODO : To verify address with API
+        // TODO: it's a good idea to have a separate validator object: validator.isEmptyString(str), validator.isEmptyObject(obj), ....
+        // EDGE-230316 : Auth validation with yup for address
         if (!response.data.account || response.data.account?.address === "") {
           return navigation.navigate("Address");
         }
