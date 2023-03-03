@@ -1,15 +1,14 @@
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
 import NotificationItems from "./NotificationItems";
-import { Data } from "./NotificationTestFakeData";
 import EmptyNotification from "./NotificationEmpty";
-import { getData, useFetch, useLoggedInUser } from "../../../hooks/hooks";
-
 import moment from 'moment'
+import { useFetch } from "../../../hooks/hooks";
 
 export default function Notification({ navigation }) {
+  // TODO : We should use service and apiClient & create TU's
   const { data } = useFetch("notifications", {
     method: "GET",
   });
@@ -17,12 +16,10 @@ export default function Notification({ navigation }) {
   const showNotifications = () => {
     if (data && data?.length == 0) {
       return (
-        // if notification is empty
         <EmptyNotification />
       );
     } else {
       return (
-        // if notifications is not empty
         data?.map((item) => (
           <NotificationItems
             key={item}
