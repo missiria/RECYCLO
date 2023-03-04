@@ -9,8 +9,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import Icon from "react-native-vector-icons/Entypo";
-import Icond from "react-native-vector-icons/FontAwesome";
 import checkIcon from "../../../../assets/images/ch.png";
 import i18n from "i18next";
 

@@ -8,9 +8,11 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useCallback } from "react";
-import FooterNav from "../navigation/FooterNav";
 import Icon from "react-native-vector-icons/AntDesign";
 import poser from "../../../assets/images/poser.png";
+import recharge from "../../../assets/images/reg.png";
+import donation from "../../../assets/images/dona.png";
+import retire from "../../../assets/images/rett.png";
 import i18n from "i18next";
 import { useFetch } from "../../../hooks/hooks";
 import moment from "moment";
@@ -20,7 +22,7 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-export default function CollectorWallet({ navigation }) {
+export default function Transactions({ navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = useCallback(() => {
@@ -40,6 +42,8 @@ export default function CollectorWallet({ navigation }) {
     }
   );
 
+  console.log(transactions);
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -50,7 +54,7 @@ export default function CollectorWallet({ navigation }) {
         <View>
           <View style={styles.cardTop}>
             <Text style={styles.textBtm}>Solde actuel</Text>
-            <View style={styles.cartWrapper}>
+            <View style={styles.cartbody}>
               <View style={styles.priceBox}>
                 <Text style={styles.price}>
                   {isLoading ? "Chargement..." : 2000.0}
@@ -68,53 +72,46 @@ export default function CollectorWallet({ navigation }) {
           <View style={styles.boxs}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("Deposit", {
-                  action: "DEPOSIT",
+                navigation.navigate("OptionsTransitins", {
                   amount: data?.amount,
                 })
               }
               style={styles.box}
             >
-              <Image style={styles.iconTop} source={poser} />
-              <Text style={styles.boxText}>
-                {i18n.t("collectorWallet.deposer")}
-              </Text>
+              <Image style={styles.iconTop} source={retire} />
+              <Text style={styles.boxText}>{i18n.t("wallet.getMony")}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("CollectorTypeTransfer", {
-                  action: "TRANSFER",
+                navigation.navigate("Donation", {
                   amount: data?.amount,
+                  action: "DONATION",
                 })
               }
               style={styles.box}
             >
-              <Image style={styles.iconTop} source={poser} />
-              <Text style={styles.boxText}>
-                {i18n.t("collectorWallet.retirer")}
-              </Text>
+              <Image style={styles.iconTop} source={donation} />
+              <Text style={styles.boxText}>{i18n.t("wallet.donate")}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate("Statistics")}
+              onPress={() =>
+                navigation.navigate("RechargeIndex", { amount: data?.amount })
+              }
               style={styles.box}
             >
-              <Image style={styles.iconTop} source={poser} />
-              <Text style={styles.boxText}>
-                {i18n.t("collectorWallet.chart")}
-              </Text>
+              <Image style={styles.iconTop} source={recharge} />
+              <Text style={styles.boxText}>{i18n.t("wallet.recharge")}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.breakLine}></View>
-          <View>
-            <Text style={styles.transactionTitle}>Mes transactions</Text>
-          </View>
-          <View style={styles.bodyScreenCardsBox}>
+
+          <View style={styles.bodyScreenCardsBoxs}>
             {transactions?.map((transaction) => (
               <>
                 <TouchableOpacity style={styles.bodyBoxCard}>
-                  <View style={styles.boxContentLeft}>
+                  <View style={styles.boxContetnLeft}>
                     <View>
                       <Image source={poser} style={styles.iconBody} />
                     </View>
@@ -122,10 +119,11 @@ export default function CollectorWallet({ navigation }) {
                       <Text style={styles.cardTitle}>
                         {transaction?.action === "TRANSFER"
                           ? "Transfer"
-                          : transaction?.action === "DEPOSIT"
-                          ? "Versement"
+                          : transaction?.action === "DONATION"
+                          ? "Don"
                           : "Guichet"}
                       </Text>
+                      <Text>{transaction?.bank?.bank_name}</Text>
                       <View style={styles.textDateTime}>
                         <Text style={styles.date}>
                           {new Date(
@@ -138,17 +136,18 @@ export default function CollectorWallet({ navigation }) {
                       </View>
                     </View>
                   </View>
-                  <View style={styles.boxContentRight}>
+                  <View style={styles.boxContetnRight}>
                     <Text
                       style={
-                        transaction?.action === "TRANSFER"
+                        transaction?.action === "TRANSFER" ||
+                        transaction?.action === "ATM"
                           ? styles.boxPriceGreen
                           : styles.boxPriceBlue
                       }
                     >
                       {transaction?.action === "TRANSFER"
                         ? "+"
-                        : transaction?.action === "DEPOSIT"
+                        : transaction?.action === "DONATION"
                         ? "-"
                         : "+"}{" "}
                       {Config.currencyFormat(transaction?.amount)}
@@ -161,7 +160,6 @@ export default function CollectorWallet({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      <FooterNav navigation={navigation} />
     </View>
   );
 }
@@ -175,12 +173,13 @@ const styles = StyleSheet.create({
     color: "white",
   },
   cardTop: {
+    marginTop: 20,
     marginHorizontal: 20,
-    backgroundColor: "#33CC66",
     borderRadius: 5,
     padding: 10,
+    backgroundColor: "#5B68F6",
   },
-  cartWrapper: {
+  cartbody: {
     marginTop: 25,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -190,14 +189,12 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
   },
-
   price: {
     marginRight: 5,
     fontSize: 25,
     color: "white",
     fontWeight: "bold",
   },
-
   dh: {
     color: "white",
     fontWeight: "bold",
@@ -251,14 +248,14 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#F8F8F8",
   },
-  transactionTitle: {
+  textScnd: {
     marginHorizontal: 20,
     marginTop: 20,
     fontWeight: "bold",
     color: "black",
     fontSize: 17,
   },
-  bodyScreenCardsBox: {
+  bodyScreenCardsBoxs: {
     marginTop: 15,
     marginHorizontal: 20,
   },
@@ -268,7 +265,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 15,
   },
-  boxContentLeft: {
+  boxContetnLeft: {
     flexDirection: "row",
     alignItems: "center",
   },

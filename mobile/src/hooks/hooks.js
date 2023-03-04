@@ -4,18 +4,6 @@ import apiClient from "~/api/client";
 import { API_URL } from "~/api/constants";
 import { useRef } from "react";
 
-export function currencyFormat(n) {
-  const formatter = new Intl.NumberFormat(undefined, {
-    currency: "MAD",
-    style: "currency",
-  });
-
-  if (isNaN(n)) {
-    return formatter.format(0);
-  }
-  return formatter.format(n);
-}
-
 // * get current user
 export function useLoggedInUser(){
   const [user, setUser] = useState(null);
@@ -38,9 +26,9 @@ export function useFetch(url, options, lazy){
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null)
-  
+
   const cache = useRef({})
-  
+
   // * Memorize callback
   const trigger = useCallback(async (triggerUrl = url) => {
     const user = await getData('user');
@@ -53,6 +41,7 @@ export function useFetch(url, options, lazy){
     setIsLoading(true)
 
     try {
+      // TODO : We should replace this old fetch by apiClient(sauce)
       const response = await fetch(`${API_URL}${triggerUrl}`, {
         headers: {
           ...(user && { 'Authorization' : `${user?.auth?.type} ${user?.auth?.token}`}),
@@ -60,7 +49,7 @@ export function useFetch(url, options, lazy){
         },
         ...options,
       })
-  
+
       const data = await response.json()
       if(response.ok) cache.current[triggerUrl] = data
       setData(data)
@@ -79,7 +68,7 @@ export function useFetch(url, options, lazy){
 
     return () => clearInterval(id)
   }, [])
-  
+
   useEffect(() => {
     if(!lazy){
       trigger(url)
@@ -154,6 +143,7 @@ export const useAsyncStorage = (key, initialValue) => {
   return [storedValue, setValue];
 }
 
+// TODO : We should create TU & transform this as a Class (Storage)
 export const storeData = async (key,value) => {
   try {
     const jsonValue = JSON.stringify(value)
