@@ -16,6 +16,7 @@ import i18n from "i18next";
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
 import { useFetch } from "../../../hooks/hooks";
+import EmptyDeclaration from "./EmptyDeclaration";
 
 export default function Accepted() {
   const [declarations, setDeclarations] = useState([]);
@@ -91,11 +92,7 @@ export default function Accepted() {
           ))
         )}
         {data?.length === 0 && (
-          <View style={styles.notFound} >
-            <Text style={styles.notFoundText} >
-              {i18n.t("declarationEmpty.title")}
-            </Text>
-          </View>
+          <EmptyDeclaration />
         )}
       </ScrollView>
 
