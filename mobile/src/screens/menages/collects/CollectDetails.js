@@ -87,6 +87,7 @@ export default function CollectDetails({ navigation, route }) {
     setQuantity(5);
   }
 
+  // TODO : Change useFetch to apiClient and put it in external file as service
   const [trigger, { data, isLoading }] = useFetch("declarations/add", {
     method: 'POST',
     body: JSON.stringify({
