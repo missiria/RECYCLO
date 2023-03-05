@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 import Transactions from "../screens/menages/wallet/Transactions";
 import WithdrawalNotices from "../screens/menages/wallet/WithdrawalNotices";
-import AllWithdrawal from "../screens/menages/wallet/AllWithdrawal";
+import AllWithdrawals from "../screens/menages/wallet/AllWithdrawals";
 import i18n from "i18next";
 
 const Tab = createMaterialTopTabNavigator();
@@ -42,7 +42,7 @@ function TabBarWallet() {
 
       <Tab.Screen
         name="allTransactions"
-        component={AllWithdrawal}
+        component={AllWithdrawals}
         options={{ tabBarLabel: i18n.t("wallet.retrait") }}
       />
     </Tab.Navigator>

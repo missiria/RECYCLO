@@ -1,40 +1,38 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import i18next from "i18next";
-import { useFetch } from "../../../hooks/hooks";
 import Config from "~/services/EKSNEKS.config";
+import { getWithdrawals } from "./services/AllWithdrawals.services";
 
-export default function AllWithdrawal() {
-  const { data: withdrawals } = useFetch("withdrawals", {});
-  console.log('data', withdrawals)
+export default function AllWithdrawals() {
+  // const { data: withdrawals } = useFetch("withdrawals", {});
+  const [withdrawals, setWithdrawals] = useState([]);
+
+  useEffect(() => {
+    getWithdrawals(setWithdrawals);
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView>
-        {withdrawals?.map((item) => (
+        {withdrawals?.map((transaction) => (
           <View style={styles.boxItem}>
             <Text style={{ fontWeight: "bold" }}>
-              {i18next.t("wallet.via-gechet")}
+              {!transaction.withdrawal_code
+                ? i18next.t("wallet.via_wire")
+                : i18next.t("wallet.via-gechet")}
             </Text>
             <View style={styles.AllWithdrawal}>
-              <Text>{new Date(item.created_at).toLocaleDateString()}</Text>
+              <Text>
+                {transaction.bank.bank_name} (
+                {new Date(transaction.created_at).toLocaleDateString()})
+              </Text>
               <Text style={styles.price}>
-                {Config.currencyFormat(item.amount)}
+                {Config.currencyFormat(transaction.amount)}
               </Text>
             </View>
           </View>
         ))}
-
-        {/* TODO : We should fetch transactions from database */}
-        <View style={styles.boxItem}>
-          <Text style={{ fontWeight: "bold" }}>
-            {i18next.t("wallet.via_app")}
-          </Text>
-          <View style={styles.AllWithdrawal}>
-            <Text>18:22 18-04-2022</Text>
-            <Text style={styles.price}>100.00 {i18next.t("wallet.dh")}</Text>
-          </View>
-        </View>
-
       </ScrollView>
     </View>
   );

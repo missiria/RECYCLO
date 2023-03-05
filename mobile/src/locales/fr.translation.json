@@ -122,6 +122,7 @@
         "dh" : "Dh",
         "via-gechet" : "Retrait via guichet électronique",
         "via_app" : "Retrait via app bancaire",
+        "via_wire" : "Retrait via virement",
         "code-of-retrait" : "Mon code de paiement",
         "copie" : "Copier",
         "cancel" : "Annuler",
