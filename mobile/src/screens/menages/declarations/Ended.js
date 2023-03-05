@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import i18n from "i18next";
+import EmptyDeclaration from "./EmptyDeclaration";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
@@ -39,7 +40,7 @@ export default function Ended() {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={data?.length === 0 && styles.scrollView} >
         {error !== null ? (
           <Text>{error?.message}</Text>
         ) : isLoading ? (
@@ -56,6 +57,9 @@ export default function Ended() {
             />
           ))
         )}
+        {declarations?.length === 0 && 
+          <EmptyDeclaration />
+        }
       </ScrollView>
     </View>
   );
@@ -66,4 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  scrollView: {
+    flexGrow: 1,
+  }
 });
