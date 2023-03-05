@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import i18next from "i18next";
 import Config from "~/services/EKSNEKS.config";
-import { getWithdrawals } from "./services/AllWithdrawals.services";
+import { getWithdrawals } from "./services/all-withdrawals.services";
 
 export default function AllWithdrawals() {
   // const { data: withdrawals } = useFetch("withdrawals", {});

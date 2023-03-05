@@ -17,6 +17,7 @@ import i18n from "i18next";
 import { useFetch } from "../../../hooks/hooks";
 import moment from "moment";
 import Config from "~/services/EKSNEKS.config";
+import { getBalance, getTransactions } from "./services/transactions.services";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -25,6 +26,12 @@ const wait = (timeout) => {
 export default function Transactions({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    getTransactions(setTransactions);
+    getBalance(setBalance);
+  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -36,14 +43,7 @@ export default function Transactions({ navigation }) {
     method: "GET",
   });
 
-  const { data: transactions, isLoading: isTransactionsLoading } = useFetch(
-    "payment/transactions",
-    {
-      method: "GET",
-    }
-  );
-
-  console.log(data);
+  console.log('balance', balance.amount);
 
   useEffect(() => {
     if ( transactions?.length === 0 ) {
