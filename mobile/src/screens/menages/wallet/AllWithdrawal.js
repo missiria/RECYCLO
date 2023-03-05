@@ -5,11 +5,12 @@ import { useFetch } from "../../../hooks/hooks";
 import Config from "~/services/EKSNEKS.config";
 
 export default function AllWithdrawal() {
-  const { data } = useFetch("withdrawals", {});
+  const { data: withdrawals } = useFetch("withdrawals", {});
+  console.log('data', withdrawals)
   return (
     <View style={styles.container}>
       <ScrollView>
-        {data?.map((item) => (
+        {withdrawals?.map((item) => (
           <View style={styles.boxItem}>
             <Text style={{ fontWeight: "bold" }}>
               {i18next.t("wallet.via-gechet")}

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import poser from "../../../assets/images/poser.png";
 import recharge from "../../../assets/images/reg.png";
@@ -23,7 +23,8 @@ const wait = (timeout) => {
 };
 
 export default function Transactions({ navigation }) {
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [balance, setBalance] = useState(0);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -42,7 +43,14 @@ export default function Transactions({ navigation }) {
     }
   );
 
-  console.log(transactions);
+  console.log(data);
+
+  useEffect(() => {
+    if ( transactions?.length === 0 ) {
+      setBalance( 0 )
+    }
+  }, [])
+
 
   return (
     <View style={styles.container}>
@@ -57,9 +65,9 @@ export default function Transactions({ navigation }) {
             <View style={styles.cartbody}>
               <View style={styles.priceBox}>
                 <Text style={styles.price}>
-                  {isLoading ? "Chargement..." : 2000.0}
+                  {isLoading ? "Chargement..." : Config.currencyFormat(balance)}
                 </Text>
-                <Text style={styles.dh}>Dhs</Text>
+                {/* <Text style={styles.dh}>Dhs</Text> */}
               </View>
               <View style={styles.ben}>
                 <Text style={styles.bene}>Bénéfice</Text>
