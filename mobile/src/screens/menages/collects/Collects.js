@@ -28,7 +28,10 @@ export default function Collects({ navigation }) {
     <View style={styles.container}>
       <View style={styles.headerBox}>
         <View style={styles.headerImg}>
-          <Image source={HeaderImage} />
+          <Image 
+            source={HeaderImage} 
+            resizeMethod="resize"
+          />
         </View>
         <View style={styles.textBox}>
           <Text style={styles.boldTitle}>{i18n.t("collects.title")}</Text>
@@ -45,7 +48,7 @@ export default function Collects({ navigation }) {
                   name: 'CollectDetails',
                   params: { collect: collect }
                 })}
-                style={{ width : "50%" }}
+                style={{ width : "49%" }}
                 imageStyle={{ height:130 }}
                 img={`${UPLOAD_FOLDER_URL + collect.image}`}
               />
@@ -65,32 +68,33 @@ export default function Collects({ navigation }) {
 const styles = StyleSheet.create({
   containerOne: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   container: {
     marginHorizontal: 15,
-    marginTop: 25,
-  },
-  cards: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
     marginTop: 10,
   },
+  cards: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    marginTop: 30,
+    marginBottom: 10,
+  },
   headerBox: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   card: {
     width: 164,
     marginLeft: -5,
     marginRight: -5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginBottom: 20,
-    borderRadius: 5,
+    borderRadius: 5
   },
   cardImg: {
     width: "100%",
@@ -101,12 +105,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 2,
   },
   cardBody: {
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     width: "100%",
     padding: 10,
     borderBottomLeftRadius: 6,
@@ -121,29 +124,36 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.37,
     shadowRadius: 7.49,
     elevation: 8,
-    marginTop: -4,
+    marginTop: -4
   },
   headerImg: {
     paddingRight: 15,
   },
   textBox: {
-    marginTop: 11,
+    marginTop: 20,
   },
   boldTitle: {
-    color: "black",
-    fontWeight: "bold",
-    fontSize: 20,
+    color: 'black',
+    fontSize: 17,
+    letterSpacing: 0.5,
   },
   smallDesc: {
-    color: "#7C7C7C",
+    color: "#A3A3A3",
     fontSize: 11,
+    marginTop: 5,
+    letterSpacing: 0.5,
   },
   btnIconPlus: {
-    color: "#33CC66",
+    color: '#12A5F0',
     fontSize: 23,
   },
-  titleCat: {
-    color: "black",
-    fontWeight: "bold",
+  titleCateg: {
+    color: 'black',
+    fontWeight: 'bold'
+  },
+  categoryIcon: {
+    width: 15.86,
+    height: 16.55,
+    marginRight: 10,
   },
 });
