@@ -46,7 +46,8 @@
     "collects": {
         "title": "فئات النفايات",
         "subtitle": "انقر للإعلان عن نفاياتك",
-        "other": "الآخرين"
+        "other": "الآخرين",
+        "otherTrash": "نفايات أخرى"
     },
     "onboardingScreenOne": {
         "title": "إعادة التدوير",
@@ -70,12 +71,14 @@
         "message": "رسائل"
     },
     "menageCollectDetails" : {
-        "shoseDateTtile" : "اختر التاريخ",
-        "description-aswer" : "قم بتحديد الوقت الذي يناسبك من أجل جمع النفايات المنزلية",
+        "chooseDate" : "اختر التاريخ",
+        "description-answer" : "قم بتحديد الوقت الذي يناسبك من أجل جمع النفايات المنزلية",
         "description-term" : "لا يمكنك التصريح حتى تصل إلى 10 كيلوغرام على الأقل!",
         "qty" : "الكمية",
         "kg" : "كيلوغرام",
-        "dh" : "درهم"
+        "dh" : "درهم",
+        "portion": "درهم / كيلوغرام",
+        "planYourCollect": "حدد موعدًا لاستلامك"
     },
     "menageUploadImage" : {
         "desc" : "إضافة الصورة",

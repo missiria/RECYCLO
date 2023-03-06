@@ -18,9 +18,14 @@ export const handleLogin = async (
   if (userData && navigation) {
     setAuthLoaded(true);
     const response = await apiClient.post("users/login", userData);
-    console.log("response > ", response);
+
+    console.log("response > ", response?.data);
+
     if (response.data.active === 0) {
-      navigation.navigate("VerificationUser", { email: response.data.email, code: response.data.code });
+      navigation.navigate("VerificationUser", {
+        email: response.data.email,
+        code: response.data.code,
+      });
     } else if (response.status === 400 || response.status === 500) {
       setErrors({ api: response.data });
     } else if (parseInt(response.data.id) > 0 && response.status === 200) {
@@ -38,7 +43,7 @@ export const handleLogin = async (
         } else if (response.data.type == "COLLECTOR") {
           return navigation.navigate("CollectorHome");
         } else {
-          setErrors({ api: 'ERROR : You should contact the support !' });
+          setErrors({ api: "ERROR : You should contact the support !" });
         }
       }
     }

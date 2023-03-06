@@ -1,3 +1,4 @@
+import { useEffect, useState, useMemo } from "react";
 import {
   View,
   Text,
@@ -10,58 +11,40 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
 import FooterNav from "../navigations/FooterNav";
-import Unorderedlist from "react-native-unordered-list";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icon from "react-native-vector-icons/Entypo";
 
-import { UPLOAD_FOLDER_URL } from "~/api/constants";
-
-import deshetImg from "../../../assets/images/t.png";
-import coinImg from "../../../assets/images/coin.png";
 import i18n from "i18next";
-import { axiosInstance } from "../../../api/client";
-import { useFetch } from "../../../hooks/hooks";
+
+import { UPLOAD_FOLDER_URL } from "~/api/constants";
+import coinImg from "../../../assets/images/coin.png";
+import { useDays, useMonths } from "~/hooks";
+import useAddDeclaration from "./services/collectDetails.services";
+
+const now = new Date(Date.now());
 
 export default function CollectDetails({ navigation, route }) {
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("");
+  const [date, setDate] = useState(now);
   const [show, setShow] = useState(false);
-  const [text, setText] = useState(i18n.t("menageCollectDetails.shoseDateTtile"));
+  const [text, setText] = useState(i18n.t("menageCollectDetails.chooseDate"));
   const [timeDeclaration, setTimeDeclaration] = useState("9 AM - 12 PM");
   const [quantity, setQuantity] = useState(5);
 
-  const price = Number(route.params?.collect.point) / 100;
-  // TODO : Use moment library to get months
-  const months = [
-    "Janvier",
-    "Février",
-    "Mars",
-    "Avril",
-    "Mai",
-    "Juin",
-    "Juillet",
-    "Août",
-    "Septembre",
-    "Octobre",
-    "Novembr",
-    "Décembre",
-  ];
-  const days = [
-    "Dimanche",
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-  ];
+  const price = useMemo(
+    () => Number(route.params?.collect.point) / 100,
+    [route]
+  );
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+  const months = useMonths();
+  const days = useDays();
+
+  const handleDateSelect = (_, selectedDate) => {
+    const currentDate = selectedDate ?? now;
+
     setShow(Platform.OS === "ios");
     setDate(currentDate);
+
     let tempDate = new Date(currentDate);
     let fDate =
       days[tempDate.getDay()] +
@@ -69,45 +52,25 @@ export default function CollectDetails({ navigation, route }) {
       tempDate.getDate() +
       " " +
       months[tempDate.getMonth()];
+
     setText(fDate);
   };
-  /* */
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
+  const showDatepicker = () => setShow(true);
 
-  //check if the quantity is less than 5 and return error
-  if (quantity < 5) {
-    Alert.alert("You Must Declare at least 5 Kg");
-    setQuantity(5);
-  }
+  //check if the quantity is less than 5 and show error
+  useEffect(() => {
+    if (Number(quantity) < 5) Alert.alert("You Must Declare at least 5 Kg");
+  }, [quantity]);
 
-  // TODO : Change useFetch to apiClient and put it in external file as service
-  const [trigger, { data, isLoading }] = useFetch("declarations/add", {
-    method: 'POST',
-    body: JSON.stringify({
-      date: date.toLocaleDateString(),
-      time: timeDeclaration,
-      quantity: quantity,
-      price: price,
-      collect_id: route.params?.collect.id,
-    })
-  }, true)
-
-  const onSubmitDeclare = async () => {
-    if (mode == "date") {
-      console.log(timeDeclaration)
-      await trigger()
-      console.log("declaration created >> ", data);
-
-      navigation.navigate("DeclarationSuccess", data);
-    } else Alert.alert("select date");
-  };
+  const { isLoading, handleDeclarationSubmition } = useAddDeclaration({
+    date,
+    time: timeDeclaration,
+    quantity,
+    price,
+    collect_id: route.params?.collect.id,
+    navigation,
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -133,8 +96,10 @@ export default function CollectDetails({ navigation, route }) {
             </View>
           </View>
           <View style={styles.theDescriptionBox}>
-            <Text style={styles.priceText}>Prix</Text>
-            <Text style={styles.priceAnswerText}>{price} Dh / kg</Text>
+            <Text style={styles.priceText}>{i18n.t("menageDemend.price")}</Text>
+            <Text style={styles.priceAnswerText}>
+              {price} {i18n.t("menageCollectDetails.portion")}
+            </Text>
           </View>
           <View style={styles.textBoxDescition}>
             <Text>{route.params?.collect.description}</Text>
@@ -156,7 +121,7 @@ export default function CollectDetails({ navigation, route }) {
           <View>
             <View>
               <Text style={styles.textTitleDayYopONE}>
-                Planifier votre ramassage
+                {i18n.t("menageCollectDetails.planYourCollect")}
               </Text>
               <Text onPress={showDatepicker} style={styles.currentDate}>
                 {text}
@@ -165,10 +130,10 @@ export default function CollectDetails({ navigation, route }) {
                 <DateTimePicker
                   testID="dateTimePicker"
                   value={date}
-                  mode={mode}
+                  mode={"date"}
                   is24Hour={true}
                   display="default"
-                  onChange={onChange}
+                  onChange={handleDateSelect}
                 />
               )}
               <Text style={styles.textTitleDay}>
@@ -183,7 +148,8 @@ export default function CollectDetails({ navigation, route }) {
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclaration("08:00 - 12:00")}>
+              onPress={() => setTimeDeclaration("08:00 - 12:00")}
+            >
               9 AM - 12 PM
             </Text>
             <Text
@@ -192,7 +158,8 @@ export default function CollectDetails({ navigation, route }) {
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclaration("12:00 - 16:00")}>
+              onPress={() => setTimeDeclaration("12:00 - 16:00")}
+            >
               12 PM - 3 PM
             </Text>
             <Text
@@ -201,7 +168,8 @@ export default function CollectDetails({ navigation, route }) {
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclaration("16:00 - 20:00")}>
+              onPress={() => setTimeDeclaration("16:00 - 20:00")}
+            >
               3 PM - 6 PM
             </Text>
             <Text
@@ -210,12 +178,14 @@ export default function CollectDetails({ navigation, route }) {
                   ? styles.chosenTheTime
                   : styles.choseTheTime
               }
-              onPress={() => setTimeDeclaration("20:00 - 00:00")}>
+              onPress={() => setTimeDeclaration("20:00 - 00:00")}
+            >
               6 PM - 9 PM
             </Text>
             <View style={styles.quantityBox}>
               <Text style={styles.textTitleDay}>
-                {i18n.t("menageCollectDetails.qty")} ({quantity} {i18n.t("menageCollectDetails.kg")})
+                {i18n.t("menageCollectDetails.qty")} ({quantity}{" "}
+                {i18n.t("menageCollectDetails.kg")})
               </Text>
               <View style={styles.quantity}>
                 <Icon
@@ -244,9 +214,14 @@ export default function CollectDetails({ navigation, route }) {
             <Text
               // onPress={() => navigation.navigate("DeclarationSuccess")}
               // onPress={() => navigation.navigate("CollectDetailsUploadImages")}
-              onPress={() => onSubmitDeclare()}
-              style={styles.btnDeclaration}>
-              {isLoading ? <ActivityIndicator color={'#fff'} /> : i18n.t("introduction.next")}
+              onPress={handleDeclarationSubmition}
+              style={styles.btnDeclaration}
+            >
+              {isLoading ? (
+                <ActivityIndicator color={"#fff"} />
+              ) : (
+                i18n.t("introduction.next")
+              )}
             </Text>
           </View>
         </View>
