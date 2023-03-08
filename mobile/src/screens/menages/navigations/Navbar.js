@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import IconIon from "react-native-vector-icons/Ionicons";
+import notifIcon from '../../../assets/images/notif.png'
 import { useNavigationState } from "@react-navigation/native";
 import iconUser from "../../../assets/images/user.png";
 import { getNotifications } from "../notifications/services/notifications.services";
@@ -26,20 +26,13 @@ export default function Navbar({ navigation, title }) {
         </View>
         <View>
           <Text onPress={() => navigation.navigate("Notifications")}>
-            <IconIon
+            <Image 
+              source={notifIcon}
               style={styles.notificationIcon}
-              name={
-                screenName == "Notifications"
-                  ? "notifications"
-                  : "ios-notifications-outline"
-              }
-              size={20}
-              color="#000000"
             />
           </Text>
-          <Text style={styles.notificationCount}>
-            {notifications ? notifications.length : 0}
-          </Text>
+          <View style={
+            styles.notificationCount}></View>
         </View>
       </View>
     </View>
@@ -75,10 +68,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   notificationCount: {
-    backgroundColor: "red",
+    backgroundColor: "#33CC66",
     fontWeight: "bold",
-    width: 16,
-    height: 16,
+    width: 12,
+    height: 12,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -87,12 +80,19 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     color: "white",
     position: "absolute",
-    top: -3,
-    left: 14,
+    top: -7,
+    left: 10,
     fontSize: 12,
+    overflow: "hidden",
+    borderColor: "white",
+    borderWidth: 2,
   },
   userImg: {
     width: 30,
     height: 30,
   },
+  notificationIcon : {
+    width: 20,
+    height : 16,
+  }
 });

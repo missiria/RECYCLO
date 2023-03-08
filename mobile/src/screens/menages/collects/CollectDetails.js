@@ -226,7 +226,6 @@ export default function CollectDetails({ navigation, route }) {
           </View>
         </View>
       </ScrollView>
-      <FooterNav navigation={navigation} />
     </SafeAreaView>
   );
 }
