@@ -3,19 +3,18 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Modal,
   Image,
   ActivityIndicator,
 } from "react-native";
 import { useState, useEffect } from "react";
-import Icon from "react-native-vector-icons/Entypo";
 import checkIcon from "../../../assets/images/ch.png";
 import i18n from "i18next";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
 import { useFetch } from "../../../hooks/hooks";
+import EmptyDeclaration from "./EmptyDeclaration";
 
 export default function Accepted() {
   const [declarations, setDeclarations] = useState([]);
@@ -91,11 +90,7 @@ export default function Accepted() {
           ))
         )}
         {data?.length === 0 && (
-          <View style={styles.notFound} >
-            <Text style={styles.notFoundText} >
-              {i18n.t("declarationEmpty.title")}
-            </Text>
-          </View>
+          <EmptyDeclaration />
         )}
       </ScrollView>
 
@@ -114,7 +109,7 @@ export default function Accepted() {
               {i18n.t("menageDemend.modalSubtitle")}
             </Text>
             <Text onPress={confirmOrder} style={styles.confirmButon}>
-              {(isUpdateDeclarationLoading || isUpdateOrderLoading) ? <ActivityIndicator size="small" color="#fff" /> : i18n.t("menageDemend.modalYes") } 
+              {(isUpdateDeclarationLoading || isUpdateOrderLoading) ? <ActivityIndicator size="small" color="#fff" /> : i18n.t("menageDemend.modalYes") }
             </Text>
 
             <Text

@@ -1,7 +1,7 @@
+import addressIcon from "../../../assets/images/address.png";
 import {
   Text,
   View,
-  TextInput,
   StyleSheet,
   Image,
   ScrollView,
@@ -10,32 +10,29 @@ import {
 import { Formik } from "formik";
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
+import { EdgeTextInput } from "~/ui/inputs/EdgeTextInput";
 import {
   handleAddressRegister,
   schema,
   defaultValues,
+  getCities,
 } from "./services/address.services";
-import { useFetch } from "../../../hooks/hooks";
 
 export default function Address({ navigation }) {
   const [loading, setLoading] = useState(false);
+  const [cities, setCities] = useState([]);
 
-  // * Get cities
-  const { data: cities } = useFetch("cities", {});
-
-  // * Find city id
-  const [cityId, setCityId] = useState(null);
-
-  useEffect(() => {}, []);
-  console.log(cities);
+  useEffect(() => {
+    getCities(setCities);
+  }, []);
+  /**
+   * REQUIRED : Use i18n
+   */
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.containerBoxTwo}>
-          <Image
-            style={styles.img}
-            source={require("../../../assets/images/address.png")}
-          />
+          <Image style={styles.img} source={addressIcon} />
           <Text style={styles.boldText}>Votre adresse</Text>
           <Text style={styles.lightText}>
             Veuillez choisir votre ville et votre quartier
@@ -44,44 +41,60 @@ export default function Address({ navigation }) {
             initialValues={defaultValues}
             validationSchema={schema}
             onSubmit={(values, { setErrors }) =>
-              handleAddressRegister(values, navigation, setErrors, setLoading, cities)
-            }>
+              handleAddressRegister(
+                values,
+                navigation,
+                setErrors,
+                setLoading,
+                cities
+              )
+            }
+          >
             {(props) => (
               <View>
+                {/* TODO : add this Picker component to the /ui and make it generic */}
                 <View style={styles.pickerBox}>
-                  {console.log(props.errors)}
                   <Picker
+                    name="city"
                     selectedValue={props.values?.city}
                     style={styles.picker}
                     onValueChange={(itemValue, itemIndex) => {
                       console.log("itemIndex >>", itemIndex);
                       console.log("itemValue >>", itemValue);
-                      // setCityId()
                       props.handleChange("city")(String(itemValue));
-                    }}>
-                    <Picker.Item label="Choisissez votre ville" value=" " />
-                    {cities?.map((item, index) => (
-                      <Picker.Item
-                        label={item.name}
-                        value={item.name}
-                        key={index}
-                      />
-                    ))}
+                    }}
+                  >
+                    {/* TODO : i18n translate */}
+                    <Picker.Item label="Choisissez votre ville" />
+                    {cities &&
+                      cities.map((item, index) => (
+                        <Picker.Item
+                          label={item.name}
+                          value={item.name}
+                          key={index}
+                        />
+                      ))}
                   </Picker>
+                  {props.errors.city && (
+                    <Text style={{ color: "red" }}>{props.errors.city}</Text>
+                  )}
                 </View>
                 <View>
-                  <TextInput
+                  <EdgeTextInput
+                    name="address"
+                    props={props}
                     style={styles.input}
-                    value={props.values.neighborhood}
-                    placeholder="Quartier"
-                    onBlur={props.handleBlur("neighborhood")}
-                    onChangeText={props.handleChange("neighborhood")}
+                    placeholder={"Quartier"}
+                    value={props.values.address}
+                    onBlur={props.handleBlur("address")}
+                    onChangeText={props.handleChange("address")}
                   />
                 </View>
                 <Text
                   disabled={loading}
                   onPress={props.handleSubmit}
-                  style={styles.button}>
+                  style={styles.button}
+                >
                   {loading ? (
                     <Text>
                       <ActivityIndicator size="small" color="#fff" />

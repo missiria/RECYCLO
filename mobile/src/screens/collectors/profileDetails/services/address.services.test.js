@@ -1,21 +1,33 @@
 import axiosInstance from '../../../../api/client';
+import apiClient from '~/api/client';
 import { getData } from "../../../../hooks/hooks";
-import { handleAddressRegister, schema } from './address.services';
+import { handleAddressRegister, schema, getCities } from './address.services';
 
 jest.mock("../../../../api/client");
 jest.mock('~/hooks/hooks');
+jest.mock('~/api/client');
 
 describe('COLLECTOR ADDRESS', () => {
   describe('FORM : Validation', () => {
-    it("RETURN object of neighborhood, city when retyping is correct", async () => {
+    it("RETURN object of address, city when retyping is correct", async () => {
       // GIVEN
-      const address = { neighborhood: "Riad salam", city: "Agadir" };
+      const address = { address: "Riad salam", city: "Agadir" };
 
       // WHEN
       const validation = await schema.validate(address);
 
       // THEN
       expect(validation).toBe(address);
+    });
+    it("RETURN false when address is empty", async () => {
+      // GIVEN
+      const address = { neighborhood: "", city: "Agadir" };
+
+      // WHEN
+      const validation = await schema.isValid(address);
+
+      // THEN
+      expect(validation).toBe(false);
     });
   })
   describe('API : Routes', () => {
@@ -29,7 +41,7 @@ describe('COLLECTOR ADDRESS', () => {
     });
 
     it('should set loading to true', async () => {
-      const userData = { city: 'city', neighborhood: 'neighborhood' };
+      const userData = { city: 'city', address: 'address' };
       const cities = [{ name: 'city', id: 1 }];
       getData.mockResolvedValue({ auth: { type: 'Bearer', token: '1234' } });
 
@@ -39,7 +51,7 @@ describe('COLLECTOR ADDRESS', () => {
     });
 
     it('should set loading to false after the request', async () => {
-      const userData = { city: 'city', neighborhood: 'neighborhood' };
+      const userData = { city: 'city', address: 'address' };
       const cities = [{ name: 'city', id: 1 }];
       getData.mockResolvedValue({ auth: { type: 'Bearer', token: '1234' } });
 
@@ -50,7 +62,7 @@ describe('COLLECTOR ADDRESS', () => {
 
     // TODO : Fix issue of this test
     xit("should make a PUT request to accounts/update and navigate to ChooseTypeIdentityConfirmation when the address is successfully updated", async () => {
-      const userData = { city: "London", neighborhood: "Brixton" };
+      const userData = { city: "London", address: "Brixton" };
       const navigation = { navigate: jest.fn() };
       const setErrors = jest.fn();
       const setLoading = jest.fn();
@@ -89,5 +101,28 @@ describe('COLLECTOR ADDRESS', () => {
       expect(setErrors).not.toHaveBeenCalled();
     });
   })
+  describe("getCities", () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    it("should set cities on successful response", async () => {
+      // Set up the mock response
+      apiClient.get.mockResolvedValueOnce({
+        status: 200,
+        data: [{ id: 1, name: "City 1" }, { id: 2, name: "City 2" }],
+      });
 
+      const setCities = jest.fn();
+
+      // Call the function
+      await getCities(setCities);
+
+      // Expectations
+      expect(apiClient.get).toHaveBeenCalledWith("cities");
+      expect(setCities).toHaveBeenCalledWith([
+        { id: 1, name: "City 1" },
+        { id: 2, name: "City 2" },
+      ]);
+    });
+  });
 })

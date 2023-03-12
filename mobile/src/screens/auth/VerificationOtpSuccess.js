@@ -34,7 +34,7 @@ export default function ValidationSuccess({ navigation }) {
           onPress={() => {
             user?.type === "MENAGE"
               ? navigation.navigate("MenageHome")
-              : navigation.navigate("Address");
+              : navigation.navigate("CollectorHome");
           }}
         />
       </View>

@@ -24,7 +24,6 @@ export default function VerificationUser({ navigation, route }) {
   const { email, code, account } = route.params;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null);
   const [message, setMessage] = useState(null);
 
   // * resend code
@@ -84,14 +83,13 @@ export default function VerificationUser({ navigation, route }) {
       <Formik
         initialValues={{ n1: "", n2: "", n3: "", n4: "" }}
         validationSchema={schemaValidation}
-        onSubmit={(values) =>
+        onSubmit={(values, { setErrors }) =>
           handleUserVerification(
             values,
             data?.code ?? code,
             navigation,
-            setErr,
-            user?.email,
-            account
+            setErrors,
+            user?.email
           )
         }
       >
@@ -128,7 +126,12 @@ export default function VerificationUser({ navigation, route }) {
                   placeholder={"*"}
                 />
               </SafeAreaView>
-              <Text style={{}}>{err}</Text>
+              {props.errors.code && (
+                <Text style={{ color: "red" }}>{props.errors.code}</Text>
+              )}
+              {props.errors.api && (
+                <Text style={{ color: "red" }}>{props.errors.api}</Text>
+              )}
               <Text
                 onPress={async () => await trigger()}
                 style={styles.TextInput}
