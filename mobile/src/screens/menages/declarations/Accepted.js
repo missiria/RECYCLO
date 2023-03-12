@@ -3,13 +3,11 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Modal,
   Image,
   ActivityIndicator,
 } from "react-native";
 import { useState, useEffect } from "react";
-import Icon from "react-native-vector-icons/Entypo";
 import checkIcon from "../../../assets/images/ch.png";
 import i18n from "i18next";
 
@@ -111,7 +109,7 @@ export default function Accepted() {
               {i18n.t("menageDemend.modalSubtitle")}
             </Text>
             <Text onPress={confirmOrder} style={styles.confirmButon}>
-              {(isUpdateDeclarationLoading || isUpdateOrderLoading) ? <ActivityIndicator size="small" color="#fff" /> : i18n.t("menageDemend.modalYes") } 
+              {(isUpdateDeclarationLoading || isUpdateOrderLoading) ? <ActivityIndicator size="small" color="#fff" /> : i18n.t("menageDemend.modalYes") }
             </Text>
 
             <Text

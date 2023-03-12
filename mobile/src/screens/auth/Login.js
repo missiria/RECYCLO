@@ -8,7 +8,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Formik } from "formik";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { isRtl } from "../../helper/isRtl";
+import { stylesRtl } from "../../helper/styleRtl";
 
 // Services
 import { handleLogin, schema, defaultValues } from "./services/login.services";
@@ -46,19 +48,19 @@ export default function Login({ navigation }) {
               <EdgeTextInput
                 name="phone"
                 props={props}
-                 style={[styles.inputPassword, rtlText]}
+                style={[styles.inputPhone, isRtl(i18n) === true && stylesRtl.rtlStyleInput]}
                 keyboardType="phone-pad"
                 placeholder={i18n.t("login.phone")}
               />
               <EdgeTextInput
                 name="password"
                 props={props}
-                 style={[styles.inputPassword, rtlText]}
+                style={[styles.inputPhone,  isRtl(i18n) === true && stylesRtl.rtlStyleInput]}
                 placeholder={i18n.t("login.password")}
               />
               <Text
                 onPress={() => navigation.navigate("ChangePasswordIndex")}
-                style={styles.forgetCode}
+                style={[styles.forgetCode, isRtl(i18n) === true && stylesRtl.rtlStyleText]}
               >
                 {i18n.t("login.forget_password")}
               </Text>
