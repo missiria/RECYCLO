@@ -3,37 +3,37 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
 import NotificationItems from "./NotificationItems";
-import { Data } from "./NotificationTestFakeData";
 import EmptyNotification from "./NotificationEmpty";
-import { getData, useFetch, useLoggedInUser } from "../../../hooks/hooks";
-
 import moment from 'moment'
+import { getNotifications } from "./services/notifications.services";
 
 export default function Notification({ navigation }) {
-  const { data } = useFetch("notifications", {
-    method: "GET",
-  });
+  const [notifications, setNotifications] = useState([])
+
+  useEffect(() => {
+    getNotifications(setNotifications);
+  }, []);
 
   const showNotifications = () => {
-    if (data && data?.length == 0) {
+    if (notifications && notifications?.length == 0) {
       return (
-        // if notification is empty
         <EmptyNotification />
       );
     } else {
       return (
-        // if notifications is not empty
-        data?.map((item) => (
+        notifications?.map((notification) => (
           <NotificationItems
-            key={item}
-            title={item.note}
-            time={new Date(item.created_at).toLocaleDateString()}
-            date={moment(item.created_at).fromNow()}
+            key={notification}
+            title={notification.note}
+            type_id={notification.type_id}
+            time={new Date(notification.created_at).toLocaleDateString()}
+            date={moment(notification.created_at).fromNow()}
           />
         ))
       );
     }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Navbar title="Notifications" navigation={navigation} />

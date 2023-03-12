@@ -28,7 +28,7 @@ export default function CollectDetails({ navigation, route }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("");
   const [show, setShow] = useState(false);
-  const [text, setText] = useState("Sélectionner la date");
+  const [text, setText] = useState(i18n.t("menageCollectDetails.shoseDateTtile"));
   const [timeDeclaration, setTimeDeclaration] = useState("9 AM - 12 PM");
   const [quantity, setQuantity] = useState(5);
 
@@ -87,6 +87,7 @@ export default function CollectDetails({ navigation, route }) {
     setQuantity(5);
   }
 
+  // TODO : Change useFetch to apiClient and put it in external file as service
   const [trigger, { data, isLoading }] = useFetch("declarations/add", {
     method: 'POST',
     body: JSON.stringify({
@@ -171,7 +172,7 @@ export default function CollectDetails({ navigation, route }) {
                 />
               )}
               <Text style={styles.textTitleDay}>
-                {i18n.t("menageCollectDetails.description-answer")}
+                {i18n.t("menageCollectDetails.description-aswer")}
               </Text>
             </View>
           </View>
@@ -213,7 +214,9 @@ export default function CollectDetails({ navigation, route }) {
               6 PM - 9 PM
             </Text>
             <View style={styles.quantityBox}>
-              <Text style={styles.textTitleDay}>Quantité ({quantity} Kg)</Text>
+              <Text style={styles.textTitleDay}>
+                {i18n.t("menageCollectDetails.qty")} ({quantity} {i18n.t("menageCollectDetails.kg")})
+              </Text>
               <View style={styles.quantity}>
                 <Icon
                   style={styles.minusCount}

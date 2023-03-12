@@ -1,6 +1,5 @@
-import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React from "react";
-import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
 import MenageDeclarationsTab from "~/routes/MenageDeclarationsTab";
 

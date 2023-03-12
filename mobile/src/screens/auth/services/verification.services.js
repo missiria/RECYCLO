@@ -1,33 +1,32 @@
 import * as yup from "yup";
-import { axiosInstance } from "../../../api/client";
+import apiClient from "~/api/client";
 import { storeData } from "../../../hooks/hooks";
 
-export const handleRegister = async (
+export const handleUserVerification = async (
   values,
   code,
   navigation,
-  setErr,
-  email,
-  account
+  setErrors,
+  email
 ) => {
   const currentCode = `${values.n1}${values.n2}${values.n3}${values.n4}`;
 
-  if (code == parseInt(currentCode)) {
+  if (code == new Number(currentCode)) {
     try {
       // * Update active field
-      const { data: user } = await axiosInstance.post("verify", { email });
+      const response = await apiClient.post("verify", { email });
 
       // * Save the user
-      await storeData("user", user);
-      navigation.navigate("VerificationSuccess", {
-        account,
-      });
+      if (response.status === 200) {
+        await storeData("user", response.data);
+        navigation.navigate("VerificationSuccess");
+      }
     } catch (error) {
-      setErr("Error updating the user");
+      setErrors({ api: "Error verification for this user" });
     }
   } else {
     // TODO : setErrors like login
-    setErr("Code DOESN'T MATCH !");
+    setErrors({ code: "Code DOESN'T MATCH !" });
     console.log("CODE DOESN'T MATCH !");
   }
 };

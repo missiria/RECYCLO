@@ -2,21 +2,17 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import HeaderSuccess from "../../assets/images/done.png";
 import i18n from "i18next";
-import { EdgeButton } from "~/ui/buttons/EdgeButton"
+import { EdgeButton } from "~/ui/buttons/EdgeButton";
 import { useState } from "react";
 import { useEffect } from "react";
-import { getData } from "../../hooks/hooks";
+import { getCurrentUser } from "./services/VerificationOtpSuccess.services";
 
-export default function ValidationSuccess({ navigation, route }) {
-  const [user, setUser] = useState(null)
+export default function ValidationSuccess({ navigation }) {
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    (async () => {
-      const user = await getData("user")
-      console.log(user);
-      setUser(user)
-    })()
-  },[])
-console.log(user);
+    getCurrentUser(setUser);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -33,9 +29,14 @@ console.log(user);
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <EdgeButton text="Terminé" onPress={() => {
-          user.account.type === 'MENAGE' ? navigation.navigate("MenageHome") : navigation.navigate("Address")
-        }}/>
+        <EdgeButton
+          text="Terminé"
+          onPress={() => {
+            user?.type === "MENAGE"
+              ? navigation.navigate("MenageHome")
+              : navigation.navigate("CollectorHome");
+          }}
+        />
       </View>
     </View>
   );

@@ -11,45 +11,46 @@ Database : MySQL
 - Frameworks : AdonisJS
 - Library : Joi & Express
 
-# install project back
-> cd back && npm ci
-> cp .env.example .env
-> node ace migration:fresh
-> node ace db:seed -i  (select user first seeds)
-> node ace db:seed -i  (select others seeds)
-> node ace serve --watch
-
 # install project mobile
 > cd mobile && npm ci --force
 
-
-Validation :
+# Validation :
     Joi : Using reactive native version
     React : Using component for validation
-API :
-    AdonisJs: Auth
-    AdonisJS: Database (MySQL)
-    NodeJS: Using Typescript
-Requirements :
-    oAuth : https://www.npmjs.com/package/react-native-app-auth
 
-# SMTP Access for test :
-    > SMTP_HOST=smtp.datanoorsolution.com
-    > SMTP_PORT=587
-    > SMTP_USERNAME=no-reply@datanoorsolution.com
-    > SMTP_PASSWORD=i906Cu1,DDMuva4yykKS~E#a
+# API :
+Preprod API URL
+    > http://app.eksneks.com:3333
+To change the API for localhost :
+    > mobile/src/api/constants.js > BASE_URL
 
-# Error Argon2 reinstall
-    > cd node_modules/bcrypt
-    > node-pre-gyp install --fallback-to-build
+# Config (Class: Config)
+This class provides a set of methods to retrieve configuration data from local storage.
+## Properties:
+    user: null | Object
+    The user object that contains the configuration data.
+## Methods:
+ init(): Promise<void>
+    Initializes the user object by retrieving the configuration data from local storage.
 
-# Dump db from Docker
-    > docker exec back_db_1 /usr/bin/mysqldump -u root --password=c++ edge_recyclo > backup.sql
-# Lauch bash Docker
-    > docker exec -it back_db_1 bash -l
+  getToken(): Promise<string | false>
+    Returns the bearer token string if the user is authenticated with a bearer token; otherwise, returns false.
 
-# Grant all permissions for new user in MySQL
-    > mysql> GRANT ALL PRIVILEGES ON *.* TO 'missiria'@'%';
-    > Query OK, 0 rows affected (0.76 sec)
-    > mysql> FLUSH PRIVILEGES;
-    > Query OK, 0 rows affected (0.08 sec)
+  getUserEmail(): Promise<string | false>
+    Returns the user's email if it is available; otherwise, returns false.
+
+## Usage:
+> import Config from '~/services/EKSNEKS.config';
+
+> // To initialize the user object and retrieve the configuration data:
+> await Config.init();
+
+> // To get the bearer token:
+> const token = await Config.getToken();
+
+> // To get the user's email:
+> const email = await Config.getUserEmail();
+
+This class is useful when working with configuration data that needs to be retrieved from local storage. The init() method initializes the user object by retrieving the configuration data from local storage. The getToken() method returns the bearer token string if the user is authenticated with a bearer token; otherwise, it returns false. The getUserEmail() method returns the user's email if it is available; otherwise, it returns false.
+
+To use this class, you can import it and call its methods as shown in the usage example above.

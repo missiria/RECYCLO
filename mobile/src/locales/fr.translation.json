@@ -71,8 +71,11 @@
         "message": "Messages"
     },
     "menageCollectDetails" : {
-        "description-answer" : "Je veux que le collecteur arrive entre",
-        "description-term" : "Vous ne pouvez pas nous déclarer vos déchets, jusqu'à ce que vous atteigniez 10 kgs au minimum"
+        "shoseDateTtile" : "Choisissez la date",
+        "description-aswer" : "Je veux que le collecteur arrive entre",
+        "description-term" : "Vous ne pouvez pas nous déclarer vos déchets, jusqu'à ce que vous atteigniez 10 kgs au minimum",
+        "qty" : "Quantité",
+        "kg" : "Kg"
     },
     "menageUploadImage" : {
         "desc" : "Ajoutez des images",
@@ -137,8 +140,9 @@
         "suport" : "Support",
         "inviteFrient" : "Inviter des amis",
         "logout" : "Déconnexion",
-
-        "copyright" : "Copyrignt 2022 Recycloo. tous droits réservés"
+        "feadback" : "Feedback",
+        "copyright" : "Copyrignt 2022 Recycloo. tous droits réservés",
+        "version" : "Version"
     },
 
     "collectorfooterNavigation" : {
@@ -157,6 +161,15 @@
         "deposer" : "Déposer",
         "retirer" : "Retirer",
         "chart" : "Statistiques"
-    }
+    },
 
+    "declarationSuccess" : {
+        "title" : "Félicitations!",
+        "description" : "Vous pouvez suivre votre demande dans la rubrique Mes demandes",
+        "goBtn1" : "Mes demandes",
+        "goBtn2" : "Principale"
+    },
+    "declarationEmpty" : {
+        "title" : "Vous avez pas de déclaration acceptée!"
+    }
 }

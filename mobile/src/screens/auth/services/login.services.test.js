@@ -84,7 +84,7 @@ describe("LOGIN", () => {
     it("calls setErrors with the API error message if the response is not successful", async () => {
       apiClient.post.mockResolvedValue({
         status: 400,
-        data: { user: "Bad request" },
+        data: "Bad request",
       });
 
       await handleLogin(userData, navigation, setErrors, setAuthLoaded);
@@ -96,13 +96,13 @@ describe("LOGIN", () => {
     });
 
     it("should set the errors if response status is 400 or 500", async () => {
-      const userData = { email: "test@email.com", password: "testpassword" };
+      const userData = { email: "missiria@email.com", password: "testpassword" };
       const navigation = { navigate: jest.fn() };
       const setErrors = jest.fn();
       const setAuthLoaded = jest.fn();
       apiClient.post.mockResolvedValue({
         status: 400,
-        data: { user: "Error occurred" },
+        data: "Error occurred"
       });
 
       await handleLogin(userData, navigation, setErrors, setAuthLoaded);
@@ -112,25 +112,25 @@ describe("LOGIN", () => {
     });
 
     it("should navigate to VerificationUser if response.data.active is 0", async () => {
-      const userData = { email: "test@email.com", password: "testpassword" };
+      const userData = { email: "missiria@email.com", password: "testpassword" };
       const navigation = { navigate: jest.fn() };
       const setErrors = jest.fn();
       const setAuthLoaded = jest.fn();
       apiClient.post.mockResolvedValue({
         status: 200,
-        data: { active: 0, email: "test@email.com" },
+        data: { active: 0, email: "missiria@email.com" },
       });
 
       await handleLogin(userData, navigation, setErrors, setAuthLoaded);
 
       expect(navigation.navigate).toHaveBeenCalledWith("VerificationUser", {
-        email: "test@email.com",
+        email: "missiria@email.com",
       });
       expect(setErrors).not.toHaveBeenCalled();
     });
 
     it("should navigate to Address if response.data.account.address is empty", async () => {
-      const userData = { email: "test@email.com", password: "testpassword" };
+      const userData = { email: "missiria@email.com", password: "testpassword" };
       const navigation = { navigate: jest.fn() };
       const setErrors = jest.fn();
       const setAuthLoaded = jest.fn();
@@ -139,7 +139,8 @@ describe("LOGIN", () => {
         data: {
           id: 1,
           active: 1,
-          account: { address: "", type: "COLLECTOR" },
+          type: "COLLECTOR",
+          account: { address: "" },
         },
       });
 
@@ -147,6 +148,29 @@ describe("LOGIN", () => {
 
       expect(navigation.navigate).toHaveBeenCalledWith("Address");
       expect(setErrors).not.toHaveBeenCalled();
+    });
+
+    it("should set errors if response data type is neither MENAGE nor COLLECTOR", async () => {
+      const userData = { email: "missiria@email.com", password: "testpassword" };
+      const navigation = { navigate: jest.fn() };
+      const setErrors = jest.fn();
+      const setAuthLoaded = jest.fn();
+      apiClient.post.mockResolvedValue({
+        status: 200,
+        data: {
+          id: 1,
+          active: 1,
+          type: "INVALID_TYPE",
+          account: { address: "Luxus 154" },
+        },
+      });
+
+      await handleLogin(userData, navigation, setErrors, setAuthLoaded);
+
+      expect(navigation.navigate).not.toHaveBeenCalled();
+      expect(setErrors).toHaveBeenCalledWith({
+        api: "ERROR : You should contact the support !",
+      });
     });
   });
 });

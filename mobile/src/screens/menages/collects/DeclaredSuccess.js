@@ -9,6 +9,7 @@ import {
 import React from "react";
 import FooterNav from "../navigations/FooterNav";
 import imgDone from '~/assets/images/done.png';
+import i18n from "i18next";
 
 export default function DeclaredSuccess({ navigation }) {
   return (
@@ -22,8 +23,12 @@ export default function DeclaredSuccess({ navigation }) {
             />
           </View>
           <View>
-            <Text style={styles.bigText}>Félicitations!</Text>
-            <Text style={styles.descText}>Merci de recycler</Text>
+            <Text style={styles.bigText}>
+              {i18n.t("declararionSuccess.title")}
+            </Text>
+            <Text style={styles.descText}>
+              {i18n.t("declararionSuccess.description")}
+            </Text>
           </View>
         </View>
         <View style={styles.btns}>
@@ -31,13 +36,13 @@ export default function DeclaredSuccess({ navigation }) {
             onPress={() => navigation.navigate("DeclarationsIndex")}
             style={styles.btnBolded}
           >
-            SUIVI
+             {i18n.t("declararionSuccess.goBtn1")}
           </Text>
           <Text
             onPress={() => navigation.navigate("MenageHome")}
             style={styles.btnLighted}
           >
-            HOME
+            {i18n.t("declararionSuccess.goBtn2")}
           </Text>
         </View>
       </ScrollView>

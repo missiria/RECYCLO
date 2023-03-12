@@ -28,7 +28,7 @@ export default function Login({ navigation }) {
     }, []);
   return (
     <View style={styles.container}>
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
           <View style={styles.textTitle}>
             <Text style={styles.connectTitle}>Se connecter</Text>
@@ -37,12 +37,12 @@ export default function Login({ navigation }) {
         <Formik
           initialValues={defaultValues}
           validationSchema={schema}
-          onSubmit={(values, { setErrors }) => {
-            handleLogin(values, navigation, setErrors, setAuthLoaded);
-          }}>
+          onSubmit={(values, { setErrors }) =>
+            handleLogin(values, navigation, setErrors, setAuthLoaded)
+          }
+        >
           {(props) => (
             <View>
-              { console.log(props.errors) }
               <EdgeTextInput
                 name="phone"
                 props={props}
@@ -58,7 +58,8 @@ export default function Login({ navigation }) {
               />
               <Text
                 onPress={() => navigation.navigate("ChangePasswordIndex")}
-                style={styles.forgetCode}>
+                style={styles.forgetCode}
+              >
                 {i18n.t("login.forget_password")}
               </Text>
               {props.errors.api && (
@@ -67,18 +68,19 @@ export default function Login({ navigation }) {
               <Text
                 style={styles.buttonLogin}
                 onPress={props.handleSubmit}
-                disabled={authLoaded}>
+                disabled={authLoaded}
+              >
                 {authLoaded ? (
                   <ActivityIndicator size="small" color="#ffffff" />
                 ) : (
                   i18n.t("login.sign_in")
                 )}
               </Text>
-              <Text style={styles.textInscrirr}>
+              <Text style={styles.textSignUp}>
                 {i18n.t("login.need_account")}
                 <Text
                   onPress={() => navigation.navigate("Register")}
-                  style={styles.inscrireTextLink}>
+                  style={styles.textSignUpLink}>
                   {i18n.t("login.sign_up")}
                 </Text>
               </Text>
@@ -108,7 +110,8 @@ const styles = StyleSheet.create({
     },
     connectTitle: {
         color: 'black',
-        fontSize: 30,        letterSpacing: 0.5,
+        fontSize: 30,
+        letterSpacing: 0.5,
     },
     connectDesc: {
         color: '#A3A3A3',
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: 0.5,
     },
-    textInscrirr: {
+    textSignUp: {
         textAlign: 'center',
         fontSize: 12,
         color: '#A3A3A3',
@@ -170,7 +173,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         letterSpacing: 0.5,
     },
-    inscrireTextLink: {
+    textSignUpLink: {
         color: '#33CC66',
         fontWeight: "500",
     },
