@@ -39,6 +39,7 @@ export default function Transactions({ navigation }) {
   }, []);
 
   // * get balance
+  // TODO : use custom hook in service with apiCLient(sauce)
   const { data, isLoading } = useFetch("wallet/balance", {
     method: "GET",
   });
