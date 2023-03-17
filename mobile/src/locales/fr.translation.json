@@ -47,7 +47,8 @@
     "collects": {
         "title": "Catégories de déchets",
         "subtitle": "cliquez pour déclarer vos déchets",
-        "other": "Autres"
+        "other": "Autres",
+        "otherTrash": "Autres Déchets"
     },
     "onboardingScreenOne": {
         "title": "Recyclage",
@@ -71,11 +72,13 @@
         "message": "Messages"
     },
     "menageCollectDetails" : {
-        "shoseDateTtile" : "Choisissez la date",
-        "description-aswer" : "Je veux que le collecteur arrive entre",
+        "chooseDate" : "Choisissez la date",
+        "description-answer" : "Je veux que le collecteur arrive entre",
         "description-term" : "Vous ne pouvez pas nous déclarer vos déchets, jusqu'à ce que vous atteigniez 10 kgs au minimum",
         "qty" : "Quantité",
-        "kg" : "Kg"
+        "kg" : "Kg",
+        "portion": "Dh / Kg",
+        "planYourCollect": "Planifier votre ramassage"
     },
     "menageUploadImage" : {
         "desc" : "Ajoutez des images",

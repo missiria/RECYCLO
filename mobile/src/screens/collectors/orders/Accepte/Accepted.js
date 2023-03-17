@@ -1,9 +1,9 @@
+import { useState, useEffect, useMemo } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Modal,
   Image,
   ActivityIndicator,
@@ -12,20 +12,23 @@ import React, { useState, useEffect } from "react";
 import checkIcon from "../../../../assets/images/ch.png";
 import i18n from "i18next";
 
-import { useAPI } from "~/hooks/hooks";
+import checkIcon from "../../../../assets/images/ch.png";
 import { EdgeCardOrder } from "~/ui/cards/EdgeCardOrder";
 import { useFetch, useLoggedInUser } from "../../../../hooks/hooks";
 
-export default function Accepted({ navigation }) {
+export default function Accepted() {
   const [orders, setOrders] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [declarationId, setDeclarationId] = useState(null);
 
   // * Single order
-  const [singleOrder, setSingleOrderOrder] = useState({});
+  const [singleOrder, setSingleOrder] = useState({});
 
   // * Check if "singleOrder" is not an empty object
-  const checker = Object.keys(singleOrder).length !== 0;
+  const [checker, setChecker] = useState(false);
+  useEffect(() => {
+    setChecker(Object.keys(singleOrder).length !== 0);
+  }, [singleOrder]);
 
   const {
     isLoading: isFetching,
@@ -40,10 +43,6 @@ export default function Accepted({ navigation }) {
   });
 
   const { user } = useLoggedInUser();
-
-  console.log("user >>", user);
-  console.log("data >>", data);
-  console.log("order >>", singleOrder);
 
   const [createNotification, { isLoading }] = useFetch(
     `notifications/create`,
@@ -78,8 +77,6 @@ export default function Accepted({ navigation }) {
       true
     );
 
-  console.log("declarationId >>", declarationId);
-
   useEffect(() => {
     if (data) {
       setOrders(data);
@@ -89,12 +86,12 @@ export default function Accepted({ navigation }) {
   useEffect(() => {
     if (checker) {
       createNotification();
-      setSingleOrderOrder({});
+      setSingleOrder({});
     }
   }, [createNotification]);
 
-  const textConfirm = i18n.t("menageDemend.confirm");
-  const textStartWay = i18n.t("menageDemend.startWay");
+  const textConfirm = useMemo(() => i18n.t("menageDemend.confirm"), [i18n]);
+  const textStartWay = useMemo(() => i18n.t("menageDemend.startWay"), [i18n]);
 
   return (
     <View style={styles.container}>
@@ -121,7 +118,7 @@ export default function Accepted({ navigation }) {
                 }
                 styleAction2={styles.buttonRight}
                 onPressAction2={async () => {
-                  setSingleOrderOrder(order);
+                  setSingleOrder(order);
                 }}
                 onPressEdit={() => console.log("Edit")}
               />
@@ -138,14 +135,14 @@ export default function Accepted({ navigation }) {
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Image style={styles.iconImg} source={checkIcon} />
             <Text style={styles.popUpMsg}>
-              Voulez-vous vraiment confirmer cette ordre ?
+              Voulez-vous vraiment confirmer cette ordre ?
             </Text>
             <Text
               onPress={async () => {
@@ -164,7 +161,7 @@ export default function Accepted({ navigation }) {
             </Text>
 
             <Text
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => setModalVisible(false)}
               style={styles.noneButon}
             >
               Non
