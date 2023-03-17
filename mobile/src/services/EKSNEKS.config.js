@@ -30,6 +30,18 @@ class Config {
         return false;
       }
     }
+
+    currencyFormat(number) {
+      const formatter = new Intl.NumberFormat(undefined, {
+        currency: "MAD",
+        style: "currency",
+      });
+
+      if (isNaN(number)) {
+        return formatter.format(0);
+      }
+      return formatter.format(number);
+    }
   }
 
   export default new Config;

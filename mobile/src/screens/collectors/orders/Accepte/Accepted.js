@@ -8,6 +8,8 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
+import React, { useState, useEffect } from "react";
+import checkIcon from "../../../../assets/images/ch.png";
 import i18n from "i18next";
 
 import checkIcon from "../../../../assets/images/ch.png";

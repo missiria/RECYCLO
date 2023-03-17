@@ -77,4 +77,24 @@ describe("Config", () => {
       expect(email).toBeFalsy();
     });
   });
+
+  describe("currencyFormat method", () => {
+    it("formats a number correctly", () => {
+      // GIVE
+      // WHEN
+      const result = Config.currencyFormat(1000.99);
+
+      // THEN
+      expect(result).toBe(new String("MAD\u00A01,000.99").trim());
+    });
+
+    it("formats 0 when input is NaN", () => {
+      // GIVE
+      // WHEN
+      const result = Config.currencyFormat(NaN);
+
+      // THEN
+      expect(result.trim()).toBe(new String("MAD\u00A00.00").trim());
+    });
+  });
 });
