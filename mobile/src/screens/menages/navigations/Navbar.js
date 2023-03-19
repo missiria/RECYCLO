@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import notifIcon from '../../../assets/images/notif.png'
+import notifIcon from '../../../assets/images/notificationIcon.png'
 import { useNavigationState } from "@react-navigation/native";
 import iconUser from "../../../assets/images/user.png";
 import { getNotifications } from "../notifications/services/notifications.services";
@@ -24,16 +24,13 @@ export default function Navbar({ navigation, title }) {
         <View>
           <Text style={styles.titleNav}>{title ? title : "RECYCLOO"}</Text>
         </View>
-        <View>
-          <Text onPress={() => navigation.navigate("Notifications")}>
-            <Image 
-              source={notifIcon}
-              style={styles.notificationIcon}
-            />
-          </Text>
-          <View style={
-            styles.notificationCount}></View>
-        </View>
+        <TouchableOpacity  onPress={() => navigation.navigate("Notifications")}>
+          <Image 
+            source={notifIcon}
+            style={styles.notificationIcon}
+          />
+          <View style={styles.notificationCount}></View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -94,5 +91,6 @@ const styles = StyleSheet.create({
   notificationIcon : {
     width: 20,
     height : 16,
+    resizeMode  : 'contain',
   }
 });

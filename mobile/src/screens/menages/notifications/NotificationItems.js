@@ -1,58 +1,49 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image,Button } from "react-native";
 import React from "react";
 import NotificationProps from "./NotificationProps";
 import { Data } from "./NotificationTestFakeData";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import notificationIcon from "../../../assets/images/notif.png";
-// import Swipeout from 'react-native-swipeout';
+import notificationIcon from "../../../assets/images/iconNotifi.png";
 
 export default function NotificationItems({ title, type_id, date, time }) {
-  //the swipe delete putton
-  const swipeOut = [
-    {
-      text: <Icon style={{ color: "#33CC66", fontSize: 20 }} name="trash" />,
-      fontSize: 20,
-      backgroundColor: "transparent",
-      color: "red",
-      underlayColor: "rgba(0, 0, 0, 1, 0.6)",
-      onPress: () => Alert.alert("You Want To Delete " + title),
-    },
-  ];
+  const maxTitleLength = 30;
+  const titleWithMaxLenght = title.length > maxTitleLength ? title.substring(0, maxTitleLength) + "..." : title;
   return (
     <View>
-      <TouchableOpacity>
-        {/*
-            <Swipeout
-                backgroundColor='transparent'
-                style={styles.container}
-                autoClose={true} right={swipeOut}>
-            </Swipeout>
-        */}
         <TouchableOpacity
           onPress={() => {
             console.log('Redirect to : ', type_id)
           }}
           style={styles.notificationBoxCard}
         >
+          <Image 
+            style={styles.iconNotification} 
+            source={notificationIcon}
+          />
           <View>
-            <Image style={styles.iconNotification} source={notificationIcon} />
-          </View>
-          <View>
-            <Text style={styles.notificationTitle}>{title}</Text>
+            <Text style={styles.notificationTitle}>{titleWithMaxLenght.toUpperCase()}</Text>
             <View style={styles.dateBox}>
               <Text style={styles.dateStyle}>{date}</Text>
               <Text style={styles.timeStyle}>{time}</Text>
             </View>
           </View>
+         <Text 
+          onPress={() => { console.log('Delete') } }
+          style={styles.deleteStyle}>
+          <Icon 
+            name="trash-alt"
+          />
+         </Text>
         </TouchableOpacity>
-      </TouchableOpacity>
-    </View>
+   </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 1,
+    backgroundColor: "white",
+    width: "100%",
   },
   dateStyle: {
     marginRight: 13,
@@ -67,11 +58,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 6,
     fontWeight: "100",
+    width: "100%",
   },
   notificationBoxCard: {
     flexDirection: "row",
     paddingHorizontal: 10,
-    padding: 5,
     backgroundColor: "white",
     alignItems: "center",
     shadowColor: "lightgray",
@@ -82,11 +73,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3.84,
     elevation: 5,
+    height: 80,
+    backgroundColor: "#F9F9F9",
+    marginBottom: 8,
+    padding: 20,
   },
   iconNotification: {
     marginRight: 20,
     width: 40,
     height: 40,
+    resizeMode: "contain",
   },
   notificationTitle: {
     color: "black",
@@ -94,8 +90,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   dateBox: {
-    marginTop: 3,
+    marginTop: 8,
     flexDirection: "row",
     alignItems: "center",
   },
+  deleteStyle : {
+    color: "red",
+    fontWeight: "bold",
+    fontSize: 12,
+    alignItems: "flex-end",
+    position: "absolute",
+    right: 0,
+    marginRight: 20,
+  }
 });

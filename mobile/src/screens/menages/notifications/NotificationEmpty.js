@@ -11,8 +11,8 @@ export default function EmptyNotification() {
                     source={notificationIcon}
                 />
                 <Text style={styles.textDesc}>
-                    Vous n'avez pas encore
-                    reçu de notifications
+                    Vous n'avez pas encore effectué{"\n"}
+                    aucune commande!
                 </Text>
             </View>
         </View>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop:150,
+        marginTop:250,
     },
     groupBox: {
         flex: 1,

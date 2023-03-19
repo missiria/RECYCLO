@@ -21,15 +21,23 @@ export default function Notification({ navigation }) {
       );
     } else {
       return (
-        notifications?.map((notification) => (
-          <NotificationItems
-            key={notification}
-            title={notification.note}
-            type_id={notification.type_id}
-            time={new Date(notification.created_at).toLocaleDateString()}
-            date={moment(notification.created_at).fromNow()}
-          />
-        ))
+        <>
+          <View style={styles.notificationHeaderTop}>
+              <Text style={styles.headerBigText}>Notifications</Text>
+              <Text style={styles.headerSmallDescText}>
+                Balayez vers la gauche pour la supprimer
+              </Text>
+            </View>
+           {notifications?.map((notification, index) => (
+            <NotificationItems
+              key={index}
+              title={notification.note}
+              type_id={notification.type_id}
+              time={new Date(notification.created_at).toLocaleTimeString()}
+              date={moment(notification.created_at).format('DD-MM-YYYY')}
+            />
+          ))}
+          </>
       );
     }
   };
@@ -37,16 +45,9 @@ export default function Notification({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Navbar title="Notifications" navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.notificationHeaderTop}>
-          <Text style={styles.headerBigText}>Notifications</Text>
-          <Text style={styles.headerSmallDescText}>
-            Balayez vers la gauche la notification pour la supprimer ou lue /
-            non lue
-          </Text>
-        </View>
-      </View>
-      <ScrollView>{showNotifications()}</ScrollView>
+      <ScrollView>
+        {showNotifications()}
+      </ScrollView>
       <FooterNav navigation={navigation} />
     </SafeAreaView>
   );
@@ -61,17 +62,15 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     fontSize: 25,
-    textAlign: "center",
-    margin: 10,
   },
   headerSmallDescText: {
     fontSize: 13,
     marginTop: 6,
-    fontWeight: "100",
     color: "#A3A3A3",
   },
   notificationHeaderTop: {
     marginHorizontal: 20,
     marginBottom: 20,
+    marginTop: 20,
   },
 });
