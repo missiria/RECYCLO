@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Recycloo",
-    "slug": "Recycloo",
+    "slug": "recycloo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "",
@@ -27,7 +27,7 @@
     "description": "",
     "extra": {
       "eas": {
-        "projectId": "28956116-e76a-490e-974b-53e930d1d158"
+        "projectId": "c0eecbcb-2a86-4207-83c9-8906f7b316b2"
       }
     }
   }

@@ -1,8 +1,10 @@
 import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import React from "react";
+
+import i18next from "i18next";
+
 import Navbar from "../navigations/Navbar";
 import FooterNav from "../navigations/FooterNav";
-import {EdgeCardCollect} from "../../../ui/cards/EdgeCardCollect"
+import { EdgeCardCollect } from "../../../ui/cards/EdgeCardCollect";
 
 import { moreCollects } from "./collectData";
 import { UPLOAD_FOLDER_URL } from "../../../api/constants";
@@ -15,9 +17,11 @@ export default function OthersCollect({ navigation }) {
         <View style={styles.container}>
           <View style={styles.headerBox}>
             <View style={styles.textBox}>
-              <Text style={styles.boldTitle}>Autres Déchets</Text>
+              <Text style={styles.boldTitle}>
+                {i18next.t("collects.otherTrash")}
+              </Text>
               <Text style={styles.smallDesc}>
-                cliquez pour déclarer vos déchets
+                {i18next.t("collects.subtitle")}
               </Text>
             </View>
           </View>
@@ -25,16 +29,18 @@ export default function OthersCollect({ navigation }) {
             {moreCollects.map((collect) => {
               return (
                 <EdgeCardCollect
-                key={collect.id}
-                text={collect.collect_name} 
-                onPress={() => navigation.navigate({
-                  name: 'CollectDetails',
-                  params: { collect: collect }
-                })}
-                style={{ width : "50%" }}
-                imageStyle={{ height:130 }}
-                img={`${UPLOAD_FOLDER_URL + collect.img}`}
-              />
+                  key={collect.id}
+                  text={collect.collect_name}
+                  onPress={() =>
+                    navigation.navigate({
+                      name: "CollectDetails",
+                      params: { collect: collect },
+                    })
+                  }
+                  style={{ width: "50%" }}
+                  imageStyle={{ height: 130 }}
+                  img={`${UPLOAD_FOLDER_URL + collect.img}`}
+                />
               );
             })}
           </View>

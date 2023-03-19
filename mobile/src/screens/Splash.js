@@ -41,12 +41,8 @@ export default function Splash({ navigation }) {
         navigation.replace("CollectorHome");
         return;
       } else {
-        if (isFirstTime == "true") {
           navigation.replace("Language");
-        } else {
-          navigation.replace("LoginIndex");
-        }
-        return;
+          return;
       }
     }
   }, [authLoaded, navigation]);

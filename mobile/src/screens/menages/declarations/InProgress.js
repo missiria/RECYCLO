@@ -11,6 +11,7 @@ import i18n from "i18next";
 
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
 import { useFetch } from "../../../hooks/hooks";
+import EmptyDeclaration from "./EmptyDeclaration";
 
 export default function InProgress() {
   const [declarations, setDeclarations] = useState([]);
@@ -42,7 +43,7 @@ export default function InProgress() {
   const textAction = i18n.t("menageDemend.wait");
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={data?.length === 0 && styles.scrollView}>
         {error !== null ? (
           <Text>{error.message}</Text>
         ) : isLoading ? (
@@ -66,6 +67,9 @@ export default function InProgress() {
             />
           ))
         )}
+        {data?.length === 0 && (
+          <EmptyDeclaration />
+        )}
       </ScrollView>
     </View>
   );
@@ -79,5 +83,8 @@ const styles = StyleSheet.create({
   actionWait: {
     backgroundColor: "#5B68F6",
     color: "white",
+  },
+  scrollView: {
+    flex: 1,
   },
 });
