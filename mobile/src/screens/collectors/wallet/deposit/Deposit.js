@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { useFetch } from '../../../../hooks/hooks'
 import { Picker } from '@react-native-picker/picker'
 
-
 const values = [
     { label: "100 DH", value: 100 },
     { label: "200 DH", value: 200 },
@@ -22,6 +21,7 @@ export default function Deposit({ navigation, route }) {
     const [value, setValue] = useState()
     const [bank, setBank] = useState()
 
+    // TODO : We should use it as a service and add TU's
     const { data: banks } = useFetch("banks/all", {
         method: 'GET',
     })
@@ -41,7 +41,7 @@ export default function Deposit({ navigation, route }) {
                         </Text>
                     </View>
                     <View style={styles.viewPickerParent} >
-                        <Text style={styles.viewPickerLabel} >Selectionér votre bank</Text>
+                        <Text style={styles.viewPickerLabel} >Selectionner votre bank</Text>
                         <View style={styles.viewPicker} >
                             <Picker
                                 selectedValue={bank}
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     viewPickerLabel: {
-        
+
     },
     viewPicker: {
         borderWidth: 1,

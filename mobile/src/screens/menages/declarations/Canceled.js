@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import i18n from "i18next";
+import EmptyDeclaration from "./EmptyDeclaration";
 
 import { useAPI } from "~/hooks/hooks";
 import { EdgeCardDemande } from "~/ui/cards/EdgeCardDemande";
@@ -38,7 +39,7 @@ export default function Canceled() {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={data?.length === 0 && styles.scrollView} >
         {error !== null ? (
           <Text>{error.message}</Text>
         ) : isFetching ? (
@@ -56,6 +57,9 @@ export default function Canceled() {
             />
           ))
         )}
+      {declarations?.length === 0 && 
+        <EmptyDeclaration />
+      }
       </ScrollView>
     </View>
   );
@@ -65,5 +69,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+  scrollView: {
+    flex: 1,
   },
 });

@@ -2,8 +2,9 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 import i18next from 'i18next';
-import { currencyFormat, useFetch } from '../../../hooks/hooks';
+import { useFetch } from '../../../hooks/hooks';
 import moment from 'moment';
+import Config from "~/services/EKSNEKS.config";
 
 export default function WithdrawalNotices() {
   const { data } = useFetch("withdrawals", {})
@@ -14,7 +15,7 @@ export default function WithdrawalNotices() {
         {data?.map((item) => (
           <View key={item.id} style={styles.cardBox}>
             <Text style={styles.cardTitle}> {i18next.t('wallet.avis-ret-ob')} {new Date(item.created_at).toLocaleDateString()} </Text>
-            <Text style={styles.cardPrice}>{currencyFormat(item.amount)}  {i18next.t('wallet.dh')}</Text>
+            <Text style={styles.cardPrice}>{Config.currencyFormat(item.amount)}  {i18next.t('wallet.dh')}</Text>
             <Text style={styles.boxTextWhat}> {i18next.t('wallet.via-gechet')}</Text>
             <Text style={styles.cardTextDesc}> {i18next.t('wallet.code-of-retrait')} : </Text>
             <View style={styles.firstFlexBx}>

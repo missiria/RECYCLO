@@ -1,11 +1,11 @@
 import { ScrollView, StyleSheet, SafeAreaView, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
 import Navbar from "../navigations/Navbar";
-import FooterNav from "../navigations/FooterNav";
 import Search from "../search/Search";
-import Sliders from "../pupSliders/Sliders";
+import AdsSwiper from "../adsSwiper/AdsSwiper";
 import * as Location from "expo-location";
 import Collects from "../collects/Collects";
+
 
 export default function MenageHome({ navigation }) {
   const [location, setLocation] = useState(null);
@@ -48,10 +48,9 @@ export default function MenageHome({ navigation }) {
       <Navbar navigation={navigation} />
       <ScrollView>
         <Search />
-        <Sliders />
+        <AdsSwiper />
         <Collects navigation={navigation} />
       </ScrollView>
-      <FooterNav navigation={navigation} />
     </SafeAreaView>
   );
 }
