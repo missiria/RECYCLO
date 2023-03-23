@@ -184,8 +184,7 @@ export default function CollectDetails({ navigation, route }) {
             </Text>
             <View style={styles.quantityBox}>
               <Text style={styles.textTitleDay}>
-                {i18n.t("menageCollectDetails.qty")} ({quantity}{" "}
-                {i18n.t("menageCollectDetails.kg")})
+                {i18n.t("menageCollectDetails.qty")} ({quantity} {i18n.t("menageCollectDetails.kg")})
               </Text>
               <View style={styles.quantity}>
                 <Icon

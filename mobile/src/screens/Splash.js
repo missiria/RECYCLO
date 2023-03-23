@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import HeaderIndexLogin from "../assets/images/logo_2.png";
+import HeaderIndexLogin from "../assets/images/logo2.png";
+import dnsLogo from "../assets/images/dns.png";
+import asociatLogo from "../assets/images/aso.png";
 import { getData } from "../hooks/hooks";
 
 export default function Splash({ navigation }) {
@@ -27,7 +29,7 @@ export default function Splash({ navigation }) {
   useEffect(() => {
     setTimeout(() => {
       setAuthLoaded(true);
-    }, 2000);
+    }, 50000);
   }, []);
 
   useEffect(() => {
@@ -47,8 +49,10 @@ export default function Splash({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.logoImg}>
-        <Image source={HeaderIndexLogin} />
+        <Image style={styles.logoImg} source={HeaderIndexLogin} />
+      <View style={styles.logoBottomBox}>
+          <Image style={styles.logoBotom} source={dnsLogo} />
+          <Image style={styles.logoBotom} source={asociatLogo} />
       </View>
     </View>
   );
@@ -64,5 +68,27 @@ const styles = StyleSheet.create({
   logoImg: {
     flex: 5,
     justifyContent: "center",
+    width: 100,
+    height: 110,
+    resizeMode:'contain'
   },
+  logoBottomBox : {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    gap: 10
+  },
+  logoBotom : {
+    width: 70,
+    height: 70,
+    resizeMode:'contain',
+    marginBottom: 50,
+    marginLeft: 30,
+    marginRight: 30
+  }
 });
