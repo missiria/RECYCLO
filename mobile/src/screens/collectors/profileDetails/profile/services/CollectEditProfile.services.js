@@ -1,5 +1,4 @@
 import * as yup from "yup";
-import { axiosInstance } from "../../../../../api/client";
 import { getData, storeData } from "../../../../../hooks/hooks";
 import "yup-phone";
 
@@ -20,17 +19,31 @@ export const defaultValues = {
 };
 
 // TODO : Authentication with server
-export const handleAuth = async (values, navigation) => {
-  // * get the user
+export const handleUpdate = async (values, navigation, setErrors) => {
+  // get auth data from AsyncStorage
   const user = await getData("user");
-  await axiosInstance.put(`accounts/update`, values, {
+  // handle the case if getData returns null : no data found
+  if (!user) return; // TODO: show snackbar error message saying: an internal error occured ...
+
+  const updateResponse = await apiClient.put(`accounts/update`, values, {
     headers: { Authorization: `${user.auth.type} ${user.auth.token}` },
   });
 
-  // await storeData("user", data);
-  if (values && navigation) {
-    navigation.navigate("Profile");
-  }
+  // handle response
+  if (updateResponse?.status === 200) {
+    // update user data in AsyncStorage
+    if (updateResponse?.data) {
+      let storeResponse = await storeData("user", data);
+      /**
+       * TODO: I will use another function called updateData
+       * cuz the returned data from login contains the token
+       * and the returned data from the update profile doesn't
+       */
+      if (!storeResponse) return; // TODO: show snackbar error message saying: an internal error occured ...
+    }
+    // navigate back to profile
+    if (navigation) navigation.navigate("Profile");
+  } else setErrors({ api: updateResponse?.data });
 };
 
 export const schemaValidation = yup.object().shape({
@@ -39,7 +52,8 @@ export const schemaValidation = yup.object().shape({
   email: yup.string().email("Must be a valid email").optional(),
   phone: yup
     .string()
-    .notRequired().nullable()
+    .notRequired()
+    .nullable()
     .phone("MA", false, "That doesn't look like a phone number"),
   address: yup.string().optional(),
   city: yup.string().optional(),
