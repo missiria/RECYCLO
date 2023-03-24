@@ -1,17 +1,4 @@
-[1] => check Figma Designs
-[2] => create screens
-        --> create a new screen of payments for collector
-        --> create a new screen of terms and conditions
-[3] => New structure for folder should be like :
-    - EDGE-UI (Common files)
-    - Menages
-    - Collectors
-[4] - VERIFICATION :
-    1 - MAIL : 4 CHAR ()
-    2 - SAVE THE CODE IN DATABASE
-    3 - REDIRECT : VERIFICATION CODE : [ - - - - ]
-    4 - UPDATE STATUS OF THE ACCOUNT (status : 0 to be 1)
-
-[5] => CONFIRMATION :
-    1 - PRENDRE: LA ROUTE (Alert = Collector AND MAIL = Menage)
-    2 - CONFIRMATION: (Alert = Collector AND MAIL = Menage): Change status of Declaration to Archived
+[1] => check figm designs
+[2] => create screens 
+    --> create a new screen of payments for collector
+    --> create a new screen of terms and conditions
